@@ -1,0 +1,20 @@
+; website 'https://editorconfig.org/'
+
+; is root
+root = true
+
+; all files
+[*]
+
+; indentation
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+; format
+insert_final_newline = true
+end_of_line = lf
+charset = utf-8
+
+; cleanup
+trim_trailing_whitespace = true
