@@ -44,7 +44,6 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
         );
         can_api = false;
     }
-        
 
     CnfInit();
 
