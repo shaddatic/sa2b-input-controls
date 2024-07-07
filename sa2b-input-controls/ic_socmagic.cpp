@@ -1,17 +1,31 @@
-#include <sa2b/core.h>
-#include <sa2b/memutil.h>
+/************************/
+/*  Includes            */
+/************************/
+/****** Core Toolkit ****************************************************************/
+#include <sa2b/core.h>      /* core                                                 */
+#include <sa2b/writeop.h>   /* WriteCall, WriteJump, WriteNOP                       */
 
+/****** SoC *************************************************************************/
 #define SAMT_INCL_FUNCPTRS
-#include <sa2b/soc/input.h>
+#include <sa2b/soc/input.h> /* SOCInput, SOCController                              */
 #undef  SAMT_INCL_FUNCPTRS
 
-#include <ic_core.h>
-#include <ic_input.h>
+/****** Input Controls **************************************************************/
+#include <ic_core.h>        /* core                                                 */
+#include <ic_input.h>       /* input module                                         */
 
-#include <ic_socmagic.h>
+/****** Self ************************************************************************/
+#include <ic_socmagic.h>    /* self                                                 */
 
-static SOCInput* SocInputGlobalP;
+/************************/
+/*  File Data           */
+/************************/
+/****** SoC Input *******************************************************************/
+static SOCInput* SocInputGlobalP;   /* constant global SOCInput pointer             */
 
+/************************/
+/*  Source              */
+/************************/
 static SOCInput* __cdecl
 NewGetSocInput(void)
 {
