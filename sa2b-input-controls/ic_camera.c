@@ -6,15 +6,21 @@
 #include <sa2b/writeop.h>   /* WriteJump, WriteCall, WriteNOP                       */
 #include <sa2b/memory.h>    /* MemCopy                                              */
 
-#include <sa2b/ninja/ninja.h>
+/****** Ninja ***********************************************************************/
+#include <sa2b/ninja/ninja.h>   /* ninja                                            */
 
-#include <sa2b/sonic/input.h>
-#include <sa2b/sonic/camera.h>
-#include <sa2b/sonic/debug.h>
+/****** Game ************************************************************************/
+#include <sa2b/sonic/input.h>   /*  */
+#include <sa2b/sonic/camera.h>  /*  */
+#include <sa2b/sonic/debug.h>   /*  */
 
-#include <ic_core.h>
-#include <ic_input.h>
-#include <ic_config.h>
+/****** Input Controls **************************************************************/
+#include <ic_core.h>    /*  */
+#include <ic_input.h>   /*  */
+#include <ic_config.h>  /*  */
+
+/****** Self ************************************************************************/
+#include <ic_camera.h>  /* self                                                     */
 
 static Angle
 CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
