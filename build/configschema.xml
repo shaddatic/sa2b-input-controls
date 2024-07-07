@@ -12,6 +12,11 @@ Some mods modify the emulated Dreamcast controller values to perform certain eff
 			<Property name="analog" display="Analog Controls" type="eBOOL" defaultvalue="1">
 				<HelpText>Restore analog-trigger camera movement from the GameCube version, and add analog camera movement with the right analog stick.</HelpText>
 			</Property>
+			<Property name="lr_inv" display="Invert Stick Input" type="eBOOL" defaultvalue="0">
+				<HelpText>Invert left/right camera movement with the right analog stick.
+
+NOTE: Requres 'Analog Controls'</HelpText>
+			</Property>
 		</Group>
 		<Group name="user0" display="Player 1 Settings">
 			<Property name="gp_nb" display="Gamepad" type="eGAMEPAD" defaultvalue="0">

@@ -23,6 +23,11 @@
 #include <ic_camera.h>  /* self                                                     */
 
 /************************/
+/*  File Data           */
+/************************/
+static bool CameraInvStickLR;
+
+/************************/
 /*  Source              */
 /************************/
 static Angle
@@ -34,7 +39,6 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
 
     if (InputUseRawAnalog() && nb_cam < NB_USER)
     {
-        const USER_INPUT* const p_user = UserGetInput(nb_cam);
         const bool in_state = (nb_cam > 1 || ucInputStatusForEachPlayer[nb_cam] == 1);
 
         if (ucInputStatus && in_state)
@@ -54,6 +58,9 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
         r  = NORM_PDS_TRIG( perG[nb_cam].r  );
         x2 = NORM_PDS_DIR(  perG[nb_cam].x2 );
     }
+
+    /** Invert the stick if setting enabled **/
+    if (CameraInvStickLR) x2 = -x2;
 
     CAMADJUSTWK_KNUCKLES* const p_work = (CAMADJUSTWK_KNUCKLES*)pParam->work;
 
@@ -172,4 +179,6 @@ IC_CameraInit(void)
         WriteNOP( 0x004EDBF3, 0x004EDC0D);
         WriteCall(0x004EDBF3, ___CheckCamInput);
     }
+
+    CameraInvStickLR = CnfGetInt(CNF_CAMERA_LRINV);
 }
