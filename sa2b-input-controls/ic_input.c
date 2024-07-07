@@ -35,6 +35,8 @@ eINPUT_METHOD;
 /************************/
 /*  File Variables      */
 /************************/
+static bool UseRawAnalog;
+
 static eINPUT_METHOD    UserInputMode[4];
 static eGAMEPAD_NUM     UserGamepad[4];
 static eKEYBOARD_NUM    UserKeyboard[4];
@@ -229,8 +231,6 @@ SetPeripheral(void)
     return 0;
 }
 
-static bool UseRawAnalog;
-
 bool
 InputUseRawAnalog(void)
 {
@@ -240,7 +240,7 @@ InputUseRawAnalog(void)
 void
 IC_InputInit(void)
 {
-    UseRawAnalog = CnfGetInt(CNF_COMPAT_ANALOG);
+    UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
 
     UserGamepad[0]   = CnfGetInt( CNF_USER1_GAMEPD_NB  );
     UserKeyboard[0]  = CnfGetInt( CNF_USER1_KEYBRD_NB  );

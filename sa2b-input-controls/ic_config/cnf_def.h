@@ -77,7 +77,8 @@ CNFE_BOOL;
 /************************/
 /**                                   | Type      | Section             | Key                   | Default                              **/
 /****** Main ****************************************************************************************************************************/
-#define CNF_MAIN_CAMANALOG              CNFO_INT(   CNFS_MAIN           , "cam_analog"          , CNFE_BOOL_ENABLED                     )
+#define CNF_MAIN_RAWANALOG              CNFO_INT(   CNFS_MAIN           , "raw_analog"          , CNFE_BOOL_ENABLED                     )
+
 /****** Camera **************************************************************************************************************************/
 #define CNF_CAMERA_ANALOG               CNFO_INT(   CNFS_CAMERA         , "analog"              , CNFE_BOOL_ENABLED                     )
 #define CNF_CAMERA_LRINV                CNFO_INT(   CNFS_CAMERA         , "lr_inv"              , CNFE_BOOL_DISABLED                    )
