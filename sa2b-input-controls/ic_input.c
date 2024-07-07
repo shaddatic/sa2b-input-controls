@@ -7,35 +7,18 @@
 #include <sa2b/writeop.h>   /* WriteJump, WriteCall, WriteNoOP                      */
 #include <sa2b/memory.h>    /* MemCopy                                              */
 
-/****** SoC *************************************************************************/
-#include <sa2b/soc/input.h>
-
 /****** System **********************************************************************/
-#include <sa2b/shinobi/sg_pad.h>
-
-/****** Game ************************************************************************/
-#include <sa2b/sonic/input.h>
-
-/****** Std *************************************************************************/
-#include <stdio.h>
-#include <math.h>
+#include <sa2b/shinobi/sg_pad.h>    /* PDS_PERIPHERAL, PeripheralData               */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>
-#include <ic_window.h>
-#include <ic_config.h>
-#include <ic_socmagic.h>
+#include <ic_core.h>        /* core                                                 */
+#include <ic_window.h>      /* WindowUpdate                                         */
+#include <ic_config.h>      /* CnfGet___                                            */
+#include <ic_socmagic.h>    /* SetSocPeripheral                                     */
 
 /****** Self ************************************************************************/
 #include <ic_input.h>               /* self                                         */
 #include <ic_input/inpt_internal.h> /* internal                                     */
-
-/************************/
-/*  Constants           */
-/************************/
-#define XInputGetCapabilities   ___XInputGetCapabilities
-#define XInputGetState          ___XInputGetState
-#define XInputSetState          ___XInputSetState
 
 /************************/
 /*  Enums               */
