@@ -55,10 +55,13 @@
 /****** Analog Emulation ************************************************************/
 #define CNFS_EMUANALOG      "emu_analog"
 
-/****** Debug ************************************************************/
+/****** Compatibility ***************************************************************/
 #define CNFS_COMPAT         "compatibility"
 
-/****** Debug ************************************************************/
+/****** Misc ***********************************************************************/
+#define CNFS_MISC           "misc"
+
+/****** Debug ***********************************************************************/
 #define CNFS_DEBUG          "debug"
 
 /************************/
@@ -71,7 +74,6 @@ typedef enum
     CNFE_BOOL_ENABLED
 }
 CNFE_BOOL;
-
 /************************/
 /*  Options             */
 /************************/
@@ -142,8 +144,8 @@ CNFE_BOOL;
 #define CNF_EMUANALOG_VISU_ALPHA        CNFO_INT(   CNFS_EMUANALOG      , "visu_alpha"          , 75                                    )
 #define CNF_EMUANALOG_VISU_SCALE        CNFO_FLOAT( CNFS_EMUANALOG      , "visu_scale"          , 1                                     )
 
-/****** Compatibility Section ***********************************************************************************************************/
-#define CNF_COMPAT_ANALOG               CNFO_INT(   CNFS_COMPAT         , "raw_analog"          , CNFE_BOOL_ENABLED                     )
+/****** Misc Section ********************************************************************************************************************/
+#define CNF_MISC_DCDRIFT                CNFO_INT(   CNFS_MISC           , "dc_drift"            , CNFE_BOOL_DISABLED                    )
 
 /****** Debug Section *******************************************************************************************************************/
 #define CNF_DEBUG_AXIS                  CNFO_INT(   CNFS_DEBUG          , "gp_axis"             , CNFE_BOOL_DISABLED                    )

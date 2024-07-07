@@ -536,11 +536,9 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 				<HelpText>Key to map to right on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
 			</Property>
 		</Group>
-		<Group name="compatibility" display="Compatibility Settings">
-			<Property name="raw_analog" display="Use Raw Analog Values" type="eBOOL" defaultvalue="1">
-				<HelpText>Use the raw analog values directly from the controller rather than the emulated Dreamcast controller for calculating player input. For the analog sticks, this allows for significantly more analog resolution (+65000x) over vanilla.
-
-Some mods modify the emulated Dreamcast controller values to perform certain effects, like flipping the controls. Turning this setting off will allow such effects to work correctly.</HelpText>
+		<Group name="misc" display="Miscellaneous Settings">
+		<Property name="dc_drift" display="Dreamcast Accuracy Mode" type="eBOOL" defaultvalue="0">
+			<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
 			</Property>
 		</Group>
 		<Group name="debug" display="Debug Settings">
