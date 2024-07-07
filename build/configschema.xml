@@ -2,7 +2,14 @@
 <ConfigSchema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonicretro.org">
 	<Groups>
 		<Group name="main" display="Main Settings">
-			<Property name="cam_analog" display="Analog Camera Controls" type="eBOOL" defaultvalue="1">
+			<Property name="raw_analog" display="Use Raw Analog Values" type="eBOOL" defaultvalue="1">
+				<HelpText>Use the raw analog values directly from the controller rather than the emulated Dreamcast controller for calculating player input. For the analog sticks, this allows for significantly more analog resolution (+65000x) over vanilla.
+
+Some mods modify the emulated Dreamcast controller values to perform certain effects, like flipping the controls. Turning this setting off will allow such effects to work correctly.</HelpText>
+			</Property>
+		</Group>
+		<Group name="camera" display="Camera Settings">
+			<Property name="analog" display="Analog Controls" type="eBOOL" defaultvalue="1">
 				<HelpText>Restore analog-trigger camera movement from the GameCube version, and add analog camera movement with the right analog stick.</HelpText>
 			</Property>
 		</Group>

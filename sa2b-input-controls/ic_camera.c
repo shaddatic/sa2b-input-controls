@@ -22,6 +22,9 @@
 /****** Self ************************************************************************/
 #include <ic_camera.h>  /* self                                                     */
 
+/************************/
+/*  Source              */
+/************************/
 static Angle
 CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
 {
@@ -36,6 +39,8 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
 
         if (ucInputStatus && in_state)
         {
+            const USER_INPUT* const p_user = UserGetInput(nb_cam);
+
             l  = p_user->l;
             r  = p_user->r;
             x2 = p_user->x2;
@@ -145,7 +150,7 @@ ___CheckCamInput(void)
 void
 IC_CameraInit(void)
 {
-    if (CnfGetInt(CNF_MAIN_CAMANALOG))
+    if (CnfGetInt(CNF_CAMERA_ANALOG))
     {
         /* CameraKnukles */
         WriteNOP( 0x004F4D37, 0x004F4DB4);

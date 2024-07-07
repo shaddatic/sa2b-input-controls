@@ -31,6 +31,9 @@
 /****** Main ************************************************************************/
 #define CNFS_MAIN           "main"
 
+/****** Camera **********************************************************************/
+#define CNFS_CAMERA         "camera"
+
 /****** User/Player *****************************************************************/
 #define CNFS_USER1          "user0"
 #define CNFS_USER2          "user1"
@@ -75,6 +78,9 @@ CNFE_BOOL;
 /**                                   | Type      | Section             | Key                   | Default                              **/
 /****** Main ****************************************************************************************************************************/
 #define CNF_MAIN_CAMANALOG              CNFO_INT(   CNFS_MAIN           , "cam_analog"          , CNFE_BOOL_ENABLED                     )
+/****** Camera **************************************************************************************************************************/
+#define CNF_CAMERA_ANALOG               CNFO_INT(   CNFS_CAMERA         , "analog"              , CNFE_BOOL_ENABLED                     )
+#define CNF_CAMERA_LRINV                CNFO_INT(   CNFS_CAMERA         , "lr_inv"              , CNFE_BOOL_DISABLED                    )
 
 /****** User ****************************************************************************************************************************/
 #define CNF_USER1_GAMEPD_NB             CNFO_INT(   CNFS_USER1          , "gp_nb"               , GAMEPAD_1                             )
