@@ -126,8 +126,8 @@ SAngle3;
 /************************/
 EXTERN_START
 /** Calculate if position is on screen **/
-b32     AL_IsOnScreen2(TASK* tp, float32_t radius, float32_t OffsetY);
-b32     AL_IsOnScreen3(TASK* tp, float32_t radius, float32_t HalfHeight, float32_t OffsetY);
+b32     AL_IsOnScreen2(TASK* tp, f32 radius, f32 OffsetY);
+b32     AL_IsOnScreen3(TASK* tp, f32 radius, f32 HalfHeight, f32 OffsetY);
 
 /*
 *   Description:
@@ -151,9 +151,9 @@ OBJ_EDITTABLE* AL_LoadSetFile( const char* set_name );
 TASK*   AL_IsHitKindWithNum(TASK* tp, int32_t info_num, uint8_t kind);
 
 /** Interpolate 'p1' & 'p2' into 'pAnswer' at 'ratio' **/
-void    AL_InterpolateAngle(Angle3* pAng1, Angle3* pAng2, Angle3* pAnswer, float32_t ratio);
-void    AL_InterpolateSAngle(SAngle3* pAng1, SAngle3* pAng2, SAngle3* pAnswer, float32_t ratio);
-void    AL_InterpolateObject(NJS_CNK_OBJECT* pObj1, NJS_CNK_OBJECT* pObj2, NJS_CNK_OBJECT* pAnswer, float32_t ratio);
+void    AL_InterpolateAngle(Angle3* pAng1, Angle3* pAng2, Angle3* pAnswer, f32 ratio);
+void    AL_InterpolateSAngle(SAngle3* pAng1, SAngle3* pAng2, SAngle3* pAnswer, f32 ratio);
+void    AL_InterpolateObject(NJS_CNK_OBJECT* pObj1, NJS_CNK_OBJECT* pObj2, NJS_CNK_OBJECT* pAnswer, f32 ratio);
 
 EXTERN_END
 
@@ -162,7 +162,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_InterpolateObject_p       FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*, NJS_CNK_OBJECT*, NJS_CNK_OBJECT*, float32_t), 0x0054AEB0)
+#   define AL_InterpolateObject_p       FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*, NJS_CNK_OBJECT*, NJS_CNK_OBJECT*, f32), 0x0054AEB0)
 
 /** User-Function ptrs **/
 #   define AL_IsOnScreen3_p             ((void*)0x0054AC70)

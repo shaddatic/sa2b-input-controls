@@ -39,9 +39,9 @@ eCHAO_STAGE_NUMBER;
 /************************/
 /*  Data                */
 /************************/
-#define ChaoOldStageNumber      DataRef(eCHAO_STAGE_NUMBER, 0x13402AC)
-#define ChaoStageNumber         DataRef(eCHAO_STAGE_NUMBER, 0x134046C)
-#define ChaoNextStageNumber     DataRef(eCHAO_STAGE_NUMBER, 0x134062C)
+#define ChaoOldStageNumber      DATA_REF(eCHAO_STAGE_NUMBER, 0x13402AC)
+#define ChaoStageNumber         DATA_REF(eCHAO_STAGE_NUMBER, 0x134046C)
+#define ChaoNextStageNumber     DATA_REF(eCHAO_STAGE_NUMBER, 0x134062C)
 
 /************************/
 /*  Functions           */
@@ -73,7 +73,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_ChangeStage_p        FuncPtr(void, __cdecl, (eCHAO_STAGE_NUMBER), 0x0052B5B0)
+#   define AL_ChangeStage_p        FUNC_PTR(void, __cdecl, (eCHAO_STAGE_NUMBER), 0x0052B5B0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

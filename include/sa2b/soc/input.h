@@ -136,8 +136,8 @@ SOC_PERIPHERAL;
 /*  Data                */
 /************************/
 /****** SoC Peripheral **************************************************************/
-#define SocPeripheral               DataAry(SOC_PERIPHERAL, 0x01A52C48, [4])
-#define SocPeripheralLast           DataAry(SOC_PERIPHERAL, 0x01A529E8, [4])
+#define SocPeripheral               DATA_ARY(SOC_PERIPHERAL, 0x01A52C48, [4])
+#define SocPeripheralLast           DATA_ARY(SOC_PERIPHERAL, 0x01A529E8, [4])
 
 /************************/
 /*  Functions           */
@@ -156,9 +156,9 @@ int         SOC_UpdatePeripheral( void );
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /****** Function Pointer ************************************************************/
-#define SOC_GetInput_p              FuncPtr(SOCInput*     , __cdecl  , (void)          , 0x00402170)
-#define SOC_GetController_p         FuncPtr(SOCController*, __stdcall, (SOCInput*, int), 0x004256A0)
-#define SOC_UpdatePeripheral_p      FuncPtr(int           , __cdecl  , (void)          , 0x00425700)
+#define SOC_GetInput_p              FUNC_PTR(SOCInput*     , __cdecl  , (void)          , 0x00402170)
+#define SOC_GetController_p         FUNC_PTR(SOCController*, __stdcall, (SOCInput*, int), 0x004256A0)
+#define SOC_UpdatePeripheral_p      FUNC_PTR(int           , __cdecl  , (void)          , 0x00425700)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

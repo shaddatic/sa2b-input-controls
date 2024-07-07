@@ -109,7 +109,7 @@ typedef struct colliwk
     int16_t         nbHit;
     uint16_t        flag;
     uint16_t        nbInfo;
-    float32_t       colli_range;
+    f32             colli_range;
     CCL_INFO*       info;
     CCL_HIT_INFO    hit_info[16];
     NJS_POINT3      normal;
@@ -123,7 +123,7 @@ COLLIWK;
 /************************/
 /*  Data                */
 /************************/
-#define Search      DataRef(CCL_SEARCH, 0x019468A0)
+#define Search      DATA_REF(CCL_SEARCH, 0x019468A0)
 
 /************************/
 /*  Functions           */
@@ -147,7 +147,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define CCL_IsHitKindEx_p       FuncPtr(CCL_HIT_INFO*, __cdecl, (TASK*, uint8_t), 0x00486760)
+#   define CCL_IsHitKindEx_p       FUNC_PTR(CCL_HIT_INFO*, __cdecl, (TASK*, uint8_t), 0x00486760)
 
 /** User-Function ptrs **/
 #   define CCL_Init_p              ((void*)0x0047E520)

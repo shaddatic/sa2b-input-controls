@@ -51,9 +51,9 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_NestExecutor_p               FuncPtr(void, __cdecl, (TASK*), 0x005AAE20)
-#   define ALO_NestFlowerExecutor_p         FuncPtr(void, __cdecl, (TASK*), 0x005AABF0)
-#   define ALO_NestFlowerDisplayer_p        FuncPtr(void, __cdecl, (TASK*), 0x005AAC60)
+#   define ALO_NestExecutor_p               FUNC_PTR(void, __cdecl, (TASK*), 0x005AAE20)
+#   define ALO_NestFlowerExecutor_p         FUNC_PTR(void, __cdecl, (TASK*), 0x005AABF0)
+#   define ALO_NestFlowerDisplayer_p        FUNC_PTR(void, __cdecl, (TASK*), 0x005AAC60)
 
 /** User-Function ptrs **/
 #   define ALO_CreateNest_p                 ((void*)0x005AAF60)

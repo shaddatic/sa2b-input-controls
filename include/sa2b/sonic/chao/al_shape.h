@@ -126,49 +126,49 @@ AL_GROUP_OBJECT_LIST;
 typedef NJS_CNK_OBJECT*         AL_RootObject_t[144];
 
 /** Chao root models - points into 'Data.dll' **/
-#define AL_RootObject           DataRef(AL_RootObject_t*, 0x01AED294)
+#define AL_RootObject           DATA_REF(AL_RootObject_t*, 0x01AED294)
 
 /** Internal data **/
-#define ratio_h                 DataRef(float32_t       , 0x01DB1068)
-#define inv_ratio_h             DataRef(float32_t       , 0x01DB1088)
+#define ratio_h                 DATA_REF(f32             , 0x01DB1068)
+#define inv_ratio_h             DATA_REF(f32             , 0x01DB1088)
 
-#define ratio_v                 DataRef(float32_t       , 0x01DB1084)
-#define inv_ratio_v             DataRef(float32_t       , 0x01DB1070)
+#define ratio_v                 DATA_REF(f32             , 0x01DB1084)
+#define inv_ratio_v             DATA_REF(f32             , 0x01DB1070)
 
-#define ratio_g                 DataRef(float32_t       , 0x01DB102C)
-#define inv_ratio_g             DataRef(float32_t       , 0x01DB1028)
+#define ratio_g                 DATA_REF(f32             , 0x01DB102C)
+#define inv_ratio_g             DATA_REF(f32             , 0x01DB1028)
 
-#define div_ratio_h             DataRef(float32_t       , 0x01DB109C)
-#define div_ratio_v             DataRef(float32_t       , 0x01DB108C)
+#define div_ratio_h             DATA_REF(f32             , 0x01DB109C)
+#define div_ratio_v             DATA_REF(f32             , 0x01DB108C)
 
-#define col_ratio_h             DataRef(float32_t       , 0x01DB1038)
-#define col_ratio_v             DataRef(float32_t       , 0x01DB1060)
-#define col_ratio_g             DataRef(float32_t       , 0x01DB1054)
+#define col_ratio_h             DATA_REF(f32             , 0x01DB1038)
+#define col_ratio_v             DATA_REF(f32             , 0x01DB1060)
+#define col_ratio_g             DATA_REF(f32             , 0x01DB1054)
 
-#define col_inv_ratio_h         DataRef(float32_t       , 0x01DB1098)
-#define col_inv_ratio_v         DataRef(float32_t       , 0x01DB106C)
-#define col_inv_ratio_g         DataRef(float32_t       , 0x01DB1078)
+#define col_inv_ratio_h         DATA_REF(f32             , 0x01DB1098)
+#define col_inv_ratio_v         DATA_REF(f32             , 0x01DB106C)
+#define col_inv_ratio_g         DATA_REF(f32             , 0x01DB1078)
 
-#define col_div_ratio_h         DataRef(float32_t       , 0x01DB1034)
-#define col_div_ratio_v         DataRef(float32_t       , 0x01DB1030)
+#define col_div_ratio_h         DATA_REF(f32             , 0x01DB1034)
+#define col_div_ratio_v         DATA_REF(f32             , 0x01DB1030)
 
 /** Object lists **/
-#define CurrObjectList          DataRef(AL_OBJECT**     , 0x01DB1074)
+#define CurrObjectList          DATA_REF(AL_OBJECT**     , 0x01DB1074)
 
-#define ZeroObjectList          DataRef(NJS_CNK_OBJECT**, 0x01DB1050)
-#define NormalObjectList        DataRef(NJS_CNK_OBJECT**, 0x01DB105C)
-#define HorizonObjectList       DataRef(NJS_CNK_OBJECT**, 0x01DB107C)
-#define VerticalObjectList      DataRef(NJS_CNK_OBJECT**, 0x01DB1064)
+#define ZeroObjectList          DATA_REF(NJS_CNK_OBJECT**, 0x01DB1050)
+#define NormalObjectList        DATA_REF(NJS_CNK_OBJECT**, 0x01DB105C)
+#define HorizonObjectList       DATA_REF(NJS_CNK_OBJECT**, 0x01DB107C)
+#define VerticalObjectList      DATA_REF(NJS_CNK_OBJECT**, 0x01DB1064)
 
-#define ZeroObjectListH         DataRef(NJS_CNK_OBJECT**, 0x01DB1048)
-#define NormalObjectListH       DataRef(NJS_CNK_OBJECT**, 0x01DB1058)
-#define HorizonObjectListH      DataRef(NJS_CNK_OBJECT**, 0x01DB103C)
-#define VerticalObjectListH     DataRef(NJS_CNK_OBJECT**, 0x01DB1090)
+#define ZeroObjectListH         DATA_REF(NJS_CNK_OBJECT**, 0x01DB1048)
+#define NormalObjectListH       DATA_REF(NJS_CNK_OBJECT**, 0x01DB1058)
+#define HorizonObjectListH      DATA_REF(NJS_CNK_OBJECT**, 0x01DB103C)
+#define VerticalObjectListH     DATA_REF(NJS_CNK_OBJECT**, 0x01DB1090)
 
-#define ZeroObjectListD         DataRef(NJS_CNK_OBJECT**, 0x01DB1080)
-#define NormalObjectListD       DataRef(NJS_CNK_OBJECT**, 0x01DB1044)
-#define HorizonObjectListD      DataRef(NJS_CNK_OBJECT**, 0x01DB1094)
-#define VerticalObjectListD     DataRef(NJS_CNK_OBJECT**, 0x01DB104C)
+#define ZeroObjectListD         DATA_REF(NJS_CNK_OBJECT**, 0x01DB1080)
+#define NormalObjectListD       DATA_REF(NJS_CNK_OBJECT**, 0x01DB1044)
+#define HorizonObjectListD      DATA_REF(NJS_CNK_OBJECT**, 0x01DB1094)
+#define VerticalObjectListD     DATA_REF(NJS_CNK_OBJECT**, 0x01DB104C)
 
 /************************/
 /*  Functions           */
@@ -193,11 +193,11 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_ShapeInit_p               FuncPtr(int32_t    , __cdecl, (TASK*)                                       , 0x0056C9D0)
-#   define AL_CopyChaoObject_p          FuncPtr(AL_OBJECT*, __cdecl, (NJS_CNK_OBJECT*, NJS_CNK_OBJECT*, AL_OBJECT*), 0x0056BED0)
-#   define AL_FreeChaoObject_p          FuncPtr(void      , __cdecl, (AL_OBJECT*)                                  , 0x0056BD40)
-#   define AL_CreateOrgVertexList_p     FuncPtr(int32_t    , __cdecl, (AL_OBJECT*)                                  , 0x0056C800)
-#   define GetList_p                    FuncPtr(int32_t    , __cdecl, (AL_OBJECT*, AL_OBJECT**, int32_t)             , 0x0056BC90)
+#   define AL_ShapeInit_p               FUNC_PTR(int32_t    , __cdecl, (TASK*)                                       , 0x0056C9D0)
+#   define AL_CopyChaoObject_p          FUNC_PTR(AL_OBJECT*, __cdecl, (NJS_CNK_OBJECT*, NJS_CNK_OBJECT*, AL_OBJECT*), 0x0056BED0)
+#   define AL_FreeChaoObject_p          FUNC_PTR(void      , __cdecl, (AL_OBJECT*)                                  , 0x0056BD40)
+#   define AL_CreateOrgVertexList_p     FUNC_PTR(int32_t    , __cdecl, (AL_OBJECT*)                                  , 0x0056C800)
+#   define GetList_p                    FUNC_PTR(int32_t    , __cdecl, (AL_OBJECT*, AL_OBJECT**, int32_t)             , 0x0056BC90)
 
 /** User-Function ptrs **/
 #   define AL_GetObjectList_p           ((void*)0x0056BCD0)

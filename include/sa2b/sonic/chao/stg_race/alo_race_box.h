@@ -32,7 +32,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALR_BoxExecutor_p        FuncPtr(void, __cdecl, (TASK*), 0x0056A110)
+#   define ALR_BoxExecutor_p        FUNC_PTR(void, __cdecl, (TASK*), 0x0056A110)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

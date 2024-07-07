@@ -661,7 +661,7 @@ void      AL_SetMotionLink(TASK* tp, int32_t MtnNum);
 void      AL_SetMotionLinkStep(TASK* tp, int32_t MtnNum, uint16_t step);
 
 int32_t   AL_GetMotionNum(TASK* tp);
-float32_t AL_GetMotionFrame(TASK* tp);
+f32       AL_GetMotionFrame(TASK* tp);
 
 EXTERN_END
 

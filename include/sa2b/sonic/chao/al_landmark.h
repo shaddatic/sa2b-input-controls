@@ -57,11 +57,11 @@ LAND_ATTR_INDEX;
 /************************/
 /*  Data                */
 /************************/
-#define AttrIndexList       DataAry(LAND_ATTR_INDEX, 0x01A15938, [16])
+#define AttrIndexList       DATA_ARY(LAND_ATTR_INDEX, 0x01A15938, [16])
 
-#define LandAttrNeut        DataAry(int32_t         , 0x01362130, [1280])
-#define LandAttrHero        DataAry(int32_t         , 0x01363530, [1280])
-#define LandAttrDark        DataAry(int32_t         , 0x01364930, [1280])
+#define LandAttrNeut        DATA_ARY(int32_t         , 0x01362130, [1280])
+#define LandAttrHero        DATA_ARY(int32_t         , 0x01363530, [1280])
+#define LandAttrDark        DATA_ARY(int32_t         , 0x01364930, [1280])
 
 /************************/
 /*  Functions           */
@@ -91,7 +91,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_InitLandMark_p            FuncPtr(void, __cdecl, (void), 0x00534EF0)
+#   define AL_InitLandMark_p            FUNC_PTR(void, __cdecl, (void), 0x00534EF0)
 
 /** User-Function ptrs **/
 #   define AL_GetCurrLandAttr_p         ((void*)0x00535010)

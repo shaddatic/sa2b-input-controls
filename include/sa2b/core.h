@@ -72,10 +72,6 @@ EXTERN_START
 /** Integer types **/
 #include <stdint.h>                     /* stdint types                             */
 
-/** Real number types **/
-typedef float               float32_t;  /* 4 byte real number                       */
-typedef double              float64_t;  /* 8 byte real number                       */
-
 /****** Short-Hand Types ************************************************************/
 /** Integer types **/
 typedef unsigned __int8     u8;         /* unsigned 1 byte integer                  */
@@ -182,32 +178,32 @@ const char* GetModPath(void);
 *     Define a data reference at an arbitrary address.
 *
 *   Example:
-*     #define SomeData    DataRef(int*, 0x12345678)
+*     #define SomeData    DATA_REF(int*, 0x12345678)
 *
 *   Parameters:
 *     - type    : Type of the data, can be a pointer type
 *     - addr    : Constant address of the data
 */
-#define DataRef(type, addr)                 (*(type *   )addr)
+#define DATA_REF(type, addr)                (*(type*const)(addr))
 /*
 *   Description:
 *     Define a data array reference at an arbitrary address.
 *
 *   Example:
-*     #define SomeArray   DataAry(double, 0x12345678, [23][2])
+*     #define SomeArray   DATA_ARY(double, 0x12345678, [23][2])
 *
 *   Parameters:
 *     - type    : Type of the data the array contains
 *     - addr    : Constant address of the start of the array
 *     - nb      : Number of elements in the array, can be multi-dimensional
 */
-#define DataAry(type, addr, nb)             (*(type(*)nb)addr)
+#define DATA_ARY(type, addr, nb)            (*(type(*const)nb)(addr))
 /*
 *   Description:
 *     Define a function pointer at an arbitrary address.
 *
 *   Example:
-*     #define SomeFunc    FuncPtr(void*, __cdecl, (int), 0x12345678)
+*     #define SomeFunc    FUNC_PTR(void*, __cdecl, (int), 0x12345678)
 *
 *   Parameters:
 *     - type    : Return type of the function
@@ -215,7 +211,7 @@ const char* GetModPath(void);
 *     - args    : Arguments to the function
 *     - addr    : Address of the start of the function
 */
-#define FuncPtr(type, meth, args, addr)     ((type(meth*const)args)addr)
+#define FUNC_PTR(type, meth, args, addr)    ((type(meth*const)args)(addr))
 
 EXTERN_END
 

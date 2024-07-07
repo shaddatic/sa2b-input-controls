@@ -38,9 +38,9 @@ EGGMANWK;
 /************************/
 /*  Data                */
 /************************/
-#define EggmanWorkPointer       DataRef(EGGMANWK* , 0x01A51D28)
+#define EggmanWorkPointer       DATA_REF(EGGMANWK* , 0x01A51D28)
 
-#define mtx_EggmanBase          DataRef(NJS_MATRIX, 0x01A51CF8)
+#define mtx_EggmanBase          DATA_REF(NJS_MATRIX, 0x01A51CF8)
 
 /************************/
 /*  Functions           */
@@ -55,7 +55,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define EggmanMotionCallBack_p           FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x0073EAD0)
+#   define EggmanMotionCallBack_p           FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x0073EAD0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

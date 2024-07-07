@@ -96,10 +96,10 @@ eAL_MOUTH_NUM;
 /************************/
 /*  Data                */
 /************************/
-#define AL_EyeTexIdList         DataAry(int16_t, 0x008A7A70, [14])
-#define EyeColorTexIdList       DataAry(int16_t, 0x008A7AC0, [12])
+#define AL_EyeTexIdList         DATA_ARY(int16_t, 0x008A7A70, [14])
+#define EyeColorTexIdList       DATA_ARY(int16_t, 0x008A7AC0, [12])
 
-#define AL_MouthTexIdList       DataAry(int16_t, 0x008A7A8C, [13][2])
+#define AL_MouthTexIdList       DATA_ARY(int16_t, 0x008A7A8C, [13][2])
 
 /************************/
 /*  Functions           */
@@ -129,7 +129,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_FaceEyeLidControl_p       FuncPtr(void, __cdecl, (TASK*), 0x0053A1E0)
+#   define AL_FaceEyeLidControl_p       FUNC_PTR(void, __cdecl, (TASK*), 0x0053A1E0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

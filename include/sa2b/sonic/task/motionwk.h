@@ -30,16 +30,16 @@ struct {                    \
         int8_t    b[4];     \
         int16_t   w[2];     \
         int32_t   l;        \
-        float32_t f;        \
+        f32       f;        \
         void* ptr;          \
     } work;                 \
     NJS_POINT3 spd;         \
     NJS_POINT3 acc;         \
     Angle3     ang_aim;     \
     Angle3     ang_spd;     \
-    float32_t  force;       \
-    float32_t  accel;       \
-    float32_t  frict;       \
+    f32        force;       \
+    f32        accel;       \
+    f32        frict;       \
 }
 
 typedef struct motionwk

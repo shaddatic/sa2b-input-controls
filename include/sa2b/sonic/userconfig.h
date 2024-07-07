@@ -56,6 +56,6 @@ UserConfig;
 /************************/
 /*  Data                */
 /************************/
-#define gpUserConfig    DataRef(UserConfig*, 0x1AF19EC)
+#define gpUserConfig    DATA_REF(UserConfig*, 0x1AF19EC)
 
 #endif /* _SA2B_USERCONFIG_H_ */

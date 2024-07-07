@@ -27,7 +27,7 @@ typedef struct task     TASK;
 /************************/
 /*  Data                */
 /************************/
-#define ALO_TVTaskPointer       DataRef(TASK*, 0x01AED288)
+#define ALO_TVTaskPointer       DATA_REF(TASK*, 0x01AED288)
 
 /************************/
 /*  Functions           */
@@ -47,10 +47,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_TVCreate_p           FuncPtr(void, __cdecl, (NJS_POINT3*), 0x0055CB90)
-#   define ALO_TVExecutor_p         FuncPtr(void, __cdecl, (TASK*)      , 0x0055C540)
-#   define ALO_TVDisplayer_p        FuncPtr(void, __cdecl, (TASK*)      , 0x0055C9E0)
-#   define ALO_TVDestructor_p       FuncPtr(void, __cdecl, (TASK*)      , 0x0055CB70)
+#   define ALO_TVCreate_p           FUNC_PTR(void, __cdecl, (NJS_POINT3*), 0x0055CB90)
+#   define ALO_TVExecutor_p         FUNC_PTR(void, __cdecl, (TASK*)      , 0x0055C540)
+#   define ALO_TVDisplayer_p        FUNC_PTR(void, __cdecl, (TASK*)      , 0x0055C9E0)
+#   define ALO_TVDestructor_p       FUNC_PTR(void, __cdecl, (TASK*)      , 0x0055CB70)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

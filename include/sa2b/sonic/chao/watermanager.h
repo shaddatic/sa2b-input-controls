@@ -34,10 +34,10 @@ typedef struct // ANYWK
 {
     NJS_CNK_OBJECT* pOrigObj;
     NJS_CNK_OBJECT* pCopyObj;
-    float32_t       offsetU;
-    float32_t       offsetV;
-    float32_t       addU;
-    float32_t       addV;
+    f32             offsetU;
+    f32             offsetV;
+    f32             addU;
+    f32             addV;
 }
 UV_SCROLL_INFO;
 
@@ -47,12 +47,12 @@ typedef struct
     NJS_TEXLIST*    pTexList;
     int32_t         texid_min;
     int32_t         texid_max;
-    float32_t       texid_startoff;
-    float32_t       texid_curr;
-    float32_t       texid_speed;
+    f32             texid_startoff;
+    f32             texid_curr;
+    f32             texid_speed;
     b32             enabled;
-    float32_t       addU;
-    float32_t       addV;
+    f32             addU;
+    f32             addV;
 }
 WATER_ENTRY;
 
@@ -86,14 +86,14 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define CreateWaterManager_p             FuncPtr(void, __cdecl, (WATER_ENTRY*), 0x0056B040)
-#   define WaterManagerExecutor_p           FuncPtr(void, __cdecl, (TASK*)       , 0x0056AF60)
-#   define WaterManagerDisplayer_p          FuncPtr(void, __cdecl, (TASK*)       , 0x0056AF90)
-#   define WaterManagerDestructor_p         FuncPtr(void, __cdecl, (TASK*)       , 0x0056AFF0)
-#   define CreateCnkWaterManager_p          FuncPtr(void, __cdecl, (void)        , 0x0056B320)
-#   define CnkWaterManagerExecutor_p        FuncPtr(void, __cdecl, (TASK*)       , 0x0056B1B0)
-#   define CnkWaterManagerDisplayer_p       FuncPtr(void, __cdecl, (TASK*)       , 0x0056B290)
-#   define CnkWaterManagerDestructor_p      FuncPtr(void, __cdecl, (TASK*)       , 0x0056B2D0)
+#   define CreateWaterManager_p             FUNC_PTR(void, __cdecl, (WATER_ENTRY*), 0x0056B040)
+#   define WaterManagerExecutor_p           FUNC_PTR(void, __cdecl, (TASK*)       , 0x0056AF60)
+#   define WaterManagerDisplayer_p          FUNC_PTR(void, __cdecl, (TASK*)       , 0x0056AF90)
+#   define WaterManagerDestructor_p         FUNC_PTR(void, __cdecl, (TASK*)       , 0x0056AFF0)
+#   define CreateCnkWaterManager_p          FUNC_PTR(void, __cdecl, (void)        , 0x0056B320)
+#   define CnkWaterManagerExecutor_p        FUNC_PTR(void, __cdecl, (TASK*)       , 0x0056B1B0)
+#   define CnkWaterManagerDisplayer_p       FUNC_PTR(void, __cdecl, (TASK*)       , 0x0056B290)
+#   define CnkWaterManagerDestructor_p      FUNC_PTR(void, __cdecl, (TASK*)       , 0x0056B2D0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

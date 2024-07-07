@@ -86,11 +86,11 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** User-Function ptrs **/
-#   define ALO_ChaosDriveCreate_p               FuncPtr(TASK*, __cdecl, (uint8_t, NJS_POINT3*, NJS_VECTOR*, ITEM_SAVE_INFO*), 0x00545600)
-#   define ALO_ChaosDriveExecutor_p             FuncPtr(void , __cdecl, (TASK*)                                             , 0x005450C0)
-#   define ALO_ChaosDriveDisplayer_p            FuncPtr(void , __cdecl, (TASK*)                                             , 0x00545150)
-#   define ALO_ChaosDriveDestructor_p           FuncPtr(void , __cdecl, (TASK*)                                             , 0x005455B0)
-#   define ALO_ChaosDriveDisplayerDelayed_p     FuncPtr(void , __cdecl, (TASK*)                                             , 0x00545430)
+#   define ALO_ChaosDriveCreate_p               FUNC_PTR(TASK*, __cdecl, (uint8_t, NJS_POINT3*, NJS_VECTOR*, ITEM_SAVE_INFO*), 0x00545600)
+#   define ALO_ChaosDriveExecutor_p             FUNC_PTR(void , __cdecl, (TASK*)                                             , 0x005450C0)
+#   define ALO_ChaosDriveDisplayer_p            FUNC_PTR(void , __cdecl, (TASK*)                                             , 0x00545150)
+#   define ALO_ChaosDriveDestructor_p           FUNC_PTR(void , __cdecl, (TASK*)                                             , 0x005455B0)
+#   define ALO_ChaosDriveDisplayerDelayed_p     FUNC_PTR(void , __cdecl, (TASK*)                                             , 0x00545430)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

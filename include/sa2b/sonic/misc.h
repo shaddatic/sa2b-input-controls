@@ -18,13 +18,13 @@ enum
     PLAYER_2
 }
 
-#define LastLevel DataRef(int16_t, 0x1934B84)
+#define LastLevel DATA_REF(int16_t, 0x1934B84)
 
-#define SelectedMissionCharacter    DataRef(char, 0x01D1BF05)
-#define StageSelectLevelSelection   DataRef(char, 0x01D1BF08)
+#define SelectedMissionCharacter    DATA_REF(char, 0x01D1BF05)
+#define StageSelectLevelSelection   DATA_REF(char, 0x01D1BF08)
 
-#define gsGameCameraMode DataRef(int, 0x01DD0194) // Unofficial name
+#define gsGameCameraMode DATA_REF(int, 0x01DD0194) // Unofficial name
 
-#define GameTime DataRef(int, 0x01DEC62C)
+#define GameTime DATA_REF(int, 0x01DEC62C)
 
-#define TwoPlayerMode DataRef(bool, 0x0174AFDE)
+#define TwoPlayerMode DATA_REF(bool, 0x0174AFDE)

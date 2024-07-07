@@ -39,8 +39,8 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define CreateFallObject_p       FuncPtr(void, __cdecl, (NJS_POINT3*), 0x0053B0A0)
-#   define FallObjectExecutor_p     FuncPtr(void, __cdecl, (TASK*)      , 0x0053AE10)
+#   define CreateFallObject_p       FUNC_PTR(void, __cdecl, (NJS_POINT3*), 0x0053B0A0)
+#   define FallObjectExecutor_p     FUNC_PTR(void, __cdecl, (TASK*)      , 0x0053AE10)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

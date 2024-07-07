@@ -171,8 +171,9 @@ IC_SocMagicInit(void)
     
     WriteJump(0x00425A40, ___SetVib);       // Replace SOC_SetVib
     
-    WriteNoOP(0x0040A92D, 0x0040A943);      /* Disables SoC input change warning message   */
-    WriteNoOP(0x0040A9E7, 0x0040A9FD);      /* Also for the warning message, but secondary */
+    /** Disable SoC input warning messages **/
+    WriteNOP(0x0040A92D, 0x0040A943);       /* Disables SoC input change warning message   */
+    WriteNOP(0x0040A9E7, 0x0040A9FD);       /* Also for the warning message, but secondary */
     
     WriteCall(0x0066D9CA, VibFixMenu1);     /* Fix menu directly calling SOCController->VibStop */
     WriteCall(0x0066E32F, VibFixMenu2);     /* Fix menu directly calling SOCController->VibSet  */

@@ -175,7 +175,7 @@ PDS_PERIPHERAL;
 /*  Data                */
 /************************/
 /****** Peripheral ******************************************************************/
-#define PeripheralData          DataAry(PDS_PERIPHERAL    , 0x01A52918, [4])
-#define PeripheralInfo          DataAry(PDS_PERIPHERALINFO, 0x01A52A68, [4])
+#define PeripheralData          DATA_ARY(PDS_PERIPHERAL    , 0x01A52918, [4])
+#define PeripheralInfo          DATA_ARY(PDS_PERIPHERALINFO, 0x01A52A68, [4])
 
 #endif/*H_SG_PAD*/

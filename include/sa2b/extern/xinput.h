@@ -84,9 +84,9 @@ uint32_t  ___XInputSetState(uint32_t idxUser, xinput_vibration* pVibration);
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#define ___XInputGetCapabilities_p   FuncPtr(uint32_t, __stdcall, (uint32_t, uint32_t, xinput_capabilities*), 0x007C0CCE)
-#define ___XInputGetState_p          FuncPtr(uint32_t, __stdcall, (uint32_t, xinput_state*)                 , 0x007C0CD4)
-#define ___XInputSetState_p          FuncPtr(uint32_t, __stdcall, (uint32_t, xinput_vibration*)             , 0x007C0CDA)
+#define ___XInputGetCapabilities_p   FUNC_PTR(uint32_t, __stdcall, (uint32_t, uint32_t, xinput_capabilities*), 0x007C0CCE)
+#define ___XInputGetState_p          FUNC_PTR(uint32_t, __stdcall, (uint32_t, xinput_state*)                 , 0x007C0CD4)
+#define ___XInputSetState_p          FUNC_PTR(uint32_t, __stdcall, (uint32_t, xinput_vibration*)             , 0x007C0CDA)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

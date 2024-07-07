@@ -35,7 +35,7 @@ typedef NJS_TEXLIST**      TEX_TEXTABLE;
 /*  Functions           */
 /************************/
 /****** Texname Buffer **************************************************************/
-#define texname_tex         DataAry(NJS_TEXNAME, 0x01940870, [512])
+#define texname_tex         DATA_ARY(NJS_TEXNAME, 0x01940870, [512])
 
 /************************/
 /*  Functions           */
@@ -142,8 +142,8 @@ int32_t  LoadPrsMEM( const char* fname, NJS_TEXLIST* ptlo );
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /****** Function Pointer ************************************************************/
-#   define texLoadTexturePrsFile_p          FuncPtr(int32_t     , __fastcall, (const char*, NJS_TEXLIST*), 0x0044C350)
-#   define texCreateTexlist_p               FuncPtr(NJS_TEXLIST*, __fastcall, (const char*)              , 0x0044C510)
+#   define texLoadTexturePrsFile_p          FUNC_PTR(int32_t     , __fastcall, (const char*, NJS_TEXLIST*), 0x0044C350)
+#   define texCreateTexlist_p               FUNC_PTR(NJS_TEXLIST*, __fastcall, (const char*)              , 0x0044C510)
 
 /****** User-Function Pointer *******************************************************/
 #   define texLoadTexturePrsList_p          ((void*)0x0044C7B0)

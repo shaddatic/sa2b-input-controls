@@ -39,7 +39,7 @@ void    GX_SetPointSize(uint8_t pxSize);
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define GX_SetCullMode_p             FuncPtr(void, __fastcall, (int32_t), 0x00420440)
+#   define GX_SetCullMode_p             FUNC_PTR(void, __fastcall, (int32_t), 0x00420440)
 
 /** User-function ptrs **/
 #   define GX_SetBlendMode_p            ((void*)0x00420480)

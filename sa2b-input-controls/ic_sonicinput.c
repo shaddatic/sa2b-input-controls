@@ -3,7 +3,7 @@
 /************************/
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/memutil.h>   /* WriteJump */
+#include <sa2b/writeop.h>   /* WriteJump                                            */
 
 /****** System **********************************************************************/
 #include <sa2b/shinobi/sg_pad.h>
@@ -25,7 +25,7 @@
 /************************/
 /*  Game Data           */
 /************************/
-#define AnalogThrust        DataAry(bool, 0x01DEFDA0, [8])
+#define AnalogThrust        DATA_ARY(bool, 0x01DEFDA0, [8])
 
 /************************/
 /*  Source              */

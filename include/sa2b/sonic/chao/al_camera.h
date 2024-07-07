@@ -46,12 +46,12 @@ typedef struct
     Angle3 AngSpd;
     NJS_POINT3 tgtpos;
     NJS_POINT3 AimTarget;
-    float32_t tgtdist;
+    f32       tgtdist;
     int32_t ViewAngle;
-    float32_t TargetNormalOffsetY;
-    float32_t TargetTreeOffsetY;
-    float32_t PosOffsetY;
-    float32_t PosItpRatio;
+    f32       TargetNormalOffsetY;
+    f32       TargetTreeOffsetY;
+    f32       PosOffsetY;
+    f32       PosItpRatio;
     int32_t StopFlag;
 }
 AL_CAMERA_WORK;
@@ -59,10 +59,10 @@ AL_CAMERA_WORK;
 /************************/
 /*  Data                */
 /************************/
-#define AL_NormalCameraTaskPointer      DataRef(TASK*   , 0x01AED2E8)
+#define AL_NormalCameraTaskPointer      DATA_REF(TASK*   , 0x01AED2E8)
 
 /** Collision info **/
-#define colli_info_alcam                DataAry(CCL_INFO, 0x008A57B0, [2])
+#define colli_info_alcam                DATA_ARY(CCL_INFO, 0x008A57B0, [2])
 
 /************************/
 /*  Functions           */
@@ -93,12 +93,12 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALCAM_CreateCameraManager_p          FuncPtr(void , __cdecl, (void) , 0x0057D4C0)
-#   define ALCAM_CameraManagerExecutor_p        FuncPtr(void , __cdecl, (TASK*), 0x0057D400)
-#   define ALCAM_CameraManagerDestructor_p      FuncPtr(void , __cdecl, (TASK*), 0x0057D410)
-#   define AL_CreateNormalCameraTask_p          FuncPtr(TASK*, __cdecl, (void) , 0x0057D2E0)
-#   define AL_NormalCameraExecutor_p            FuncPtr(void , __cdecl, (TASK*), 0x0057CD50)
-#   define AL_NormalCameraDestructor_p          FuncPtr(void , __cdecl, (TASK*), 0x0057D2D0)
+#   define ALCAM_CreateCameraManager_p          FUNC_PTR(void , __cdecl, (void) , 0x0057D4C0)
+#   define ALCAM_CameraManagerExecutor_p        FUNC_PTR(void , __cdecl, (TASK*), 0x0057D400)
+#   define ALCAM_CameraManagerDestructor_p      FUNC_PTR(void , __cdecl, (TASK*), 0x0057D410)
+#   define AL_CreateNormalCameraTask_p          FUNC_PTR(TASK*, __cdecl, (void) , 0x0057D2E0)
+#   define AL_NormalCameraExecutor_p            FUNC_PTR(void , __cdecl, (TASK*), 0x0057CD50)
+#   define AL_NormalCameraDestructor_p          FUNC_PTR(void , __cdecl, (TASK*), 0x0057D2D0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

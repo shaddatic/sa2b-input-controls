@@ -23,9 +23,9 @@
 /************************/
 /*  Data                */
 /************************/
-#define gAlItemBuyList              DataAry(SAlItem, 0x01DBEDC0, [15])
-#define gAlItemBuyNum               DataRef(int32_t, 0x01DBEDC0)
+#define gAlItemBuyList              DATA_ARY(SAlItem, 0x01DBEDC0, [15])
+#define gAlItemBuyNum               DATA_REF(int32_t, 0x01DBEDC0)
 
-#define NextBuyListChangeTime       DataRef(int32_t, 0x01DBED8C)
+#define NextBuyListChangeTime       DATA_REF(int32_t, 0x01DBED8C)
 
 #endif/*_SA2B_CHAO_KINDER_KINDER_H_*/

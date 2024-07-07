@@ -44,12 +44,12 @@ typedef struct // ANYWK
     int32_t timer2;
     int8_t countV;
     uint8_t flag;
-    float32_t posX;
-    float32_t posY;
-    float32_t aimX;
-    float32_t aimY;
-    float32_t alpha;
-    float32_t size;
+    f32       posX;
+    f32       posY;
+    f32       aimX;
+    f32       aimY;
+    f32       alpha;
+    f32       size;
     int32_t phase;
     int32_t phase2;
     int32_t location;
@@ -66,7 +66,7 @@ SParamFukidasiWork;
 /************************/
 /*  Data                */
 /************************/
-#define pChaoParamFukidasiTask      DataRef(TASK*, 0x01AED28C)
+#define pChaoParamFukidasiTask      DATA_REF(TASK*, 0x01AED28C)
 
 /************************/
 /*  Functions           */
@@ -89,10 +89,10 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_CloseParameterFukidasi_p      FuncPtr(void, __fastcall, (TASK*), 0x00565B90)
-#   define ParamFukidasiExecutor_p          FuncPtr(void, __cdecl   , (TASK*), 0x00564C80)
-#   define ParamFukidasiDisplayer_p         FuncPtr(void, __cdecl   , (TASK*), 0x00565200)
-#   define ParamFukidasiDestructor_p        FuncPtr(void, __cdecl   , (TASK*), 0x005659C0)
+#   define AL_CloseParameterFukidasi_p      FUNC_PTR(void, __fastcall, (TASK*), 0x00565B90)
+#   define ParamFukidasiExecutor_p          FUNC_PTR(void, __cdecl   , (TASK*), 0x00564C80)
+#   define ParamFukidasiDisplayer_p         FUNC_PTR(void, __cdecl   , (TASK*), 0x00565200)
+#   define ParamFukidasiDestructor_p        FUNC_PTR(void, __cdecl   , (TASK*), 0x005659C0)
 
 /** User-Function ptrs **/
 #   define AL_OpenParameterFukidasi_p       ((void*)0x005659E0)

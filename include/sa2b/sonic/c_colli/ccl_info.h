@@ -29,10 +29,10 @@ typedef struct
     int8_t     damage;
     uint32_t   attr;
     NJS_POINT3 center;
-    float32_t  a;
-    float32_t  b;
-    float32_t  c;
-    float32_t  d;
+    f32        a;
+    f32        b;
+    f32        c;
+    f32        d;
     int32_t    angx;
     int32_t    angy;
     int32_t    angz;

@@ -143,8 +143,8 @@ typedef struct
     uint16_t  objnum;
     int16_t   mtnmode;
     int16_t   next;
-    float32_t frame;
-    float32_t racio;
+    f32       frame;
+    f32       racio;
 }
 PL_ACTION;
 
@@ -177,14 +177,14 @@ MOTION_JVWK;
 
 typedef struct csts
 {
-    float32_t  radius;
+    f32        radius;
     NJS_POINT3 campos;
     NJS_POINT3 spd;
     NJS_POINT3 tnorm;
     uint16_t   find_count;
     uint16_t   selected_nmb;
-    float32_t  yt;
-    float32_t  yb;
+    f32        yt;
+    f32        yb;
     int32_t    angx;
     int32_t    angz;
     NJS_POINT3 normal;
@@ -198,12 +198,12 @@ CSTS;
 
 typedef struct 
 {
-    float32_t x;
-    float32_t y;
-    float32_t z;
-    float32_t r;
-    float32_t d;
-    float32_t h;
+    f32       x;
+    f32       y;
+    f32       z;
+    f32       r;
+    f32       d;
+    f32       h;
     int32_t   angy_dif;
     int32_t   angy_aim;
 }
@@ -212,38 +212,38 @@ PL_LANDPOSI;
 typedef struct player_parameter
 {
     int32_t   jump2_timer;
-    float32_t pos_error;
-    float32_t lim_h_spd;
-    float32_t lim_v_spd;
-    float32_t max_x_spd;
-    float32_t max_psh_spd;
-    float32_t jmp_y_spd;
-    float32_t nocon_speed;
-    float32_t slide_speed;
-    float32_t jog_speed;
-    float32_t run_speed;
-    float32_t rush_speed;
-    float32_t crash_speed;
-    float32_t dash_speed;
-    float32_t jmp_addit;
-    float32_t run_accel;
-    float32_t air_accel;
-    float32_t slow_down;
-    float32_t run_break;
-    float32_t air_break;
-    float32_t air_resist_air;
-    float32_t air_resist;
-    float32_t air_resist_y;
-    float32_t air_resist_z;
-    float32_t grd_frict;
-    float32_t grd_frict_z;
-    float32_t lim_frict;
-    float32_t rat_bound;
-    float32_t rad;
-    float32_t height;
-    float32_t weight;
-    float32_t eyes_height;
-    float32_t center_height;
+    f32       pos_error;
+    f32       lim_h_spd;
+    f32       lim_v_spd;
+    f32       max_x_spd;
+    f32       max_psh_spd;
+    f32       jmp_y_spd;
+    f32       nocon_speed;
+    f32       slide_speed;
+    f32       jog_speed;
+    f32       run_speed;
+    f32       rush_speed;
+    f32       crash_speed;
+    f32       dash_speed;
+    f32       jmp_addit;
+    f32       run_accel;
+    f32       air_accel;
+    f32       slow_down;
+    f32       run_break;
+    f32       air_break;
+    f32       air_resist_air;
+    f32       air_resist;
+    f32       air_resist_y;
+    f32       air_resist_z;
+    f32       grd_frict;
+    f32       grd_frict_z;
+    f32       lim_frict;
+    f32       rat_bound;
+    f32       rad;
+    f32       height;
+    f32       weight;
+    f32       eyes_height;
+    f32       center_height;
 }
 PL_PARAMETER;
 
@@ -293,16 +293,16 @@ typedef struct playerwk
     int16_t path_point;     // ? More research needed
     int32_t equipment;
 
-    float32_t unkf_0;       // ? Related to being grabbed
+    f32       unkf_0;       // ? Related to being grabbed
     Angle     lean;         // Body lean angle
-    float32_t hpos;         // 1D Position along a path
-    float32_t dotp;         // Vertical dot product
-    float32_t unkf_1;       // ? Animation speed related
-    float32_t unkf_2;       // ? Seemingly random
-    float32_t unkf_3;       // ? Changing at all breaks game
-    float32_t rspd;         // Running speed
+    f32       hpos;         // 1D Position along a path
+    f32       dotp;         // Vertical dot product
+    f32       unkf_1;       // ? Animation speed related
+    f32       unkf_2;       // ? Seemingly random
+    f32       unkf_3;       // ? Changing at all breaks game
+    f32       rspd;         // Running speed
 
-    float32_t hp;        // Health, used for walkers and bossfights
+    f32       hp;        // Health, used for walkers and bossfights
 
     NJS_VECTOR eff;
     NJS_VECTOR acc;
@@ -336,7 +336,7 @@ typedef struct playerwk
     int32_t    unki_1;
     uint8_t    gap_14C[4];
     int32_t    unki_2;
-    float32_t  unkf_5;
+    f32        unkf_5;
     NJS_POINT3 unkp3_0;
     uint8_t    gap_164[12];
     TASK*      unktp_1;
@@ -413,31 +413,31 @@ PL_OBJECT;
 /************************/
 /*  Data                */
 /************************/
-#define CHAR_OBJECTS        DataAry(PL_OBJECT  , 0x01DE9620, [532])
-#define CHAR_MOTIONS        DataAry(PL_MOTION  , 0x01DEA700, [300])
+#define CHAR_OBJECTS        DATA_ARY(PL_OBJECT  , 0x01DE9620, [532])
+#define CHAR_MOTIONS        DATA_ARY(PL_MOTION  , 0x01DEA700, [300])
 
-#define usPlayer            DataRef(int32_t    , 0x01934B80)
-#define usPlayer2           DataRef(int32_t    , 0x01934BE4)
+#define usPlayer            DATA_REF(int32_t    , 0x01934B80)
+#define usPlayer2           DATA_REF(int32_t    , 0x01934BE4)
 
 /** Player Work Pointers **/
-#define playermwp           DataAry(MOTIONWK*  , 0x01DE95E0, [8])
-#define playerpwp           DataAry(PLAYERWK*  , 0x01DE9600, [8])
-#define playertwp           DataAry(TASKWK*    , 0x01DEA6C0, [8])
-#define playertp            DataAry(TASK*      , 0x01DEA6E0, [8])
+#define playermwp           DATA_ARY(MOTIONWK*  , 0x01DE95E0, [8])
+#define playerpwp           DATA_ARY(PLAYERWK*  , 0x01DE9600, [8])
+#define playertwp           DATA_ARY(TASKWK*    , 0x01DEA6C0, [8])
+#define playertp            DATA_ARY(TASK*      , 0x01DEA6E0, [8])
 
 /** Backup Task Functions For When Player Disabled **/
-#define pExecSave           DataAry(task_exec  , 0x019458F0, [8])
-#define pDispSave           DataAry(task_exec  , 0x01945960, [8])
-#define pDispDelySave       DataAry(task_exec  , 0x01945920, [8])
-#define pDispSortSave       DataAry(task_exec  , 0x019458D0, [8])
-#define pDispLateSave       DataAry(task_exec  , 0x01945940, [8])
-#define pDispLastSave       DataAry(task_exec  , 0x019458B0, [8])
-#define pDispShadSave       DataAry(task_exec  , 0x01945980, [8])
+#define pExecSave           DATA_ARY(task_exec  , 0x019458F0, [8])
+#define pDispSave           DATA_ARY(task_exec  , 0x01945960, [8])
+#define pDispDelySave       DATA_ARY(task_exec  , 0x01945920, [8])
+#define pDispSortSave       DATA_ARY(task_exec  , 0x019458D0, [8])
+#define pDispLateSave       DATA_ARY(task_exec  , 0x01945940, [8])
+#define pDispLastSave       DATA_ARY(task_exec  , 0x019458B0, [8])
+#define pDispShadSave       DATA_ARY(task_exec  , 0x01945980, [8])
 
 /** Other **/
 typedef NJS_POINT3          pos_history_t[8][256];
 
-#define pos_history         DataRef(pos_history_t*, 0x01A5A234)
+#define pos_history         DATA_REF(pos_history_t*, 0x01A5A234)
 
 /************************/
 /*  Functions           */
@@ -487,7 +487,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define CountCharacters_p                FuncPtr(int32_t, __cdecl, (void), 0x0046DD60)
+#   define CountCharacters_p                FUNC_PTR(int32_t, __cdecl, (void), 0x0046DD60)
 
 /** User-Function ptrs **/
 #   define GetTaskPlayerNumber_p            ((void*)0x0046DCC0)

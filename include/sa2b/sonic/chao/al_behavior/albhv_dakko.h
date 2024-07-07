@@ -36,11 +36,11 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Behavior ptrs **/
-#   define ALBHV_DakkoNormal_p      BhvFuncPtr(0x005662B0)
-#   define ALBHV_DakkoDislike_p     BhvFuncPtr(0x00566300)
-#   define ALBHV_DakkoLike_p        BhvFuncPtr(0x005660A0)
-#   define ALBHV_DakkoTron_p        BhvFuncPtr(0x00566580)
-#   define ALBHV_Dakko_p            BhvFuncPtr(0x00566670)
+#   define ALBHV_DakkoNormal_p      BhvFUNC_PTR(0x005662B0)
+#   define ALBHV_DakkoDislike_p     BhvFUNC_PTR(0x00566300)
+#   define ALBHV_DakkoLike_p        BhvFUNC_PTR(0x005660A0)
+#   define ALBHV_DakkoTron_p        BhvFUNC_PTR(0x00566580)
+#   define ALBHV_Dakko_p            BhvFUNC_PTR(0x00566670)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

@@ -25,12 +25,12 @@ typedef LRESULT(__stdcall fnWndProc)(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
 /************************/
 /*  Game Functions      */
 /************************/
-#define WndProc                 FuncPtr(LRESULT, __stdcall, (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam), 0x00401810)
+#define WndProc                 FUNC_PTR(LRESULT, __stdcall, (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam), 0x00401810)
 
 /************************/
 /*  Game Data           */
 /************************/
-#define MainWindowHandle        DataRef(HWND, 0x01933EA8)
+#define MainWindowHandle        DATA_REF(HWND, 0x01933EA8)
 
 /************************/
 /*  File Data           */

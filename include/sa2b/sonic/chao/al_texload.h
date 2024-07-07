@@ -43,7 +43,7 @@ LOADED_TEX_INFO;
 /************************/
 /*  Data                */
 /************************/
-#define TexEntry            DataAry(LOADED_TEX_INFO, 0x01DCD600, [4][256])
+#define TexEntry            DATA_ARY(LOADED_TEX_INFO, 0x01DCD600, [4][256])
 
 /************************/
 /*  Functions           */

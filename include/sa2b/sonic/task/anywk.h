@@ -27,7 +27,7 @@ typedef struct anywk
         int16_t   sw[8];
         uint32_t  ul[4];
         int32_t   sl[4];
-        float32_t f[4];
+        f32       f[4];
         void*     ptr[4];
     } work;
 }

@@ -34,8 +34,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#   define ObjectLightSW_p              FuncPtr(void, __cdecl, (TASK* tp), 0x006C9910)
-#   define ObjectLightSWExecutor_p      FuncPtr(void, __cdecl, (TASK* tp), 0x006C9C90)
+#   define ObjectLightSW_p              FUNC_PTR(void, __cdecl, (TASK* tp), 0x006C9910)
+#   define ObjectLightSWExecutor_p      FUNC_PTR(void, __cdecl, (TASK* tp), 0x006C9C90)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

@@ -72,12 +72,12 @@ ADX_WORK;
 /*  Data                */
 /************************/
 /****** ADX Task ********************************************************************/
-#define ADXtaskP            DataRef(TASK*    , 0x01A55994)
-#define ADXworkP            DataRef(ADX_WORK*, 0x01A55998)
+#define ADXtaskP            DATA_REF(TASK*    , 0x01A55994)
+#define ADXworkP            DATA_REF(ADX_WORK*, 0x01A55998)
 
 /****** Voice Constants *************************************************************/
-#define VOICE_COUNT         DataRef(int, 0x01A5599C) /* max 3                       */
-#define VOICE_VOLUME        DataRef(int, 0x01A55990)
+#define VOICE_COUNT         DATA_REF(int, 0x01A5599C) /* max 3                       */
+#define VOICE_VOLUME        DATA_REF(int, 0x01A55990)
 
 /************************/
 /*  Functions           */
@@ -210,12 +210,12 @@ void    ADX_Close( void );
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define BGM_Replay_p             FuncPtr(void   , __cdecl, (void), 0x00442D90)
-#   define BGM_Stop_p               FuncPtr(void   , __cdecl, (void), 0x00442F50)
-#   define BGM_FadeOut_p            FuncPtr(void   , __cdecl, (void), 0x00443090)
-#   define Jingle_Stop_p            FuncPtr(void   , __cdecl, (void), 0x004432D0)
-#   define Serif_Stop_p             FuncPtr(void   , __cdecl, (void), 0x004431B0)
-#   define ADX_TaskInit_p           FuncPtr(int32_t, __cdecl, (void), 0x00442490)
+#   define BGM_Replay_p             FUNC_PTR(void   , __cdecl, (void), 0x00442D90)
+#   define BGM_Stop_p               FUNC_PTR(void   , __cdecl, (void), 0x00442F50)
+#   define BGM_FadeOut_p            FUNC_PTR(void   , __cdecl, (void), 0x00443090)
+#   define Jingle_Stop_p            FUNC_PTR(void   , __cdecl, (void), 0x004432D0)
+#   define Serif_Stop_p             FUNC_PTR(void   , __cdecl, (void), 0x004431B0)
+#   define ADX_TaskInit_p           FUNC_PTR(int32_t, __cdecl, (void), 0x00442490)
 
 /** User-Function ptrs **/
 #   define BGM_Volume_p             ((void*)0x00443030)

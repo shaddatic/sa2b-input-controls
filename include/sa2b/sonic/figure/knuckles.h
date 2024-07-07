@@ -53,13 +53,13 @@ KNUCKLESWK;
 /************************/
 /*  Data                */
 /************************/
-#define KnucklesWorkPointer     DataRef(KNUCKLESWK*, 0x01A51C88)
+#define KnucklesWorkPointer     DATA_REF(KNUCKLESWK*, 0x01A51C88)
 
-#define mtx_KnucklesBase        DataRef(NJS_MATRIX , 0x01A51BEC)
-#define mtx_KnucklesHead        DataRef(NJS_MATRIX , 0x01A51CBC)
-#define mtx_KnucklesBody        DataRef(NJS_MATRIX , 0x01A51B3C)
-#define mtx_KnucklesHandL       DataRef(NJS_MATRIX , 0x01A51C58)
-#define mtx_KnucklesHandR       DataRef(NJS_MATRIX , 0x01A51C8C)
+#define mtx_KnucklesBase        DATA_REF(NJS_MATRIX , 0x01A51BEC)
+#define mtx_KnucklesHead        DATA_REF(NJS_MATRIX , 0x01A51CBC)
+#define mtx_KnucklesBody        DATA_REF(NJS_MATRIX , 0x01A51B3C)
+#define mtx_KnucklesHandL       DATA_REF(NJS_MATRIX , 0x01A51C58)
+#define mtx_KnucklesHandR       DATA_REF(NJS_MATRIX , 0x01A51C8C)
 
 /************************/
 /*  Functions           */
@@ -74,7 +74,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define KnucklesMotionCallBack_p     FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x0072EAA0)
+#   define KnucklesMotionCallBack_p     FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x0072EAA0)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

@@ -69,14 +69,14 @@ WALKERWK;
 /************************/
 /*  Data                */
 /************************/
-#define EggWalkerWorkPointer            DataRef(WALKERWK* , 0x01A51F0C)
+#define EggWalkerWorkPointer            DATA_REF(WALKERWK* , 0x01A51F0C)
 
-#define mtx_EWalkerBase                 DataRef(NJS_MATRIX, 0x01A51F70)
-#define mtx_EWalkerLaserBlaster         DataRef(NJS_MATRIX, 0x01A51EAC)
-#define mtx_EWalkerLargeCannon          DataRef(NJS_MATRIX, 0x01A51D2C)
-#define mtx_EWalkerJetEngineL           DataRef(NJS_MATRIX, 0x01A52000)
-#define mtx_EWalkerJetEngineR           DataRef(NJS_MATRIX, 0x01A52060)
-#define mtx_EWalkerProtectiveArmor      DataRef(NJS_MATRIX, 0x01A520C0)
+#define mtx_EWalkerBase                 DATA_REF(NJS_MATRIX, 0x01A51F70)
+#define mtx_EWalkerLaserBlaster         DATA_REF(NJS_MATRIX, 0x01A51EAC)
+#define mtx_EWalkerLargeCannon          DATA_REF(NJS_MATRIX, 0x01A51D2C)
+#define mtx_EWalkerJetEngineL           DATA_REF(NJS_MATRIX, 0x01A52000)
+#define mtx_EWalkerJetEngineR           DATA_REF(NJS_MATRIX, 0x01A52060)
+#define mtx_EWalkerProtectiveArmor      DATA_REF(NJS_MATRIX, 0x01A520C0)
 
 /************************/
 /*  Functions           */
@@ -91,7 +91,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define EggWalkerMotionCallBack_p        FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x00744020)
+#   define EggWalkerMotionCallBack_p        FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x00744020)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

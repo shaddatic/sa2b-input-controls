@@ -31,22 +31,22 @@ typedef struct al_object    AL_OBJECT;
 typedef struct 
 {
     void*     mdata;
-    float32_t CurrFrame;
+    f32       CurrFrame;
     uint32_t  nbFrame;
     void*     mdataLink;
-    float32_t CurrFrameLink;
+    f32       CurrFrameLink;
     uint32_t  nbFrameLink;
-    float32_t LinkRatio;
+    f32       LinkRatio;
 }
 AL_MOTION_INFO;
 
 /************************/
 /*  Data                */
 /************************/
-#define tree_counter    DataRef(int16_t       , 0x01AED2D4)
-#define MtnInfo         DataRef(AL_MOTION_INFO, 0x01A276A8)
+#define tree_counter    DATA_REF(int16_t       , 0x01AED2D4)
+#define MtnInfo         DATA_REF(AL_MOTION_INFO, 0x01A276A8)
 
-#define VertexVelo      DataAry(NJS_VECTOR    , 0x01DBD960, [256])
+#define VertexVelo      DATA_ARY(NJS_VECTOR    , 0x01DBD960, [256])
 
 /************************/
 /*  Functions           */
@@ -69,9 +69,9 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_SetCurrMatrixSub_p            FuncPtr(void, __cdecl, (AL_OBJECT*)       , 0x0056F010)
-#   define AL_BuyoBuyoObject_p              FuncPtr(void, __cdecl, (TASK*, AL_OBJECT*), 0x0056F5C0)
-#   define AL_BuyoBuyoControl_p             FuncPtr(void, __cdecl, (TASK*)            , 0x0056FC20)
+#   define AL_SetCurrMatrixSub_p            FUNC_PTR(void, __cdecl, (AL_OBJECT*)       , 0x0056F010)
+#   define AL_BuyoBuyoObject_p              FUNC_PTR(void, __cdecl, (TASK*, AL_OBJECT*), 0x0056F5C0)
+#   define AL_BuyoBuyoControl_p             FUNC_PTR(void, __cdecl, (TASK*)            , 0x0056FC20)
 
 /** User-Function ptrs **/
 #   define AL_InitCalcMotionMatrix_p        ((void*)0x0056E9C0);

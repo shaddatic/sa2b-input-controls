@@ -15,6 +15,6 @@
 /************************/
 /*  Data                */
 /************************/
-#define vmsindex        DataRef(int32_t, 0x0173D06C)
+#define vmsindex        DATA_REF(int32_t, 0x0173D06C)
 
 #endif /* _SA2B_SAVEDATA_H_ */

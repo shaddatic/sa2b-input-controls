@@ -84,7 +84,7 @@ typedef struct task
         int8_t    b[4];
         int16_t   w[2];
         int32_t   l;
-        float32_t f;
+        f32       f;
         void*     ptr;
     } thp;                      /* Needs more research              */
 }
@@ -93,7 +93,7 @@ TASK;
 /************************/
 /*  Data                */
 /************************/
-#define btp                 DataAry(TASK*, 0x01A5A254, [8]) /* Task lists */
+#define btp                 DATA_ARY(TASK*, 0x01A5A254, [8]) /* Task lists */
 
 /************************/
 /*  Task Element Flags  */
@@ -129,8 +129,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#   define CreateChildTask_p        FuncPtr(TASK*, __cdecl, (int16_t, task_exec, TASK*), 0x0470C00)
-#   define DestroyTask_p            FuncPtr(void , __cdecl, (TASK*)                   , 0x046F720)
+#   define CreateChildTask_p        FUNC_PTR(TASK*, __cdecl, (int16_t, task_exec, TASK*), 0x0470C00)
+#   define DestroyTask_p            FUNC_PTR(void , __cdecl, (TASK*)                   , 0x046F720)
 
 /** User-Function ptr **/
 #   define CreateElementalTask_p    ((void*)0x0046F610);

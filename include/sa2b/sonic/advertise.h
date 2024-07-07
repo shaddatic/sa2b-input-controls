@@ -45,7 +45,7 @@ typedef enum
 }
 AdvaModeEnum;
 
-#define AdvaMode        DataRef(int32_t, 0x01D7BB10)
-#define AdvaSubMode     DataRef(int32_t, 0x01D7BB14)
+#define AdvaMode        DATA_REF(int32_t, 0x01D7BB10)
+#define AdvaSubMode     DATA_REF(int32_t, 0x01D7BB14)
 
 #endif/*_SA2B_ADVERTISE_H_*/

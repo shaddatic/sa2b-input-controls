@@ -22,10 +22,10 @@ typedef struct pathtbl
 {
     int16_t   slangx;
     int16_t   slangz;
-    float32_t length;
-    float32_t xpos;
-    float32_t ypos;
-    float32_t zpos;
+    f32       length;
+    f32       xpos;
+    f32       ypos;
+    f32       zpos;
 }
 PATH_TABLE;
 
@@ -33,7 +33,7 @@ typedef struct pathtag
 {
     uint8_t     pathtype;
     uint16_t    points;
-    float32_t   totallen;
+    f32         totallen;
     PATH_TABLE* tblhead;
     void*       pathtask;
 }
@@ -59,7 +59,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ManagePathCreate_p       FuncPtr(int32_t, __cdecl, (PATH_TAG** pPathList), 0x00490110)
+#   define ManagePathCreate_p       FUNC_PTR(int32_t, __cdecl, (PATH_TAG** pPathList), 0x00490110)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

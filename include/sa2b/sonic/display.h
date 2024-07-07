@@ -17,8 +17,8 @@
 /************************/
 /*  Data                */
 /************************/
-#define DisplayResolutionX      DataRef(float32_t, 0x174BA64)
-#define DisplayResolutionY      DataRef(float32_t, 0x174BA68)
+#define DisplayResolutionX      DATA_REF(f32      , 0x174BA64)
+#define DisplayResolutionY      DATA_REF(f32      , 0x174BA68)
 
 /************************/
 /*  Functions           */

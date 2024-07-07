@@ -41,23 +41,23 @@ MINIMALWK;
 /*  Data                */
 /************************/
 /** Collision info **/
-#define colli_info_minimal      DataAry(0x008AC728, CCL_INFO, [1])
+#define colli_info_minimal      DATA_ARY(0x008AC728, CCL_INFO, [1])
 
 /************************/
 /*  Functions           */
 /************************/
 EXTERN_START
 /** Base creator **/
-TASK*   Minimal_Create(float32_t posX, float32_t posY, float32_t posZ, int32_t num, uint32_t flag);
+TASK*   Minimal_Create(f32 posX, f32 posY, f32 posZ, int32_t num, uint32_t flag);
 
 /** Create random minimal **/
-TASK*   Minimal_Random(float32_t posX, float32_t posY, float32_t posZ);
+TASK*   Minimal_Random(f32 posX, f32 posY, f32 posZ);
 
 /** Create minimal from enemy **/
-void    Minimal_Enemy(float32_t posX, float32_t posY, float32_t posZ);
+void    Minimal_Enemy(f32 posX, f32 posY, f32 posZ);
 
 /** Jump from object/box and follow player **/
-TASK*   Minimal_JumpOut(int32_t num, float32_t posX, float32_t posY, float32_t posZ);
+TASK*   Minimal_JumpOut(int32_t num, f32 posX, f32 posY, f32 posZ);
 
 /*
 *   Internal functions
@@ -79,13 +79,13 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define Minimal_Create_p                 FuncPtr(TASK*, __cdecl, (float32_t, float32_t, float32_t, int32_t, uint32_t), 0x0048AAD0)
-#   define Minimal_Random_p                 FuncPtr(TASK*, __cdecl, (float32_t, float32_t, float32_t)                   , 0x0048AD10)
-#   define Minimal_Enemy_p                  FuncPtr(void , __cdecl, (float32_t, float32_t, float32_t)                   , 0x0048ADA0)
-#   define Minimal_Exec_p                   FuncPtr(void , __cdecl, (TASK*)                                             , 0x004898B0)
-#   define Minimal_Disp_p                   FuncPtr(void , __cdecl, (TASK*)                                             , 0x0048A390)
-#   define Minimal_DispSort_p               FuncPtr(void , __cdecl, (TASK*)                                             , 0x0048A4F0)
-#   define Minimal_Dest_p                   FuncPtr(void , __cdecl, (TASK*)                                             , 0x0048A6B0)
+#   define Minimal_Create_p                 FUNC_PTR(TASK*, __cdecl, (f32, f32, f32, int32_t, uint32_t), 0x0048AAD0)
+#   define Minimal_Random_p                 FUNC_PTR(TASK*, __cdecl, (f32, f32, f32)                   , 0x0048AD10)
+#   define Minimal_Enemy_p                  FUNC_PTR(void , __cdecl, (f32, f32, f32)                   , 0x0048ADA0)
+#   define Minimal_Exec_p                   FUNC_PTR(void , __cdecl, (TASK*)                           , 0x004898B0)
+#   define Minimal_Disp_p                   FUNC_PTR(void , __cdecl, (TASK*)                           , 0x0048A390)
+#   define Minimal_DispSort_p               FUNC_PTR(void , __cdecl, (TASK*)                           , 0x0048A4F0)
+#   define Minimal_Dest_p                   FUNC_PTR(void , __cdecl, (TASK*)                           , 0x0048A6B0)
 
 /** User-Function ptrs **/
 #   define Minimal_JumpOut_p                ((void*)0x0048AC30)

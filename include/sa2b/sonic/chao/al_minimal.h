@@ -101,7 +101,7 @@ typedef struct // TASKWK
     NJS_POINT3   pos;
     NJS_POINT3   scl;
     COLLIWK*     cwp;
-    float32_t    spd;
+    f32          spd;
     int32_t      RangeOutTimer;
     MOTION_CTRL  MtnCtrl;
     MOTION_TABLE MtnTable[4];
@@ -128,11 +128,11 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_CreateMinimalCreateManager_p      FuncPtr(void , __cdecl, (void)                                                    , 0x00549490)
-#   define AL_MinimalCreate_p                   FuncPtr(TASK*, __cdecl, (int8_t, NJS_POINT3*, Angle, NJS_VECTOR*, ITEM_SAVE_INFO*), 0x00548D30)
-#   define AL_MinimalExecutor_p                 FuncPtr(void , __cdecl, (TASK*)                                                   , 0x00548C50)
-#   define AL_MinimalDisplayer_p                FuncPtr(void , __cdecl, (TASK*)                                                   , 0x005489D0)
-#   define AL_MinimalDestructor_p               FuncPtr(void , __cdecl, (TASK*)                                                   , 0x00548C30)
+#   define AL_CreateMinimalCreateManager_p      FUNC_PTR(void , __cdecl, (void)                                                    , 0x00549490)
+#   define AL_MinimalCreate_p                   FUNC_PTR(TASK*, __cdecl, (int8_t, NJS_POINT3*, Angle, NJS_VECTOR*, ITEM_SAVE_INFO*), 0x00548D30)
+#   define AL_MinimalExecutor_p                 FUNC_PTR(void , __cdecl, (TASK*)                                                   , 0x00548C50)
+#   define AL_MinimalDisplayer_p                FUNC_PTR(void , __cdecl, (TASK*)                                                   , 0x005489D0)
+#   define AL_MinimalDestructor_p               FUNC_PTR(void , __cdecl, (TASK*)                                                   , 0x00548C30)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

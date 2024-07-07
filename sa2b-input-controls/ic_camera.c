@@ -1,6 +1,10 @@
-#include <sa2b/core.h>
-#include <sa2b/memutil.h>
-#include <sa2b/memory.h>
+/************************/
+/*  Includes            */
+/************************/
+/****** Core Toolkit ****************************************************************/
+#include <sa2b/core.h>      /* core                                                 */
+#include <sa2b/writeop.h>   /* WriteJump, WriteCall, WriteNOP                       */
+#include <sa2b/memory.h>    /* MemCopy                                              */
 
 #include <sa2b/ninja/ninja.h>
 
@@ -138,23 +142,23 @@ IC_CameraInit(void)
     if (CnfGetInt(CNF_MAIN_CAMANALOG))
     {
         /* CameraKnukles */
-        WriteNoOP(0x004F4D37, 0x004F4DB4);
+        WriteNOP( 0x004F4D37, 0x004F4DB4);
         WriteCall(0x004F4D37, ___CameraGetAnalog);
 
         /* CameraKnuklesL */
-        WriteNoOP(0x004F42A8, 0x004F431F);
+        WriteNOP( 0x004F42A8, 0x004F431F);
         WriteCall(0x004F42A8, ___CameraGetAnalog);
 
         /* Sub-Init Free Look */
-        WriteNoOP(0x004EE4DA, 0x004EE4F4);
+        WriteNOP( 0x004EE4DA, 0x004EE4F4);
         WriteCall(0x004EE4DA, ___CheckCamInput);
 
         /* Init Free Look */
-        WriteNoOP(0x004EE440, 0x004EE45A);
+        WriteNOP( 0x004EE440, 0x004EE45A);
         WriteCall(0x004EE440, ___CheckCamInput);
 
         /* Idk */
-        WriteNoOP(0x004EDBF3, 0x004EDC0D);
+        WriteNOP( 0x004EDBF3, 0x004EDC0D);
         WriteCall(0x004EDBF3, ___CheckCamInput);
     }
 }

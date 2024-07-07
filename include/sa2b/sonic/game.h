@@ -75,24 +75,24 @@ enum
 /************************/
 /*  Data                */
 /************************/
-#define ulGlobalMode        DataRef(uint32_t, 0x0174B040)
-#define ulNextGlobalMode    DataRef(uint32_t, 0x0174B044)
+#define ulGlobalMode        DATA_REF(uint32_t, 0x0174B040)
+#define ulNextGlobalMode    DATA_REF(uint32_t, 0x0174B044)
 
-#define ssGameMode          DataRef(int16_t , 0x01934BE0)
+#define ssGameMode          DATA_REF(int16_t , 0x01934BE0)
 
-#define ssGameModeChange    DataRef(int16_t , 0x01A558A4)
+#define ssGameModeChange    DATA_REF(int16_t , 0x01A558A4)
 
-#define ssStageNumber       DataRef(int16_t , 0x01934B70)
-#define ssActNumber         DataRef(uint8_t , 0x0174AFE3)
+#define ssStageNumber       DATA_REF(int16_t , 0x01934B70)
+#define ssActNumber         DATA_REF(uint8_t , 0x0174AFE3)
 
-#define Language            DataRef(int8_t  , 0x0174AFD1)
-#define Speech              DataRef(int8_t  , 0x0174AFD2)
+#define Language            DATA_REF(int8_t  , 0x0174AFD1)
+#define Speech              DATA_REF(int8_t  , 0x0174AFD2)
 
-#define ucPauseSelect       DataRef(uint8_t , 0x01933EB1)
+#define ucPauseSelect       DATA_REF(uint8_t , 0x01933EB1)
 
-#define bPauseDisable       DataRef(int8_t  , 0x0174AFD6)
+#define bPauseDisable       DATA_REF(int8_t  , 0x0174AFD6)
 
-#define pause_flg           DataRef(int8_t  , 0x0174AFD7)
+#define pause_flg           DATA_REF(int8_t  , 0x0174AFD7)
 
 /************************/
 /*  Functions           */

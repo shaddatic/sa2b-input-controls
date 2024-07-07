@@ -43,7 +43,7 @@
 typedef struct
 {
     int32_t  angle;
-    float32_t stroke;
+    f32       stroke;
 }
 SONIC_INPUT;
 
@@ -54,39 +54,39 @@ SONIC_INPUT;
 *   'G' & external data is affected by 'ucInputStatus'
 */
 /** Disable/Enable Input **/
-#define ucInputStatus               DataRef(uint8_t        , 0x0174AFFE)
-#define ucInputStatusForEachPlayer  DataAry(uint8_t        , 0x0174AFFF, [2])
+#define ucInputStatus               DATA_REF(uint8_t        , 0x0174AFFE)
+#define ucInputStatusForEachPlayer  DATA_ARY(uint8_t        , 0x0174AFFF, [2])
 
 /** Controller Input **/
-#define per                         DataAry(PDS_PERIPHERAL*, 0x01DEFB60, [8]) /* points to 'PeripheralInfo' */
-#define perG                        DataAry(PDS_PERIPHERAL , 0x01DEFC00, [8])
+#define per                         DATA_ARY(PDS_PERIPHERAL*, 0x01DEFB60, [8]) /* points to 'PeripheralInfo' */
+#define perG                        DATA_ARY(PDS_PERIPHERAL , 0x01DEFC00, [8])
 
 /** Analog Input **/
-#define input_data                  DataAry(SONIC_INPUT    , 0x01DEFAC0, [8])
-#define input_dataG                 DataAry(SONIC_INPUT    , 0x01DEFBA0, [8])
+#define input_data                  DATA_ARY(SONIC_INPUT    , 0x01DEFAC0, [8])
+#define input_dataG                 DATA_ARY(SONIC_INPUT    , 0x01DEFBA0, [8])
 
 /** Jump Input **/
-#define jump_held                   DataAry(bool           , 0x01DEFAA4, [2])
-#define jump_press                  DataAry(bool           , 0x01DEFB80, [2])
-#define jump_off                    DataAry(bool           , 0x01DEFAA6, [2])
-#define jump_release                DataAry(bool           , 0x01DEFB40, [2])
+#define jump_held                   DATA_ARY(bool           , 0x01DEFAA4, [2])
+#define jump_press                  DATA_ARY(bool           , 0x01DEFB80, [2])
+#define jump_off                    DATA_ARY(bool           , 0x01DEFAA6, [2])
+#define jump_release                DATA_ARY(bool           , 0x01DEFB40, [2])
 
 /** Action Input **/
-#define action_held                 DataAry(bool           , 0x01DEFBF0, [2])
-#define action_press                DataAry(bool           , 0x01DEFB00, [2])
-#define action_off                  DataAry(bool           , 0x01DEFB20, [2])
-#define action_release              DataAry(bool           , 0x01DEFB42, [2])
+#define action_held                 DATA_ARY(bool           , 0x01DEFBF0, [2])
+#define action_press                DATA_ARY(bool           , 0x01DEFB00, [2])
+#define action_off                  DATA_ARY(bool           , 0x01DEFB20, [2])
+#define action_release              DATA_ARY(bool           , 0x01DEFB42, [2])
 
 /** Advertize Switch Input Internal **/
-#define SWDATA                      DataAry(uint32_t       , 0x01DEFB10, [4])
-#define SWDATAE                     DataAry(uint32_t       , 0x01DEFAB0, [4])
+#define SWDATA                      DATA_ARY(uint32_t       , 0x01DEFB10, [4])
+#define SWDATAE                     DATA_ARY(uint32_t       , 0x01DEFAB0, [4])
 
 /** Advertize Switch Input External **/
-#define swdata                      DataAry(uint32_t       , 0x01DEFBE0, [4])
-#define swdatae                     DataAry(uint32_t       , 0x01DEFB50, [4])
+#define swdata                      DATA_ARY(uint32_t       , 0x01DEFBE0, [4])
+#define swdatae                     DATA_ARY(uint32_t       , 0x01DEFB50, [4])
 
 /** Advertize Repeat Timer Internal **/
-#define SW_REP                      DataAry(int32_t        , 0x01934BF0, [4])
+#define SW_REP                      DATA_ARY(int32_t        , 0x01934BF0, [4])
 
 /************************/
 /*  Functions           */

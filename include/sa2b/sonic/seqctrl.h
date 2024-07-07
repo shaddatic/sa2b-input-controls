@@ -69,26 +69,26 @@ SEQ_SECTION;
 /*  Data                */
 /************************/
 /****** Sequence Section Lists ******************************************************/
-#define seqSectionStoryHero         DataAry(SEQ_SECTION, 0x0173A148, [46])
-#define seqSectionStoryDark         DataAry(SEQ_SECTION, 0x0173A370, [44])
-#define seqSectionStoryLast         DataAry(SEQ_SECTION, 0x0173A580, [ 8])
-#define seqSectionIntroGC           DataAry(SEQ_SECTION, 0x0173A5E0, [ 2])
-#define seqSectionDemoSonic         DataAry(SEQ_SECTION, 0x01730074, [ 3])
-#define seqSectionDemoPreview       DataAry(SEQ_SECTION, 0x0173089C, [ 3])
-#define seqSectionDemoTails         DataAry(SEQ_SECTION, 0x0173A5F8, [ 2])
-#define seqSectionDemoKnuckles      DataAry(SEQ_SECTION, 0x01730AC4, [ 3])
-#define seqSectionDemoShadow        DataAry(SEQ_SECTION, 0x017312EC, [ 2])
-#define seqSectionDemoEggman        DataAry(SEQ_SECTION, 0x0173A610, [ 2])
-#define seqSectionDemoRouge         DataAry(SEQ_SECTION, 0x017318CC, [ 3])
-#define seqSectionBossHero          DataAry(SEQ_SECTION, 0x0173A628, [ 9])
-#define seqSectionBossDark          DataAry(SEQ_SECTION, 0x0173A698, [ 9])
-#define seqSectionBossAll           DataAry(SEQ_SECTION, 0x0173A708, [19])
-#define seqSectionIntroDC           DataAry(SEQ_SECTION, 0x0173A7EC, [ 2])
+#define seqSectionStoryHero         DATA_ARY(SEQ_SECTION, 0x0173A148, [46])
+#define seqSectionStoryDark         DATA_ARY(SEQ_SECTION, 0x0173A370, [44])
+#define seqSectionStoryLast         DATA_ARY(SEQ_SECTION, 0x0173A580, [ 8])
+#define seqSectionIntroGC           DATA_ARY(SEQ_SECTION, 0x0173A5E0, [ 2])
+#define seqSectionDemoSonic         DATA_ARY(SEQ_SECTION, 0x01730074, [ 3])
+#define seqSectionDemoPreview       DATA_ARY(SEQ_SECTION, 0x0173089C, [ 3])
+#define seqSectionDemoTails         DATA_ARY(SEQ_SECTION, 0x0173A5F8, [ 2])
+#define seqSectionDemoKnuckles      DATA_ARY(SEQ_SECTION, 0x01730AC4, [ 3])
+#define seqSectionDemoShadow        DATA_ARY(SEQ_SECTION, 0x017312EC, [ 2])
+#define seqSectionDemoEggman        DATA_ARY(SEQ_SECTION, 0x0173A610, [ 2])
+#define seqSectionDemoRouge         DATA_ARY(SEQ_SECTION, 0x017318CC, [ 3])
+#define seqSectionBossHero          DATA_ARY(SEQ_SECTION, 0x0173A628, [ 9])
+#define seqSectionBossDark          DATA_ARY(SEQ_SECTION, 0x0173A698, [ 9])
+#define seqSectionBossAll           DATA_ARY(SEQ_SECTION, 0x0173A708, [19])
+#define seqSectionIntroDC           DATA_ARY(SEQ_SECTION, 0x0173A7EC, [ 2])
 
 /****** Sequence State **************************************************************/
-#define ucNextSectionNo             DataRef(uint8_t    , 0x01DEB31E)
-#define ucCurSectionNo              DataRef(uint8_t    , 0x01DEB31F)
-#define ucCurSequenceNo             DataRef(uint8_t    , 0x01DEB320)
+#define ucNextSectionNo             DATA_REF(uint8_t    , 0x01DEB31E)
+#define ucCurSectionNo              DATA_REF(uint8_t    , 0x01DEB31F)
+#define ucCurSequenceNo             DATA_REF(uint8_t    , 0x01DEB320)
 
 /************************/
 /*  Functions           */
@@ -108,7 +108,7 @@ void    SeqCtrl( void );
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /****** Function Pointers ***********************************************************/
-#   define SeqCtrl_p                FuncPtr(void, __cdecl, (void), 0x004586A0)
+#   define SeqCtrl_p                FUNC_PTR(void, __cdecl, (void), 0x004586A0)
 
 /****** User-Function Pointers ******************************************************/
 

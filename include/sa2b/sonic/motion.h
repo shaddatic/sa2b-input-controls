@@ -42,19 +42,19 @@ typedef struct
     int16_t     posture;
     int32_t     next;
     int32_t     link_step;
-    float32_t   start;
-    float32_t   end;
-    float32_t   spd;
+    f32         start;
+    f32         end;
+    f32         spd;
 }
 MOTION_TABLE;
 
 typedef struct
 {
     uint16_t    mode;
-    float32_t   frame;
-    float32_t   start;
-    float32_t   end;
-    float32_t   spd;
+    f32         frame;
+    f32         start;
+    f32         end;
+    f32         spd;
     NJS_MOTION* pMotion;
 }
 MOTION_INFO;
@@ -65,9 +65,9 @@ typedef struct
     uint16_t      posture;
     int32_t       curr_num;
     int32_t       next_num;
-    float32_t     multi_spd;
-    float32_t     link_spd;
-    float32_t     ratio;
+    f32           multi_spd;
+    f32           link_spd;
+    f32           ratio;
     MOTION_INFO   minfo[2];
     MOTION_TABLE* table;
 }
@@ -84,8 +84,8 @@ void        MotionControl( MOTION_CTRL* pMtnCtrl );
 b32         IsMotionEnd(  MOTION_CTRL* pMtnCtrl );
 b32         IsMotionStop( MOTION_CTRL* pMtnCtrl );
 
-void        SetMotionFrame( MOTION_CTRL* pMtnCtrl, float32_t frame );
-void        SetMotionSpd(   MOTION_CTRL* pMtnCtrl, float32_t spd   );
+void        SetMotionFrame( MOTION_CTRL* pMtnCtrl, f32 frame );
+void        SetMotionSpd(   MOTION_CTRL* pMtnCtrl, f32 spd   );
 
 void        SetMotionNum( MOTION_CTRL* pMtnCtrl, int32_t MtnNum );
 
@@ -93,7 +93,7 @@ void        SetMotionNext( MOTION_CTRL* pMtnCtrl );
 
 int32_t     GetMotionNum( MOTION_CTRL* pMtnCtrl );
 
-float32_t   GetMotionFrame(   MOTION_CTRL* pMtnCtrl );
+f32         GetMotionFrame(   MOTION_CTRL* pMtnCtrl );
 int32_t     GetMotionPosture( MOTION_CTRL* pMtnCtrl );
 
 void        SetMotionChange( MOTION_CTRL* pMtnCtrl, int32_t MtnNum );

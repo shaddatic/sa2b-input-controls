@@ -29,9 +29,9 @@ typedef struct
     EXTRA overflow[10];
     EXTRA list[10];
     int32_t nbExtra;
-    float32_t posx;
-    float32_t velo;
-    float32_t shiftx;
+    f32       posx;
+    f32       velo;
+    f32       shiftx;
     int32_t timer;
 }
 EXTRA_LIST;
@@ -39,7 +39,7 @@ EXTRA_LIST;
 /************************/
 /*  Data                */
 /************************/
-#define extra_lists        DataAry(EXTRA_LIST, 0x01946EC8, [3])
+#define extra_lists        DATA_ARY(EXTRA_LIST, 0x01946EC8, [3])
 
 /************************/
 /*  Functions            */
@@ -58,7 +58,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define Extra_Get_p             FuncPtr(EXTRA_LIST*, __fastcall, (int32_t), 0x00487260)
+#   define Extra_Get_p             FUNC_PTR(EXTRA_LIST*, __fastcall, (int32_t), 0x00487260)
 
 /** User-Function ptrs **/
 #   define AddExtraDisplay_p       ((void*)0x004872F0)

@@ -21,9 +21,9 @@
 /************************/
 /*  Data                */
 /************************/
-#define mtx_TornadoBazooka      DataRef(NJS_MATRIX, 0x01A52030)
-#define mtx_TornadoBoosterL     DataRef(NJS_MATRIX, 0x01A51EDC)
-#define mtx_TornadoBoosterR     DataRef(NJS_MATRIX, 0x01A51E4C)
+#define mtx_TornadoBazooka      DATA_REF(NJS_MATRIX, 0x01A52030)
+#define mtx_TornadoBoosterL     DATA_REF(NJS_MATRIX, 0x01A51EDC)
+#define mtx_TornadoBoosterR     DATA_REF(NJS_MATRIX, 0x01A51E4C)
 
 /************************/
 /*  Functions           */
@@ -38,7 +38,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define TornadoWalkerMotionCallBack_p     FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x00747940)
+#   define TornadoWalkerMotionCallBack_p     FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x00747940)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

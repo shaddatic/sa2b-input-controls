@@ -16,7 +16,7 @@
 /************************/
 /*  Data                */
 /************************/
-#define alCtrlMove      DataRef(b32, 0x01DBE634)
+#define alCtrlMove      DATA_REF(b32, 0x01DBE634)
 
 /************************/
 /*  Functions           */

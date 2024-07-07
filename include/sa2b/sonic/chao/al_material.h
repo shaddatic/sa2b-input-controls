@@ -28,8 +28,8 @@ typedef struct al_object    AL_OBJECT;
 /************************/
 /*  Data                */
 /************************/
-#define ChaoColorList       DataAry(int32_t, 0x01298448, [16])
-#define EggColorList        DataAry(int32_t, 0x01298414, [13])
+#define ChaoColorList       DATA_ARY(int32_t, 0x01298448, [16])
+#define EggColorList        DATA_ARY(int32_t, 0x01298414, [13])
 
 /************************/
 /*  Functions           */
@@ -51,8 +51,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_CopyObject_p                  FuncPtr(NJS_CNK_OBJECT*, __cdecl, (NJS_CNK_OBJECT*), 0x0055EBD0)
-#   define AL_FreeObject_p                  FuncPtr(void           , __cdecl, (NJS_CNK_OBJECT*), 0x0055EDF0)
+#   define AL_CopyObject_p                  FUNC_PTR(NJS_CNK_OBJECT*, __cdecl, (NJS_CNK_OBJECT*), 0x0055EBD0)
+#   define AL_FreeObject_p                  FUNC_PTR(void           , __cdecl, (NJS_CNK_OBJECT*), 0x0055EDF0)
 
 /** User-Function ptrs **/
 #   define AL_MatSetChaoColor_p             ((void*)0x0055EA00)

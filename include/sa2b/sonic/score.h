@@ -15,22 +15,22 @@
 /************************/
 /*  Data                */
 /************************/
-#define ssNumPlayer     DataAry(int16_t , 0x0174B024, [2])
+#define ssNumPlayer     DATA_ARY(int16_t , 0x0174B024, [2])
 
-#define ssNumRing       DataAry(int16_t , 0x0174B028, [2])
+#define ssNumRing       DATA_ARY(int16_t , 0x0174B028, [2])
 
-#define loop_const      DataRef(int32_t , 0x01DEB50C)
-#define ulGlobalTimer   DataRef(uint32_t, 0x0174B038)
+#define loop_const      DATA_REF(int32_t , 0x01DEB50C)
+#define ulGlobalTimer   DATA_REF(uint32_t, 0x0174B038)
 
-#define GameTimer       DataRef(int32_t , 0x0174B03C)
+#define GameTimer       DATA_REF(int32_t , 0x0174B03C)
 
-#define ucFrames        DataRef(uint8_t , 0x0174AFDD)
-#define ucSeconds       DataRef(uint8_t , 0x0174AFDC)
-#define ucMinutes       DataRef(uint8_t , 0x0174AFDB)
+#define ucFrames        DATA_REF(uint8_t , 0x0174AFDD)
+#define ucSeconds       DATA_REF(uint8_t , 0x0174AFDC)
+#define ucMinutes       DATA_REF(uint8_t , 0x0174AFDB)
 
-#define bWake           DataRef(bool    , 0x0174AFF7)
+#define bWake           DATA_REF(bool    , 0x0174AFF7)
 
-#define gu32TotalRing   DataRef(uint32_t, 0x0174B05C)
+#define gu32TotalRing   DATA_REF(uint32_t, 0x0174B05C)
 
 /************************/
 /*  Functions           */

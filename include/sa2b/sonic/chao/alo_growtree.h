@@ -74,8 +74,8 @@ enum
 /************************/
 typedef struct
 {
-    float32_t growth;
-    float32_t AimGrowth;
+    f32       growth;
+    f32       AimGrowth;
     int32_t SwingCounter;
     NJS_POINT3 pos;
     int32_t angx;
@@ -100,24 +100,24 @@ typedef struct // TASKWK
 
     uint8_t type;
     uint8_t state;
-    float32_t growth;
+    f32     growth;
     int32_t life;
     int32_t water;
     uint8_t pos_num;
     FRUIT_INFO fruit[3];
-    float32_t scale;
-    float32_t scaleSpd;
+    f32     scale;
+    f32     scaleSpd;
     int32_t ThirstyFlag;
     int32_t WaterFlag;
     int32_t LeafRotAng;
-    float32_t LeafWidth;
+    f32     LeafWidth;
     int32_t LeafDispNum;
     Angle FruitRotAng;
-    float32_t FruitWidth;
+    f32     FruitWidth;
     int32_t FruitDisplayNum;
     int32_t SwingFlag;
     int32_t SwingCountFlag;
-    float32_t SwingDist;
+    f32     SwingDist;
     Angle RollAngle;
     Angle TouchAngle;
     int32_t ChaoSwingPhase;
@@ -134,9 +134,9 @@ TREE_WORK;
 /************************/
 /*  Data                */
 /************************/
-#define TreeSetPos              DataAry(NJS_VECTOR, 0x01366B30, [3][10])
-#define LeafPhaseList           DataAry(Angle     , 0x012E8AEC, [11])
-#define FruitPhaseList          DataAry(Angle     , 0x013291B4, [4])
+#define TreeSetPos              DATA_ARY(NJS_VECTOR, 0x01366B30, [3][10])
+#define LeafPhaseList           DATA_ARY(Angle     , 0x012E8AEC, [11])
+#define FruitPhaseList          DATA_ARY(Angle     , 0x013291B4, [4])
 
 /************************/
 /*  Functions           */
@@ -160,12 +160,12 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_GrowTreeCreate_p         FuncPtr(TASK*, __cdecl, (NJS_POINT3*, TREE_SAVE_INFO*)                     , 0x00548210)
-#   define ALO_GrowTreeExecutor_p       FuncPtr(void , __cdecl, (TASK*)                                            , 0x00546810)
-#   define ALO_GrowTreeDisplayer_p      FuncPtr(void , __cdecl, (TASK*)                                            , 0x00547E70)
-#   define ALO_GrowTreeDestructor_p     FuncPtr(void , __cdecl, (TASK*)                                            , 0x005481E0)
-#   define CalcFruitPos_p               FuncPtr(void , __cdecl, (NJS_POINT3*, TREE_WORK*, int32_t)                 , 0x00546670)
-#   define CalcFruitPosSub_p            FuncPtr(void , __cdecl, (NJS_POINT3*, TREE_WORK*, NJS_CNK_OBJECT*, int32_t), 0x00546530)
+#   define ALO_GrowTreeCreate_p         FUNC_PTR(TASK*, __cdecl, (NJS_POINT3*, TREE_SAVE_INFO*)                     , 0x00548210)
+#   define ALO_GrowTreeExecutor_p       FUNC_PTR(void , __cdecl, (TASK*)                                            , 0x00546810)
+#   define ALO_GrowTreeDisplayer_p      FUNC_PTR(void , __cdecl, (TASK*)                                            , 0x00547E70)
+#   define ALO_GrowTreeDestructor_p     FUNC_PTR(void , __cdecl, (TASK*)                                            , 0x005481E0)
+#   define CalcFruitPos_p               FUNC_PTR(void , __cdecl, (NJS_POINT3*, TREE_WORK*, int32_t)                 , 0x00546670)
+#   define CalcFruitPosSub_p            FUNC_PTR(void , __cdecl, (NJS_POINT3*, TREE_WORK*, NJS_CNK_OBJECT*, int32_t), 0x00546530)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

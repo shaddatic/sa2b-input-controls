@@ -48,7 +48,7 @@ SOCAudioSystem;
 /************************/
 #ifdef  __cplusplus
 /****** Singleton *******************************************************************/
-#define g_pSOCAudioSystem           DataRef(Magic::Base::Singleton, 0x01AF19E0)
+#define g_pSOCAudioSystem           DATA_REF(Magic::Base::Singleton, 0x01AF19E0)
 
 #endif/*__cplusplus*/
 
@@ -72,7 +72,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#   define GetSOCAudioSystem_p      FuncPtr(SOCAudioSystem*, __cdecl, (void), 0x004021E0)
+#   define GetSOCAudioSystem_p      FUNC_PTR(SOCAudioSystem*, __cdecl, (void), 0x004021E0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

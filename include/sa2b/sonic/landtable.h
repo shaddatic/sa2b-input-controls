@@ -51,10 +51,10 @@ typedef struct zxsdwstr    ZXSDWSTR;
 /************************/
 typedef struct _OBJ_LANDENTRY
 {
-    float32_t   CenterX;
-    float32_t   CenterY;
-    float32_t   CenterZ;
-    float32_t   Radius;
+    f32         CenterX;
+    f32         CenterY;
+    f32         CenterZ;
+    f32         Radius;
     ANY_OBJECT* pObject;
     int32_t     field_14;
     int32_t     Chunks;
@@ -64,9 +64,9 @@ OBJ_LANDENTRY;
 
 typedef struct _OBJ_MOTLANDENTRY
 {
-    float32_t   fFrame;
-    float32_t   fStep;
-    float32_t   fMaxFrame;
+    f32         fFrame;
+    f32         fStep;
+    f32         fMaxFrame;
     ANY_OBJECT* pObject;
     NJS_MOTION* pMotion;
 }
@@ -80,7 +80,7 @@ typedef struct _OBJ_LANDTABLE
     int16_t             ssMotCount;         /* motion entry count   */
     int16_t             ssAttribute;        /* attribute            */
     int16_t             ssLoadFlag;         /* is loaded            */
-    float32_t           fFarClipping;       /* clip distance        */
+    f32                 fFarClipping;       /* clip distance        */
     OBJ_LANDENTRY*      pLandEntry;         /* land entry list      */
     OBJ_MOTLANDENTRY*   pMotLandEntry;      /* motion entry list    */
     char*               TexName;            /* texture file name    */
@@ -99,25 +99,25 @@ OBJ_LANDCOLL;
 /************************/
 /*  Data                */
 /************************/
-#define LandTaskP               DataRef(TASK*         , 0x01945A04)
+#define LandTaskP               DATA_REF(TASK*         , 0x01945A04)
 
-#define boolLandTableGinja      DataRef(b32           , 0x01A5A2D8)
-#define mleriRangeRad           DataRef(f32           , 0x0171CAA4)
-#define pObjLandTable           DataRef(OBJ_LANDTABLE*, 0x019459DC)
+#define boolLandTableGinja      DATA_REF(b32           , 0x01A5A2D8)
+#define mleriRangeRad           DATA_REF(f32           , 0x0171CAA4)
+#define pObjLandTable           DATA_REF(OBJ_LANDTABLE*, 0x019459DC)
 
-#define boolLandDisplay         DataRef(b32           , 0x0171CAA8)
-#define boolLandCollision       DataRef(b32           , 0x0171CAAC)
+#define boolLandDisplay         DATA_REF(b32           , 0x0171CAA8)
+#define boolLandCollision       DATA_REF(b32           , 0x0171CAAC)
 
-#define ri_landentry_buf        DataRef(OBJ_LANDENTRY*, 0x01A5A2D4)
-#define ri_landentry_nmb        DataRef(int32_t       , 0x01A5A2CC)
+#define ri_landentry_buf        DATA_REF(OBJ_LANDENTRY*, 0x01A5A2D4)
+#define ri_landentry_nmb        DATA_REF(int32_t       , 0x01A5A2CC)
 
-#define numLandCollList         DataRef(int16_t       , 0x01DE9484)
-#define ri_landcoll_nmb         DataRef(int32_t       , 0x01A5A2C8)
+#define numLandCollList         DATA_REF(int16_t       , 0x01DE9484)
+#define ri_landcoll_nmb         DATA_REF(int32_t       , 0x01A5A2C8)
 
-#define LandCollList            DataRef(OBJ_LANDCOLL* , 0x01A5A2DC)
+#define LandCollList            DATA_REF(OBJ_LANDCOLL* , 0x01A5A2DC)
 
-#define MobileEntry             DataRef(OBJ_LANDCOLL* , 0x01A5A2E0)
-#define numMobileEntry          DataRef(int16_t       , 0x019459D4)
+#define MobileEntry             DATA_REF(OBJ_LANDCOLL* , 0x01A5A2E0)
+#define numMobileEntry          DATA_REF(int16_t       , 0x019459D4)
 
 /************************/
 /*  Functions           */
@@ -134,7 +134,7 @@ void    LandFree(void);
 int32_t LandChangeGinjaLandTable(OBJ_LANDTABLE* land);
 int32_t LandChangeChunkLandTable(OBJ_LANDTABLE* land);
 
-void    ListGroundForCollision(float32_t xPosition, float32_t yPosition, float32_t zPosition, float32_t fRadius);
+void    ListGroundForCollision(f32 xPosition, f32 yPosition, f32 zPosition, f32 fRadius);
 
 int32_t CL_ColPolCheckZxShadow(ZXSDWSTR* zssp, NJS_OBJECT* obp);
 
@@ -145,8 +145,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ListGroundForCollision_p    FuncPtr(void   , __cdecl, (float32_t, float32_t, float32_t, float32_t), 0x0047CD60)
-#   define LandChangeLandTable_p       FuncPtr(int32_t, __cdecl, (OBJ_LANDTABLE*)                            , 0x0047BD30)
+#   define ListGroundForCollision_p    FUNC_PTR(void   , __cdecl, (f32, f32, f32, f32), 0x0047CD60)
+#   define LandChangeLandTable_p       FUNC_PTR(int32_t, __cdecl, (OBJ_LANDTABLE*)    , 0x0047BD30)
 
 /** User-Function ptrs **/
 #   define LandChangeGinjaLandTable_p  ((void*)0x0047BE10)

@@ -21,24 +21,24 @@
 /************************/
 /*  Typedefs            */
 /************************/
-typedef void(__cdecl CreateWaterripple_t)(NJS_POINT3*, NJS_POINT3*, float32_t);
-typedef void(__cdecl CreateWater_t)(NJS_POINT3*, Angle3*, float32_t, float32_t);
+typedef void(__cdecl CreateWaterripple_t)(NJS_POINT3*, NJS_POINT3*, f32);
+typedef void(__cdecl CreateWater_t)(NJS_POINT3*, Angle3*, f32, f32);
 
 /************************/
 /*  Data                */
 /************************/
-#define texlist_bsplash         DataAry(NJS_TEXLIST         , 0x00B09818, [1])
+#define texlist_bsplash         DATA_ARY(NJS_TEXLIST         , 0x00B09818, [1])
 
-#define pCreateWaterripple      DataRef(CreateWaterripple_t*, 0x01A5A2A8)
-#define pCreateWater            DataRef(CreateWater_t*      , 0x01A5A2B0)
+#define pCreateWaterripple      DATA_REF(CreateWaterripple_t*, 0x01A5A2A8)
+#define pCreateWater            DATA_REF(CreateWater_t*      , 0x01A5A2B0)
 
 /************************/
 /*  Functions           */
 /************************/
 EXTERN_START
-void    CreateWaterripple( NJS_POINT3* pPos, NJS_POINT3* pParam, float32_t scl );
+void    CreateWaterripple( NJS_POINT3* pPos, NJS_POINT3* pParam, f32 scl );
 
-void    CreateWater( NJS_POINT3* pPos, Angle3* pAng, float32_t scl, float32_t elemsize );
+void    CreateWater( NJS_POINT3* pPos, Angle3* pAng, f32 scl, f32 elemsize );
 
 EXTERN_END
 
@@ -47,8 +47,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#   define CreateWaterripple_p     FuncPtr(void, __cdecl, (NJS_POINT3*, NJS_POINT3*, float32_t)       , 0x006EDAF0)
-#   define CreateWater_p           FuncPtr(void, __cdecl, (NJS_POINT3*, Angle3*, float32_t, float32_t), 0x006EDEE0)
+#   define CreateWaterripple_p     FUNC_PTR(void, __cdecl, (NJS_POINT3*, NJS_POINT3*, f32)       , 0x006EDAF0)
+#   define CreateWater_p           FUNC_PTR(void, __cdecl, (NJS_POINT3*, Angle3*, f32, f32), 0x006EDEE0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

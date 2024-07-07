@@ -17,7 +17,7 @@
 /************************/
 /*  Functions           */
 /************************/
-#define ShowOverscanGrid            DataRef(bool32_t, 0x0174BA6C)
+#define ShowOverscanGrid            DATA_REF(bool32_t, 0x0174BA6C)
 
 /************************/
 /*  Functions           */
@@ -45,7 +45,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ___OutputDebugString_p      FuncPtr(int32_t, __cdecl, (const char*, ...), 0x00426740)
+#   define ___OutputDebugString_p      FUNC_PTR(int32_t, __cdecl, (const char*, ...), 0x00426740)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

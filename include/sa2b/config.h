@@ -87,7 +87,7 @@ int32_t     ConfigGetInt(    const config* pConfig, const utf8* section, const u
 uint32_t    ConfigGetHex(    const config* pConfig, const utf8* section, const utf8* key, uint32_t    def );
 uint32_t    ConfigGetOct(    const config* pConfig, const utf8* section, const utf8* key, uint32_t    def );
 bool        ConfigGetBool(   const config* pConfig, const utf8* section, const utf8* key, bool        def );
-float64_t   ConfigGetFloat(  const config* pConfig, const utf8* section, const utf8* key, float64_t   def );
+f64         ConfigGetFloat(  const config* pConfig, const utf8* section, const utf8* key, f64         def );
 const utf8* ConfigGetString( const config* pConfig, const utf8* section, const utf8* key, const utf8* def );
 
 /****** Set *************************************************************************/
@@ -105,7 +105,7 @@ void    ConfigSetInt(    config* pConfig, const utf8* section, const utf8* key, 
 void    ConfigSetHex(    config* pConfig, const utf8* section, const utf8* key, uint32_t    set );
 void    ConfigSetOct(    config* pConfig, const utf8* section, const utf8* key, uint32_t    set );
 void    ConfigSetBool(   config* pConfig, const utf8* section, const utf8* key, bool        set );
-void    ConfigSetFloat(  config* pConfig, const utf8* section, const utf8* key, float64_t   set );
+void    ConfigSetFloat(  config* pConfig, const utf8* section, const utf8* key, f64         set );
 void    ConfigSetString( config* pConfig, const utf8* section, const utf8* key, const utf8* set );
 
 /************************/

@@ -158,12 +158,12 @@ AL_HOLDING_ITEM_INFO;
 /************************/
 /*  Data                */
 /************************/
-#define HoldingItemInfo     DataRef(AL_HOLDING_ITEM_INFO, 0x019F6450)
+#define HoldingItemInfo     DATA_REF(AL_HOLDING_ITEM_INFO, 0x019F6450)
 
-#define GardenInfoList      DataAry(CHAO_GARDEN_INFO    , 0x019F6460, [2])
+#define GardenInfoList      DATA_ARY(CHAO_GARDEN_INFO    , 0x019F6460, [2])
 
-#define gAlItemInvList      DataAry(SAlItem             , 0x01DBEDA0, [6])
-#define gAlItemInvNum       DataRef(int32_t              , 0x01DBEDAC)
+#define gAlItemInvList      DATA_ARY(SAlItem             , 0x01DBEDA0, [6])
+#define gAlItemInvNum       DATA_REF(int32_t              , 0x01DBEDAC)
 
 /************************/
 /*  Functions           */
@@ -212,14 +212,14 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_GetNewItemSaveInfo_p          FuncPtr(ITEM_SAVE_INFO*  , __fastcall, (int32_t)          , 0x0052F9E0)
-#   define AL_GetCurrGardenInfo_p           FuncPtr(CHAO_GARDEN_INFO*, __cdecl   , (void)             , 0x0052E440)
-#   define AL_GetAnotherGardenInfo_p        FuncPtr(CHAO_GARDEN_INFO*, __cdecl   , (void)             , 0x0052E460)
-#   define AL_PackageAllSaveInfo_p          FuncPtr(void             , __cdecl   , (void)             , 0x0052F090)
-#   define AL_PackageItemSaveInfo_p         FuncPtr(void             , __cdecl   , (int32_t)          , 0x0052E710)
-#   define AL_CheckSaveDataCrc2_p           FuncPtr(b32         , __fastcall, (CHAO_GARDEN_INFO*), 0x0052F030)
-#   define AL_SetObjectOnTheGarden_p        FuncPtr(void             , __cdecl   , (void)             , 0x0052EB70)
-#   define AL_CreateHoldingItem_p           FuncPtr(void             , __cdecl   , (void)             , 0x0052F2A0)
+#   define AL_GetNewItemSaveInfo_p          FUNC_PTR(ITEM_SAVE_INFO*  , __fastcall, (int32_t)          , 0x0052F9E0)
+#   define AL_GetCurrGardenInfo_p           FUNC_PTR(CHAO_GARDEN_INFO*, __cdecl   , (void)             , 0x0052E440)
+#   define AL_GetAnotherGardenInfo_p        FUNC_PTR(CHAO_GARDEN_INFO*, __cdecl   , (void)             , 0x0052E460)
+#   define AL_PackageAllSaveInfo_p          FUNC_PTR(void             , __cdecl   , (void)             , 0x0052F090)
+#   define AL_PackageItemSaveInfo_p         FUNC_PTR(void             , __cdecl   , (int32_t)          , 0x0052E710)
+#   define AL_CheckSaveDataCrc2_p           FUNC_PTR(b32         , __fastcall, (CHAO_GARDEN_INFO*), 0x0052F030)
+#   define AL_SetObjectOnTheGarden_p        FUNC_PTR(void             , __cdecl   , (void)             , 0x0052EB70)
+#   define AL_CreateHoldingItem_p           FUNC_PTR(void             , __cdecl   , (void)             , 0x0052F2A0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

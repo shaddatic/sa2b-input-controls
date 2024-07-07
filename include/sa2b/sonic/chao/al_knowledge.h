@@ -32,7 +32,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_KW_GetPlayerCharacterNum_p        FuncPtr(int32_t, __cdecl, (void), 0x0053E0C0)
+#   define AL_KW_GetPlayerCharacterNum_p        FUNC_PTR(int32_t, __cdecl, (void), 0x0053E0C0)
 
 /** User-function ptrs **/
 #   define AL_KW_MeetPlayer_p                   ((void*)0x0053E280)

@@ -3,7 +3,7 @@
 /************************/
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/memutil.h>   /* WriteJump                                            */
+#include <sa2b/writeop.h>   /* WriteJump                                            */
 
 /****** Game ************************************************************************/
 #include <sa2b/sonic/task.h>    /* TASK                                             */
@@ -22,7 +22,7 @@
 /************************/
 /*  Game Variables      */
 /************************/
-#define now_saving          DataRef(int8_t , 0x0174AFD4)
+#define now_saving          DATA_REF(int8_t , 0x0174AFD4)
 
 /************************/
 /*  Source              */

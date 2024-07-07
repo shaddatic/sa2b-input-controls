@@ -32,11 +32,11 @@ typedef struct shadowwk
     Angle angz;
     uint32_t Attr_top;
     uint32_t Attr_bottom;
-    float32_t y_top;
-    float32_t y_bottom;
+    f32       y_top;
+    f32       y_bottom;
     uint32_t _Attr_top;
     uint32_t _Attr_bottom;
-    float32_t scl;
+    f32       scl;
 }
 SHADOWWK;
 
@@ -46,7 +46,7 @@ typedef struct xssunit
     int32_t objatt;
     int32_t angx;
     int32_t angz;
-    float32_t onpos;
+    f32       onpos;
     NJS_POINT3 normal;
 }
 XSSUNIT;
@@ -64,7 +64,7 @@ ZXSDWSTR;
 /************************/
 EXTERN_START
 /** Calculate ground shadow position and angle **/
-float32_t GetShadowPos(float32_t x, float32_t y, float32_t z, Angle3* ang);
+f32       GetShadowPos(f32 x, f32 y, f32 z, Angle3* ang);
 
 /** Calculate shadow info below 'position' **/
 void    GetCharacterShadowInfo(NJS_VECTOR* position, SHADOWWK* swp);
@@ -76,8 +76,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function Ptrs **/
-#define GetShadowPos_p              FuncPtr(float32_t, __cdecl, (float32_t, float32_t, float32_t, Angle3*), 0x00494C30)
-#define GetCharacterShadowInfo_p    FuncPtr(void   , __cdecl, (NJS_VECTOR*, SHADOWWK*)            , 0x00494DF0)
+#define GetShadowPos_p              FUNC_PTR(f32    , __cdecl, (f32, f32, f32, Angle3*), 0x00494C30)
+#define GetCharacterShadowInfo_p    FUNC_PTR(void   , __cdecl, (NJS_VECTOR*, SHADOWWK*), 0x00494DF0)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

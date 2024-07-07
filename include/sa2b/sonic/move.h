@@ -42,15 +42,15 @@ typedef struct move_work
     Angle3      AimAng;
     Angle3      RotSpd;
     int32_t     unk;
-    float32_t   rad;
-    float32_t   height;
-    float32_t   weight;
+    f32         rad;
+    f32         height;
+    f32         weight;
     uint16_t    Flag;
     uint16_t    Timer;
-    float32_t   Spd;
-    float32_t   Gravity;
+    f32         Spd;
+    f32         Gravity;
     int32_t     ViewAngle;
-    float32_t   ViewRange;
+    f32         ViewRange;
     NJS_POINT3  AimPos;
     NJS_POINT3  PrePos;
     NJS_POINT3  HomePos;
@@ -58,17 +58,17 @@ typedef struct move_work
     Angle3      Phase;
     NJS_LINE    FrontWall;
     NJS_POINT3  Offset;
-    float32_t   Top;
-    float32_t   Side;
-    float32_t   Bottom;
-    float32_t   CliffHeight;
-    float32_t   BoundSide;
-    float32_t   BoundFloor;
-    float32_t   BoundCeiling;
-    float32_t   BoundFriction;
-    float32_t   TopY;
-    float32_t   BottomY;
-    float32_t   WaterY;
+    f32         Top;
+    f32         Side;
+    f32         Bottom;
+    f32         CliffHeight;
+    f32         BoundSide;
+    f32         BoundFloor;
+    f32         BoundCeiling;
+    f32         BoundFriction;
+    f32         TopY;
+    f32         BottomY;
+    f32         WaterY;
     XYZ_SHADOW_WORK Shadow;
 }
 MOVE_WORK;
@@ -105,8 +105,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define MOV_Init_p                   FuncPtr(MOVE_WORK*, __cdecl, (TASK*), 0x007966D0)
-#   define MOV_CalcPlayerAngle_p        FuncPtr(Angle, __fastcall, (TASK*, int), 0x007969B0)
+#   define MOV_Init_p                   FUNC_PTR(MOVE_WORK*, __cdecl, (TASK*), 0x007966D0)
+#   define MOV_CalcPlayerAngle_p        FUNC_PTR(Angle, __fastcall, (TASK*, int), 0x007969B0)
 
 /** User-Function ptrs **/
 #   define MOV_GetShadowPosXYZ_p        ((void*)0x00797E10)

@@ -21,7 +21,7 @@
 /************************/
 /*  Data                */
 /************************/
-#define mtx_ShadowFootR          DataRef(NJS_MATRIX, 0x01A51894)
+#define mtx_ShadowFootR          DATA_REF(NJS_MATRIX, 0x01A51894)
 
 /************************/
 /*  Functions           */
@@ -36,7 +36,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ShadowMotionCallBack_p       FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x0071F5E0)
+#   define ShadowMotionCallBack_p       FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x0071F5E0)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

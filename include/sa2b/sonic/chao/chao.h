@@ -379,7 +379,7 @@ typedef struct
     uint32_t     IntentionTimer[18]; 
     uint32_t     IntervalTimer[128];
     int32_t      FreeWork;
-    float32_t    MoveRadius;
+    f32          MoveRadius;
     NJS_POINT3   BasePos;
     BHV_FUNC     PrevFunc;
     int32_t      nbBhvFuncEntry;
@@ -422,14 +422,14 @@ typedef struct
     /** Left hand item **/
     NJS_CNK_OBJECT* pLeftHandItemObject;
     NJS_TEXLIST*    pLeftHandItemTexlist;
-    float32_t       LeftHandItemScale;
-    float32_t       LeftHandItemActiveFlag;
+    f32             LeftHandItemScale;
+    f32             LeftHandItemActiveFlag;
 
     /** Right hand item **/
     NJS_CNK_OBJECT* pRightHandItemObject;
     NJS_TEXLIST*    pRightHandItemTexlist;
-    float32_t       RightHandItemScale;
-    float32_t       RightHandItemActiveFlag;
+    f32             RightHandItemScale;
+    f32             RightHandItemActiveFlag;
 
     /** Shape info **/
     int32_t   palette;
@@ -437,9 +437,9 @@ typedef struct
     int16_t   ColorNum;
     int16_t   EnvNum;
     int32_t   IconColor;
-    float32_t SclH;
-    float32_t SclV;
-    float32_t CamDist;
+    f32       SclH;
+    f32       SclV;
+    f32       CamDist;
 }
 AL_SHAPE;
 
@@ -452,10 +452,10 @@ typedef struct
     int32_t    MouthTimer;
     int16_t    MouthCurrNum;
     int16_t    MouthDefaultNum;
-    float32_t  EyePosX;
-    float32_t  EyePosY;
-    float32_t  EyeSclX;
-    float32_t  EyeSclY;
+    f32        EyePosX;
+    f32        EyePosY;
+    f32        EyeSclX;
+    f32        EyeSclY;
     uint32_t   Flag;
     AL_OBJECT* pEyeObject[2];
     AL_OBJECT* pMouthObject;
@@ -509,7 +509,7 @@ typedef struct
 {
     uint16_t  Flag;
     uint16_t  CurrNum;
-    float32_t Ratio;
+    f32       Ratio;
     NJS_LINE  Plane;
 }
 AL_ZONE;
@@ -517,7 +517,7 @@ AL_ZONE;
 typedef struct al_perception_link
 {
     int16_t         info[4];
-    float32_t       tgtdist;
+    f32             tgtdist;
     int32_t         InSightFlag;
     int32_t         HearFlag;
     int32_t         SmellFlag;
@@ -531,7 +531,7 @@ typedef struct
     int32_t            InSightFlag;
     int32_t            HeardFlag;
     int32_t            SmellFlag;
-    float32_t          NearestDist;
+    f32                NearestDist;
     int16_t            NearestNum;
     AL_PERCEPTION_LIST list;
 }
@@ -539,11 +539,11 @@ AL_PERCEPTION_INFO;
 
 typedef struct
 {
-    float32_t          SightRange;
+    f32                SightRange;
     int32_t            SightAngle;
     int32_t            SightAngleHalf;
-    float32_t          HearRange;
-    float32_t          SmellRange;
+    f32                HearRange;
+    f32                SmellRange;
     AL_PERCEPTION_INFO Player;
     AL_PERCEPTION_INFO Chao;
     AL_PERCEPTION_INFO Fruit;
@@ -568,7 +568,7 @@ typedef struct chaowk
     int32_t        AimNum;
     int32_t        RememberNum;
     int32_t        pitch;
-    float32_t      ClimbFirstPos;
+    f32            ClimbFirstPos;
     b32            IsParamCopy;
     CHAO_PARAM_GC* pParamGC;
     TMP_PARAM      tmpParam;
@@ -578,7 +578,7 @@ typedef struct chaowk
     Angle          pre_ang[3];
     uint32_t       ChaoFlag;
     uint16_t       ColliFormat;
-    float32_t      CurrZone;
+    f32            CurrZone;
     MOTION_CTRL    MotionCtrl;
     MOTION_CTRL    MiniMotionCtrl;
     MOTION_TABLE   MiniMotionTable[4];
@@ -619,7 +619,7 @@ AL_SHAPE_ELEMENT;
 /*  Data                */
 /************************/
 /** Collision info **/
-#define colli_info_chao     DataAry(CCL_INFO, 0x013134D0, [5])
+#define colli_info_chao     DATA_ARY(CCL_INFO, 0x013134D0, [5])
 
 /************************/
 /*  Functions           */
@@ -642,10 +642,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define CreateChaoExtra_p        FuncPtr(TASK*, __cdecl, (CHAO_PARAM_GC*, b32, AL_SHAPE_ELEMENT*, NJS_POINT3*, Angle), 0x005501D0)
-#   define ChaoExecutor_p           FuncPtr(void , __cdecl, (TASK*)                                                     , 0x0054FE20)
-#   define ChaoDestructor_p         FuncPtr(void , __cdecl, (TASK*)                                                     , 0x0054FF30)
-#   define ChaoDisplayer_p          FuncPtr(void , __cdecl, (TASK*)                                                     , 0x0054FF80)
+#   define CreateChaoExtra_p        FUNC_PTR(TASK*, __cdecl, (CHAO_PARAM_GC*, b32, AL_SHAPE_ELEMENT*, NJS_POINT3*, Angle), 0x005501D0)
+#   define ChaoExecutor_p           FUNC_PTR(void , __cdecl, (TASK*)                                                     , 0x0054FE20)
+#   define ChaoDestructor_p         FUNC_PTR(void , __cdecl, (TASK*)                                                     , 0x0054FF30)
+#   define ChaoDisplayer_p          FUNC_PTR(void , __cdecl, (TASK*)                                                     , 0x0054FF80)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

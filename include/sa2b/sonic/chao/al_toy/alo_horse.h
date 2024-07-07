@@ -43,10 +43,10 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_Horse_p              FuncPtr(void, __cdecl, (TASK*), 0x00580E80)
-#   define ALO_HorseExecutor_p      FuncPtr(void, __cdecl, (TASK*), 0x00580BC0)
-#   define ALO_HorseDisplayer_p     FuncPtr(void, __cdecl, (TASK*), 0x00580CA0)
-#   define ALO_HorseDestructor_p    FuncPtr(void, __cdecl, (TASK*), 0x0057B9B0)
+#   define ALO_Horse_p              FUNC_PTR(void, __cdecl, (TASK*), 0x00580E80)
+#   define ALO_HorseExecutor_p      FUNC_PTR(void, __cdecl, (TASK*), 0x00580BC0)
+#   define ALO_HorseDisplayer_p     FUNC_PTR(void, __cdecl, (TASK*), 0x00580CA0)
+#   define ALO_HorseDestructor_p    FUNC_PTR(void, __cdecl, (TASK*), 0x0057B9B0)
 
 /** User-Function ptrs **/
 #   define ALO_HorseCreate_p        ((void*)0x00580F30)

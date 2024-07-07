@@ -18,9 +18,9 @@
 /************************/
 /** Used by the game to save and load, not SAMT 
     SAMT uses it's own variables for all these functions **/
-#define __control_3d_flag_      DataRef(uint32_t, 0x01DEB6A4)
-#define __constant_attr_and_    DataRef(uint32_t, 0x01DEB6A8)
-#define __constant_attr_or_     DataRef(uint32_t, 0x01DEB6A0)
+#define __control_3d_flag_      DATA_REF(uint32_t, 0x01DEB6A4)
+#define __constant_attr_and_    DATA_REF(uint32_t, 0x01DEB6A8)
+#define __constant_attr_or_     DATA_REF(uint32_t, 0x01DEB6A0)
 
 /************************/
 /*  Functions           */
@@ -41,7 +41,7 @@ void    OffConstantAttr( uint32_t soc_and, uint32_t soc_or );
 void    SaveConstantMaterial( void );
 void    LoadConstantMaterial( void );
 
-void    SetConstantMaterial( float32_t a, float32_t r, float32_t g, float32_t b );
+void    SetConstantMaterial( f32 a, f32 r, f32 g, f32 b );
 
 void    ResetConstantMaterial( void );
 

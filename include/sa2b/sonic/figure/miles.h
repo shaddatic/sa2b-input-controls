@@ -46,11 +46,11 @@ MILESWK;
 /************************/
 /*  Data                */
 /************************/
-#define MilesWorkPointer        DataRef(MILESWK*, 0x01A521EC)
+#define MilesWorkPointer        DATA_REF(MILESWK*, 0x01A521EC)
 
-#define mtx_MilesBase           DataRef(NJS_MATRIX, 0x01A521BC)
-#define mtx_MilesTails          DataRef(NJS_MATRIX, 0x01A5215C)
-#define mtx_MilesShaderTails    DataRef(NJS_MATRIX, 0x01A5218C)
+#define mtx_MilesBase           DATA_REF(NJS_MATRIX, 0x01A521BC)
+#define mtx_MilesTails          DATA_REF(NJS_MATRIX, 0x01A5215C)
+#define mtx_MilesShaderTails    DATA_REF(NJS_MATRIX, 0x01A5218C)
 
 /************************/
 /*  Functions           */
@@ -66,8 +66,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define MilesMotionCallBack_p            FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x00750320)
-#   define MilesShadowMotionCallBack_p      FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x0074FEF0)
+#   define MilesMotionCallBack_p            FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x00750320)
+#   define MilesShadowMotionCallBack_p      FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x0074FEF0)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

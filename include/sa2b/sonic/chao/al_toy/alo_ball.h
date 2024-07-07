@@ -42,8 +42,8 @@ BALL_WORK;
 /************************/
 /*  Data                */
 /************************/
-#define BallUsable              DataRef(int32_t, 0x01DBE574)
-#define ALO_BallTaskPointer     DataRef(TASK*  , 0x01DBE570)
+#define BallUsable              DATA_REF(int32_t, 0x01DBE574)
+#define ALO_BallTaskPointer     DATA_REF(TASK*  , 0x01DBE570)
 
 /************************/
 /*  Functions           */
@@ -65,11 +65,11 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_BallCreate_p         FuncPtr(void, __cdecl, (NJS_POINT3*, NJS_VECTOR*), 0x0055D6B0)
-#   define ALO_Ball_p               FuncPtr(void, __cdecl, (TASK*)                   , 0x0055D640)
-#   define ALO_BallExecutor_p       FuncPtr(void, __cdecl, (TASK*)                   , 0x0055D310)
-#   define ALO_BallDisplayer_p      FuncPtr(void, __cdecl, (TASK*)                   , 0x0055D3B0)
-#   define ALO_BallDestructor_p     FuncPtr(void, __cdecl, (TASK*)                   , 0x0057B9B0)
+#   define ALO_BallCreate_p         FUNC_PTR(void, __cdecl, (NJS_POINT3*, NJS_VECTOR*), 0x0055D6B0)
+#   define ALO_Ball_p               FUNC_PTR(void, __cdecl, (TASK*)                   , 0x0055D640)
+#   define ALO_BallExecutor_p       FUNC_PTR(void, __cdecl, (TASK*)                   , 0x0055D310)
+#   define ALO_BallDisplayer_p      FUNC_PTR(void, __cdecl, (TASK*)                   , 0x0055D3B0)
+#   define ALO_BallDestructor_p     FUNC_PTR(void, __cdecl, (TASK*)                   , 0x0057B9B0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

@@ -33,7 +33,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define GetDataDllProcAddr_p        FuncPtr(void*, __cdecl, (const char*), 0x0077DEF0)
+#   define GetDataDllProcAddr_p        FUNC_PTR(void*, __cdecl, (const char*), 0x0077DEF0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

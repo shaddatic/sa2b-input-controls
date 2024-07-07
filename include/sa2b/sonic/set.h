@@ -43,7 +43,7 @@ typedef void(__cdecl* task_exec)(TASK*);
 /************************/
 typedef union _UNION_STATUS
 {
-    float32_t fRangeOut;
+    f32       fRangeOut;
     int32_t pObjSleepCondition;
 }
 UNION_STATUS;
@@ -54,12 +54,12 @@ typedef struct _OBJ_EDITENTRY
     int16_t   rotx;
     int16_t   roty;
     int16_t   rotz;
-    float32_t xpos;
-    float32_t ypos;
-    float32_t zpos;
-    float32_t xscl;
-    float32_t yscl;
-    float32_t zscl;
+    f32       xpos;
+    f32       ypos;
+    f32       zpos;
+    f32       xscl;
+    f32       yscl;
+    f32       zscl;
 }
 OBJ_EDITENTRY;
 
@@ -92,7 +92,7 @@ typedef struct _OBJ_ITEMENTRY
     uint8_t   ucInitMode;
     uint8_t   ucLevel;
     int16_t   ssAttribute;
-    float32_t fRange;
+    f32       fRange;
     task_exec fnExec;
     char*     strObjName;
 }
@@ -108,7 +108,7 @@ OBJ_ITEMTABLE;
 /************************/
 /*  Data                */
 /************************/
-#define SetObjectTaskP          DataRef(TASK*, 0x01A5A340)
+#define SetObjectTaskP          DATA_REF(TASK*, 0x01A5A340)
 
 /************************/
 /*  Functions           */
@@ -193,9 +193,9 @@ void    ObjectGenericExec(TASK* tp);
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#   define CreateSetObject_p            FuncPtr(b32 , __cdecl, (OBJ_ITEMTABLE*, OBJ_EDITTABLE*), 0x00487E40)
-#   define ReviveSetObject_p            FuncPtr(void, __cdecl, (void)                          , 0x00488AD0)
-#   define ObjectGenericExec_p          FuncPtr(void, __cdecl, (TASK*)                         , 0x005B4250)
+#   define CreateSetObject_p            FUNC_PTR(b32 , __cdecl, (OBJ_ITEMTABLE*, OBJ_EDITTABLE*), 0x00487E40)
+#   define ReviveSetObject_p            FUNC_PTR(void, __cdecl, (void)                          , 0x00488AD0)
+#   define ObjectGenericExec_p          FUNC_PTR(void, __cdecl, (TASK*)                         , 0x005B4250)
 
 /** User-Function ptr **/
 #   define LoadSetFile_p                ((void*)0x00488DD0)

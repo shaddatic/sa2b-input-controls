@@ -33,8 +33,8 @@ typedef struct // ANYWK
 {
     int32_t ButtonState;
     int32_t CoverMode;
-    float32_t CoverFrame;
-    float32_t ButtonPos;
+    f32       CoverFrame;
+    f32       ButtonPos;
     TASK* pChaoTask;
     int32_t FileFlag;
     int32_t BuyoFlag;
@@ -49,11 +49,11 @@ ODAKAKE_WORK;
 /************************/
 /*  Data                */
 /************************/
-#define OdekakeTaskPointer      DataRef(TASK*, 0x01AED318)
-#define EnteringOdekake         DataRef(b32  , 0x01AED31C)
+#define OdekakeTaskPointer      DATA_REF(TASK*, 0x01AED318)
+#define EnteringOdekake         DATA_REF(b32  , 0x01AED31C)
 
 /** Crappy, half-baked, replacement case model by SOC **/
-#define pSOCOdekakeModel        DataRef(void*, 0x1AED320)
+#define pSOCOdekakeModel        DATA_REF(void*, 0x1AED320)
 
 /************************/
 /*  Functions           */
@@ -74,10 +74,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_OdekakeMachine_p                     FuncPtr(void, __cdecl, (TASK*), 0x0057E460)
-#   define ALO_OdekakeMachineExecutor_p             FuncPtr(void, __cdecl, (TASK*), 0x0057D540)
-#   define ALO_OdekakeMachineDisplayerNeut_p        FuncPtr(void, __cdecl, (TASK*), 0x0057E060)
-#   define ALO_OdekakeMachineDestructor_p           FuncPtr(void, __cdecl, (TASK*), 0x0057E040)
+#   define ALO_OdekakeMachine_p                     FUNC_PTR(void, __cdecl, (TASK*), 0x0057E460)
+#   define ALO_OdekakeMachineExecutor_p             FUNC_PTR(void, __cdecl, (TASK*), 0x0057D540)
+#   define ALO_OdekakeMachineDisplayerNeut_p        FUNC_PTR(void, __cdecl, (TASK*), 0x0057E060)
+#   define ALO_OdekakeMachineDestructor_p           FUNC_PTR(void, __cdecl, (TASK*), 0x0057E040)
 
 /** User-Function ptrs **/
 #   define ALO_OdekakeMachineCreate_p               ((void*)0x0057E4F0)

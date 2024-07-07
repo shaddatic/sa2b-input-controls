@@ -149,17 +149,17 @@ CAMADJUSTWK_KNUCKLES;
 /************************/
 /*  Data                */
 /************************/
-#define cameraCount                 DataRef(int32_t         , 0x01DD946C)
-#define cameraNumber                DataRef(int32_t         , 0x01DD92A0)
+#define cameraCount                 DATA_REF(int32_t         , 0x01DD946C)
+#define cameraNumber                DATA_REF(int32_t         , 0x01DD92A0)
 
-#define cameraSystemWork            DataAry(CAMSYSWK        , 0x01DCFF40, [4])
+#define cameraSystemWork            DATA_ARY(CAMSYSWK        , 0x01DCFF40, [4])
 
-#define cameraControlWork           DataAry(CAMCONTWK*      , 0x01DD92B0, [4])
+#define cameraControlWork           DATA_ARY(CAMCONTWK*      , 0x01DD92B0, [4])
 
-#define CameraMode                  DataAry(OBJ_CAMERAMODE  , 0x008ABD38, [28])
-#define CameraAdjust                DataAry(OBJ_CAMERAADJUST, 0x008ABE88, [14])
+#define CameraMode                  DATA_ARY(OBJ_CAMERAMODE  , 0x008ABD38, [28])
+#define CameraAdjust                DATA_ARY(OBJ_CAMERAADJUST, 0x008ABE88, [14])
 
-#define camera_twp                  DataRef(TASKWK*         , 0x01A5A784)
+#define camera_twp                  DATA_REF(TASKWK*         , 0x01A5A784)
 
 /************************/
 /*  Prototypes          */

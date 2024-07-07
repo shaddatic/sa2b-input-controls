@@ -26,16 +26,16 @@ CHAO_ID;
 
 typedef struct
 {
-    float32_t HPos;            // Run : Power Align
-    float32_t VPos;            // Swim : Fly Align
-    float32_t APos;            // Dark : Hero Align
-    float32_t AimHPos;        // Last Run : Power
-    float32_t AimVPos;        // Last Swim : Fly
-    float32_t AimAPos;        // Last Alignment
-    float32_t growth;        // Magitude
-    float32_t EyePos;
-    float32_t EyeScl;
-    float32_t EyeRatio;
+    f32       HPos;            // Run : Power Align
+    f32       VPos;            // Swim : Fly Align
+    f32       APos;            // Dark : Hero Align
+    f32       AimHPos;        // Last Run : Power
+    f32       AimVPos;        // Last Swim : Fly
+    f32       AimAPos;        // Last Alignment
+    f32       growth;        // Magitude
+    f32       EyePos;
+    f32       EyeScl;
+    f32       EyeRatio;
     uint8_t EyeColor;
     uint8_t DefaultEyeNum;
     uint8_t DefaultMouthNum;
@@ -256,13 +256,13 @@ CHAO_SAVE_INFO;
 /************************/
 /*  Data                */
 /************************/
-#define pSelectedChaoSaveInfoList   DataRef(CHAO_SAVE_INFO*, 0x01A5CC00)
-#define pHoldingChaoSaveInfo        DataRef(CHAO_SAVE_INFO*, 0x01A5CA5C)
-#define HoldingFront                DataRef(b32       , 0x01A5CAB4)
+#define pSelectedChaoSaveInfoList   DATA_REF(CHAO_SAVE_INFO*, 0x01A5CC00)
+#define pHoldingChaoSaveInfo        DATA_REF(CHAO_SAVE_INFO*, 0x01A5CA5C)
+#define HoldingFront                DATA_REF(b32       , 0x01A5CAB4)
 
-#define ChaoSetPositionNeut         DataAry(NJS_POINT3     , 0x01366260, [16])
-#define ChaoSetPositionHero         DataAry(NJS_POINT3     , 0x01366320, [16])
-#define ChaoSetPositionDark         DataAry(NJS_POINT3     , 0x013663E0, [16])
+#define ChaoSetPositionNeut         DATA_ARY(NJS_POINT3     , 0x01366260, [16])
+#define ChaoSetPositionHero         DATA_ARY(NJS_POINT3     , 0x01366320, [16])
+#define ChaoSetPositionDark         DATA_ARY(NJS_POINT3     , 0x013663E0, [16])
 
 /************************/
 /*  Functions           */
@@ -280,9 +280,9 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_GetNewChaoSaveInfo_p      FuncPtr(CHAO_SAVE_INFO*, __cdecl, (void), 0x00531AA0)
-#   define AL_SetChaoOnTheGarden_p      FuncPtr(void           , __cdecl, (void), 0x00531B10)
-#   define AL_CreateHoldingChao_p       FuncPtr(void           , __cdecl, (void), 0x00531E10)
+#   define AL_GetNewChaoSaveInfo_p      FUNC_PTR(CHAO_SAVE_INFO*, __cdecl, (void), 0x00531AA0)
+#   define AL_SetChaoOnTheGarden_p      FUNC_PTR(void           , __cdecl, (void), 0x00531B10)
+#   define AL_CreateHoldingChao_p       FUNC_PTR(void           , __cdecl, (void), 0x00531E10)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

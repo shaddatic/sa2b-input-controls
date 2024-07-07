@@ -51,13 +51,13 @@ SONICWK; // 928
 /************************/
 /*  Data                */
 /************************/
-#define SonicWorkPointer    DataRef(SONICWK*  , 0x01A51A9C)
+#define SonicWorkPointer    DATA_REF(SONICWK*  , 0x01A51A9C)
 
-#define mtx_SonicBase       DataRef(NJS_MATRIX, 0x01A51A00)
-#define mtx_SonicHandL      DataRef(NJS_MATRIX, 0x01A51A3C)
-#define mtx_SonicHandR      DataRef(NJS_MATRIX, 0x01A51AA0)
-#define mtx_SonicFootL      DataRef(NJS_MATRIX, 0x01A51A6C)
-#define mtx_SonicFootR      DataRef(NJS_MATRIX, 0x01A519D0)
+#define mtx_SonicBase       DATA_REF(NJS_MATRIX, 0x01A51A00)
+#define mtx_SonicHandL      DATA_REF(NJS_MATRIX, 0x01A51A3C)
+#define mtx_SonicHandR      DATA_REF(NJS_MATRIX, 0x01A51AA0)
+#define mtx_SonicFootL      DATA_REF(NJS_MATRIX, 0x01A51A6C)
+#define mtx_SonicFootR      DATA_REF(NJS_MATRIX, 0x01A519D0)
 
 /************************/
 /*  Functions           */
@@ -72,7 +72,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define SonicMotionCallBack_p    FuncPtr(void, __cdecl, (NJS_CNK_OBJECT*), 0x0071EAA0)
+#   define SonicMotionCallBack_p    FUNC_PTR(void, __cdecl, (NJS_CNK_OBJECT*), 0x0071EAA0)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

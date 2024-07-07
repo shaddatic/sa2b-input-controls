@@ -26,10 +26,10 @@ typedef struct task        TASK;
 /************************/
 /*  Data                */
 /************************/
-#define CurrPathNum         DataRef(int32_t, 0x01A5D13C)
+#define CurrPathNum         DATA_REF(int32_t, 0x01A5D13C)
 
-#define PathMotionList      DataAry(NJS_MOTION*, 0x01353278, [10])
-#define PathMKeyList        DataAry(NJS_MKEY_F*, 0x013532A0, [10][2])
+#define PathMotionList      DATA_ARY(NJS_MOTION*, 0x01353278, [10])
+#define PathMKeyList        DATA_ARY(NJS_MKEY_F*, 0x013532A0, [10][2])
 
 /************************/
 /*  Functions           */
@@ -46,7 +46,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_PathSearch_p      FuncPtr(int32_t, __cdecl, (TASK* tp), 0x0053E3E0)
+#   define AL_PathSearch_p      FUNC_PTR(int32_t, __cdecl, (TASK* tp), 0x0053E3E0)
 
 /** User-Function ptrs **/
 #   define CrossProduct_p       ((void*)0x0053E390)

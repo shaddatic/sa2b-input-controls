@@ -56,8 +56,8 @@ typedef struct
     uint16_t    soundID;
     NJS_VECTOR* pPos;
     NJS_VECTOR  position;
-    float32_t   distMax;
-    float32_t   distLast;
+    f32         distMax;
+    f32         distLast;
 }
 SOUND_ENTRY;
 
@@ -78,7 +78,7 @@ SOUND_QUEUE;
 /************************/
 /*  Data                */
 /************************/
-#define SoundQueue      DataRef(SOUND_QUEUE*, 0x01A55874)
+#define SoundQueue      DATA_REF(SOUND_QUEUE*, 0x01A55874)
 
 /************************/
 /*  Functions           */
@@ -138,8 +138,8 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#   define SE_Stop_p            FuncPtr(void  , __cdecl, (void)  , 0x00437E90)
-#   define SE_Call_SEQ_p        FuncPtr(int8_t, __cdecl, (int8_t), 0x004377D0)
+#   define SE_Stop_p            FUNC_PTR(void  , __cdecl, (void)  , 0x00437E90)
+#   define SE_Call_SEQ_p        FUNC_PTR(int8_t, __cdecl, (int8_t), 0x004377D0)
 
 /** User-Function ptr **/
 #   define SE_Call_p            ((void*)0x00437260)

@@ -41,11 +41,11 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define MayuDisplayer_p      FuncPtr(void, __cdecl, (TASK*), 0x568A70)
+#   define MayuDisplayer_p      FUNC_PTR(void, __cdecl, (TASK*), 0x568A70)
 
 /** Behavior ptrs **/
-#   define ALBHV_Mayu_p         BhvFuncPtr(0x00568D30)
-#   define ALBHV_Dead_p         BhvFuncPtr(0x00568F60)
+#   define ALBHV_Mayu_p         BhvFUNC_PTR(0x00568D30)
+#   define ALBHV_Dead_p         BhvFUNC_PTR(0x00568F60)
 
 /** User-Function ptrs **/
 #   define CreateMayu_p         ((void*)0x00568CD0)

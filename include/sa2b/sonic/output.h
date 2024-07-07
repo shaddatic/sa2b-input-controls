@@ -56,7 +56,7 @@ VIBWK;
 /*  Data                */
 /************************/
 /****** VibTask *********************************************************************/
-#define VibTaskP            DataAry(TASK*, 0x01A5588C, [4])
+#define VibTaskP            DATA_ARY(TASK*, 0x01A5588C, [4])
 
 /************************/
 /*  Functions           */
@@ -91,9 +91,9 @@ void    VibTaskDest( TASK* tp );    /* destructor                               
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /****** Function Pointer ************************************************************/
-#   define VibStop_p            FuncPtr(void, __cdecl, (void) , 0x00439060)
-#   define VibTask_p            FuncPtr(void, __cdecl, (TASK*), 0x00438D30)
-#   define VibTaskDest_p        FuncPtr(void, __cdecl, (TASK*), 0x00438C90)
+#   define VibStop_p            FUNC_PTR(void, __cdecl, (void) , 0x00439060)
+#   define VibTask_p            FUNC_PTR(void, __cdecl, (TASK*), 0x00438D30)
+#   define VibTaskDest_p        FUNC_PTR(void, __cdecl, (TASK*), 0x00438C90)
 
 /****** User-Function Pointer *******************************************************/
 #   define SetVibTask_p         ((void*)0x00438DC0)

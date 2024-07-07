@@ -27,7 +27,7 @@ typedef struct task     TASK;
 /************************/
 /*  Data                */
 /************************/
-#define ALO_RadicaseTaskPointer     DataRef(TASK*, 0x01AED2E0)
+#define ALO_RadicaseTaskPointer     DATA_REF(TASK*, 0x01AED2E0)
 
 /************************/
 /*  Functions           */
@@ -47,10 +47,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_RadicaseCreate_p         FuncPtr(void, __cdecl, (NJS_POINT3*), 0x0057CCA0)
-#   define ALO_RadicaseExecutor_p       FuncPtr(void, __cdecl, (TASK*)      , 0x0057C840)
-#   define ALO_RadicaseDisplayer_p      FuncPtr(void, __cdecl, (TASK*)      , 0x0057CA80)
-#   define ALO_RadicaseDestructor_p     FuncPtr(void, __cdecl, (TASK*)      , 0x0057CC80)
+#   define ALO_RadicaseCreate_p         FUNC_PTR(void, __cdecl, (NJS_POINT3*), 0x0057CCA0)
+#   define ALO_RadicaseExecutor_p       FUNC_PTR(void, __cdecl, (TASK*)      , 0x0057C840)
+#   define ALO_RadicaseDisplayer_p      FUNC_PTR(void, __cdecl, (TASK*)      , 0x0057CA80)
+#   define ALO_RadicaseDestructor_p     FUNC_PTR(void, __cdecl, (TASK*)      , 0x0057CC80)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

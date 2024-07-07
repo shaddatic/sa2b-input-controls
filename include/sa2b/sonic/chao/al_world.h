@@ -79,9 +79,9 @@ typedef struct al_entry_work
     int32_t CommuID;
     NJS_POINT3 pos;
     Angle3 ang;
-    float32_t radius;
-    float32_t offset;
-    float32_t CamDist;
+    f32       radius;
+    f32       offset;
+    f32       CamDist;
     int16_t command;
     int16_t command_value;
     int16_t state;
@@ -94,21 +94,21 @@ ALW_ENTRY_WORK;
 /************************/
 /*  Data                */
 /************************/
-#define ChaoWorldLoadFlag       DataRef(b32           , 0x01A5AF0C)
+#define ChaoWorldLoadFlag       DATA_REF(b32           , 0x01A5AF0C)
 
-#define WorldMasterTask         DataRef(TASK*         , 0x01A0F94C)
+#define WorldMasterTask         DATA_REF(TASK*         , 0x01A0F94C)
 
-#define WorldEntryList          DataAry(ALW_ENTRY_WORK, 0x01DC0FC0, [11][64])
-#define nbWorldEntry            DataAry(int32_t       , 0x01DC0F80, [11])
-#define nbMaxEntry              DataAry(int32_t       , 0x008AB838, [11])
+#define WorldEntryList          DATA_ARY(ALW_ENTRY_WORK, 0x01DC0FC0, [11][64])
+#define nbWorldEntry            DATA_ARY(int32_t       , 0x01DC0F80, [11])
+#define nbMaxEntry              DATA_ARY(int32_t       , 0x008AB838, [11])
 
-#define FruitGrowParam          DataAry(GROW_PARAM    , 0x008A6448, [24])
-#define MinimalGrowParam        DataAry(GROW_PARAM    , 0x008A6240, [26])
+#define FruitGrowParam          DATA_ARY(GROW_PARAM    , 0x008A6448, [24])
+#define MinimalGrowParam        DATA_ARY(GROW_PARAM    , 0x008A6240, [26])
 
-#define Clock                   DataRef(int32_t       , 0x01DBED74)
-#define gBusy_0                 DataRef(int32_t       , 0x019F6440)
-#define gLoaded_0               DataRef(int32_t       , 0x019F6444)
-#define gCommuID                DataRef(uint16_t      , 0x01A5B5EC)
+#define Clock                   DATA_REF(int32_t       , 0x01DBED74)
+#define gBusy_0                 DATA_REF(int32_t       , 0x019F6440)
+#define gLoaded_0               DATA_REF(int32_t       , 0x019F6444)
+#define gCommuID                DATA_REF(uint16_t      , 0x01A5B5EC)
 
 /************************/
 /*  Functions           */
@@ -156,7 +156,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALW_Create_p         FuncPtr(void, __cdecl, (void), 0x00530B80)
+#   define ALW_Create_p         FUNC_PTR(void, __cdecl, (void), 0x00530B80)
 
 /** User-Function ptrs **/
 #   define ALW_Entry2_p         ((void*)00530750)

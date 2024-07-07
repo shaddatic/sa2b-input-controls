@@ -76,10 +76,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_FruitCreate_p            FuncPtr(TASK*, __cdecl, (eFRUIT_KIND, NJS_POINT3*, int32_t, NJS_VECTOR*, ITEM_SAVE_INFO*), 0x00546180)
-#   define ALO_FruitExecutor_p          FuncPtr(void , __cdecl, (TASK*)                                                          , 0x00545E40)
-#   define ALO_FruitDisplayer_p         FuncPtr(void , __cdecl, (TASK*)                                                          , 0x00545EE0)
-#   define ALO_FruitDestructor_p        FuncPtr(void , __cdecl, (TASK*)                                                          , 0x0057B9B0)
+#   define ALO_FruitCreate_p            FUNC_PTR(TASK*, __cdecl, (eFRUIT_KIND, NJS_POINT3*, int32_t, NJS_VECTOR*, ITEM_SAVE_INFO*), 0x00546180)
+#   define ALO_FruitExecutor_p          FUNC_PTR(void , __cdecl, (TASK*)                                                          , 0x00545E40)
+#   define ALO_FruitDisplayer_p         FUNC_PTR(void , __cdecl, (TASK*)                                                          , 0x00545EE0)
+#   define ALO_FruitDestructor_p        FUNC_PTR(void , __cdecl, (TASK*)                                                          , 0x0057B9B0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

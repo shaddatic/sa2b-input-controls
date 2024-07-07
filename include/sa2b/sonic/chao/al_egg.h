@@ -120,11 +120,11 @@ typedef struct // ANYWK
     int32_t SwingFlag;
     int32_t nbSwing;
     int32_t HeldAng;
-    float32_t frame;
+    f32     frame;
     int32_t BornTimer;
-    float32_t ScaleAll;
-    float32_t BuyoScale;
-    float32_t BuyoVelo;
+    f32     ScaleAll;
+    f32     BuyoScale;
+    f32     BuyoVelo;
     int32_t NoColliTimer;
     int32_t Color;
 }
@@ -134,21 +134,21 @@ EGG_WORK;
 /*  Data                */
 /************************/
 /** Objects **/
-#define object_alm_egg_egg              DataAry(NJS_CNK_OBJECT, 0x0125CC64, [1])
-#define object_alm_egg_eggtop           DataAry(NJS_CNK_OBJECT, 0x0125CC2C, [1]) /* Child of ^ */
-#define object_alm_egg_eggbottom        DataAry(NJS_CNK_OBJECT, 0x0125C68C, [1]) /* Sibling of ^ */
+#define object_alm_egg_egg              DATA_ARY(NJS_CNK_OBJECT, 0x0125CC64, [1])
+#define object_alm_egg_eggtop           DATA_ARY(NJS_CNK_OBJECT, 0x0125CC2C, [1]) /* Child of ^ */
+#define object_alm_egg_eggbottom        DATA_ARY(NJS_CNK_OBJECT, 0x0125C68C, [1]) /* Sibling of ^ */
 
 /** Model is used in the Black Market **/
-#define object_alo_dummyegg_dummyegg    DataAry(NJS_CNK_OBJECT, 0x0125D334, [1])
-#define model_alo_dummyegg_dummyegg     DataAry(NJS_CNK_MODEL , 0x0125D31C, [1])
+#define object_alo_dummyegg_dummyegg    DATA_ARY(NJS_CNK_OBJECT, 0x0125D334, [1])
+#define model_alo_dummyegg_dummyegg     DATA_ARY(NJS_CNK_MODEL , 0x0125D31C, [1])
 
 /** Motions **/
-#define motion_alm_egg_pon              DataAry(NJS_MOTION    , 0x0125C6C4, [1])
-#define motion_alm_egg_kyoro            DataAry(NJS_MOTION    , 0x0125CC9C, [1])
-#define motion_alo_dummyegg             DataAry(NJS_MOTION    , 0x0125C11C, [1])
+#define motion_alm_egg_pon              DATA_ARY(NJS_MOTION    , 0x0125C6C4, [1])
+#define motion_alm_egg_kyoro            DATA_ARY(NJS_MOTION    , 0x0125CC9C, [1])
+#define motion_alo_dummyegg             DATA_ARY(NJS_MOTION    , 0x0125C11C, [1])
 
 /** Collision info **/
-#define colli_info_egg                  DataAry(CCL_INFO      , 0x008A5840, [3])
+#define colli_info_egg                  DATA_ARY(CCL_INFO      , 0x008A5840, [3])
 
 /************************/
 /*  Functions           */
@@ -168,10 +168,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define CreateEgg_p              FuncPtr(TASK*, __cdecl, (AL_GENE*, CHAO_PARAM_GC*, int32_t, const NJS_POINT3*, int32_t), 0x0057B9C0)
-#   define AL_EggExecutor_p         FuncPtr(void , __cdecl, (TASK*)                                                        , 0x0057B520)
-#   define AL_EggDisplayer_p        FuncPtr(void , __cdecl, (TASK*)                                                        , 0x0057B640)
-#   define AL_EggDestructor_p       FuncPtr(void , __cdecl, (TASK*)                                                        , 0x0057B9B0)
+#   define CreateEgg_p              FUNC_PTR(TASK*, __cdecl, (AL_GENE*, CHAO_PARAM_GC*, int32_t, const NJS_POINT3*, int32_t), 0x0057B9C0)
+#   define AL_EggExecutor_p         FUNC_PTR(void , __cdecl, (TASK*)                                                        , 0x0057B520)
+#   define AL_EggDisplayer_p        FUNC_PTR(void , __cdecl, (TASK*)                                                        , 0x0057B640)
+#   define AL_EggDestructor_p       FUNC_PTR(void , __cdecl, (TASK*)                                                        , 0x0057B9B0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

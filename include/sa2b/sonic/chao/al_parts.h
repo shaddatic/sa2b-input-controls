@@ -102,13 +102,13 @@ AL_ITEM_INFO;
 /************************/
 /*  Data                */
 /************************/
-#define PartsObjectTreeNumber   DataAry(int32_t          , 0x012F59A8, [8][2])
-#define PartsObjectListNumber   DataAry(int32_t          , 0x012F59E8, [8][2])
+#define PartsObjectTreeNumber   DATA_ARY(int32_t          , 0x012F59A8, [8][2])
+#define PartsObjectListNumber   DATA_ARY(int32_t          , 0x012F59E8, [8][2])
 
-#define pPartsObjectListChild   DataAry(NJS_CNK_OBJECT**, 0x012E59A0, [20])
-#define pPartsObjectListAdult   DataAry(NJS_CNK_OBJECT**, 0x012E5938, [20])
+#define pPartsObjectListChild   DATA_ARY(NJS_CNK_OBJECT**, 0x012E59A0, [20])
+#define pPartsObjectListAdult   DATA_ARY(NJS_CNK_OBJECT**, 0x012E5938, [20])
 
-#define AL_PartAttr             DataAry(int16_t          , 0x011C47D0, [40])
+#define AL_PartAttr             DATA_ARY(int16_t          , 0x011C47D0, [40])
 
 /************************/
 /*  Functions           */
@@ -136,7 +136,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_RemoveItemAllSub_p        FuncPtr(void, __cdecl, (AL_OBJECT *pObject), 0x00566AF0)
+#   define AL_RemoveItemAllSub_p        FUNC_PTR(void, __cdecl, (AL_OBJECT *pObject), 0x00566AF0)
 
 /** User-Function ptrs **/
 #   define AL_SetItem_p                 ((void*)0x005669B0)

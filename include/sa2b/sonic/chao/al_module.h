@@ -40,8 +40,8 @@ AL_SUBPRG_HEADER;
 /************************/
 /*  Data                */
 /************************/
-#define ModuleCtrl      DataRef(AL_SUBPRG_HEADER, 0x01A0F950)
-#define ChaoModules     DataAry(AL_SUBPRG_HEADER, 0x01366580, [48])
+#define ModuleCtrl      DATA_REF(AL_SUBPRG_HEADER, 0x01A0F950)
+#define ChaoModules     DATA_ARY(AL_SUBPRG_HEADER, 0x01366580, [48])
 
 /************************/
 /*  Functions           */
@@ -56,7 +56,7 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#define AL_LoadModule_p     FuncPtr(void, __cdecl, (const char*, EChaoModuleEntry), 0x00530C20)
+#define AL_LoadModule_p     FUNC_PTR(void, __cdecl, (const char*, EChaoModuleEntry), 0x00530C20)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

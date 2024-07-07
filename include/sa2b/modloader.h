@@ -98,7 +98,7 @@ void        ML_SetWindowTitle( const wchar_t* wtitle );
 *     - scale   : scale of the font in pixels (not independent of screen resolution)
 *     - color   : color in ARGB format (eg. 0xFF'EE'DD'CC)
 */
-void        ML_SetDebugFontScale( float32_t scale );
+void        ML_SetDebugFontScale( f32       scale );
 void        ML_SetDebugFontColor( uint32_t  color );
 /*
 *   Register the display of a debug string for one frame. They're drawn at the end

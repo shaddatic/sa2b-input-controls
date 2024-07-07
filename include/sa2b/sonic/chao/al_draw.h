@@ -28,12 +28,12 @@ typedef struct al_object    AL_OBJECT;
 /*  Data                */
 /************************/
 /** Refers to Chao tree nodes - called 'tree_count' in symbols **/
-#define tree_count_draw         DataRef(int16_t     , 0x01A259D8)
+#define tree_count_draw         DATA_REF(int16_t     , 0x01A259D8)
 
 /** Pointer to Chao shadow task **/
-#define ShadowTexTp             DataRef(TASK*      , 0x01A5D144)
+#define ShadowTexTp             DATA_REF(TASK*      , 0x01A5D144)
 
-#define texlist_al_mm_kage      DataAry(NJS_TEXLIST, 0x01349ED4, [1])
+#define texlist_al_mm_kage      DATA_ARY(NJS_TEXLIST, 0x01349ED4, [1])
 
 /************************/
 /*  Functions           */
@@ -64,13 +64,13 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define AL_Draw_p                    FuncPtr(void, __cdecl, (TASK*)            , 0x00540B60)
-#   define AL_DrawSub_p                 FuncPtr(void, __cdecl, (TASK*, AL_OBJECT*), 0x0053FCF0)
-#   define AL_CreateShadowTex_p         FuncPtr(void, __cdecl, (void)             , 0x00540F70)
-#   define AL_ExecShadowTex_p           FuncPtr(void, __cdecl, (TASK*)            , 0x005412E0)
-#   define AL_DisplayShadowTex_p        FuncPtr(void, __cdecl, (TASK*)            , 0x00541370)
-#   define AL_DestructShadowTex_p       FuncPtr(void, __cdecl, (TASK*)            , 0x00541250)
-#   define AL_AllocateShadowTex_p       FuncPtr(void, __cdecl, (void)             , 0x00541020)
+#   define AL_Draw_p                    FUNC_PTR(void, __cdecl, (TASK*)            , 0x00540B60)
+#   define AL_DrawSub_p                 FUNC_PTR(void, __cdecl, (TASK*, AL_OBJECT*), 0x0053FCF0)
+#   define AL_CreateShadowTex_p         FUNC_PTR(void, __cdecl, (void)             , 0x00540F70)
+#   define AL_ExecShadowTex_p           FUNC_PTR(void, __cdecl, (TASK*)            , 0x005412E0)
+#   define AL_DisplayShadowTex_p        FUNC_PTR(void, __cdecl, (TASK*)            , 0x00541370)
+#   define AL_DestructShadowTex_p       FUNC_PTR(void, __cdecl, (TASK*)            , 0x00541250)
+#   define AL_AllocateShadowTex_p       FUNC_PTR(void, __cdecl, (void)             , 0x00541020)
 
 /** User-Function ptrs **/
 #   define AL_EntryShadowTex_p          ((void*)0x00540FD0);

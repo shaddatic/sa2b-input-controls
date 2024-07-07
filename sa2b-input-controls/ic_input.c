@@ -2,9 +2,10 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core */
-#include <sa2b/memutil.h>   /* WriteJump, WriteCall, WriteNoOP */
-#include <sa2b/memory.h>    /* MemCopy  */
+#include <sa2b/core.h>      /* core                                                 */
+#include <sa2b/writemem.h>  /* WritePointer                                         */
+#include <sa2b/writeop.h>   /* WriteJump, WriteCall, WriteNoOP                      */
+#include <sa2b/memory.h>    /* MemCopy                                              */
 
 /****** SoC *************************************************************************/
 #include <sa2b/soc/input.h>
@@ -60,8 +61,8 @@ static USER_INPUT   UserInput[4];
 /************************/
 /*  Game Functions      */
 /************************/
-#define UpdateRawXInput             FuncPtr(int, __cdecl, (void), 0x00425700)
-#define UpdateControllers           FuncPtr(int, __cdecl, (void), 0x0077E780)
+#define UpdateRawXInput             FUNC_PTR(int, __cdecl, (void), 0x00425700)
+#define UpdateControllers           FUNC_PTR(int, __cdecl, (void), 0x0077E780)
 
 /************************/
 /*  Source              */
@@ -281,11 +282,11 @@ IC_InputInit(void)
     /** The rest of UpdateControllers needs to run, as the mod loader hooks the retn
         op at the end to run OnInput. By NOP'ing the entire function up until the
         return, we maintain compatibility with the mod loader **/
-    WriteNoOP(0x0077E780, 0x0077E897);
+    WriteNOP(0x0077E780, 0x0077E897);
 
     /** Fix cart controls being *0.5 **/
-    WriteNoOP(0x0061F5E2, 0x0061F5E8);
-    WriteNoOP(0x0061E4FC, 0x0061E502);
+    WriteNOP(0x0061F5E2, 0x0061F5E8);
+    WriteNOP(0x0061E4FC, 0x0061E502);
     static const f64 mulf = 1.0;
     WritePointer(0x0061E04E, &mulf);
 
