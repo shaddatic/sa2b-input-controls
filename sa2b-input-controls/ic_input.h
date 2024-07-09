@@ -279,6 +279,10 @@ bool    KeyboardDown(    u8 key );
 bool    KeyboardPress(   u8 key );
 bool    KeyboardRelease( u8 key );
 
+bool    KeyboardCapsLocked(   void );
+bool    KeyboardScrollLocked( void );
+bool    KeyboardNumLocked(    void );
+
 /****** User Input ******************************************************************/
 /*
 *   Description:

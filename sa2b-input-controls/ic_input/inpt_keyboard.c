@@ -46,9 +46,9 @@ typedef struct
     KEY_BITMAP press;
     KEY_BITMAP release;
 
-    bool capslock;
-    bool numblock;
-    bool scrllock;
+    bool capslock : 1;
+    bool numblock : 1;
+    bool scrllock : 1;
 }
 KEYBOARD;
 
@@ -222,6 +222,24 @@ KeyboardRelease(const u8 key)
     const int bit = (key &  7); // mod by 8
 
     return (Keyboard.release[idx] >> bit) & 0x1;
+}
+
+bool
+KeyboardCapsLocked(void)
+{
+    return Keyboard.capslock;
+}
+
+bool
+KeyboardScrollLocked(void)
+{
+    return Keyboard.scrllock;
+}
+
+bool
+KeyboardNumLocked(void)
+{
+    return Keyboard.numblock;
 }
 
 static void
