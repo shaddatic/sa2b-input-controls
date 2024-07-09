@@ -182,17 +182,14 @@ MouseUpdate(void)
     Mouse.wheel = WheelBuffer;
     WheelBuffer = 0.0f;
 
-    ___NOTE("Add an on-screen debug print for this");
-    //OutputFormat("pos %+i, %+i : vec %+i, %+i : wheel %+i", Mouse.pos.x, Mouse.pos.y, Mouse.vec.x, Mouse.vec.y, (s32)Mouse.wheel);
-
     CursorSubState = CURSOR_SUB_NONE;
 }
 
-void
+bool
 MouseGetEmulatedAnalog(const eKEYBOARD_NUM nbKb, const eEMU_STICK nbAnalog, f32* const pOutX, f32* const pOutY)
 {
     if (nbKb != MouseEmuKbIndex || nbAnalog != MouseEmuStickIndex)
-        return;
+        return false;
 
     NJS_POINT2I* p_vec;
 
@@ -218,9 +215,11 @@ MouseGetEmulatedAnalog(const eKEYBOARD_NUM nbKb, const eEMU_STICK nbAnalog, f32*
     const f32 y = CLAMP((f32)p_vec->y * MouseEmuSensitivity, -1.0f, 1.0f);
 
     MouseSetVisualizerInfo(x, y);
- 
-    if (x) *pOutX = x;
-    if (y) *pOutY = y;
+
+    *pOutX = x;
+    *pOutY = y;
+
+    return true;
 }
 
 void

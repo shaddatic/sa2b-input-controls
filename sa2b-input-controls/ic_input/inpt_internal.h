@@ -69,8 +69,11 @@ void    MouseInit(    void );
 *     - nbAnalog : analog stick index to emulate
 *     - pOutX    : return pointer for x value
 *     - pOutY    : return pointer for y value
+*
+*   Returns:
+*     If 'pOutX' and 'Y' were modified
 */
-void    MouseGetEmulatedAnalog( eKEYBOARD_NUM nbKb, eEMU_STICK nbAnalog, f32* pOutX, f32* pOutY );
+bool    MouseGetEmulatedAnalog( eKEYBOARD_NUM nbKb, eEMU_STICK nbAnalog, f32* pOutX, f32* pOutY );
 
 EXTERN_END
 

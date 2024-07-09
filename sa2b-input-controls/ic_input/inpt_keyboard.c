@@ -318,31 +318,41 @@ KeyboardSetUserInput(const int nbKb, USER_INPUT* const pUserInput)
 
     /** Left analog stick **/
     {
+        const f32 in_x = pUserInput->x1;
+        const f32 in_y = pUserInput->y1;
+
         f32 x = 0, y = 0;
 
         MouseGetEmulatedAnalog(nbKb, EMU_STICK_LEFT, &x, &y);
 
-        if (!x)
-            x = GetStickAxis(p_kbl->StickL.right, p_kbl->StickL.left);
-        if (!y)
-            y = GetStickAxis(p_kbl->StickL.down , p_kbl->StickL.up  );
+        const f32 dgt_x = GetStickAxis(p_kbl->StickL.right, p_kbl->StickL.left);
+        const f32 dgt_y = GetStickAxis(p_kbl->StickL.down , p_kbl->StickL.up  );
 
-        if (x) pUserInput->x1 = x;
-        if (y) pUserInput->y1 = y;
+        if (dgt_x) x = dgt_x;
+        if (dgt_y) y = dgt_y;
+
+        /** Ensure the largest player input is the only one registered **/
+        if (ABS(x) > ABS(in_x)) pUserInput->x1 = x;
+        if (ABS(y) > ABS(in_y)) pUserInput->y1 = y;
     }
     /** Right analog stick **/
     {
+        const f32 in_x = pUserInput->x2;
+        const f32 in_y = pUserInput->y2;
+
         f32 x = 0, y = 0;
 
         MouseGetEmulatedAnalog(nbKb, EMU_STICK_RIGHT, &x, &y);
 
-        if (!x)
-            x = GetStickAxis(p_kbl->StickR.right, p_kbl->StickR.left);
-        if (!y)
-            y = GetStickAxis(p_kbl->StickR.down , p_kbl->StickR.up  );
+        const f32 dgt_x = GetStickAxis(p_kbl->StickR.right, p_kbl->StickR.left);
+        const f32 dgt_y = GetStickAxis(p_kbl->StickR.down , p_kbl->StickR.up  );
 
-        if (x) pUserInput->x2 = x;
-        if (y) pUserInput->y2 = y;
+        if (dgt_x) x = dgt_x;
+        if (dgt_y) y = dgt_y;
+
+        /** Ensure the largest player input is the only one registered **/
+        if (ABS(x) > ABS(in_x)) pUserInput->x2 = x;
+        if (ABS(y) > ABS(in_y)) pUserInput->y2 = y;
     }
 
     uint32_t btn = 0;
