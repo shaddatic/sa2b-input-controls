@@ -170,7 +170,18 @@ const char* GetModPath(void);
 */
 #ifndef MIN
 #   define MIN(val1, val2)                  ((val1)>(val2)?(val2):(val1))
-#endif/*MAX*/
+#endif/*MIN*/
+/*
+*   Description:
+*     Gets the absolute value of the input value. In other words, the non-negative
+*   form of the value.
+*
+*   Parameters:
+*     - val     : value to find the absolute value of
+*/
+#ifndef ABS
+#   define ABS(val)                         ((val)>=0?(val):-(val))
+#endif/*ABS*/
 
 /****** Address Mapping *************************************************************/
 /*
