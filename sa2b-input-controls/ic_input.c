@@ -190,7 +190,26 @@ SetPdsPeripheral(void)
         PDS_PERIPHERAL*   const p_pad   = &PeripheralData[i];
         const USER_INPUT* const p_input = &UserInput[i];
 
-        p_pad->support = PDD_DEV_SUPPORT_TC|PDD_DEV_SUPPORT_TB|PDD_DEV_SUPPORT_TA|PDD_DEV_SUPPORT_ST|PDD_DEV_SUPPORT_KU|PDD_DEV_SUPPORT_KD|PDD_DEV_SUPPORT_KL|PDD_DEV_SUPPORT_KR|PDD_DEV_SUPPORT_TZ|PDD_DEV_SUPPORT_TY|PDD_DEV_SUPPORT_TX|PDD_DEV_SUPPORT_TD|PDD_DEV_SUPPORT_AR|PDD_DEV_SUPPORT_AL|PDD_DEV_SUPPORT_AX1|PDD_DEV_SUPPORT_AY1|PDD_DEV_SUPPORT_AX2;
+        /** If the emulated Dreamcast controller can't recieve input, then we need
+            to emulate the controller being disconnected **/
+        if (!GamepadValid(UserGamepad[i]) && UserKeyboard[i] == KEYBOARD_NONE)
+        {
+            *p_pad       = (PDS_PERIPHERAL){0};
+
+            if (p_pad->info)
+                *p_pad->info = (PDS_PERIPHERALINFO){0};
+
+            continue;
+        }
+
+        p_pad->support =
+            PDD_DEV_SUPPORT_TC|PDD_DEV_SUPPORT_TB|PDD_DEV_SUPPORT_TA|
+            PDD_DEV_SUPPORT_ST|PDD_DEV_SUPPORT_KU|PDD_DEV_SUPPORT_KD|
+            PDD_DEV_SUPPORT_KL|PDD_DEV_SUPPORT_KR|PDD_DEV_SUPPORT_TZ|
+            PDD_DEV_SUPPORT_TY|PDD_DEV_SUPPORT_TX|PDD_DEV_SUPPORT_TD|
+            PDD_DEV_SUPPORT_AR|PDD_DEV_SUPPORT_AL|
+            PDD_DEV_SUPPORT_AX1|PDD_DEV_SUPPORT_AY1|
+            PDD_DEV_SUPPORT_AX2|PDD_DEV_SUPPORT_AY2;
 
         const uint32_t btn_on = UserToDreamcastButton(p_input->down);
 
@@ -209,7 +228,12 @@ SetPdsPeripheral(void)
         p_pad->r = UserToPdsTrigger(p_input->r);
         p_pad->l = UserToPdsTrigger(p_input->l);
 
-        p_pad->info->type = PDD_DEVTYPE_VIBRATION|PDD_DEVTYPE_CONTROLLER;
+        PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
+
+        p_padinfo->type = PDD_DEVTYPE_CONTROLLER;
+
+        if (GamepadVibValid(UserGamepad[i]))
+            p_padinfo->type |= PDD_DEVTYPE_VIBRATION;
     }
 }
 
