@@ -63,7 +63,7 @@ UserGetGamepadValid(const eUSER_NUM nbUser)
 {
     const eGAMEPAD_NUM nb_gp = UserGetGamepadNum(nbUser);
 
-    return GamepadGetValid(nb_gp);
+    return GamepadValid(nb_gp);
 }
 
 bool
@@ -114,7 +114,7 @@ SetUserInput(void)
 
         if (nb_gp != GAMEPAD_NONE)
         {
-            gp_valid = GamepadGetValid(nb_gp);
+            gp_valid = GamepadValid(nb_gp);
 
             if (UserInputMode[i] != INPUT_KEYBOARD && gp_valid) 
             {
