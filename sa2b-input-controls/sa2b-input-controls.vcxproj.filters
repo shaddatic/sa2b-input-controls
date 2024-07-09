@@ -54,6 +54,9 @@
     <ClCompile Include="ic_input\inpt_mouse\mse_visualizer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ic_api.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ic_camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ic_api\icapi_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
