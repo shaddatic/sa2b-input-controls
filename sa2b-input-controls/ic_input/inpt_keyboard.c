@@ -42,7 +42,7 @@ typedef uint8_t     KEY_BITMAP[LEN_KEY_BITMAP];
 /************************/
 typedef struct
 {
-    KEY_BITMAP on;
+    KEY_BITMAP down;
     KEY_BITMAP press;
     KEY_BITMAP release;
 
@@ -198,12 +198,12 @@ KeyboardPoll(void)
 }
 
 bool
-KeyboardOn(const u8 key)
+KeyboardDown(const u8 key)
 {
     const int idx = (key >> 3); // div by 8
     const int bit = (key &  7); // mod by 8
 
-    return (Keyboard.on[idx] >> bit) & 0x1;
+    return (Keyboard.down[idx] >> bit) & 0x1;
 }
 
 bool
@@ -251,9 +251,9 @@ KeyboardUpdate(void)
 
     KEY_BITMAP old_key;
 
-    MemCopy(old_key, Keyboard.on, sizeof(KEY_BITMAP));
+    MemCopy(old_key, Keyboard.down, sizeof(KEY_BITMAP));
 
-    MemSet(Keyboard.on     , 0x0, sizeof(KEY_BITMAP));
+    MemSet(Keyboard.down   , 0x0, sizeof(KEY_BITMAP));
     MemSet(Keyboard.press  , 0x0, sizeof(KEY_BITMAP));
     MemSet(Keyboard.release, 0x0, sizeof(KEY_BITMAP));
 
@@ -267,7 +267,7 @@ KeyboardUpdate(void)
     /** Translate KEY_MAP to a KEY_BITMAP for storage **/
     for (int nb_bitmap = 0, nb_state = 0; nb_bitmap < LEN_KEY_BITMAP; ++nb_bitmap)
     {
-        uint8_t* const p_on      = &Keyboard.on[nb_bitmap];
+        uint8_t* const p_on      = &Keyboard.down[nb_bitmap];
         uint8_t* const p_press   = &Keyboard.press[nb_bitmap];
         uint8_t* const p_release = &Keyboard.release[nb_bitmap];
 
@@ -290,7 +290,7 @@ KeyboardUpdate(void)
 static f32
 GetStickAxis(const uint8_t keyPos, const uint8_t keyNeg)
 {
-    return (KeyboardOn(keyPos) ? 1.0f : 0.0f) - (KeyboardOn(keyNeg) ? 1.0f : 0.0f);
+    return (KeyboardDown(keyPos) ? 1.0f : 0.0f) - (KeyboardDown(keyNeg) ? 1.0f : 0.0f);
 }
 
 void
@@ -329,26 +329,27 @@ KeyboardSetUserInput(const int nbKb, USER_INPUT* const pUserInput)
 
     uint32_t btn = 0;
 
-    btn |= ( KeyboardOn(p_kbl->btn_a) ? USRBTN_A : 0 );  /* Button A */
-    btn |= ( KeyboardOn(p_kbl->btn_b) ? USRBTN_B : 0 );  /* Button B */
-    btn |= ( KeyboardOn(p_kbl->btn_x) ? USRBTN_X : 0 );  /* Button X */
-    btn |= ( KeyboardOn(p_kbl->btn_y) ? USRBTN_Y : 0 );  /* Button Y */
+    btn |= ( KeyboardDown(p_kbl->btn_a) ? USRBTN_A : 0 );  /* Button A */
+    btn |= ( KeyboardDown(p_kbl->btn_b) ? USRBTN_B : 0 );  /* Button B */
+    btn |= ( KeyboardDown(p_kbl->btn_x) ? USRBTN_X : 0 );  /* Button X */
+    btn |= ( KeyboardDown(p_kbl->btn_y) ? USRBTN_Y : 0 );  /* Button Y */
 
-    btn |= ( KeyboardOn(p_kbl->btn_start) ? USRBTN_START : 0 );  /* Button Start/Pause */
-    btn |= ( KeyboardOn(p_kbl->btn_back ) ? USRBTN_BACK  : 0 );  /* Button Back */
+    btn |= ( KeyboardDown(p_kbl->btn_start) ? USRBTN_START : 0 );  /* Button Start/Pause */
+    btn |= ( KeyboardDown(p_kbl->btn_back ) ? USRBTN_BACK  : 0 );  /* Button Back */
 
-    btn |= ( KeyboardOn(p_kbl->btn_zl) ? USRBTN_ZL : 0 );  /* Button ZL */
-    btn |= ( KeyboardOn(p_kbl->btn_zr) ? USRBTN_ZR : 0 );  /* Button ZR */
+    btn |= ( KeyboardDown(p_kbl->btn_zl) ? USRBTN_ZL : 0 );  /* Button ZL */
+    btn |= ( KeyboardDown(p_kbl->btn_zr) ? USRBTN_ZR : 0 );  /* Button ZR */
 
-    btn |= ( KeyboardOn(p_kbl->btn_l) ? USRBTN_L : 0 );  /* Button L */
-    btn |= ( KeyboardOn(p_kbl->btn_r) ? USRBTN_R : 0 );  /* Button R */
+    btn |= ( KeyboardDown(p_kbl->btn_l) ? USRBTN_L : 0 );  /* Button L */
+    btn |= ( KeyboardDown(p_kbl->btn_r) ? USRBTN_R : 0 );  /* Button R */
 
-    btn |= ( KeyboardOn(p_kbl->DPad.up   ) ? USRBTN_DPAD_UP    : 0 );  /* D-Pad Up */
-    btn |= ( KeyboardOn(p_kbl->DPad.down ) ? USRBTN_DPAD_DOWN  : 0 );  /* D-Pad Down */
-    btn |= ( KeyboardOn(p_kbl->DPad.left ) ? USRBTN_DPAD_LEFT  : 0 );  /* D-Pad Left */
-    btn |= ( KeyboardOn(p_kbl->DPad.right) ? USRBTN_DPAD_RIGHT : 0 );  /* D-Pad Right */
+    btn |= ( KeyboardDown(p_kbl->DPad.up   ) ? USRBTN_DPAD_UP    : 0 );  /* D-Pad Up */
+    btn |= ( KeyboardDown(p_kbl->DPad.down ) ? USRBTN_DPAD_DOWN  : 0 );  /* D-Pad Down */
+    btn |= ( KeyboardDown(p_kbl->DPad.left ) ? USRBTN_DPAD_LEFT  : 0 );  /* D-Pad Left */
+    btn |= ( KeyboardDown(p_kbl->DPad.right) ? USRBTN_DPAD_RIGHT : 0 );  /* D-Pad Right */
 
-    pUserInput->on |= btn;
+    /** Ensure this doesn't unpress buttons held by the gamepad **/
+    pUserInput->down |= btn;
 
     if (btn & USRBTN_L)
         pUserInput->l = 1.0f;  /* Analog L */

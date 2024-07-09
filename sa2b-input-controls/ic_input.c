@@ -102,7 +102,7 @@ SetUserInput(void)
         /** Setup **/
         USER_INPUT* const p_input = &UserInput[i];
 
-        const uint32_t btn_old = p_input->on; // old button for button calculations
+        const uint32_t btn_old = p_input->down; // old button for button calculations
 
         /** Clearing **/
         *p_input = (USER_INPUT){0};
@@ -134,7 +134,7 @@ SetUserInput(void)
         }
 
         /** Set button **/
-        const uint32_t btn_new = p_input->on;
+        const uint32_t btn_new = p_input->down;
 
         p_input->press   = btn_new & ~btn_old;
         p_input->release = btn_old & ~btn_new;
@@ -192,7 +192,7 @@ SetPdsPeripheral(void)
 
         p_pad->support = PDD_DEV_SUPPORT_TC|PDD_DEV_SUPPORT_TB|PDD_DEV_SUPPORT_TA|PDD_DEV_SUPPORT_ST|PDD_DEV_SUPPORT_KU|PDD_DEV_SUPPORT_KD|PDD_DEV_SUPPORT_KL|PDD_DEV_SUPPORT_KR|PDD_DEV_SUPPORT_TZ|PDD_DEV_SUPPORT_TY|PDD_DEV_SUPPORT_TX|PDD_DEV_SUPPORT_TD|PDD_DEV_SUPPORT_AR|PDD_DEV_SUPPORT_AL|PDD_DEV_SUPPORT_AX1|PDD_DEV_SUPPORT_AY1|PDD_DEV_SUPPORT_AX2;
 
-        const uint32_t btn_on = UserToDreamcastButton(p_input->on);
+        const uint32_t btn_on = UserToDreamcastButton(p_input->down);
 
         p_pad->on  =  btn_on;
         p_pad->off = ~btn_on;

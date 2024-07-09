@@ -137,7 +137,7 @@ SetSocPeripheral(void)
         SOC_PERIPHERAL*   const p_socper = &SocPeripheral[i];
         const USER_INPUT* const p_uinput = UserGetInput((eUSER_NUM)i);
 
-        p_socper->button = UserToSocButton(p_uinput->on);
+        p_socper->button = UserToSocButton(p_uinput->down);
 
         const f32 lr = p_uinput->r - p_uinput->l;
 

@@ -216,7 +216,7 @@ eDZ_MODE;
 /************************/
 typedef struct
 {
-    uint32_t on;
+    uint32_t down;
     uint32_t press;
     uint32_t release;
 
@@ -229,7 +229,7 @@ USER_INPUT;
 
 typedef struct
 {
-    uint8_t on;
+    uint8_t down;
     uint8_t press;
     uint8_t release;
 
@@ -275,7 +275,7 @@ bool    GamepadVibStop( eGAMEPAD_NUM nbGp );
 /****** Keyboard ********************************************************************/
 u8      KeyboardPoll( void ); /* poll most recent key press                         */
 
-bool    KeyboardOn(      u8 key );
+bool    KeyboardDown(    u8 key );
 bool    KeyboardPress(   u8 key );
 bool    KeyboardRelease( u8 key );
 

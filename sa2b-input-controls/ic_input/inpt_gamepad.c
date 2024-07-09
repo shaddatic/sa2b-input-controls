@@ -205,10 +205,10 @@ GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
     const GAMEPAD*        const p_gp = &Gamepad[nbGamepad];
     const xinput_gamepad* const p_xi = &XIState[nbGamepad].Gamepad;
 
-    pUserInput->on = p_xi->button;
+    pUserInput->down = p_xi->button;
 
-    pUserInput->on |= ( p_xi->LT > p_gp->trigLimit ? USRBTN_L : 0 );
-    pUserInput->on |= ( p_xi->RT > p_gp->trigLimit ? USRBTN_R : 0 );
+    pUserInput->down |= ( p_xi->LT > p_gp->trigLimit ? USRBTN_L : 0 );
+    pUserInput->down |= ( p_xi->RT > p_gp->trigLimit ? USRBTN_R : 0 );
 
     f32 x1, y1;
     f32 x2, y2;

@@ -102,13 +102,13 @@ MouseUpdate(void)
     {
         uint8_t button = 0;
 
-        button |= ( KeyboardOn(MOUSE_LCLICK) ? MSEBTN_LEFT   : 0 );
-        button |= ( KeyboardOn(MOUSE_RCLICK) ? MSEBTN_RIGHT  : 0 );
-        button |= ( KeyboardOn(MOUSE_MCLICK) ? MSEBTN_MIDDLE : 0 );
-        button |= ( KeyboardOn(MOUSE_X1)     ? MSEBTN_X1     : 0 );
-        button |= ( KeyboardOn(MOUSE_X2)     ? MSEBTN_X2     : 0 );
+        button |= ( KeyboardDown(MOUSE_LCLICK) ? MSEBTN_LEFT   : 0 );
+        button |= ( KeyboardDown(MOUSE_RCLICK) ? MSEBTN_RIGHT  : 0 );
+        button |= ( KeyboardDown(MOUSE_MCLICK) ? MSEBTN_MIDDLE : 0 );
+        button |= ( KeyboardDown(MOUSE_X1)     ? MSEBTN_X1     : 0 );
+        button |= ( KeyboardDown(MOUSE_X2)     ? MSEBTN_X2     : 0 );
 
-        Mouse.on = button;
+        Mouse.down = button;
     }
 
     /** press button **/
@@ -200,7 +200,7 @@ MouseGetEmulatedAnalog(const eKEYBOARD_NUM nbKb, const eEMU_STICK nbAnalog, f32*
     {
         p_vec = &MouseEmuDragVector;
 
-        if (KeyboardOn((u8)MouseEmuClickKey))
+        if (KeyboardDown((u8)MouseEmuClickKey))
         {
             const s32 vec_x = MouseEmuDragVector.x + Mouse.vec.x;
             const s32 vec_y = MouseEmuDragVector.y + Mouse.vec.y;
