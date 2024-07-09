@@ -16,6 +16,16 @@ EXTERN_START
 /************************/
 /*  Constants           */
 /************************/
+/****** Capabilities ****************************************************************/
+#define XI_CAPABILITY_FEEDBACK      (0x01)  /* supports feedback other than rumble  */
+#define XI_CAPABILITY_WIRELESS      (0x02)  /* device is in wireless mode           */
+#define XI_CAPABILITY_VOICE         (0x04)  /* supports voice input                 */
+#define XI_CAPABILITY_MODULE        (0x08)  /* supports plug-in modules             */
+#define XI_CAPABILITY_NONAV         (0x10)  /* lacks Back, Start, and D-Pad         */
+
+/****** Flags ***********************************************************************/
+#define XI_FLAG_GAMEPAD             (0x00)  /* capability flag, gamepad             */
+
 /****** Buttons *********************************************************************/
 #define XI_GAMEPAD_DPAD_UP          (0x0001)
 #define XI_GAMEPAD_DPAD_DOWN        (0x0002)
