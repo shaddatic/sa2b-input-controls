@@ -288,6 +288,9 @@ bool    KeyboardCapsLocked(   void );
 bool    KeyboardScrollLocked( void );
 bool    KeyboardNumLocked(    void );
 
+/****** Mouse ***********************************************************************/
+const MOUSE*    GetMouse( void );
+
 /****** User Input ******************************************************************/
 /*
 *   Description:
@@ -311,7 +314,7 @@ bool    UserVibStop( eUSER_NUM nbUser );
 *   Description:
 *     If the user has 'Use Raw Analog' enabled.
 */
-bool    InputUseRawAnalog(void);
+bool    InputUseRawAnalog( void );
 
 EXTERN_END
 
