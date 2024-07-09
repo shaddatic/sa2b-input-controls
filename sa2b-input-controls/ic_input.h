@@ -260,7 +260,12 @@ void*   GamepadXInputGet( eGAMEPAD_NUM nbGp );
 *   Description:
 *     If the specified gamepad is on and available.
 */
-bool    GamepadGetValid( eGAMEPAD_NUM nbGp );
+bool    GamepadValid( eGAMEPAD_NUM nbGp );
+/*
+*   Description:
+*     If the specified gamepad is vibration capable, and vibration is enabled.
+*/
+bool    GamepadVibValid( eGAMEPAD_NUM nbGp );
 /*
 *   Description:
 *     Set vibration for a specified gamepad.

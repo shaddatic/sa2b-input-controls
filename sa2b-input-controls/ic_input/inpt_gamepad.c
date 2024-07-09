@@ -34,9 +34,6 @@
 #define XInputGetState          ___XInputGetState
 #define XInputSetState          ___XInputSetState
 
-#define DBG_AXIS_LEFT           (0)
-#define DBG_AXIS_RIGHT          (1)
-
 /************************/
 /*  Structures          */
 /************************/
@@ -63,15 +60,31 @@ typedef struct
 
     bool valid;
 }
+USER_GAMEPAD;
+
+typedef struct
+{
+    xinput_capabilities XICaps;
+    xinput_state        XIState;
+
+    bool valid : 1;                 /* is a valid gamepad slot                      */
+    bool vib   : 1;                 /* is vibration capable                         */
+}
 GAMEPAD;
 
 /************************/
 /*  File Variables      */
 /************************/
-static xinput_state XIState[4];
-static GAMEPAD      Gamepad[4];
+static USER_GAMEPAD UserGamepad[4]; /* user gamepad settings                        */
 
-static bool         GamepadDbgAxis;
+static GAMEPAD Gamepad[4];          /* physical gamepad data                        */
+
+static bool GamepadDbgAxis;
+
+/************************/
+/*  File Macro          */
+/************************/
+#define NORMALISE_XISTICK(mag)      (f32)((f32)mag/(mag>0?32767.0f:32768.0f))
 
 /************************/
 /*  Source              */
@@ -82,11 +95,20 @@ GamepadXInputGet(const eGAMEPAD_NUM nbGp)
     if (nbGp == GAMEPAD_NONE)
         return nullptr;
 
-    return &XIState[nbGp];
+    return &Gamepad[nbGp].XIState;
+}
+
+void*
+GamepadGetCapabilities(const eGAMEPAD_NUM nbGp)
+{
+    if (nbGp == GAMEPAD_NONE)
+        return nullptr;
+
+    return &Gamepad[nbGp].XICaps;
 }
 
 bool
-GamepadGetValid(const eGAMEPAD_NUM nbGp)
+GamepadValid(const eGAMEPAD_NUM nbGp)
 {
     if (nbGp == GAMEPAD_NONE)
         return false;
@@ -94,12 +116,41 @@ GamepadGetValid(const eGAMEPAD_NUM nbGp)
     return Gamepad[nbGp].valid;
 }
 
+bool
+GamepadVibValid(const eGAMEPAD_NUM nbGp)
+{
+    if (nbGp == GAMEPAD_NONE)
+        return false;
+
+    return UserGamepad[nbGp].useVib && Gamepad[nbGp].vib;
+}
+
 void
 GamepadUpdate(void)
 {
     for (int i = 0; i < ARYLEN(Gamepad); ++i)
     {
-        Gamepad[i].valid = !XInputGetState(i, &XIState[i]);
+        bool valid;
+
+        /** We only need to get capabilities once, so wait until the controller has
+            been disconnected and reconnected until getting the caps again **/
+        if (!Gamepad[i].valid)
+        {
+            valid = !XInputGetCapabilities(i, XI_FLAG_GAMEPAD, &Gamepad[i].XICaps);
+
+            if (valid)
+            {
+                XInputGetState(i, &Gamepad[i].XIState);
+
+                const xinput_vibration* p_vib = &Gamepad[i].XICaps.Vibration;
+
+                Gamepad[i].vib = p_vib->spdL || p_vib->spdR;
+            }
+        }
+        else
+            valid = !XInputGetState(i, &Gamepad[i].XIState);
+
+        Gamepad[i].valid = valid;
     }
 }
 
@@ -109,7 +160,7 @@ GamepadVibSet(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    const GAMEPAD* const p_gp = &Gamepad[nbGp];
+    const USER_GAMEPAD* const p_gp = &UserGamepad[nbGp];
 
     if (!p_gp->useVib)
         return false;
@@ -117,7 +168,7 @@ GamepadVibSet(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
     const f32 adj_l = p_gp->vibPwrL * spdL;
     const f32 adj_r = p_gp->vibPwrR * spdR;
 
-    return XInputSetState(nbGp, &(xinput_vibration) {
+    return XInputSetState(nbGp, &(xinput_vibration){
         .spdL = (u16)nearbyint(adj_l * 65'535.0),
         .spdR = (u16)nearbyint(adj_r * 65'535.0)
     }) == 0;
@@ -129,7 +180,7 @@ GamepadVibStop(const eGAMEPAD_NUM nbGp)
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    return XInputSetState(nbGp, &(xinput_vibration) { .spdL = 0, .spdR = 0 }) == 0;
+    return XInputSetState(nbGp, &(xinput_vibration){.spdL = 0, .spdR = 0}) == 0;
 }
 
 /****** Static **********************************************************************/
@@ -196,14 +247,12 @@ CalcCircularDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
     *pY = (f32)(cos(angf) * dz_mag);
 }
 
-#define NORMALISE_XISTICK(mag)      (f32)((f32)mag/(mag>0?32767.0f:32768.0f))
-
 /****** User Input ******************************************************************/
 void
 GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
 {
-    const GAMEPAD*        const p_gp = &Gamepad[nbGamepad];
-    const xinput_gamepad* const p_xi = &XIState[nbGamepad].Gamepad;
+    const USER_GAMEPAD*   const p_gp = &UserGamepad[nbGamepad];
+    const xinput_gamepad* const p_xi = &Gamepad[nbGamepad].XIState.Gamepad;
 
     pUserInput->down = p_xi->button;
 
@@ -263,21 +312,21 @@ void
 GamepadInit(void)
 {
     /** Get Gamepad sections info **/
-    for (int i = 0; i < ARYLEN(Gamepad); ++i)
+    for (int i = 0; i < ARYLEN(UserGamepad); ++i)
     {
         char buf[8];
 
         snprintf(buf, sizeof(buf), "gp%i", i);
 
-        Gamepad[i].dzMode =     (u8)  CnfGetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
-        Gamepad[i].StickL.idz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
-        Gamepad[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
-        Gamepad[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
-        Gamepad[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
-        Gamepad[i].vibPwrL =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_L(   buf ) );
-        Gamepad[i].vibPwrR =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_R(   buf ) );
-        Gamepad[i].useVib  =          CnfGetInt(     CNFV_GAMEPD_VIB(     buf ) );
-        Gamepad[i].trigLimit =  (u8)( CnfGetPercent( CNFV_GAMEPD_TR_LIM(  buf ) ) * 255.0 );
+        UserGamepad[i].dzMode =     (u8)  CnfGetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
+        UserGamepad[i].StickL.idz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
+        UserGamepad[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
+        UserGamepad[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
+        UserGamepad[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
+        UserGamepad[i].vibPwrL =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_L(   buf ) );
+        UserGamepad[i].vibPwrR =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_R(   buf ) );
+        UserGamepad[i].useVib  =          CnfGetInt(     CNFV_GAMEPD_VIB(     buf ) );
+        UserGamepad[i].trigLimit =  (u8)( CnfGetPercent( CNFV_GAMEPD_TR_LIM(  buf ) ) * 255.0 );
     }
 
     /** Get debug info **/
