@@ -24,9 +24,13 @@
 /************************/
 /*  Constants           */
 /************************/
-/** Minimum mod loader version **/
-#define MLVER_MIN   (9)
+/****** Mod Loader Version Mins *****************************************************/
+#define MLVER_API_MIN       (9) /* minimum mod loader version for API               */
+#define MLVER_MIN           (8) /* minimum mod loader version                       */
 
+/************************/
+/*  Source              */
+/************************/
 EXPORT_DLL
 void __cdecl
 Init(const char* path, const HelperFunctions* pHelperFunctions)
@@ -35,14 +39,29 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
 
     bool can_api = true;
 
-    if (ML_GetVersion() < MLVER_MIN)
     {
+        const int ml_ver = ML_GetVersion();
+
+        if (ml_ver < MLVER_MIN)
+        {
         UserErrorMessageBox("Input Controls : Mod Loader Version",
-            "SA2 Input Controls cannot fully operate on this Mod Loader version.\n"
-            "Some features will be disabled to prevent crashing. However, it is recommended "
-            "you update to the latest Mod Loader version, as older versions will not be supported"
+                "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
+                "Please update the Mod Loader to a newer version!\n\n"
+                "Input Controls will now abort the init process."
         );
+
+            return;
+        }
+        else if (ml_ver < MLVER_API_MIN)
+        {
+            /** Just print a warning to the console **/
+            OutputString("Input Controls : WARNING\n"
+                "The installed mod loader version doesn't support features required for the Input Controls API."
+                "The API will be disabled to prevent crashing. However, it is recommended you update to the latest "
+                "Mod Loader version, as older versions will not be actively supported");
+
         can_api = false;
+    }
     }
 
     CnfInit();
