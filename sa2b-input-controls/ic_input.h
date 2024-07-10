@@ -284,9 +284,9 @@ bool    KeyboardDown(    u8 key );
 bool    KeyboardPress(   u8 key );
 bool    KeyboardRelease( u8 key );
 
-bool    KeyboardCapsLocked(   void );
-bool    KeyboardScrollLocked( void );
-bool    KeyboardNumLocked(    void );
+bool    KeyboardCapsLock(   void );
+bool    KeyboardScrollLock( void );
+bool    KeyboardNumLock(    void );
 
 /****** Mouse ***********************************************************************/
 const MOUSE*    GetMouse( void );

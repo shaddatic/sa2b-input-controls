@@ -225,19 +225,19 @@ KeyboardRelease(const u8 key)
 }
 
 bool
-KeyboardCapsLocked(void)
+KeyboardCapsLock(void)
 {
     return Keyboard.capslock;
 }
 
 bool
-KeyboardScrollLocked(void)
+KeyboardScrollLock(void)
 {
     return Keyboard.scrllock;
 }
 
 bool
-KeyboardNumLocked(void)
+KeyboardNumLock(void)
 {
     return Keyboard.numblock;
 }
