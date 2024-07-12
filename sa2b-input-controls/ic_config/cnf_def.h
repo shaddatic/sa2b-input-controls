@@ -138,7 +138,7 @@ CNFE_BOOL;
 #define CNF_EMUANALOG_KEYBRD            CNFO_INT(   CNFS_EMUANALOG      , "kb_nb"               , KEYBOARD_NONE                         )
 #define CNF_EMUANALOG_STICK             CNFO_INT(   CNFS_EMUANALOG      , "stick"               , 0                                     )
 #define CNF_EMUANALOG_MODE              CNFO_INT(   CNFS_EMUANALOG      , "mode"                , 1                                     )
-#define CNF_EMUANALOG_CLICK             CNFO_INT(   CNFS_EMUANALOG      , "click"               , MOUSE_LCLICK                          )
+#define CNF_EMUANALOG_CLICK             CNFO_INT(   CNFS_EMUANALOG      , "click"               , KEY_M_LCLICK                          )
 #define CNF_EMUANALOG_SENSITIVITY       CNFO_INT(   CNFS_EMUANALOG      , "sensitivity"         , 50                                    )
 #define CNF_EMUANALOG_VISU_MODE         CNFO_INT(   CNFS_EMUANALOG      , "visu_mode"           , 1                                     )
 #define CNF_EMUANALOG_VISU_ALPHA        CNFO_INT(   CNFS_EMUANALOG      , "visu_alpha"          , 75                                    )

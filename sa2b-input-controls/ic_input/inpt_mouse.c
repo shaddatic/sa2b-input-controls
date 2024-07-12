@@ -102,11 +102,11 @@ MouseUpdate(void)
     {
         uint8_t button = 0;
 
-        button |= ( KeyboardDown(MOUSE_LCLICK) ? MSEBTN_LEFT   : 0 );
-        button |= ( KeyboardDown(MOUSE_RCLICK) ? MSEBTN_RIGHT  : 0 );
-        button |= ( KeyboardDown(MOUSE_MCLICK) ? MSEBTN_MIDDLE : 0 );
-        button |= ( KeyboardDown(MOUSE_X1)     ? MSEBTN_X1     : 0 );
-        button |= ( KeyboardDown(MOUSE_X2)     ? MSEBTN_X2     : 0 );
+        button |= ( KeyboardDown(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
+        button |= ( KeyboardDown(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
+        button |= ( KeyboardDown(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
+        button |= ( KeyboardDown(KEY_M_X1)     ? MSEBTN_X1     : 0 );
+        button |= ( KeyboardDown(KEY_M_X2)     ? MSEBTN_X2     : 0 );
 
         Mouse.down = button;
     }
@@ -115,11 +115,11 @@ MouseUpdate(void)
     {
         uint8_t button = 0;
 
-        button |= ( KeyboardPress(MOUSE_LCLICK) ? MSEBTN_LEFT   : 0 );
-        button |= ( KeyboardPress(MOUSE_RCLICK) ? MSEBTN_RIGHT  : 0 );
-        button |= ( KeyboardPress(MOUSE_MCLICK) ? MSEBTN_MIDDLE : 0 );
-        button |= ( KeyboardPress(MOUSE_X1)     ? MSEBTN_X1     : 0 );
-        button |= ( KeyboardPress(MOUSE_X2)     ? MSEBTN_X2     : 0 );
+        button |= ( KeyboardPress(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
+        button |= ( KeyboardPress(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
+        button |= ( KeyboardPress(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
+        button |= ( KeyboardPress(KEY_M_X1)     ? MSEBTN_X1     : 0 );
+        button |= ( KeyboardPress(KEY_M_X2)     ? MSEBTN_X2     : 0 );
 
         Mouse.press = button;
     }
@@ -128,11 +128,11 @@ MouseUpdate(void)
     {
         uint8_t button = 0;
 
-        button |= ( KeyboardRelease(MOUSE_LCLICK) ? MSEBTN_LEFT   : 0 );
-        button |= ( KeyboardRelease(MOUSE_RCLICK) ? MSEBTN_RIGHT  : 0 );
-        button |= ( KeyboardRelease(MOUSE_MCLICK) ? MSEBTN_MIDDLE : 0 );
-        button |= ( KeyboardRelease(MOUSE_X1)     ? MSEBTN_X1     : 0 );
-        button |= ( KeyboardRelease(MOUSE_X2)     ? MSEBTN_X2     : 0 );
+        button |= ( KeyboardRelease(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
+        button |= ( KeyboardRelease(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
+        button |= ( KeyboardRelease(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
+        button |= ( KeyboardRelease(KEY_M_X1)     ? MSEBTN_X1     : 0 );
+        button |= ( KeyboardRelease(KEY_M_X2)     ? MSEBTN_X2     : 0 );
 
         Mouse.release = button;
     }

@@ -156,11 +156,11 @@ EXTERN_START
 /****** Other ***********************************************************************/
 #define KEY_CTRLBREAK       (0x03)  /* ctrl+pause/break                             */
 /****** Mouse 'Keys' ****************************************************************/
-#define MOUSE_LCLICK        (0x01)  /* mouse left button                            */
-#define MOUSE_RCLICK        (0x02)  /* mouse right button                           */
-#define MOUSE_MCLICK        (0x04)  /* mouse middle button                          */
-#define MOUSE_X1            (0x05)  /* mouse side/eXtra button 1                    */
-#define MOUSE_X2            (0x06)  /* mouse side/eXtra button 2                    */
+#define KEY_M_LCLICK        (0x01)  /* mouse left button                            */
+#define KEY_M_RCLICK        (0x02)  /* mouse right button                           */
+#define KEY_M_MCLICK        (0x04)  /* mouse middle button                          */
+#define KEY_M_X1            (0x05)  /* mouse side/eXtra button 1                    */
+#define KEY_M_X2            (0x06)  /* mouse side/eXtra button 2                    */
 /****** No Key **********************************************************************/
 #define KEY_NONE            (0xFF)  /* no key                                       */
 
