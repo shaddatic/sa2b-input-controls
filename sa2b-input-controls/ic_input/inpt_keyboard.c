@@ -267,38 +267,42 @@ KeyboardUpdate(void)
 {
     KEY_MAP key_states;
 
-    KEY_BITMAP old_key;
-
-    MemCopy(old_key, Keyboard.down, sizeof(KEY_BITMAP));
-
-    MemSet(Keyboard.down   , 0x0, sizeof(KEY_BITMAP));
-    MemSet(Keyboard.press  , 0x0, sizeof(KEY_BITMAP));
-    MemSet(Keyboard.release, 0x0, sizeof(KEY_BITMAP));
-
-    if (!WindowInFocus() || !OS_GetKeyboardState(key_states))
-        return;
-
-    Keyboard.capslock = key_states[KEY_CAPSLOCK]    & KEY_TOGGLED;
-    Keyboard.numblock = key_states[KEY_NUMLOCK]     & KEY_TOGGLED;
-    Keyboard.scrllock = key_states[KEY_SCROLLLOCK]  & KEY_TOGGLED;
-
-    /** Translate KEY_MAP to a KEY_BITMAP for storage **/
-    for (int nb_bitmap = 0, nb_state = 0; nb_bitmap < LEN_KEY_BITMAP; ++nb_bitmap)
+    if (WindowInFocus() && OS_GetKeyboardState(key_states))
     {
-        uint8_t* const p_on      = &Keyboard.down[nb_bitmap];
-        uint8_t* const p_press   = &Keyboard.press[nb_bitmap];
-        uint8_t* const p_release = &Keyboard.release[nb_bitmap];
+        Keyboard.capslock = key_states[KEY_CAPSLOCK]    & KEY_TOGGLED;
+        Keyboard.numblock = key_states[KEY_NUMLOCK]     & KEY_TOGGLED;
+        Keyboard.scrllock = key_states[KEY_SCROLLLOCK]  & KEY_TOGGLED;
 
-        uint8_t cur_bit = 0b0000'0001;
-
-        for (int j = 0; j < BITSIN(u8); ++j, ++nb_state, cur_bit <<= 1)
+        /** Translate KEY_MAP to a KEY_BITMAP for storage **/
+        for (int nb_bitmap = 0, nb_state = 0; nb_bitmap < LEN_KEY_BITMAP; ++nb_bitmap)
         {
-            if (key_states[nb_state] & KEY_DOWN)
-                *p_on |= cur_bit;
-        }
+            uint8_t* const p_down    = &Keyboard.down[nb_bitmap];
+            uint8_t* const p_press   = &Keyboard.press[nb_bitmap];
+            uint8_t* const p_release = &Keyboard.release[nb_bitmap];
 
-        *p_press   = (*p_on) & ~old_key[nb_bitmap];
-        *p_release = old_key[nb_bitmap] & ~(*p_on);
+            const u8 old_down = *p_down;
+
+            uint8_t cur_bit = 0b0000'0001;
+
+            for (int j = 0; j < BITSIN(u8); ++j, ++nb_state, cur_bit <<= 1)
+            {
+                if (key_states[nb_state] & KEY_DOWN)
+                    *p_down |= cur_bit;
+            }
+
+            *p_press   = (*p_down) & ~old_down;
+            *p_release = old_down & ~(*p_down);
+        }
+    }
+    else // !WindowInFocus() || !OS_GetKeyboardState(...)
+    {
+        /** Do nothing with the modifier key bools, just assume there's no change **/
+        /** Emulate all 'down' keys being released **/
+        MemCopy(Keyboard.release, Keyboard.down, sizeof(KEY_BITMAP));
+
+        /** Release all other keys **/
+        MemSet(Keyboard.down , 0x0, sizeof(KEY_BITMAP));
+        MemSet(Keyboard.press, 0x0, sizeof(KEY_BITMAP));
     }
 
     if (KeyboardDebugPoll)
