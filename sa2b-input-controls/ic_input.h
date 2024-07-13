@@ -16,16 +16,19 @@
 /****** Ninja ***********************************************************************/
 #include <sa2b/ninja/njcommon.h>    /* NJS_POINT2I                                  */
 
+/****** Input Controls **************************************************************/
+#include <ic_limits.h>              /* limits                                       */
+
 EXTERN_START
 
 /************************/
 /*  Macro               */
 /************************/
-/* Normalize PDS Directional -128~127 to -1~1 */
-#define NORM_PDS_DIR(a)     (f32)((a)>0?((f32)a)/127.0f:((f32)a)/128.0f)
+/* Normalize PDS Directional -128~128 to -1~1 */
+#define NORM_PDS_DIR(a)     ((f32)(a)/(f32)PDSLIM_XY_MAX)
 
 /* Normalize PDS Trigger 0~255 to 0~1 */
-#define NORM_PDS_TRIG(a)    (f32)((f32)(a)/255.0f)
+#define NORM_PDS_TRIG(a)    ((f32)(a)/(f32)PDSLIM_LR_MAX)
 
 /************************/
 /*  User Input          */

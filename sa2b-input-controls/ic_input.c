@@ -171,15 +171,13 @@ UserToDreamcastButton(uint32_t ubtn)
 static Sint16
 UserToPdsStick(f64 mag)
 {
-    return !mag ? 0 : (Sint16)(mag > 0.0 ?
-        mag * 127.99999999999999 : //  0~127
-        mag * 128.99999999999997); // -128~0
+    return (Sint16)(mag * 128.99999999999997); // -128~128
 }
 
 static Uint16
 UserToPdsTrigger(f64 mag)
 {
-    return !mag ? 0 : (Uint16)(mag * 255.9999999999999);
+    return (Uint16)(mag * 255.9999999999999);
 }
 
 static void
@@ -194,10 +192,10 @@ SetPdsPeripheral(void)
             to emulate the controller being disconnected **/
         if (!GamepadValid(UserGamepad[i]) && UserKeyboard[i] == KEYBOARD_NONE)
         {
-            *p_pad       = (PDS_PERIPHERAL){0};
+            *p_pad = (PDS_PERIPHERAL){0};
 
             if (p_pad->info)
-                *p_pad->info = (PDS_PERIPHERALINFO){0};
+                p_pad->info->type = 0;
 
             continue;
         }
