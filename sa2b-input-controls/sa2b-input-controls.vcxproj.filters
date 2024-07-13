@@ -104,5 +104,8 @@
     <ClInclude Include="ic_api\icapi_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ic_limits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -45,6 +45,7 @@
     <ClInclude Include="ic_core.h" />
     <ClInclude Include="ic_input.h" />
     <ClInclude Include="ic_input\inpt_mouse\mse_internal.h" />
+    <ClInclude Include="ic_limits.h" />
     <ClInclude Include="ic_vibtask.h" />
     <ClInclude Include="ic_wndmsg.h" />
     <ClInclude Include="ic_input\inpt_internal.h" />
