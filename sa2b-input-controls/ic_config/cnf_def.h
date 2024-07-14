@@ -74,12 +74,16 @@ typedef enum
     CNFE_BOOL_ENABLED
 }
 CNFE_BOOL;
+
 /************************/
 /*  Options             */
 /************************/
 /**                                   | Type      | Section             | Key                   | Default                              **/
 /****** Main ****************************************************************************************************************************/
+#define CNF_MAIN_DGTLR_ON               CNFO_INT(   CNFS_MAIN           , "lr_on"               , 192                                   )
+#define CNF_MAIN_DGTLR_OFF              CNFO_INT(   CNFS_MAIN           , "lr_off"              , 160                                   )
 #define CNF_MAIN_RAWANALOG              CNFO_INT(   CNFS_MAIN           , "raw_analog"          , CNFE_BOOL_ENABLED                     )
+#define CNF_MAIN_X2LR                   CNFO_INT(   CNFS_MAIN           , "x2_lr"               , CNFE_BOOL_DISABLED                    )
 
 /****** Camera **************************************************************************************************************************/
 #define CNF_CAMERA_ANALOG               CNFO_INT(   CNFS_CAMERA         , "analog"              , CNFE_BOOL_ENABLED                     )
@@ -105,7 +109,6 @@ CNFE_BOOL;
 #define CNFV_GAMEPD_LS_ODZ(s)           CNFO_INT(   s                   , "ls_odz"              , 100                                   )
 #define CNFV_GAMEPD_RS_IDZ(s)           CNFO_INT(   s                   , "rs_idz"              , 10                                    )
 #define CNFV_GAMEPD_RS_ODZ(s)           CNFO_INT(   s                   , "rs_odz"              , 100                                   )
-#define CNFV_GAMEPD_TR_LIM(s)           CNFO_INT(   s                   , "tr_lim"              , 55                                    )
 #define CNFV_GAMEPD_VIB(s)              CNFO_INT(   s                   , "vib"                 , CNFE_BOOL_ENABLED                     )
 #define CNFV_GAMEPD_VIB_L(s)            CNFO_INT(   s                   , "vib_l"               , 100                                   )
 #define CNFV_GAMEPD_VIB_R(s)            CNFO_INT(   s                   , "vib_r"               , 100                                   )

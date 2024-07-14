@@ -1,11 +1,28 @@
 <?xml version="1.0"?>
 <ConfigSchema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonicretro.org">
 	<Groups>
-		<Group name="main" display="Main Settings">
+		<Group name="main" display="Main Input Settings">
+			<Property name="lr_on" display="Digital Trigger 'On' Threshold" type="int" defaultvalue="192" minvalue="0" maxvalue="255">
+				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to start registering as a digital press.
+
+Dreamcast used a value of 192.
+PC used a value of 140.</HelpText>
+			</Property>
+			<Property name="lr_off" display="Digital Trigger 'Off' Threshold" type="int" defaultvalue="160" minvalue="0" maxvalue="255">
+				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to stop registering as a digital press.
+
+Dreamcast used a value of 160.
+PC used a value of 139.</HelpText>
+			</Property>
 			<Property name="raw_analog" display="Use Raw Analog Values" type="eBOOL" defaultvalue="1">
-				<HelpText>Use the raw analog values directly from the controller rather than the emulated Dreamcast controller for calculating player input. For the analog sticks, this allows for significantly more analog resolution (+65000x) over vanilla.
+				<HelpText>Use the raw analog values directly from the controller rather than the emulated Dreamcast controller where possible. For the analog sticks, this allows for significantly more analog resolution (+65000x) over vanilla.
 
 Some mods modify the emulated Dreamcast controller values to perform certain effects, like flipping the controls. Turning this setting off will allow such effects to work correctly.</HelpText>
+			</Property>
+			<Property name="x2_lr" display="Right Stick Sets Digital L/R" type="eBOOL" defaultvalue="0">
+				<HelpText>Allow the right analog stick set the digital L/R buttons on the emulated Dreamcast controller.
+
+This is used in the Vanilla PC version to, hackily, allow the right analog stick to move the camera.</HelpText>
 			</Property>
 		</Group>
 		<Group name="camera" display="Camera Settings">
