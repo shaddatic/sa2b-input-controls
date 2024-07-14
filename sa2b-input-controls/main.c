@@ -20,6 +20,7 @@
 #include <ic_window.h>      /* window                                               */
 #include <ic_camera.h>      /* sonic input                                          */
 #include <ic_sonicinput.h>  /* sonic input                                          */
+#include <ic_api.h>
 
 /************************/
 /*  Constants           */
@@ -66,6 +67,9 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
 
     CnfInit();
 
+    if (can_api)
+        ICAPI_Init();
+
     IC_InputInit();
     IC_CameraInit();
     IC_VibTaskInit();
@@ -73,6 +77,9 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
     IC_SonicInputInit();
     OS_Init();
     IC_WindowInit();
+
+    if (can_api)
+        ICAPI_End();
 
     CnfEnd();
 }

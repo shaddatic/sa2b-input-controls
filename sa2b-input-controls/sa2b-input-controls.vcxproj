@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ic_api.c" />
+    <ClCompile Include="ic_api\icapi_keyboard.c" />
     <ClCompile Include="ic_camera.c" />
     <ClCompile Include="ic_config.c" />
     <ClCompile Include="ic_input.c" />
@@ -38,6 +39,7 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ic_api.h" />
     <ClInclude Include="ic_api\icapi_internal.h" />
     <ClInclude Include="ic_camera.h" />
     <ClInclude Include="ic_config.h" />
