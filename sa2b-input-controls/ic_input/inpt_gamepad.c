@@ -83,13 +83,13 @@ static bool GamepadDbgAxis;
 /************************/
 /*  File Macro          */
 /************************/
-#define NORMALISE_XISTICK(mag)      (f32)((f32)mag/(mag>0?32767.0f:32768.0f))
+#define NORM_XIDIR(mag)      (f32)((f32)mag/(mag>0?32767.0f:32768.0f))
 
 /************************/
 /*  Source              */
 /************************/
 void*
-GamepadXInputGet(const eGAMEPAD_NUM nbGp)
+GamepadGetXInput(const eGAMEPAD_NUM nbGp)
 {
     if (nbGp == GAMEPAD_NONE)
         return nullptr;
@@ -250,23 +250,23 @@ CalcCircularDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
 void
 GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
 {
-    const USER_GAMEPAD*   const p_gp = &UserGamepad[nbGamepad];
-    const xinput_gamepad* const p_xi = &Gamepad[nbGamepad].XIState.Gamepad;
+    const USER_GAMEPAD*   const p_usrgp = &UserGamepad[nbGamepad];
+    const xinput_gamepad* const p_xigp  = &Gamepad[nbGamepad].XIState.Gamepad;
 
-    pUserInput->down = p_xi->button;
+    pUserInput->down = p_xigp->button;
 
     f32 x1, y1;
     f32 x2, y2;
 
     /** Left stick **/
     {
-        f32 x = NORMALISE_XISTICK(p_xi->LSX);
-        f32 y = NORMALISE_XISTICK(p_xi->LSY);
+        f32 x = NORM_XIDIR(p_xigp->LSX);
+        f32 y = NORM_XIDIR(p_xigp->LSY);
 
-        const f32 idz = p_gp->StickL.idz;
-        const f32 odz = p_gp->StickL.odz;
+        const f32 idz = p_usrgp->StickL.idz;
+        const f32 odz = p_usrgp->StickL.odz;
 
-        p_gp->dzMode == DZ_MD_CIRCULAR ?
+        p_usrgp->dzMode == DZ_MD_CIRCULAR ?
             CalcCircularDeadzone(&x, &y, idz, odz) :
             CalcSquareDeadzone(  &x, &y, idz, odz);
 
@@ -276,13 +276,13 @@ GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
 
     /** Right stick **/
     {
-        f32 x = NORMALISE_XISTICK(p_xi->RSX);
-        f32 y = NORMALISE_XISTICK(p_xi->RSY);
+        f32 x = NORM_XIDIR(p_xigp->RSX);
+        f32 y = NORM_XIDIR(p_xigp->RSY);
 
-        const f32 idz = p_gp->StickR.idz;
-        const f32 odz = p_gp->StickR.odz;
+        const f32 idz = p_usrgp->StickR.idz;
+        const f32 odz = p_usrgp->StickR.odz;
 
-        p_gp->dzMode == DZ_MD_CIRCULAR ?
+        p_usrgp->dzMode == DZ_MD_CIRCULAR ?
             CalcCircularDeadzone(&x, &y, idz, odz) :
             CalcSquareDeadzone(  &x, &y, idz, odz);
 
@@ -299,8 +299,8 @@ GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
     pUserInput->x2 =  x2;
     pUserInput->y2 = -y2; // XInput is inverted
 
-    pUserInput->l = (f32)p_xi->LT / 255.0f;
-    pUserInput->r = (f32)p_xi->RT / 255.0f;
+    pUserInput->l = (f32)p_xigp->LT / 255.0f;
+    pUserInput->r = (f32)p_xigp->RT / 255.0f;
 }
 
 /****** Init ************************************************************************/

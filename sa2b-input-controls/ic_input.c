@@ -168,13 +168,13 @@ UserToDreamcastButton(uint32_t ubtn)
 static Sint16
 UserToPdsStick(f64 mag)
 {
-    return (Sint16)(mag * 128.99999999999997); // -128~128
+    return (Sint16)(mag * (f64)PDSLIM_XY_MAX); // -128~128
 }
 
 static Uint16
 UserToPdsTrigger(f64 mag)
 {
-    return (Uint16)(mag * 255.9999999999999);
+    return (Uint16)(mag * (f64)PDSLIM_LR_MAX);
 }
 
 static void
