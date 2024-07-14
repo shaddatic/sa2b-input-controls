@@ -208,14 +208,14 @@ SetPdsPeripheral(void)
 
         /** Get analog inputs **/
         {
-        p_pad->x1 = UserToPdsStick(p_input->x1);
-        p_pad->y1 = UserToPdsStick(p_input->y1);
+            p_pad->x1 = UserToPdsStick(p_input->x1);
+            p_pad->y1 = UserToPdsStick(p_input->y1);
 
-        p_pad->x2 = UserToPdsStick(p_input->x2);
-        p_pad->y2 = UserToPdsStick(p_input->y2);
+            p_pad->x2 = UserToPdsStick(p_input->x2);
+            p_pad->y2 = UserToPdsStick(p_input->y2);
 
-        p_pad->r = UserToPdsTrigger(p_input->r);
-        p_pad->l = UserToPdsTrigger(p_input->l);
+            p_pad->r = UserToPdsTrigger(p_input->r);
+            p_pad->l = UserToPdsTrigger(p_input->l);
         }
 
         /** Get button inputs **/
