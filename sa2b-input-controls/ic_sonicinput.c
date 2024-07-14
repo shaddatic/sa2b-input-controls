@@ -87,7 +87,7 @@ NewGetPlayersInputData(void)
 {
     for (int i = 0; i < ARYLEN(input_dataG); ++i)
     {
-        SONIC_INPUT* const p_sin  = &input_dataG[i];
+        SONIC_INPUT* const p_sin = &input_dataG[i];
 
         const f32 last_stroke = p_sin->stroke;
 
