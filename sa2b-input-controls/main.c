@@ -45,11 +45,11 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
 
         if (ml_ver < MLVER_MIN)
         {
-        UserErrorMessageBox("Input Controls : Mod Loader Version",
+            UserErrorMessageBox("Input Controls : Mod Loader Version",
                 "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
                 "Please update the Mod Loader to a newer version!\n\n"
                 "Input Controls will now abort the init process."
-        );
+            );
 
             return;
         }
@@ -61,8 +61,8 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
                 "The API will be disabled to prevent crashing. However, it is recommended you update to the latest "
                 "Mod Loader version, as older versions will not be actively supported");
 
-        can_api = false;
-    }
+            can_api = false;
+        }
     }
 
     CnfInit();
