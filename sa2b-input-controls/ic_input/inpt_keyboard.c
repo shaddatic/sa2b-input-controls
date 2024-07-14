@@ -359,35 +359,35 @@ KeyboardSetUserInput(const int nbKb, USER_INPUT* const pUserInput)
         if (ABS(y) > ABS(in_y)) pUserInput->y2 = y;
     }
 
+    /** Triggers **/
+    {
+        if (KeyboardDown(p_kbl->btn_l))
+            pUserInput->l = 1.0f; /* Analog L */
+
+        if (KeyboardDown(p_kbl->btn_r))
+            pUserInput->r = 1.0f; /* Analog R */
+    }
+
     uint32_t btn = 0;
 
-    btn |= ( KeyboardDown(p_kbl->btn_a) ? USRBTN_A : 0 );  /* Button A */
-    btn |= ( KeyboardDown(p_kbl->btn_b) ? USRBTN_B : 0 );  /* Button B */
-    btn |= ( KeyboardDown(p_kbl->btn_x) ? USRBTN_X : 0 );  /* Button X */
-    btn |= ( KeyboardDown(p_kbl->btn_y) ? USRBTN_Y : 0 );  /* Button Y */
+    btn |= ( KeyboardDown(p_kbl->btn_a) ? USRBTN_A : 0 ); /* Button A */
+    btn |= ( KeyboardDown(p_kbl->btn_b) ? USRBTN_B : 0 ); /* Button B */
+    btn |= ( KeyboardDown(p_kbl->btn_x) ? USRBTN_X : 0 ); /* Button X */
+    btn |= ( KeyboardDown(p_kbl->btn_y) ? USRBTN_Y : 0 ); /* Button Y */
 
-    btn |= ( KeyboardDown(p_kbl->btn_start) ? USRBTN_START : 0 );  /* Button Start/Pause */
-    btn |= ( KeyboardDown(p_kbl->btn_back ) ? USRBTN_BACK  : 0 );  /* Button Back */
+    btn |= ( KeyboardDown(p_kbl->btn_start) ? USRBTN_START : 0 ); /* Button Start/Pause */
+    btn |= ( KeyboardDown(p_kbl->btn_back ) ? USRBTN_BACK  : 0 ); /* Button Back */
 
-    btn |= ( KeyboardDown(p_kbl->btn_zl) ? USRBTN_ZL : 0 );  /* Button ZL */
-    btn |= ( KeyboardDown(p_kbl->btn_zr) ? USRBTN_ZR : 0 );  /* Button ZR */
+    btn |= ( KeyboardDown(p_kbl->btn_zl) ? USRBTN_ZL : 0 ); /* Button ZL */
+    btn |= ( KeyboardDown(p_kbl->btn_zr) ? USRBTN_ZR : 0 ); /* Button ZR */
 
-    btn |= ( KeyboardDown(p_kbl->btn_l) ? USRBTN_L : 0 );  /* Button L */
-    btn |= ( KeyboardDown(p_kbl->btn_r) ? USRBTN_R : 0 );  /* Button R */
-
-    btn |= ( KeyboardDown(p_kbl->DPad.up   ) ? USRBTN_DPAD_UP    : 0 );  /* D-Pad Up */
-    btn |= ( KeyboardDown(p_kbl->DPad.down ) ? USRBTN_DPAD_DOWN  : 0 );  /* D-Pad Down */
-    btn |= ( KeyboardDown(p_kbl->DPad.left ) ? USRBTN_DPAD_LEFT  : 0 );  /* D-Pad Left */
-    btn |= ( KeyboardDown(p_kbl->DPad.right) ? USRBTN_DPAD_RIGHT : 0 );  /* D-Pad Right */
+    btn |= ( KeyboardDown(p_kbl->DPad.up   ) ? USRBTN_DPAD_UP    : 0 ); /* D-Pad Up */
+    btn |= ( KeyboardDown(p_kbl->DPad.down ) ? USRBTN_DPAD_DOWN  : 0 ); /* D-Pad Down */
+    btn |= ( KeyboardDown(p_kbl->DPad.left ) ? USRBTN_DPAD_LEFT  : 0 ); /* D-Pad Left */
+    btn |= ( KeyboardDown(p_kbl->DPad.right) ? USRBTN_DPAD_RIGHT : 0 ); /* D-Pad Right */
 
     /** Ensure this doesn't unpress buttons held by the gamepad **/
     pUserInput->down |= btn;
-
-    if (btn & USRBTN_L)
-        pUserInput->l = 1.0f;  /* Analog L */
-
-    if (btn & USRBTN_R)
-        pUserInput->r = 1.0f;  /* Analog R */
 }
 
 void

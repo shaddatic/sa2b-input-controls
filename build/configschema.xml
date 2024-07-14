@@ -94,9 +94,6 @@ NOTE: Requres 'Analog Controls'</HelpText>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
-			<Property name="tr_lim" display="Trigger Button Threshold" type="float" defaultvalue="55" minvalue="0" maxvalue="100">
-				<HelpText>Threshold for a trigger press to register as a button, as a percentage.</HelpText>
-			</Property>
 			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
 				<HelpText>If this gamepad should use vibration.</HelpText>
 			</Property>
@@ -126,9 +123,6 @@ In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
 			</Property>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
-			</Property>
-			<Property name="tr_lim" display="Trigger Button Threshold" type="float" defaultvalue="55" minvalue="0" maxvalue="100">
-				<HelpText>Threshold for a trigger press to register as a button, as a percentage.</HelpText>
 			</Property>
 			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
 				<HelpText>If this gamepad should use vibration.</HelpText>
@@ -160,9 +154,6 @@ In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
-			<Property name="tr_lim" display="Trigger Button Threshold" type="float" defaultvalue="55" minvalue="0" maxvalue="100">
-				<HelpText>Threshold for a trigger press to register as a button, as a percentage.</HelpText>
-			</Property>
 			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
 				<HelpText>If this gamepad should use vibration.</HelpText>
 			</Property>
@@ -192,9 +183,6 @@ In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
 			</Property>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
-			</Property>
-			<Property name="tr_lim" display="Trigger Button Threshold" type="float" defaultvalue="55" minvalue="0" maxvalue="100">
-				<HelpText>Threshold for a trigger press to register as a button, as a percentage.</HelpText>
 			</Property>
 			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
 				<HelpText>If this gamepad should use vibration.</HelpText>

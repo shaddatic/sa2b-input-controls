@@ -30,6 +30,7 @@
 /************************/
 /*  Constants           */
 /************************/
+/****** Function Macro **************************************************************/
 #define XInputGetCapabilities   ___XInputGetCapabilities
 #define XInputGetState          ___XInputGetState
 #define XInputSetState          ___XInputSetState
@@ -53,8 +54,6 @@ typedef struct
     f32 vibPwrR;
 
     uint8_t dzMode;
-
-    uint8_t trigLimit;
 
     bool useVib;
 
@@ -256,9 +255,6 @@ GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
 
     pUserInput->down = p_xi->button;
 
-    pUserInput->down |= ( p_xi->LT > p_gp->trigLimit ? USRBTN_L : 0 );
-    pUserInput->down |= ( p_xi->RT > p_gp->trigLimit ? USRBTN_R : 0 );
-
     f32 x1, y1;
     f32 x2, y2;
 
@@ -326,7 +322,6 @@ GamepadInit(void)
         UserGamepad[i].vibPwrL =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_L(   buf ) );
         UserGamepad[i].vibPwrR =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_R(   buf ) );
         UserGamepad[i].useVib  =          CnfGetInt(     CNFV_GAMEPD_VIB(     buf ) );
-        UserGamepad[i].trigLimit =  (u8)( CnfGetPercent( CNFV_GAMEPD_TR_LIM(  buf ) ) * 255.0 );
     }
 
     /** Get debug info **/

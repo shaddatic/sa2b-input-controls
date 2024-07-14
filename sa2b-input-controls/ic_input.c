@@ -162,9 +162,6 @@ UserToDreamcastButton(uint32_t ubtn)
     result |= ( ubtn & USRBTN_ZL         ? PDD_DGT_TC : 0 );
     result |= ( ubtn & USRBTN_ZR         ? PDD_DGT_TZ : 0 );
 
-    result |= ( ubtn & USRBTN_L          ? PDD_DGT_TL : 0 );
-    result |= ( ubtn & USRBTN_R          ? PDD_DGT_TR : 0 );
-
     return result;
 }
 
@@ -209,14 +206,8 @@ SetPdsPeripheral(void)
             PDD_DEV_SUPPORT_AX1|PDD_DEV_SUPPORT_AY1|
             PDD_DEV_SUPPORT_AX2|PDD_DEV_SUPPORT_AY2;
 
-        const uint32_t btn_on = UserToDreamcastButton(p_input->down);
-
-        p_pad->on  =  btn_on;
-        p_pad->off = ~btn_on;
-
-        p_pad->press   = UserToDreamcastButton(p_input->press);
-        p_pad->release = UserToDreamcastButton(p_input->release);
-
+        /** Get analog inputs **/
+        {
         p_pad->x1 = UserToPdsStick(p_input->x1);
         p_pad->y1 = UserToPdsStick(p_input->y1);
 
@@ -225,13 +216,29 @@ SetPdsPeripheral(void)
 
         p_pad->r = UserToPdsTrigger(p_input->r);
         p_pad->l = UserToPdsTrigger(p_input->l);
+        }
+
+        /** Get button inputs **/
+        {
+            const u32 old_on = p_pad->on;
+
+            /** Calculate emulated trigger buttons **/
+            const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > 160 ? PDD_DGT_TL : 0) : (p_pad->l >= 192 ? PDD_DGT_TL : 0) ) |
+                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > 160 ? PDD_DGT_TR : 0) : (p_pad->r >= 192 ? PDD_DGT_TR : 0) );
+
+            const u32 btn_on = UserToDreamcastButton(p_input->down) | trig_on;
+
+            p_pad->on  =  btn_on;
+            p_pad->off = ~btn_on;
+
+            p_pad->press   = btn_on & ~old_on;
+            p_pad->release = old_on & ~btn_on;
+        }
 
         PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
 
-        p_padinfo->type = PDD_DEVTYPE_CONTROLLER;
-
-        if (GamepadVibValid(UserGamepad[i]))
-            p_padinfo->type |= PDD_DEVTYPE_VIBRATION;
+        if (p_padinfo)
+            p_padinfo->type = GamepadVibValid(UserGamepad[i]) ? PDD_DEVTYPE_CONTROLLER|PDD_DEVTYPE_VIBRATION : PDD_DEVTYPE_CONTROLLER;
     }
 }
 
