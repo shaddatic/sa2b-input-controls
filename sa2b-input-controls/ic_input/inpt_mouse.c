@@ -22,13 +22,6 @@
 /************************/
 typedef enum
 {
-    CURSOR_FREE,        /* cursor is unlocked from the center of the game window    */
-    CURSOR_CAPTURED,    /* cursor is locked to the center of the game window        */
-}
-eCURSOR_STATE;
-
-typedef enum
-{
     CURSOR_SUB_NONE,        /* no sub state                                         */
     CURSOR_SUB_FREEING,     /* cursor is to be freed next input execution           */
     CURSOR_SUB_CAPTURING,   /* cursor is to be captured, if possible, next exec     */
@@ -63,23 +56,11 @@ static f32           MouseEmuSensitivity;   /* analog emulation sensitivity     
 static NJS_POINT2I   MouseEmuDragVector;    /* click & drag vector                  */
 static int32_t       MouseEmuDragMax;       /* click & drag max vector              */
 
-static int32_t       MouseEmuClickKey;      /* click & drag 'click' key             */
+static int8_t        MouseEmuClickKey;      /* click & drag 'click' key             */
 
 /************************/
 /*  Source              */
 /************************/
-void
-MouseCapture(void)
-{
-    CursorSubState = CURSOR_SUB_CAPTURING;
-}
-
-void
-MouseFree(void)
-{
-    CursorSubState = CURSOR_SUB_FREEING;
-}
-
 void
 MouseUpdate(void)
 {
@@ -197,7 +178,7 @@ MouseGetEmulatedAnalog(const eKEYBOARD_NUM nbKb, const eEMU_STICK nbAnalog, f32*
     {
         p_vec = &MouseEmuDragVector;
 
-        if (KeyboardDown((u8)MouseEmuClickKey))
+        if (KeyboardDown(MouseEmuClickKey))
         {
             const s32 vec_x = MouseEmuDragVector.x + Mouse.vec.x;
             const s32 vec_y = MouseEmuDragVector.y + Mouse.vec.y;
@@ -229,21 +210,39 @@ OSMSG_MouseWheel(const f32 wheel)
 }
 
 const MOUSE*
-GetMouse(void)
+MouseGetMouse(void)
 {
     return &Mouse;
+}
+
+eCURSOR_STATE
+MouseGetMode(void)
+{
+    return CursorState;
+}
+
+void
+MouseCapture(void)
+{
+    CursorSubState = CURSOR_SUB_CAPTURING;
+}
+
+void
+MouseFree(void)
+{
+    CursorSubState = CURSOR_SUB_FREEING;
 }
 
 void
 MouseInit(void)
 {
-    MouseEmuKbIndex     = CnfGetInt(CNF_EMUANALOG_KEYBRD);
+    MouseEmuKbIndex = CnfGetInt(CNF_EMUANALOG_KEYBRD);
 
     if (MouseEmuKbIndex != KEYBOARD_NONE)
     {
-        MouseEmuStickIndex  = CnfGetInt(CNF_EMUANALOG_STICK);
-        MouseEmuMode        = CnfGetInt(CNF_EMUANALOG_MODE);
-        MouseEmuClickKey    = CnfGetInt(CNF_EMUANALOG_CLICK);
+        MouseEmuStickIndex  =     CnfGetInt(CNF_EMUANALOG_STICK);
+        MouseEmuMode        =     CnfGetInt(CNF_EMUANALOG_MODE);
+        MouseEmuClickKey    = (u8)CnfGetInt(CNF_EMUANALOG_CLICK);
 
         MouseEmuSensitivity = (f32)(CnfGetPercent(CNF_EMUANALOG_SENSITIVITY) * 0.01);
 

@@ -214,6 +214,13 @@ typedef enum
 }
 eDZ_MODE;
 
+typedef enum
+{
+    CURSOR_FREE,        /* cursor is unlocked from the center of the game window    */
+    CURSOR_CAPTURED,    /* cursor is locked to the center of the game window        */
+}
+eCURSOR_STATE;
+
 /************************/
 /*  Structures          */
 /************************/
@@ -252,6 +259,24 @@ MOUSE;
 *     Init Input module, and its sub-modules
 */
 void    IC_InputInit(void);
+
+/****** User Input ******************************************************************/
+/*
+*   Description:
+*     Get the raw USER_INPUT for a specified user
+*/
+const USER_INPUT* UserGetInput( eUSER_NUM nbUser );
+/*
+*   Description:
+*     Get the gamepad number for a specified user
+*/
+eGAMEPAD_NUM UserGetGamepadNum( eUSER_NUM nbUser );
+/*
+*   Description:
+*     Set the gamepad vibration state for a specified user.
+*/
+bool    UserVibSet(  eUSER_NUM nbUser, f32 spdL, f32 spdR );
+bool    UserVibStop( eUSER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
 /*
@@ -303,25 +328,26 @@ bool    KeyboardScrollLock( void );
 bool    KeyboardNumLock(    void );
 
 /****** Mouse ***********************************************************************/
-const MOUSE*    GetMouse( void );
-
-/****** User Input ******************************************************************/
 /*
 *   Description:
-*     Get the raw USER_INPUT for a specified user
+*     Get the MOUSE input structure
 */
-const USER_INPUT* UserGetInput( eUSER_NUM nbUser );
+const MOUSE* MouseGetMouse( void );
 /*
 *   Description:
-*     Get the gamepad number for a specified user
+*     Get the mouse mode
 */
-eGAMEPAD_NUM  UserGetGamepadNum( eUSER_NUM nbUser );
+eCURSOR_STATE MouseGetMode( void );
 /*
 *   Description:
-*     Set the gamepad vibration state for a specified user.
+*     Get the mouse mode
 */
-bool    UserVibSet(  eUSER_NUM nbUser, f32 spdL, f32 spdR );
-bool    UserVibStop( eUSER_NUM nbUser );
+void    MouseCapture( void );
+/*
+*   Description:
+*     Get the mouse mode
+*/
+void    MouseFree( void );
 
 /****** Other ***********************************************************************/
 /*
