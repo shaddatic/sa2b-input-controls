@@ -426,6 +426,9 @@ KeyboardInit(void)
         p_kbl->btn_zl = CnfGetInt( CNFV_KEYBRD_BTN_ZL( buf, p_kbl->btn_zl ) );
         p_kbl->btn_zr = CnfGetInt( CNFV_KEYBRD_BTN_ZR( buf, p_kbl->btn_zr ) );
 
+        p_kbl->btn_ls = CnfGetInt( CNFV_KEYBRD_BTN_LS( buf, p_kbl->btn_ls ) );
+        p_kbl->btn_rs = CnfGetInt( CNFV_KEYBRD_BTN_RS( buf, p_kbl->btn_rs ) );
+
         p_kbl->DPad.up    = CnfGetInt( CNFV_KEYBRD_DIR_UP(    buf, p_kbl->DPad.up    ) );
         p_kbl->DPad.down  = CnfGetInt( CNFV_KEYBRD_DIR_DOWN(  buf, p_kbl->DPad.down  ) );
         p_kbl->DPad.left  = CnfGetInt( CNFV_KEYBRD_DIR_LEFT(  buf, p_kbl->DPad.left  ) );

@@ -129,6 +129,8 @@ CNFE_BOOL;
 #define CNFV_KEYBRD_BTN_BACK(s, d)      CNFO_INT(   s                   , "btn_back"            , d                                     )
 #define CNFV_KEYBRD_BTN_ZL(s, d)        CNFO_INT(   s                   , "btn_zl"              , d                                     )
 #define CNFV_KEYBRD_BTN_ZR(s, d)        CNFO_INT(   s                   , "btn_zr"              , d                                     )
+#define CNFV_KEYBRD_BTN_LS(s, d)        CNFO_INT(   s                   , "btn_ls"              , d                                     )
+#define CNFV_KEYBRD_BTN_RS(s, d)        CNFO_INT(   s                   , "btn_rs"              , d                                     )
 #define CNFV_KEYBRD_DIR_UP(s, d)        CNFO_INT(   s                   , "dp_up"               , d                                     )
 #define CNFV_KEYBRD_DIR_DOWN(s, d)      CNFO_INT(   s                   , "dp_down"             , d                                     )
 #define CNFV_KEYBRD_DIR_LEFT(s, d)      CNFO_INT(   s                   , "dp_left"             , d                                     )
