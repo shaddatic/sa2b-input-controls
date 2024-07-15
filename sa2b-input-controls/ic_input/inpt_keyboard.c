@@ -282,6 +282,8 @@ KeyboardUpdate(void)
 
             const u8 old_down = *p_down;
 
+            *p_down = 0; // Set 'down' byte to zero
+
             uint8_t cur_bit = 0b0000'0001;
 
             for (int j = 0; j < BITSIN(u8); ++j, ++nb_state, cur_bit <<= 1)
