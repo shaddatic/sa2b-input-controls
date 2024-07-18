@@ -201,4 +201,7 @@ IC_SocMagicInit(void)
     /** Menu fixes **/
     WriteCall(0x0066D9CA, VibFixMenu1);     /* Fix menu directly calling SOCController->VibStop */
     WriteCall(0x0066E32F, VibFixMenu2);     /* Fix menu directly calling SOCController->VibSet  */
+
+    /** Main Menu Exit crash **/
+    WriteNOP(0x0040173A, 0x00401749);
 }
