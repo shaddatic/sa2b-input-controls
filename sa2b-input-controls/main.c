@@ -21,6 +21,8 @@
 #include <ic_camera.h>      /* sonic input                                          */
 #include <ic_sonicinput.h>  /* sonic input                                          */
 #include <ic_api.h>
+#define IC_SDL2_INITONLY
+#include <ic_sdl2.h>        /* SDL2                                                 */
 
 /************************/
 /*  Constants           */
@@ -67,6 +69,8 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
 
     CnfInit();
 
+    SDL_InitInit();
+
     if (can_api)
         ICAPI_Init();
 
@@ -82,6 +86,13 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
         ICAPI_End();
 
     CnfEnd();
+}
+
+EXPORT_DLL
+void __cdecl
+OnExit(u32 code, s32 a1, s32 a2)
+{
+    SDL_ExitExit();
 }
 
 EXPORT_DLL
