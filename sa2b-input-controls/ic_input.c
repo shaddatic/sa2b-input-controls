@@ -238,7 +238,13 @@ SetPdsPeripheral(void)
             const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtLROff ? PDD_DGT_TL : 0) : (p_pad->l >= DgtLROn ? PDD_DGT_TL : 0) ) |
                                 ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtLROff ? PDD_DGT_TR : 0) : (p_pad->r >= DgtLROn ? PDD_DGT_TR : 0) );
 
-            const u32 btn_on = UserToDreamcastButton(p_input->down) | trig_on;
+            u32 btn_on = UserToDreamcastButton(p_input->down) | trig_on;
+
+            if (btn_on & PDD_DGT_KU && btn_on & PDD_DGT_KD)
+                btn_on &= ~(PDD_DGT_KU|PDD_DGT_KD);
+
+            if (btn_on & PDD_DGT_KR && btn_on & PDD_DGT_KL)
+                btn_on &= ~(PDD_DGT_KR|PDD_DGT_KL);
 
             p_pad->on  =  btn_on;
             p_pad->off = ~btn_on;
