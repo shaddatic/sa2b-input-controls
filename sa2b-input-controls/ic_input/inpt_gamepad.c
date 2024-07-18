@@ -7,9 +7,6 @@
 /****** Mod Loader ******************************************************************/
 #include <sa2b/modloader.h> /* ML_DisplayDebugStringF                               */
 
-/****** Extern **********************************************************************/
-#include <sa2b/extern/xinput.h> /* XInput                                           */
-
 /****** Ninja ***********************************************************************/
 #include <sa2b/ninja/ninja.h>   /* Ninja                                            */
 
@@ -23,17 +20,16 @@
 /****** Input Controls **************************************************************/
 #include <ic_core.h>    /* core                                                     */
 #include <ic_config.h>  /* CnfGet___                                                */
+#include <ic_sdl2.h>    /* SDL2                                                     */
 
 /****** Self ************************************************************************/
 #include <ic_input/inpt_internal.h> /* internal                                     */
 
 /************************/
-/*  Constants           */
+/*  File Macro          */
 /************************/
-/****** Function Macro **************************************************************/
-#define XInputGetCapabilities   ___XInputGetCapabilities
-#define XInputGetState          ___XInputGetState
-#define XInputSetState          ___XInputSetState
+#define NORM_GPD_DIR(mag)   ((f64)mag/(mag>0?(f64)GPDLIM_XY_MAX:(f64)-GPDLIM_XY_MIN))
+#define NORM_GPD_TRIG(mag)  ((f64)mag/(f64)(SDL_JOYSTICK_AXIS_MAX))
 
 /************************/
 /*  Structures          */
@@ -56,54 +52,118 @@ typedef struct
     uint8_t dzMode;
 
     bool useVib;
-
-    bool valid;
 }
 USER_GAMEPAD;
 
+#define GPDDEV_SUPPORT_RUMBLE_TRIGGER   (1<<30)
+#define GPDDEV_SUPPORT_RUMBLE           (1<<31)
+
 typedef struct
 {
-    xinput_capabilities XICaps;
-    xinput_state        XIState;
+    SDL_GameController* pSdlGp;
+    int                 id;
 
-    bool valid : 1;                 /* is a valid gamepad slot                      */
-    bool vib   : 1;                 /* is vibration capable                         */
+    u32                 support;
+
+    u32                 down;
+
+    int16_t             x1, y1;
+    int16_t             x2, y2;
+    int16_t             l , r;
 }
 GAMEPAD;
 
 /************************/
-/*  File Variables      */
+/*  File Data           */
 /************************/
-static USER_GAMEPAD UserGamepad[4]; /* user gamepad settings                        */
+static USER_GAMEPAD UserGamepads[4]; /* user gamepad settings                        */
 
-static GAMEPAD Gamepad[4];          /* physical gamepad data                        */
+static GAMEPAD Gamepads[4];          /* physical gamepad data                        */
 
 static bool GamepadDbgAxis;
 
 /************************/
-/*  File Macro          */
-/************************/
-#define NORM_XIDIR(mag)      (f32)((f32)mag/(mag>0?32767.0f:32768.0f))
-
-/************************/
 /*  Source              */
 /************************/
-void*
-GamepadGetXInput(const eGAMEPAD_NUM nbGp)
+static void
+ResetGamepadStruct(GAMEPAD* const pGp)
 {
-    if (nbGp == GAMEPAD_NONE)
-        return nullptr;
-
-    return &Gamepad[nbGp].XIState;
+    *pGp = (GAMEPAD){ .id = -1 };
 }
 
-void*
-GamepadGetCapabilities(const eGAMEPAD_NUM nbGp)
+static void
+OpenGamepad(const int id)
 {
-    if (nbGp == GAMEPAD_NONE)
-        return nullptr;
+    if (!SDL2_IsGameController(id))
+        return;
 
-    return &Gamepad[nbGp].XICaps;
+    for (int i = 0; i < ARYLEN(Gamepads); ++i)
+    {
+        GAMEPAD* const p_gp = &Gamepads[i];
+
+        /** If ID matches, reset device **/
+        if (p_gp->id == id)
+        {
+            SDL2_GameControllerClose(p_gp->pSdlGp);
+            goto OPEN;
+        }
+
+        if (!p_gp->pSdlGp)
+        {
+        OPEN:
+            p_gp->pSdlGp = SDL2_GameControllerOpen(id);
+            p_gp->id     = id;
+
+            SDL_GameController* const p_sdlgc = p_gp->pSdlGp;
+
+            for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+            {
+                if (SDL2_GameControllerHasButton(p_sdlgc, i))
+                    p_gp->support |= (1<<i);
+            }
+
+            p_gp->support |= SDL2_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLE_TRIGGER : 0;
+            p_gp->support |= SDL2_GameControllerHasRumble(p_sdlgc)         ? GPDDEV_SUPPORT_RUMBLE         : 0;
+            break;
+        }
+    }
+}
+
+static void
+CloseGamepad(const int id)
+{
+    for (int i = 0; i < ARYLEN(Gamepads); ++i)
+    {
+        GAMEPAD* const p_gp = &Gamepads[i];
+
+        if (p_gp->id == id)
+        {
+            SDL2_GameControllerClose(p_gp->pSdlGp);
+            ResetGamepadStruct(p_gp);
+        }
+    }
+}
+
+static void
+HandleSdlEvents(void)
+{
+    SDL_Event ev;
+
+    while (SDL2_PollEvent(&ev))
+    {
+        switch (ev.type) {
+        case SDL_JOYDEVICEADDED:
+            OpenGamepad(ev.cdevice.which);
+            break;
+
+        case SDL_JOYDEVICEREMOVED:
+            CloseGamepad(ev.cdevice.which);
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 bool
@@ -112,7 +172,7 @@ GamepadValid(const eGAMEPAD_NUM nbGp)
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    return Gamepad[nbGp].valid;
+    return Gamepads[nbGp].pSdlGp;
 }
 
 bool
@@ -121,36 +181,7 @@ GamepadVibValid(const eGAMEPAD_NUM nbGp)
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    return UserGamepad[nbGp].useVib && Gamepad[nbGp].vib;
-}
-
-void
-GamepadUpdate(void)
-{
-    for (int i = 0; i < ARYLEN(Gamepad); ++i)
-    {
-        bool valid;
-
-        /** We only need to get capabilities once, so wait until the controller has
-            been disconnected and reconnected until getting the caps again **/
-        if (!Gamepad[i].valid)
-        {
-            valid = !XInputGetCapabilities(i, XI_FLAG_GAMEPAD, &Gamepad[i].XICaps);
-
-            if (valid)
-            {
-                XInputGetState(i, &Gamepad[i].XIState);
-
-                const xinput_vibration* p_vib = &Gamepad[i].XICaps.Vibration;
-
-                Gamepad[i].vib = p_vib->spdL || p_vib->spdR;
-            }
-        }
-        else
-            valid = !XInputGetState(i, &Gamepad[i].XIState);
-
-        Gamepad[i].valid = valid;
-    }
+    return Gamepads[nbGp].support & GPDDEV_SUPPORT_RUMBLE;
 }
 
 bool
@@ -159,36 +190,15 @@ GamepadVibSet(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    const USER_GAMEPAD* const p_gp = &UserGamepad[nbGp];
+    const GAMEPAD* const p_gp = &Gamepads[nbGp];
 
-    if (!p_gp->useVib)
-        return false;
-
-    const f32 adj_l = p_gp->vibPwrL * spdL;
-    const f32 adj_r = p_gp->vibPwrR * spdR;
-
-    return XInputSetState(nbGp, &(xinput_vibration){
-        .spdL = (u16)nearbyint(adj_l * 65'535.0),
-        .spdR = (u16)nearbyint(adj_r * 65'535.0)
-    }) == 0;
+    return SDL2_GameControllerRumble(p_gp->pSdlGp, (Sint16)(spdL*65535.f), (Sint16)(spdR*65535.f), 0xFFFFFFFF);
 }
 
 bool
 GamepadVibStop(const eGAMEPAD_NUM nbGp)
 {
-    if (nbGp == GAMEPAD_NONE)
-        return false;
-
-    return XInputSetState(nbGp, &(xinput_vibration){.spdL = 0, .spdR = 0}) == 0;
-}
-
-/****** Static **********************************************************************/
-static Sint16
-UserToPdsStick(f64 mag)
-{
-    return !mag ? 0 : (Sint16)(mag > 0.0 ?
-        mag * 127.99999999999999 : //  0~127
-        mag * 128.99999999999997); // -128~0
+    return GamepadVibSet(nbGp, 0.f, 0.f);
 }
 
 static void
@@ -246,22 +256,51 @@ CalcCircularDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
     *pY = (f32)(cos(angf) * dz_mag);
 }
 
-/****** User Input ******************************************************************/
-void
-GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
+static u32
+GamepadToUserButton(u32 gpbtn)
 {
-    const USER_GAMEPAD*   const p_usrgp = &UserGamepad[nbGamepad];
-    const xinput_gamepad* const p_xigp  = &Gamepad[nbGamepad].XIState.Gamepad;
+    u32 btn = 0;
 
-    pUserInput->down = p_xigp->button;
+    btn |= ( gpbtn & GPDBTN_A ? USRBTN_A : 0 );
+    btn |= ( gpbtn & GPDBTN_B ? USRBTN_B : 0 );
+    btn |= ( gpbtn & GPDBTN_X ? USRBTN_X : 0 );
+    btn |= ( gpbtn & GPDBTN_Y ? USRBTN_Y : 0 );
+
+    btn |= ( gpbtn & GPDBTN_START ? USRBTN_START : 0 );
+    btn |= ( gpbtn & GPDBTN_BACK  ? USRBTN_BACK  : 0 );
+
+    btn |= ( gpbtn & GPDBTN_ZL ? USRBTN_ZL : 0 );
+    btn |= ( gpbtn & GPDBTN_ZR ? USRBTN_ZR : 0 );
+
+    btn |= ( gpbtn & GPDBTN_LS ? USRBTN_LS : 0 );
+    btn |= ( gpbtn & GPDBTN_RS ? USRBTN_RS : 0 );
+
+    btn |= ( gpbtn & GPDBTN_DPAD_UP    ? USRBTN_DPAD_UP : 0 );
+    btn |= ( gpbtn & GPDBTN_DPAD_DOWN  ? USRBTN_DPAD_DOWN : 0 );
+    btn |= ( gpbtn & GPDBTN_DPAD_LEFT  ? USRBTN_DPAD_LEFT : 0 );
+    btn |= ( gpbtn & GPDBTN_DPAD_RIGHT ? USRBTN_DPAD_RIGHT : 0 );
+
+    return btn;
+}
+
+void
+GamepadSetUserInput(const int nbGp, USER_INPUT* const pUserInput)
+{
+    const USER_GAMEPAD*       const p_usrgp = &UserGamepads[nbGp];
+    const GAMEPAD*            const p_gp    = &Gamepads[nbGp];
+
+    if (!GamepadValid(nbGp))
+        return;
+
+    pUserInput->down |= GamepadToUserButton(p_gp->down);
 
     f32 x1, y1;
     f32 x2, y2;
 
     /** Left stick **/
     {
-        f32 x = NORM_XIDIR(p_xigp->LSX);
-        f32 y = NORM_XIDIR(p_xigp->LSY);
+        f32 x = (f32) NORM_GPD_DIR( p_gp->x1 );
+        f32 y = (f32) NORM_GPD_DIR( p_gp->y1 );
 
         const f32 idz = p_usrgp->StickL.idz;
         const f32 odz = p_usrgp->StickL.odz;
@@ -276,8 +315,8 @@ GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
 
     /** Right stick **/
     {
-        f32 x = NORM_XIDIR(p_xigp->RSX);
-        f32 y = NORM_XIDIR(p_xigp->RSY);
+        f32 x = (f32) NORM_GPD_DIR( p_gp->x2 );
+        f32 y = (f32) NORM_GPD_DIR( p_gp->y2 );
 
         const f32 idz = p_usrgp->StickR.idz;
         const f32 odz = p_usrgp->StickR.odz;
@@ -291,39 +330,76 @@ GamepadSetUserInput(const int nbGamepad, USER_INPUT* const pUserInput)
     }
 
     if (GamepadDbgAxis)
-        DebugAxes(nbGamepad, x1, y1, x2, y2);
+        DebugAxes(nbGp, x1, y1, x2, y2);
 
-    pUserInput->x1 =  x1;
-    pUserInput->y1 = -y1; // XInput is inverted
+    pUserInput->x1 = x1;
+    pUserInput->y1 = y1;
 
-    pUserInput->x2 =  x2;
-    pUserInput->y2 = -y2; // XInput is inverted
+    pUserInput->x2 = x2;
+    pUserInput->y2 = y2;
 
-    pUserInput->l = (f32)p_xigp->LT / 255.0f;
-    pUserInput->r = (f32)p_xigp->RT / 255.0f;
+    pUserInput->l = (f32) NORM_GPD_TRIG( p_gp->l );
+    pUserInput->r = (f32) NORM_GPD_TRIG( p_gp->r );
 }
 
-/****** Init ************************************************************************/
+void
+GamepadUpdate(void)
+{
+    HandleSdlEvents();
+
+    for (int i = 0; i < ARYLEN(Gamepads); ++i)
+    {
+        if (!GamepadValid(i))
+            continue;
+
+        GAMEPAD*            const p_gp    = &Gamepads[i];
+        SDL_GameController* const p_sdlgc = p_gp->pSdlGp;
+
+        p_gp->down = 0;
+
+        for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+        {
+            if (SDL2_GameControllerGetButton(p_sdlgc, i))
+                p_gp->down |= (1<<i);
+        }
+
+        p_gp->x1 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTX);
+        p_gp->y1 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTY);
+        p_gp->x2 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTX);
+        p_gp->y2 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTY);
+
+        p_gp->l = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
+        p_gp->r = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+    }
+}
+
 void
 GamepadInit(void)
 {
     /** Get Gamepad sections info **/
-    for (int i = 0; i < ARYLEN(UserGamepad); ++i)
+    for (int i = 0; i < ARYLEN(UserGamepads); ++i)
     {
         char buf[8];
 
         snprintf(buf, sizeof(buf), "gp%i", i);
 
-        UserGamepad[i].dzMode =     (u8)  CnfGetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
-        UserGamepad[i].StickL.idz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
-        UserGamepad[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
-        UserGamepad[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
-        UserGamepad[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
-        UserGamepad[i].vibPwrL =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_L(   buf ) );
-        UserGamepad[i].vibPwrR =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_R(   buf ) );
-        UserGamepad[i].useVib  =          CnfGetInt(     CNFV_GAMEPD_VIB(     buf ) );
+        UserGamepads[i].dzMode =     (u8)  CnfGetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
+        UserGamepads[i].StickL.idz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
+        UserGamepads[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
+        UserGamepads[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
+        UserGamepads[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
+        UserGamepads[i].vibPwrL =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_L(   buf ) );
+        UserGamepads[i].vibPwrR =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_R(   buf ) );
+        UserGamepads[i].useVib  =          CnfGetInt(     CNFV_GAMEPD_VIB(     buf ) );
     }
 
     /** Get debug info **/
     GamepadDbgAxis = CnfGetInt(CNF_DEBUG_AXIS);
+
+    for (int i = 0; i < ARYLEN(Gamepads); ++i)
+    {
+        GAMEPAD* const p_gp = &Gamepads[i];
+
+        ResetGamepadStruct(p_gp);
+    }
 }
