@@ -67,10 +67,10 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
     p_work->bTurning = false;
 
     /* triggers */
-    const f32 lmr = l - r;
-
-    if (lmr)
+    if (l || r)
     {
+        const f32 lmr = l - r;
+
         rotAng += (Angle) nearbyint(lmr * 546.0f);
 
         p_work->turn_ang = rotAng;
