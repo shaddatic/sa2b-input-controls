@@ -36,6 +36,7 @@ eINPUT_METHOD;
 /*  File Variables      */
 /************************/
 static bool UseRawAnalog;
+static bool X2SetsLR;
 
 static eINPUT_METHOD    UserInputMode[4];
 static eGAMEPAD_NUM     UserGamepad[4];
@@ -216,6 +217,14 @@ SetPdsPeripheral(void)
 
             p_pad->r = UserToPdsTrigger(p_input->r);
             p_pad->l = UserToPdsTrigger(p_input->l);
+
+            if (X2SetsLR && p_input->x2)
+            {
+                int x2_lr = (int)(p_input->x2 * (f32)PDSLIM_LR_MAX);
+
+                if (p_pad->l < -x2_lr) p_pad->l = -x2_lr;
+                if (p_pad->r <  x2_lr) p_pad->r =  x2_lr;
+            }
         }
 
         /** Get button inputs **/
@@ -269,6 +278,7 @@ InputUseRawAnalog(void)
 void
 IC_InputInit(void)
 {
+    X2SetsLR     = CnfGetInt(CNF_MAIN_X2LR);
     UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
 
     UserGamepad[0]   = CnfGetInt( CNF_USER1_GAMEPD_NB  );
