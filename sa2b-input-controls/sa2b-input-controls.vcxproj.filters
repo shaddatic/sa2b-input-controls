@@ -60,6 +60,9 @@
     <ClCompile Include="ic_api\icapi_keyboard.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ic_sdl2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ic_limits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ic_sdl2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
