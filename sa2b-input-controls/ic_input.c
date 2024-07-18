@@ -25,12 +25,12 @@
 /************************/
 typedef enum
 {
-    INPUT_KEYBOARD,
-    INPUT_GAMEPAD,
-    INPUT_SWITCH,
-    INPUT_BOTH,
+    INPUT_MD_KEYBOARD,
+    INPUT_MD_GAMEPAD,
+    INPUT_MD_SWITCH,
+    INPUT_MD_BOTH,
 }
-eINPUT_METHOD;
+eINPUT_MODE;
 
 /************************/
 /*  File Variables      */
@@ -38,7 +38,7 @@ eINPUT_METHOD;
 static bool UseRawAnalog;
 static bool X2SetsLR;
 
-static eINPUT_METHOD    UserInputMode[4];
+static eINPUT_MODE      UserInputMode[4];
 static eGAMEPAD_NUM     UserGamepad[4];
 static eKEYBOARD_NUM    UserKeyboard[4];
 
@@ -117,7 +117,7 @@ SetUserInput(void)
         {
             gp_valid = GamepadValid(nb_gp);
 
-            if (UserInputMode[i] != INPUT_KEYBOARD && gp_valid) 
+            if (UserInputMode[i] != INPUT_MD_KEYBOARD && gp_valid) 
             {
                 GamepadSetUserInput(nb_gp, p_input);
             }
@@ -128,7 +128,7 @@ SetUserInput(void)
 
         if (nb_kb != KEYBOARD_NONE)
         {
-            if (UserInputMode[i] != INPUT_GAMEPAD && (UserInputMode[i] != INPUT_SWITCH || !gp_valid))
+            if (UserInputMode[i] != INPUT_MD_GAMEPAD && (UserInputMode[i] != INPUT_MD_SWITCH || !gp_valid))
             {
                 KeyboardSetUserInput(nb_kb, p_input);
             }
