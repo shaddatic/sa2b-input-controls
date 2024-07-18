@@ -34,22 +34,43 @@ EXTERN_START
 /*  User Input          */
 /************************/
 /****** User Buttons ****************************************************************/
-#define USRBTN_DPAD_UP          (0x00000001)
-#define USRBTN_DPAD_DOWN        (0x00000002)
-#define USRBTN_DPAD_LEFT        (0x00000004)
-#define USRBTN_DPAD_RIGHT       (0x00000008)
-#define USRBTN_START            (0x00000010)
-#define USRBTN_BACK             (0x00000020)
-#define USRBTN_LS               (0x00000040)
-#define USRBTN_RS               (0x00000080)
-#define USRBTN_ZL               (0x00000100)
-#define USRBTN_ZR               (0x00000200)
-#define USRBTN_RESERVED_0       (0x00000400)
-#define USRBTN_RESERVED_1       (0x00000800)
-#define USRBTN_A                (0x00001000)
-#define USRBTN_B                (0x00002000)
-#define USRBTN_X                (0x00004000)
-#define USRBTN_Y                (0x00008000)
+#define USRBTN_A                    (1<< 0)
+#define USRBTN_B                    (1<< 1)
+#define USRBTN_X                    (1<< 2)
+#define USRBTN_Y                    (1<< 3)
+#define USRBTN_START                (1<< 4)
+#define USRBTN_BACK                 (1<< 5)
+#define USRBTN_ZL                   (1<< 6)
+#define USRBTN_ZR                   (1<< 7)
+#define USRBTN_LS                   (1<< 8)
+#define USRBTN_RS                   (1<< 9)
+#define USRBTN_DPAD_UP              (1<<10)
+#define USRBTN_DPAD_DOWN            (1<<11)
+#define USRBTN_DPAD_LEFT            (1<<12)
+#define USRBTN_DPAD_RIGHT           (1<<13)
+
+/****** Raw Gamepad Buttons *********************************************************/
+#define GPDBTN_A                    (1<< 0)
+#define GPDBTN_B                    (1<< 1)
+#define GPDBTN_X                    (1<< 2)
+#define GPDBTN_Y                    (1<< 3)
+#define GPDBTN_BACK                 (1<< 4)
+#define GPDBTN_GUIDE                (1<< 5) /* xb/ps button, ns: home button        */
+#define GPDBTN_START                (1<< 6)
+#define GPDBTN_LS                   (1<< 7)
+#define GPDBTN_RS                   (1<< 8)
+#define GPDBTN_ZL                   (1<< 9)
+#define GPDBTN_ZR                   (1<<10)
+#define GPDBTN_DPAD_UP              (1<<11)
+#define GPDBTN_DPAD_DOWN            (1<<12)
+#define GPDBTN_DPAD_LEFT            (1<<13)
+#define GPDBTN_DPAD_RIGHT           (1<<14)
+#define GPDBTN_MISC                 (1<<15) /* xb: share, ps: mic, ns: capture      */
+#define GPDBTN_XBPADDLE_UR          (1<<16) /* xb paddle: upper right  (from front) */
+#define GPDBTN_XBPADDLE_UL          (1<<17) /* xb paddle: upper left   (from front) */
+#define GPDBTN_XBPADDLE_LR          (1<<18) /* xb paddle: lower right  (from front) */
+#define GPDBTN_XBPADDLE_LL          (1<<19) /* xb paddle: lower left   (from front) */
+#define GPDBTN_TOUCHPAD             (1<<20) /* ps 4/5 touchpad button               */
 
 /************************/
 /*  Mouse Input          */
