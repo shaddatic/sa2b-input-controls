@@ -108,18 +108,21 @@ TASK;
 /*  Functions           */
 /************************/
 EXTERN_START
+/****** Create Task *****************************************************************/
 /** Create new TASK **/
 TASK*   CreateElementalTask(uint8_t im, int32_t level, task_exec exec, const char* name);
 /** Create new task as a child of another TASK **/
 TASK*   CreateChildTask(int16_t im, task_exec exec, TASK* tp);
 
+/****** Free Task *******************************************************************/
 /** Queue TASK for freeing **/
 void    FreeTask(TASK* tp);
 
+/****** Task Exec *******************************************************************/
 /** Generic TASK_EXEC **/
 void    no_op(TASK* tp);
 
-/** Internal functions **/
+/****** Task Destructor Exec ********************************************************/
 void    DestroyTask(TASK* tp);
 
 EXTERN_END
@@ -129,8 +132,8 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#   define CreateChildTask_p        FUNC_PTR(TASK*, __cdecl, (int16_t, task_exec, TASK*), 0x0470C00)
-#   define DestroyTask_p            FUNC_PTR(void , __cdecl, (TASK*)                   , 0x046F720)
+#   define CreateChildTask_p        FUNC_PTR(TASK*, __cdecl, (s16, task_exec, TASK*), 0x00470C00)
+#   define DestroyTask_p            FUNC_PTR(void , __cdecl, (TASK*)                , 0x0046F720)
 
 /** User-Function ptr **/
 #   define CreateElementalTask_p    ((void*)0x0046F610);
