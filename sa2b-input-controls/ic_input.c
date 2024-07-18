@@ -38,6 +38,9 @@ eINPUT_MODE;
 static bool UseRawAnalog;
 static bool X2SetsLR;
 
+static Sint16 DgtLROn;
+static Sint16 DgtLROff;
+
 static eINPUT_MODE      UserInputMode[4];
 static eGAMEPAD_NUM     UserGamepad[4];
 static eKEYBOARD_NUM    UserKeyboard[4];
@@ -232,8 +235,8 @@ SetPdsPeripheral(void)
             const u32 old_on = p_pad->on;
 
             /** Calculate emulated trigger buttons **/
-            const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > 160 ? PDD_DGT_TL : 0) : (p_pad->l >= 192 ? PDD_DGT_TL : 0) ) |
-                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > 160 ? PDD_DGT_TR : 0) : (p_pad->r >= 192 ? PDD_DGT_TR : 0) );
+            const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtLROff ? PDD_DGT_TL : 0) : (p_pad->l >= DgtLROn ? PDD_DGT_TL : 0) ) |
+                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtLROff ? PDD_DGT_TR : 0) : (p_pad->r >= DgtLROn ? PDD_DGT_TR : 0) );
 
             const u32 btn_on = UserToDreamcastButton(p_input->down) | trig_on;
 
@@ -280,6 +283,9 @@ IC_InputInit(void)
 {
     X2SetsLR     = CnfGetInt(CNF_MAIN_X2LR);
     UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
+
+    DgtLROn  = (Sint16) CnfGetInt(CNF_MAIN_DGTLR_ON);
+    DgtLROff = (Sint16) CnfGetInt(CNF_MAIN_DGTLR_OFF);
 
     UserGamepad[0]   = CnfGetInt( CNF_USER1_GAMEPD_NB  );
     UserKeyboard[0]  = CnfGetInt( CNF_USER1_KEYBRD_NB  );
