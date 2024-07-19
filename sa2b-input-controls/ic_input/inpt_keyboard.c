@@ -317,15 +317,18 @@ GetStickAxis(const uint8_t keyPos, const uint8_t keyNeg)
     return (KeyboardDown(keyPos) ? 1.0f : 0.0f) - (KeyboardDown(keyNeg) ? 1.0f : 0.0f);
 }
 
-void
-KeyboardSetUserInput(const int nbKb, USER_INPUT* const pUserInput)
+bool
+KeyboardSetUserInput(const eKEYBOARD_NUM nbKb, INPUT_OUT* const pOutInput)
 {
+    if (nbKb == KEYBOARD_NONE)
+        return false;
+
     const USER_KEYS* const p_kbl = &KeyboardLayout[nbKb];
 
     /** Left analog stick **/
     {
-        const f32 in_x = pUserInput->x1;
-        const f32 in_y = pUserInput->y1;
+        const f32 in_x = pOutInput->x1;
+        const f32 in_y = pOutInput->y1;
 
         f32 x = 0, y = 0;
 
@@ -338,13 +341,13 @@ KeyboardSetUserInput(const int nbKb, USER_INPUT* const pUserInput)
         if (dgt_y) y = dgt_y;
 
         /** Ensure the largest player input is the only one registered **/
-        if (ABS(x) > ABS(in_x)) pUserInput->x1 = x;
-        if (ABS(y) > ABS(in_y)) pUserInput->y1 = y;
+        pOutInput->x1 = x;
+        pOutInput->y1 = y;
     }
     /** Right analog stick **/
     {
-        const f32 in_x = pUserInput->x2;
-        const f32 in_y = pUserInput->y2;
+        const f32 in_x = pOutInput->x2;
+        const f32 in_y = pOutInput->y2;
 
         f32 x = 0, y = 0;
 
@@ -357,17 +360,17 @@ KeyboardSetUserInput(const int nbKb, USER_INPUT* const pUserInput)
         if (dgt_y) y = dgt_y;
 
         /** Ensure the largest player input is the only one registered **/
-        if (ABS(x) > ABS(in_x)) pUserInput->x2 = x;
-        if (ABS(y) > ABS(in_y)) pUserInput->y2 = y;
+        pOutInput->x2 = x;
+        pOutInput->y2 = y;
     }
 
     /** Triggers **/
     {
         if (KeyboardDown(p_kbl->btn_l))
-            pUserInput->l = 1.0f; /* Analog L */
+            pOutInput->l = 1.0f; /* Analog L */
 
         if (KeyboardDown(p_kbl->btn_r))
-            pUserInput->r = 1.0f; /* Analog R */
+            pOutInput->r = 1.0f; /* Analog R */
     }
 
     uint32_t btn = 0;
@@ -388,8 +391,9 @@ KeyboardSetUserInput(const int nbKb, USER_INPUT* const pUserInput)
     btn |= ( KeyboardDown(p_kbl->DPad.left ) ? USRBTN_DPAD_LEFT  : 0 ); /* D-Pad Left */
     btn |= ( KeyboardDown(p_kbl->DPad.right) ? USRBTN_DPAD_RIGHT : 0 ); /* D-Pad Right */
 
-    /** Ensure this doesn't unpress buttons held by the gamepad **/
-    pUserInput->down |= btn;
+    pOutInput->down = btn;
+
+    return true;
 }
 
 void

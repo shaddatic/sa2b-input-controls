@@ -25,12 +25,25 @@
 /************************/
 typedef enum
 {
+    INPUT_MD_NONE = -1,
+
     INPUT_MD_KEYBOARD,
     INPUT_MD_GAMEPAD,
     INPUT_MD_SWITCH,
     INPUT_MD_BOTH,
 }
 eINPUT_MODE;
+
+/************************/
+/*  Structures          */
+/************************/
+typedef struct
+{
+    eGAMEPAD_NUM  nbGp;
+    eKEYBOARD_NUM nbKb;
+    eINPUT_MODE   mode;
+}
+USER_INFO;
 
 /************************/
 /*  File Variables      */
@@ -41,11 +54,9 @@ static bool X2SetsLR;
 static Sint16 DgtLROn;
 static Sint16 DgtLROff;
 
-static eINPUT_MODE      UserInputMode[4];
-static eGAMEPAD_NUM     UserGamepad[4];
-static eKEYBOARD_NUM    UserKeyboard[4];
+static USER_INFO UserInfos[NB_USER];
 
-static USER_INPUT   UserInput[4];
+static USER_INPUT UserInput[NB_USER];
 
 /************************/
 /*  Game Functions      */
@@ -59,7 +70,7 @@ static USER_INPUT   UserInput[4];
 eGAMEPAD_NUM
 UserGetGamepadNum(const eUSER_NUM nbUser)
 {
-    return UserGamepad[nbUser];
+    return UserInfos[nbUser].nbGp;
 }
 
 bool
@@ -89,7 +100,7 @@ UserVibStop(const eUSER_NUM nbUser)
 eKEYBOARD_NUM
 UserGetKeyboardNum(const eUSER_NUM nbUser)
 {
-    return UserKeyboard[nbUser];
+    return UserInfos[nbUser].nbKb;
 }
 
 const USER_INPUT*
@@ -104,42 +115,59 @@ SetUserInput(void)
     for (int i = 0; i < ARYLEN(UserInput); ++i)
     {
         /** Setup **/
+        USER_INFO*  const p_info  = &UserInfos[i];
         USER_INPUT* const p_input = &UserInput[i];
 
-        const uint32_t btn_old = p_input->down; // old button for button calculations
+        INPUT_OUT input_gp = {0};
+        INPUT_OUT input_kb = {0};
 
-        /** Clearing **/
-        *p_input = (USER_INPUT){0};
+        /** This looks confusing, I know, but trust me this is the best idea I had
+            on how to do this. I tried others, it was messy. This though is fine **/
+        switch (p_info->mode) {
+        case INPUT_MD_NONE:
+            break;
 
-        /** Gamepad **/
-        bool gp_valid = false; // store valid if the user is in 'SWITCH' mode
-
-        const eGAMEPAD_NUM nb_gp = UserGamepad[i];
-
-        if (nb_gp != GAMEPAD_NONE)
+        case INPUT_MD_GAMEPAD:
         {
-            gp_valid = GamepadValid(nb_gp);
-
-            if (UserInputMode[i] != INPUT_MD_KEYBOARD && gp_valid) 
+            GamepadSetUserInput(p_info->nbGp, &input_gp);
+            break;
+        }
+        case INPUT_MD_KEYBOARD: 
+        {
+            KeyboardSetUserInput(p_info->nbKb, &input_kb);
+            break;
+        }
+        case INPUT_MD_SWITCH:
+        {
+            if ( !GamepadSetUserInput(p_info->nbGp, &input_gp) )
             {
-                GamepadSetUserInput(nb_gp, p_input);
+                KeyboardSetUserInput(p_info->nbKb, &input_kb);
             }
+            break;
+        }
+        case INPUT_MD_BOTH:
+        {
+            GamepadSetUserInput(p_info->nbGp, &input_gp);
+            KeyboardSetUserInput(p_info->nbKb, &input_kb);
+            break;
+        }
         }
 
-        /** Keyboard **/
-        const eKEYBOARD_NUM nb_kb = UserKeyboard[i];
+        /** Axis Info **/
+        p_input->x1 = MAX_ABS(input_gp.x1, input_kb.x1);
+        p_input->y1 = MAX_ABS(input_gp.y1, input_kb.y1);
+        p_input->x2 = MAX_ABS(input_gp.x2, input_kb.x2);
+        p_input->y2 = MAX_ABS(input_gp.y2, input_kb.y2);
 
-        if (nb_kb != KEYBOARD_NONE)
-        {
-            if (UserInputMode[i] != INPUT_MD_GAMEPAD && (UserInputMode[i] != INPUT_MD_SWITCH || !gp_valid))
-            {
-                KeyboardSetUserInput(nb_kb, p_input);
-            }
-        }
+        p_input->r = MAX_ABS(input_gp.r, input_kb.r);
+        p_input->l = MAX_ABS(input_gp.l, input_kb.l);
 
-        /** Set button **/
-        const uint32_t btn_new = p_input->down;
+        /** Button Info **/
+        const u32 btn_old = p_input->down;
 
+        const u32 btn_new = input_gp.down | input_kb.down;
+
+        p_input->down    = btn_new;
         p_input->press   = btn_new & ~btn_old;
         p_input->release = btn_old & ~btn_new;
     }
@@ -191,7 +219,7 @@ SetPdsPeripheral(void)
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
             to emulate the controller being disconnected **/
-        if (!GamepadValid(UserGamepad[i]) && UserKeyboard[i] == KEYBOARD_NONE)
+        if (!GamepadValid(UserInfos[i].nbGp) && UserInfos[i].nbKb == KEYBOARD_NONE)
         {
             *p_pad = (PDS_PERIPHERAL){0};
 
@@ -240,11 +268,14 @@ SetPdsPeripheral(void)
 
             u32 btn_on = UserToDreamcastButton(p_input->down) | trig_on;
 
-            if (btn_on & PDD_DGT_KU && btn_on & PDD_DGT_KD)
-                btn_on &= ~(PDD_DGT_KU|PDD_DGT_KD);
+            /** Keep opposite dpad directions exclusive **/
+            {
+                constexpr u32 dgt_ud = (PDD_DGT_KU|PDD_DGT_KD);
+                constexpr u32 dgt_rl = (PDD_DGT_KR|PDD_DGT_KL);
 
-            if (btn_on & PDD_DGT_KR && btn_on & PDD_DGT_KL)
-                btn_on &= ~(PDD_DGT_KR|PDD_DGT_KL);
+                if ((btn_on & dgt_ud) == dgt_ud) btn_on &= ~dgt_ud;
+                if ((btn_on & dgt_rl) == dgt_rl) btn_on &= ~dgt_rl;
+            }
 
             p_pad->on  =  btn_on;
             p_pad->off = ~btn_on;
@@ -256,7 +287,7 @@ SetPdsPeripheral(void)
         PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
 
         if (p_padinfo)
-            p_padinfo->type = GamepadVibValid(UserGamepad[i]) ? PDD_DEVTYPE_CONTROLLER|PDD_DEVTYPE_VIBRATION : PDD_DEVTYPE_CONTROLLER;
+            p_padinfo->type = GamepadVibValid(UserInfos[i].nbGp) ? PDD_DEVTYPE_CONTROLLER|PDD_DEVTYPE_VIBRATION : PDD_DEVTYPE_CONTROLLER;
     }
 }
 
@@ -293,21 +324,21 @@ IC_InputInit(void)
     DgtLROn  = (Sint16) CnfGetInt(CNF_MAIN_DGTLR_ON);
     DgtLROff = (Sint16) CnfGetInt(CNF_MAIN_DGTLR_OFF);
 
-    UserGamepad[0]   = CnfGetInt( CNF_USER1_GAMEPD_NB  );
-    UserKeyboard[0]  = CnfGetInt( CNF_USER1_KEYBRD_NB  );
-    UserInputMode[0] = CnfGetInt( CNF_USER1_INPUT_MODE );
+    UserInfos[0].nbGp = CnfGetInt( CNF_USER1_GAMEPD_NB  );
+    UserInfos[0].nbKb = CnfGetInt( CNF_USER1_KEYBRD_NB  );
+    UserInfos[0].mode = CnfGetInt( CNF_USER1_INPUT_MODE ); 
 
-    UserGamepad[1]   = CnfGetInt( CNF_USER2_GAMEPD_NB  );
-    UserKeyboard[1]  = CnfGetInt( CNF_USER2_KEYBRD_NB  );
-    UserInputMode[1] = CnfGetInt( CNF_USER2_INPUT_MODE );
+    UserInfos[1].nbGp = CnfGetInt( CNF_USER2_GAMEPD_NB  );
+    UserInfos[1].nbKb = CnfGetInt( CNF_USER2_KEYBRD_NB  );
+    UserInfos[1].mode = CnfGetInt( CNF_USER2_INPUT_MODE );
 
-    UserGamepad[2]   = CnfGetInt( CNF_USER3_GAMEPD_NB  );
-    UserKeyboard[2]  = CnfGetInt( CNF_USER3_KEYBRD_NB  );
-    UserInputMode[2] = CnfGetInt( CNF_USER3_INPUT_MODE );
+    UserInfos[2].nbGp = CnfGetInt( CNF_USER3_GAMEPD_NB  );
+    UserInfos[2].nbKb = CnfGetInt( CNF_USER3_KEYBRD_NB  );
+    UserInfos[2].mode = CnfGetInt( CNF_USER3_INPUT_MODE );
 
-    UserGamepad[3]   = CnfGetInt( CNF_USER4_GAMEPD_NB  );
-    UserKeyboard[3]  = CnfGetInt( CNF_USER4_KEYBRD_NB  );
-    UserInputMode[3] = CnfGetInt( CNF_USER4_INPUT_MODE );
+    UserInfos[3].nbGp = CnfGetInt( CNF_USER4_GAMEPD_NB  );
+    UserInfos[3].nbKb = CnfGetInt( CNF_USER4_KEYBRD_NB  );
+    UserInfos[3].mode = CnfGetInt( CNF_USER4_INPUT_MODE ); 
 
     GamepadInit();
     KeyboardInit();

@@ -30,6 +30,19 @@ typedef enum
 eEMU_STICK;
 
 /************************/
+/*  Structures          */
+/************************/
+/****** Internal Input Buffer *******************************************************/
+typedef struct
+{
+    u32 down;
+    f32 x1, y1;
+    f32 x2, y2;
+    f32 l , r;
+}
+INPUT_OUT;
+
+/************************/
 /*  Prototypes          */
 /************************/
 /****** Update **********************************************************************/
@@ -46,8 +59,8 @@ void    MouseUpdate(    void );
 *   Description:
 *     Get USER_INPUT from physical device, using user-settings for said device.
 */
-void    GamepadSetUserInput(  int nbGp, USER_INPUT* pUserInput );
-void    KeyboardSetUserInput( int nbKb, USER_INPUT* pUserInput );
+bool    GamepadSetUserInput(  eGAMEPAD_NUM  nbGp, INPUT_OUT* pOutInput );
+bool    KeyboardSetUserInput( eKEYBOARD_NUM nbKb, INPUT_OUT* pOutInput );
 
 /****** Input Init ******************************************************************/
 /*

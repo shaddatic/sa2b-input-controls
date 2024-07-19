@@ -283,16 +283,16 @@ GamepadToUserButton(u32 gpbtn)
     return btn;
 }
 
-void
-GamepadSetUserInput(const int nbGp, USER_INPUT* const pUserInput)
+bool
+GamepadSetUserInput(const eGAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
 {
+    if (nbGp == GAMEPAD_NONE || !GamepadValid(nbGp))
+        return false;
+
     const USER_GAMEPAD*       const p_usrgp = &UserGamepads[nbGp];
     const GAMEPAD*            const p_gp    = &Gamepads[nbGp];
 
-    if (!GamepadValid(nbGp))
-        return;
-
-    pUserInput->down |= GamepadToUserButton(p_gp->down);
+    pOutInput->down = GamepadToUserButton(p_gp->down);
 
     f32 x1, y1;
     f32 x2, y2;
@@ -332,14 +332,16 @@ GamepadSetUserInput(const int nbGp, USER_INPUT* const pUserInput)
     if (GamepadDbgAxis)
         DebugAxes(nbGp, x1, y1, x2, y2);
 
-    pUserInput->x1 = x1;
-    pUserInput->y1 = y1;
+    pOutInput->x1 = x1;
+    pOutInput->y1 = y1;
 
-    pUserInput->x2 = x2;
-    pUserInput->y2 = y2;
+    pOutInput->x2 = x2;
+    pOutInput->y2 = y2;
 
-    pUserInput->l = (f32) NORM_GPD_TRIG( p_gp->l );
-    pUserInput->r = (f32) NORM_GPD_TRIG( p_gp->r );
+    pOutInput->l = (f32) NORM_GPD_TRIG( p_gp->l );
+    pOutInput->r = (f32) NORM_GPD_TRIG( p_gp->r );
+
+    return true;
 }
 
 void
