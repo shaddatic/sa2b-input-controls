@@ -302,22 +302,6 @@ bool    UserVibStop( eUSER_NUM nbUser );
 /****** Gamepad *********************************************************************/
 /*
 *   Description:
-*     Get the Raw XInput State structure for a specified gamepad.
-*
-*   Returns:
-*     Pointer to XInput State structure
-*/
-void*   GamepadGetXInput( eGAMEPAD_NUM nbGp );
-/*
-*   Description:
-*     Get the Raw XInput Capabilities structure for a specified gamepad.
-*
-*   Returns:
-*     Pointer to XInput Capabilites structure
-*/
-void*   GamepadGetCapabilities( eGAMEPAD_NUM nbGp );
-/*
-*   Description:
 *     If the specified gamepad is on and available.
 */
 bool    GamepadValid( eGAMEPAD_NUM nbGp );
