@@ -20,12 +20,6 @@
 #define CNFO_STRING(  sect_, key_, def_ )       &(const CONFIG_STRING)  { .sect = sect_, .key = key_, .def = def_ }
 
 /************************/
-/*  External Headers    */
-/************************/
-/****** Input Module ****************************************************************/
-#include <ic_input.h>
-
-/************************/
 /*  Sections            */
 /************************/
 /****** Main ************************************************************************/
@@ -78,6 +72,28 @@ CNFE_BOOL;
 /****** User ************************************************************************/
 typedef enum
 {
+    CNFE_USER_GAMEPAD_NONE = -1,
+
+    CNFE_USER_GAMEPAD_1,
+    CNFE_USER_GAMEPAD_2,
+    CNFE_USER_GAMEPAD_3,
+    CNFE_USER_GAMEPAD_4,
+}
+CNFE_USER_GAMEPAD;
+
+typedef enum
+{
+    CNFE_USER_KEYBOARD_NONE = -1,
+
+    CNFE_USER_KEYBOARD_1,
+    CNFE_USER_KEYBOARD_2,
+    CNFE_USER_KEYBOARD_3,
+    CNFE_USER_KEYBOARD_4,
+}
+CNFE_USER_KEYBOARD;
+
+typedef enum
+{
     CNFE_USER_INPUTMD_NONE = -1,
 
     CNFE_USER_INPUTMD_KEYBOARD,
@@ -86,6 +102,26 @@ typedef enum
     CNFE_USER_INPUTMD_BOTH,
 }
 CNFE_USER_INPUTMD;
+
+/****** Gamepad *********************************************************************/
+typedef enum
+{
+    CNFE_GAMEPD_DZ_MODE_CIRCULAR,
+    CNFE_GAMEPD_DZ_MODE_SQUARE,
+}
+CNFE_GAMEPD_DZ_MODE;
+
+/****** Mouse Emulated Analog *******************************************************/
+typedef enum
+{
+    CNFE_EMUANALOG_KEYBRD_NONE = -1,
+
+    CNFE_EMUANALOG_KEYBRD_1,
+    CNFE_EMUANALOG_KEYBRD_2,
+    CNFE_EMUANALOG_KEYBRD_3,
+    CNFE_EMUANALOG_KEYBRD_4,
+}
+CNFE_EMUANALOG_KEYBRD;
 
 /************************/
 /*  Options             */
@@ -102,21 +138,21 @@ CNFE_USER_INPUTMD;
 #define CNF_CAMERA_LRINV                CNFO_INT(   CNFS_CAMERA         , "lr_inv"              , CNFE_BOOL_DISABLED                    )
 
 /****** User ****************************************************************************************************************************/
-#define CNF_USER1_GAMEPD_NB             CNFO_INT(   CNFS_USER1          , "gp_nb"               , GAMEPAD_1                             )
-#define CNF_USER1_KEYBRD_NB             CNFO_INT(   CNFS_USER1          , "kb_nb"               , KEYBOARD_1                            )
+#define CNF_USER1_GAMEPD_NB             CNFO_INT(   CNFS_USER1          , "gp_nb"               , CNFE_USER_GAMEPAD_1                   )
+#define CNF_USER1_KEYBRD_NB             CNFO_INT(   CNFS_USER1          , "kb_nb"               , CNFE_USER_KEYBOARD_1                  )
 #define CNF_USER1_INPUT_MODE            CNFO_INT(   CNFS_USER1          , "input_md"            , CNFE_USER_INPUTMD_SWITCH              )
-#define CNF_USER2_GAMEPD_NB             CNFO_INT(   CNFS_USER2          , "gp_nb"               , GAMEPAD_2                             )
-#define CNF_USER2_KEYBRD_NB             CNFO_INT(   CNFS_USER2          , "kb_nb"               , KEYBOARD_NONE                         )
+#define CNF_USER2_GAMEPD_NB             CNFO_INT(   CNFS_USER2          , "gp_nb"               , CNFE_USER_GAMEPAD_2                   )
+#define CNF_USER2_KEYBRD_NB             CNFO_INT(   CNFS_USER2          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
 #define CNF_USER2_INPUT_MODE            CNFO_INT(   CNFS_USER2          , "input_md"            , CNFE_USER_INPUTMD_SWITCH              )
-#define CNF_USER3_GAMEPD_NB             CNFO_INT(   CNFS_USER3          , "gp_nb"               , GAMEPAD_NONE                          )
-#define CNF_USER3_KEYBRD_NB             CNFO_INT(   CNFS_USER3          , "kb_nb"               , KEYBOARD_NONE                         )
+#define CNF_USER3_GAMEPD_NB             CNFO_INT(   CNFS_USER3          , "gp_nb"               , CNFE_USER_GAMEPAD_NONE                )
+#define CNF_USER3_KEYBRD_NB             CNFO_INT(   CNFS_USER3          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
 #define CNF_USER3_INPUT_MODE            CNFO_INT(   CNFS_USER3          , "input_md"            , CNFE_USER_INPUTMD_NONE                )
-#define CNF_USER4_GAMEPD_NB             CNFO_INT(   CNFS_USER4          , "gp_nb"               , GAMEPAD_NONE                          )
-#define CNF_USER4_KEYBRD_NB             CNFO_INT(   CNFS_USER4          , "kb_nb"               , KEYBOARD_NONE                         )
+#define CNF_USER4_GAMEPD_NB             CNFO_INT(   CNFS_USER4          , "gp_nb"               , CNFE_USER_GAMEPAD_NONE                )
+#define CNF_USER4_KEYBRD_NB             CNFO_INT(   CNFS_USER4          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
 #define CNF_USER4_INPUT_MODE            CNFO_INT(   CNFS_USER4          , "input_md"            , CNFE_USER_INPUTMD_NONE                )
 
 /****** Gamepad *************************************************************************************************************************/
-#define CNFV_GAMEPD_DZ_MODE(s)          CNFO_INT(   s                   , "dz_md"               , DZ_MD_CIRCULAR                        )
+#define CNFV_GAMEPD_DZ_MODE(s)          CNFO_INT(   s                   , "dz_md"               , CNFE_GAMEPD_DZ_MODE_CIRCULAR          )
 #define CNFV_GAMEPD_LS_IDZ(s)           CNFO_INT(   s                   , "ls_idz"              , 10                                    )
 #define CNFV_GAMEPD_LS_ODZ(s)           CNFO_INT(   s                   , "ls_odz"              , 100                                   )
 #define CNFV_GAMEPD_RS_IDZ(s)           CNFO_INT(   s                   , "rs_idz"              , 10                                    )
@@ -150,7 +186,7 @@ CNFE_USER_INPUTMD;
 #define CNFV_KEYBRD_DIR_RIGHT(s, d)     CNFO_INT(   s                   , "dp_right"            , d                                     )
 
 /****** Emulated Analog *****************************************************************************************************************/
-#define CNF_EMUANALOG_KEYBRD            CNFO_INT(   CNFS_EMUANALOG      , "kb_nb"               , KEYBOARD_NONE                         )
+#define CNF_EMUANALOG_KEYBRD            CNFO_INT(   CNFS_EMUANALOG      , "kb_nb"               , CNFE_EMUANALOG_KEYBRD_NONE            )
 #define CNF_EMUANALOG_STICK             CNFO_INT(   CNFS_EMUANALOG      , "stick"               , 0                                     )
 #define CNF_EMUANALOG_MODE              CNFO_INT(   CNFS_EMUANALOG      , "mode"                , 1                                     )
 #define CNF_EMUANALOG_CLICK             CNFO_INT(   CNFS_EMUANALOG      , "click"               , KEY_M_LCLICK                          )
