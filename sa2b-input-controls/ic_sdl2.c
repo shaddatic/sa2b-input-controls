@@ -18,9 +18,9 @@
 /*  Macros              */
 /************************/
 /****** SDL Function Exports ********************************************************/
-#define SDL_FUNC_PTR(retn, name, para)  retn(SDLCALL* name)para
+#define SDL_FUNC_PTR(retn, name, para)      static retn(SDLCALL* ___##name)para
 
-#define SDL_EXPORT(name)    { &___##name, "SDL_"#name }
+#define SDL_EXPORT(name)                    { &___##name, "SDL_"#name }
 
 /************************/
 /*  File Data           */
@@ -29,21 +29,21 @@
 static dll_handle* SdlHandle;
 
 /****** Function Pointers ***********************************************************/
-static SDL_FUNC_PTR(int                     , ___Init                           , (int)                                          );
-static SDL_FUNC_PTR(void                    , ___Quit                           , (void)                                         );
-static SDL_FUNC_PTR(int                     , ___PollEvent                      , (SDL_Event*)                                   );
-static SDL_FUNC_PTR(SDL_GameController*     , ___GameControllerOpen             , (int)                                          );
-static SDL_FUNC_PTR(void                    , ___GameControllerClose            , (SDL_GameController*)                          );
-static SDL_FUNC_PTR(SDL_bool                , ___IsGameController               , (int)                                          );
-static SDL_FUNC_PTR(Sint16                  , ___GameControllerGetAxis          , (SDL_GameController*, int)                     );
-static SDL_FUNC_PTR(SDL_bool                , ___GameControllerHasButton        , (SDL_GameController*, SDL_GameControllerButton));
-static SDL_FUNC_PTR(SDL_bool                , ___GameControllerGetButton        , (SDL_GameController*, SDL_GameControllerButton));
-static SDL_FUNC_PTR(SDL_bool                , ___GameControllerHasRumble        , (SDL_GameController*)                          );
-static SDL_FUNC_PTR(SDL_bool                , ___GameControllerHasRumbleTriggers, (SDL_GameController*)                          );
-static SDL_FUNC_PTR(int                     , ___GameControllerRumble           , (SDL_GameController*, Uint16, Uint16, Uint32)  );
-static SDL_FUNC_PTR(int                     , ___GameControllerRumbleTriggers   , (SDL_GameController*, Uint16, Uint16, Uint32)  );
-static SDL_FUNC_PTR(int                     , ___NumJoysticks                   , (void)                                         );
-static SDL_FUNC_PTR(const char*             ,___GameControllerName             , (SDL_GameController*)                          );
+SDL_FUNC_PTR(int                     , Init                           , (int)                                          );
+SDL_FUNC_PTR(void                    , Quit                           , (void)                                         );
+SDL_FUNC_PTR(int                     , PollEvent                      , (SDL_Event*)                                   );
+SDL_FUNC_PTR(SDL_GameController*     , GameControllerOpen             , (int)                                          );
+SDL_FUNC_PTR(void                    , GameControllerClose            , (SDL_GameController*)                          );
+SDL_FUNC_PTR(SDL_bool                , IsGameController               , (int)                                          );
+SDL_FUNC_PTR(Sint16                  , GameControllerGetAxis          , (SDL_GameController*, int)                     );
+SDL_FUNC_PTR(SDL_bool                , GameControllerHasButton        , (SDL_GameController*, SDL_GameControllerButton));
+SDL_FUNC_PTR(SDL_bool                , GameControllerGetButton        , (SDL_GameController*, SDL_GameControllerButton));
+SDL_FUNC_PTR(SDL_bool                , GameControllerHasRumble        , (SDL_GameController*)                          );
+SDL_FUNC_PTR(SDL_bool                , GameControllerHasRumbleTriggers, (SDL_GameController*)                          );
+SDL_FUNC_PTR(int                     , GameControllerRumble           , (SDL_GameController*, Uint16, Uint16, Uint32)  );
+SDL_FUNC_PTR(int                     , GameControllerRumbleTriggers   , (SDL_GameController*, Uint16, Uint16, Uint32)  );
+SDL_FUNC_PTR(int                     , NumJoysticks                   , (void)                                         );
+SDL_FUNC_PTR(const char*             , GameControllerName             , (SDL_GameController*)                          );
 
 /****** Export List *****************************************************************/
 static const dll_export SdlExports[] =
