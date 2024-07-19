@@ -45,13 +45,8 @@ typedef struct
 {
     DEADZONE StickL;
     DEADZONE StickR;
-
-    f32 vibPwrL;
-    f32 vibPwrR;
-
-    uint8_t dzMode;
-
-    bool useVib;
+    f32      vibStr;
+    u8       dzMode;
 }
 USER_GAMEPAD;
 
@@ -67,9 +62,9 @@ typedef struct
 
     u32                 down;
 
-    int16_t             x1, y1;
-    int16_t             x2, y2;
-    int16_t             l , r;
+    s16                 x1, y1;
+    s16                 x2, y2;
+    s16                 l , r;
 }
 GAMEPAD;
 
@@ -190,9 +185,16 @@ GamepadVibSet(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    const GAMEPAD* const p_gp = &Gamepads[nbGp];
+    const GAMEPAD*      const p_gpd = &Gamepads[nbGp];
+    const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
 
-    return SDL2_GameControllerRumble(p_gp->pSdlGp, (Sint16)(spdL*65535.f), (Sint16)(spdR*65535.f), 0xFFFFFFFF);
+    const f32 str = p_usr->vibStr;
+
+    return SDL2_GameControllerRumble(p_gpd->pSdlGp,
+        (Sint16)((spdL*65535.f)*str),
+        (Sint16)((spdR*65535.f)*str),
+        0xFFFFFFFF
+    );
 }
 
 bool
@@ -390,9 +392,7 @@ GamepadInit(void)
         UserGamepads[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
         UserGamepads[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
         UserGamepads[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
-        UserGamepads[i].vibPwrL =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_L(   buf ) );
-        UserGamepads[i].vibPwrR =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_R(   buf ) );
-        UserGamepads[i].useVib  =          CnfGetInt(     CNFV_GAMEPD_VIB(     buf ) );
+        UserGamepads[i].vibStr  =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_STR( buf ) );
     }
 
     /** Get debug info **/

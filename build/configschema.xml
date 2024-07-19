@@ -111,18 +111,10 @@ NOTE: Requres 'Analog Controls'</HelpText>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
-			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
-				<HelpText>If this gamepad should use vibration.</HelpText>
-			</Property>
-			<Property name="vib_l" display="Left Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the left motor as a percentage. All vibration values will be multiplied by this value
+			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
+				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
 
-In Xbox controllers, this motor is for low-frequency vibration.</HelpText>
-			</Property>
-			<Property name="vib_r" display="Right Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the right motor as a percentage. All vibration values will be multiplied by this value.
-
-In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
+A value of 0 will disable rumble for this Gamepad.</HelpText>
 			</Property>
 		</Group>
 		<Group name="gp1" display="Gamepad: 2">
@@ -141,18 +133,10 @@ In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
-			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
-				<HelpText>If this gamepad should use vibration.</HelpText>
-			</Property>
-			<Property name="vib_l" display="Left Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the left motor as a percentage. All vibration values will be multiplied by this value
+			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
+				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
 
-In Xbox controllers, this motor is for low-frequency vibration.</HelpText>
-			</Property>
-			<Property name="vib_r" display="Right Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the right motor as a percentage. All vibration values will be multiplied by this value.
-
-In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
+A value of 0 will disable rumble for this Gamepad.</HelpText>
 			</Property>
 		</Group>
 		<Group name="gp2" display="Gamepad: 3">
@@ -171,18 +155,10 @@ In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
-			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
-				<HelpText>If this gamepad should use vibration.</HelpText>
-			</Property>
-			<Property name="vib_l" display="Left Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the left motor as a percentage. All vibration values will be multiplied by this value
+			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
+				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
 
-In Xbox controllers, this motor is for low-frequency vibration.</HelpText>
-			</Property>
-			<Property name="vib_r" display="Right Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the right motor as a percentage. All vibration values will be multiplied by this value.
-
-In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
+A value of 0 will disable rumble for this Gamepad.</HelpText>
 			</Property>
 		</Group>
 		<Group name="gp3" display="Gamepad: 4">
@@ -201,18 +177,10 @@ In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
 			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
-			<Property name="vib" display="Use Vibration" type="eBOOL" defaultvalue="1">
-				<HelpText>If this gamepad should use vibration.</HelpText>
-			</Property>
-			<Property name="vib_l" display="Left Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the left motor as a percentage. All vibration values will be multiplied by this value
+			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
+				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
 
-In Xbox controllers, this motor is for low-frequency vibration.</HelpText>
-			</Property>
-			<Property name="vib_r" display="Right Vibration Motor Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Vibration strength in the right motor as a percentage. All vibration values will be multiplied by this value.
-
-In Xbox controllers, this motor is for high-frequency vibration.</HelpText>
+A value of 0 will disable rumble for this Gamepad.</HelpText>
 			</Property>
 		</Group>
 		<Group name="emu_analog" display="Mouse Analog Emulation Settings">

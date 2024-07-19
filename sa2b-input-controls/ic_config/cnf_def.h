@@ -119,9 +119,7 @@ CNFE_BOOL;
 #define CNFV_GAMEPD_LS_ODZ(s)           CNFO_INT(   s                   , "ls_odz"              , 100                                   )
 #define CNFV_GAMEPD_RS_IDZ(s)           CNFO_INT(   s                   , "rs_idz"              , 10                                    )
 #define CNFV_GAMEPD_RS_ODZ(s)           CNFO_INT(   s                   , "rs_odz"              , 100                                   )
-#define CNFV_GAMEPD_VIB(s)              CNFO_INT(   s                   , "vib"                 , CNFE_BOOL_ENABLED                     )
-#define CNFV_GAMEPD_VIB_L(s)            CNFO_INT(   s                   , "vib_l"               , 100                                   )
-#define CNFV_GAMEPD_VIB_R(s)            CNFO_INT(   s                   , "vib_r"               , 100                                   )
+#define CNFV_GAMEPD_VIB_STR(s)          CNFO_INT(   s                   , "vib_str"             , 100                                   )
 
 /****** Keyboard Layout *****************************************************************************************************************/
 #define CNFV_KEYBRD_LS_UP(s, d)         CNFO_INT(   s                   , "ls_up"               , d                                     )
