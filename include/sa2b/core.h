@@ -182,6 +182,26 @@ const char* GetModPath(void);
 #ifndef ABS
 #   define ABS(val)                         ((val)>=0?(val):-(val))
 #endif/*ABS*/
+/*
+*   Description:
+*     Get the highest absolute value of two values
+*
+*   Parameters:
+*     - val#    : values to find the absolute maximum of
+*/
+#ifndef MAX_ABS
+#   define MAX_ABS(val1, val2)              ((ABS(val1))>(ABS(val2))?(val1):(val2))
+#endif/*MAX_ABS*/
+/*
+*   Description:
+*     Get the lowest absolute value of two values
+*
+*   Parameters:
+*     - val#    : values to find the absolute minimum of
+*/
+#ifndef MIN_ABS
+#   define MIN_ABS(val1, val2)              ((ABS(val1))>(ABS(val2))?(val2):(val1))
+#endif/*MIN_ABS*/
 
 /****** Address Mapping *************************************************************/
 /*
