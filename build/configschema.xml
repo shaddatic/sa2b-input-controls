@@ -72,7 +72,7 @@ NOTE: Requres 'Analog Controls'</HelpText>
 			<Property name="kb_nb" display="Keyboard" type="eKEYBOARD" defaultvalue="-1">
 				<HelpText>Which Keyboard layout this player will read from.</HelpText>
 			</Property>
-			<Property name="input_md" display="Input Method" type="eINPUT_MODE" defaultvalue="2">
+			<Property name="input_md" display="Input Method" type="eINPUT_MODE" defaultvalue="-1">
 				<HelpText>Which input device this player will use.
 
 'Switch' will prioritize Gamepad; but if it is not available, Keyboard will be used instead.
@@ -87,7 +87,7 @@ NOTE: Requres 'Analog Controls'</HelpText>
 			<Property name="kb_nb" display="Keyboard" type="eKEYBOARD" defaultvalue="-1">
 				<HelpText>Which Keyboard layout this player will read from.</HelpText>
 			</Property>
-			<Property name="input_md" display="Input Method" type="eINPUT_MODE" defaultvalue="2">
+			<Property name="input_md" display="Input Method" type="eINPUT_MODE" defaultvalue="-1">
 				<HelpText>Which input device this player will use.
 
 'Switch' will prioritize Gamepad; but if it is not available, Keyboard will be used instead.
@@ -543,10 +543,11 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 			<EnumMember name="-1" display="No Keyboard"></EnumMember>
 		</Enum>
 		<Enum name="eINPUT_MODE">
-			<EnumMember name="3" display="Keyboard/Gamepad (Both)"></EnumMember>
-			<EnumMember name="2" display="Keyboard/Gamepad (Switch)"></EnumMember>
-			<EnumMember name="1" display="Gamepad"></EnumMember>
-			<EnumMember name="0" display="Keyboard"></EnumMember>
+			<EnumMember name="3"  display="Keyboard/Gamepad (Both)"></EnumMember>
+			<EnumMember name="2"  display="Keyboard/Gamepad (Switch)"></EnumMember>
+			<EnumMember name="1"  display="Gamepad"></EnumMember>
+			<EnumMember name="0"  display="Keyboard"></EnumMember>
+			<EnumMember name="-1" display="No Input"></EnumMember>
 		</Enum>
 		<Enum name="eEMU_KB">
 			<EnumMember name="0"  display="Keyboard 1"></EnumMember>
