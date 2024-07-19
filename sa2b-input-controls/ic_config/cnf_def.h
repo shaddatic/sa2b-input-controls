@@ -85,7 +85,7 @@ typedef enum
     CNFE_USER_INPUTMD_SWITCH,
     CNFE_USER_INPUTMD_BOTH,
 }
-CNFE_BOOL;
+CNFE_USER_INPUTMD;
 
 /************************/
 /*  Options             */
