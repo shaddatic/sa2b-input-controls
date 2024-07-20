@@ -57,6 +57,8 @@ int     SDL2_GameControllerRumbleTriggers(SDL_GameController* pGp, Uint16 freqL,
 
 int     SDL2_NumJoysticks( void );
 
+const char* SDL2_GameControllerName(SDL_GameController* pGp);
+
 #endif/*IC_SDL2_INITONLY*/
 
 EXTERN_END
