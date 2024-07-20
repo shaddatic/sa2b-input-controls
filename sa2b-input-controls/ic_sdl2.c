@@ -3,6 +3,8 @@
 /************************/
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
+#include <sa2b/memory.h>    /* MemAlloc, MemFree                                    */
+#include <sa2b/string.h>    /* StringSize                                           */
 #include <sa2b/dll.h>       /* DLL_Mount2, DLL_GetExportList                        */
 
 /****** Simple DirectMedia Layer ****************************************************/
@@ -10,6 +12,9 @@
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
+
+/****** C Sdl ***********************************************************************/
+#include <stdio.h>          /* std in out                                           */
 
 /****** Self ************************************************************************/
 #include <ic_sdl2.h>        /* self                                                 */
@@ -22,6 +27,8 @@
 
 #define SDL_EXPORT(name)                    { &___##name, "SDL_"#name }
 
+#define SDL2_GameControllerAddMappingsFromFile(file)    ___GameControllerAddMappingsFromRW( ___RWFromFile(file, "rb"), 1 )
+
 /************************/
 /*  File Data           */
 /************************/
@@ -29,21 +36,23 @@
 static dll_handle* SdlHandle;
 
 /****** Function Pointers ***********************************************************/
-SDL_FUNC_PTR(int                     , Init                           , (int)                                          );
-SDL_FUNC_PTR(void                    , Quit                           , (void)                                         );
-SDL_FUNC_PTR(int                     , PollEvent                      , (SDL_Event*)                                   );
-SDL_FUNC_PTR(SDL_GameController*     , GameControllerOpen             , (int)                                          );
-SDL_FUNC_PTR(void                    , GameControllerClose            , (SDL_GameController*)                          );
-SDL_FUNC_PTR(SDL_bool                , IsGameController               , (int)                                          );
-SDL_FUNC_PTR(Sint16                  , GameControllerGetAxis          , (SDL_GameController*, int)                     );
-SDL_FUNC_PTR(SDL_bool                , GameControllerHasButton        , (SDL_GameController*, SDL_GameControllerButton));
-SDL_FUNC_PTR(SDL_bool                , GameControllerGetButton        , (SDL_GameController*, SDL_GameControllerButton));
-SDL_FUNC_PTR(SDL_bool                , GameControllerHasRumble        , (SDL_GameController*)                          );
-SDL_FUNC_PTR(SDL_bool                , GameControllerHasRumbleTriggers, (SDL_GameController*)                          );
-SDL_FUNC_PTR(int                     , GameControllerRumble           , (SDL_GameController*, Uint16, Uint16, Uint32)  );
-SDL_FUNC_PTR(int                     , GameControllerRumbleTriggers   , (SDL_GameController*, Uint16, Uint16, Uint32)  );
-SDL_FUNC_PTR(int                     , NumJoysticks                   , (void)                                         );
-SDL_FUNC_PTR(const char*             , GameControllerName             , (SDL_GameController*)                          );
+SDL_FUNC_PTR(int                , Init                           , (int)                                          );
+SDL_FUNC_PTR(void               , Quit                           , (void)                                         );
+SDL_FUNC_PTR(int                , PollEvent                      , (SDL_Event*)                                   );
+SDL_FUNC_PTR(SDL_GameController*, GameControllerOpen             , (int)                                          );
+SDL_FUNC_PTR(void               , GameControllerClose            , (SDL_GameController*)                          );
+SDL_FUNC_PTR(SDL_bool           , IsGameController               , (int)                                          );
+SDL_FUNC_PTR(Sint16             , GameControllerGetAxis          , (SDL_GameController*, int)                     );
+SDL_FUNC_PTR(SDL_bool           , GameControllerHasButton        , (SDL_GameController*, SDL_GameControllerButton));
+SDL_FUNC_PTR(SDL_bool           , GameControllerGetButton        , (SDL_GameController*, SDL_GameControllerButton));
+SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumble        , (SDL_GameController*)                          );
+SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumbleTriggers, (SDL_GameController*)                          );
+SDL_FUNC_PTR(int                , GameControllerRumble           , (SDL_GameController*, Uint16, Uint16, Uint32)  );
+SDL_FUNC_PTR(int                , GameControllerRumbleTriggers   , (SDL_GameController*, Uint16, Uint16, Uint32)  );
+SDL_FUNC_PTR(int                , NumJoysticks                   , (void)                                         );
+SDL_FUNC_PTR(const char*        , GameControllerName             , (SDL_GameController*)                          );
+SDL_FUNC_PTR(int                , GameControllerAddMappingsFromRW, (SDL_RWops*, int)                              );
+SDL_FUNC_PTR(SDL_RWops*         , RWFromFile                     , (const char*, const char*)                     );
 
 /****** Export List *****************************************************************/
 static const dll_export SdlExports[] =
@@ -63,6 +72,8 @@ static const dll_export SdlExports[] =
     SDL_EXPORT(GameControllerRumbleTriggers),
     SDL_EXPORT(NumJoysticks),
     SDL_EXPORT(GameControllerName),
+    SDL_EXPORT(GameControllerAddMappingsFromRW),
+    SDL_EXPORT(RWFromFile),
 };
 
 /************************/
@@ -159,6 +170,18 @@ SDL2_GameControllerName(SDL_GameController* pGp)
     return ___GameControllerName(pGp);
 }
 
+static utf8*
+GetMappingFilePath(void)
+{
+    const size_t sz_buf = StringSize(GetModPath(), STR_NOMAX) + 21;
+
+    utf8* const pu_buf = MemAlloc(sz_buf);
+
+    snprintf(pu_buf, sz_buf, "%s/%s", GetModPath(), "gamecontrollerdb.txt");
+
+    return pu_buf;
+}
+
 /****** Init ************************************************************************/
 void
 SDL_InitInit(void)
@@ -175,6 +198,12 @@ SDL_InitInit(void)
     SdlHandle = p_hdl;
 
     SDL2_Init( SDL_INIT_GAMECONTROLLER );
+
+    utf8* const pu_buf = GetMappingFilePath();
+    
+    SDL2_GameControllerAddMappingsFromFile(pu_buf);
+
+    MemFree(pu_buf);
 }
 
 void
