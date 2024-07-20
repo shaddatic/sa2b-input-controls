@@ -58,6 +58,8 @@ typedef struct
     SDL_GameController* pSdlGp;
     int                 id;
 
+    const char*         name;
+
     u32                 support;
 
     u32                 down;
@@ -116,6 +118,8 @@ OpenGamepad(const int id)
                 if (SDL2_GameControllerHasButton(p_sdlgc, i))
                     p_gp->support |= (1<<i);
             }
+
+            p_gp->name = SDL2_GameControllerName(p_sdlgc);
 
             p_gp->support |= SDL2_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLE_TRIGGER : 0;
             p_gp->support |= SDL2_GameControllerHasRumble(p_sdlgc)         ? GPDDEV_SUPPORT_RUMBLE         : 0;
@@ -214,7 +218,7 @@ DebugAxes(const int nbGp, const f32 x1, const f32 y1, const f32 x2, const f32 y2
     const f32 m1 = sqrtf((x1*x1)+(y1*y1));
     const f32 m2 = sqrtf((x2*x2)+(y2*y2));
 
-    ML_DisplayDebugStringF(NJM_LOCATION(1, (nbGp*3)+1), buf, 64, "GAMEPAD %i:", nbGp);
+    ML_DisplayDebugStringF(NJM_LOCATION(1, (nbGp*3)+1), buf, 64, "GAMEPAD %i: %s", nbGp, Gamepads[nbGp].name);
 
     ML_DisplayDebugStringF(NJM_LOCATION(2, (nbGp*3)+2), buf, 64, "LS: X %+f, Y %+f, M %+f", x1, y1, m1);
     ML_DisplayDebugStringF(NJM_LOCATION(2, (nbGp*3)+3), buf, 64, "RS: X %+f, Y %+f, M %+f", x2, y2, m2);
