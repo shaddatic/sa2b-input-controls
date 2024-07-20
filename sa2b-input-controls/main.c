@@ -67,25 +67,26 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
         }
     }
 
-    CnfInit();
+    if ( SDL_InitInit() )
+    {
+        CnfInit();
 
-    SDL_InitInit();
+        if (can_api)
+            ICAPI_Init();
 
-    if (can_api)
-        ICAPI_Init();
+        IC_InputInit();
+        IC_CameraInit();
+        IC_VibTaskInit();
+        IC_SocMagicInit();
+        IC_SonicInputInit();
+        OS_Init();
+        IC_WindowInit();
 
-    IC_InputInit();
-    IC_CameraInit();
-    IC_VibTaskInit();
-    IC_SocMagicInit();
-    IC_SonicInputInit();
-    OS_Init();
-    IC_WindowInit();
+        if (can_api)
+            ICAPI_End();
 
-    if (can_api)
-        ICAPI_End();
-
-    CnfEnd();
+        CnfEnd();
+    }
 }
 
 EXPORT_DLL

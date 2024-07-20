@@ -6,6 +6,7 @@
 #include <sa2b/memory.h>    /* MemAlloc, MemFree                                    */
 #include <sa2b/string.h>    /* StringSize                                           */
 #include <sa2b/dll.h>       /* DLL_Mount2, DLL_GetExportList                        */
+#include <sa2b/user.h>      /* UserErrorMessageBox                                  */
 
 /****** Simple DirectMedia Layer ****************************************************/
 #include <SDL2/SDL.h>       /* core                                                 */
@@ -183,19 +184,21 @@ GetMappingFilePath(void)
 }
 
 /****** Init ************************************************************************/
-void
+bool
 SDL_InitInit(void)
 {
     dll_handle* const p_hdl = DLL_Mount2(GetModPath(), "lib/SDL2.dll");
 
     if (!p_hdl)
     {
-        return;
+        UserErrorMessageBox("Input Controls : SDL2 Critical Error",
+            "The SDL2 library could not be mounted! This is likely because '/lib/SDL2.dll' is missing from the Input Controls mod folder.\n"
+            "Input Controls cannot function without SDL, the init process will now be aborted!"
+        );
+        return false;
     }
 
     DLL_GetExportList(p_hdl, SdlExports, ARYLEN(SdlExports));
-
-    SdlHandle = p_hdl;
 
     SDL2_Init( SDL_INIT_GAMECONTROLLER );
 
@@ -204,6 +207,10 @@ SDL_InitInit(void)
     SDL2_GameControllerAddMappingsFromFile(pu_buf);
 
     MemFree(pu_buf);
+
+    SdlHandle = p_hdl;
+
+    return true;
 }
 
 void
