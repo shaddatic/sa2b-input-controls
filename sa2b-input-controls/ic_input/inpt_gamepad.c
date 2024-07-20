@@ -228,16 +228,16 @@ DebugAxes(const int nbGp, const f32 x1, const f32 y1, const f32 x2, const f32 y2
     ML_DisplayDebugStringF(NJM_LOCATION(2, (nbGp*3)+3), buf, 64, "RS: X %+f, Y %+f, M %+f", x2, y2, m2);
 }
 
-static f32
+static f64
 CalcLinearDeadzone(const f32 input, const f32 idz, const f32 odz)
 {
-    f32 out = input;
+    f64 out = input;
 
-    if (fabsf(out) >= idz)
+    if (fabs(out) >= idz)
     {
-        out -= out > 0.0f ? idz : -idz;
+        out -= out > 0.0 ? idz : -idz;
 
-        out *= (1.0f / (odz - idz));
+        out *= (1.0 / (odz - idz));
     }
     else
         out = 0.0;
@@ -248,8 +248,8 @@ CalcLinearDeadzone(const f32 input, const f32 idz, const f32 odz)
 static void
 CalcSquareDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
 {
-    *pX = CalcLinearDeadzone(*pX, idz, odz);
-    *pY = CalcLinearDeadzone(*pY, idz, odz);
+    *pX = (f32) CalcLinearDeadzone(*pX, idz, odz);
+    *pY = (f32) CalcLinearDeadzone(*pY, idz, odz);
 }
 
 static void
@@ -258,7 +258,7 @@ CalcCircularDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
     const f32 x = *pX;
     const f32 y = *pY;
 
-    const f64 dz_mag = CalcLinearDeadzone( sqrtf((x * x) + (y * y)), idz, odz );
+    const f64 dz_mag = CalcLinearDeadzone( sqrtf((x*x) + (y*y)), idz, odz );
 
     const f64 angf = atan2(x, y);
 
