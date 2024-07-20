@@ -99,17 +99,11 @@ NOTE: Requres 'Analog Controls'</HelpText>
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
 				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
 			</Property>
-			<Property name="ls_idz" display="Left Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
 			</Property>
-			<Property name="ls_odz" display="Left Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Left analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_idz" display="Right Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="rs_idz" display="Right Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
 			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
@@ -121,17 +115,11 @@ A value of 0 will disable rumble for this Gamepad.</HelpText>
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
 				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
 			</Property>
-			<Property name="ls_idz" display="Left Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
 			</Property>
-			<Property name="ls_odz" display="Left Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Left analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_idz" display="Right Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="rs_idz" display="Right Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
 			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
@@ -143,17 +131,11 @@ A value of 0 will disable rumble for this Gamepad.</HelpText>
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
 				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
 			</Property>
-			<Property name="ls_idz" display="Left Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
 			</Property>
-			<Property name="ls_odz" display="Left Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Left analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_idz" display="Right Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="rs_idz" display="Right Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
 			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
@@ -165,17 +147,11 @@ A value of 0 will disable rumble for this Gamepad.</HelpText>
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
 				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
 			</Property>
-			<Property name="ls_idz" display="Left Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
 			</Property>
-			<Property name="ls_odz" display="Left Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Left analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_idz" display="Right Stick Inner-Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
+			<Property name="rs_idz" display="Right Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Right analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_odz" display="Right Stick Outer-Deadzone" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Right analog stick outer-deadzone, as a maximum percentage. A value of '100' will act as no outer-deadzone.</HelpText>
 			</Property>
 			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
 				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
