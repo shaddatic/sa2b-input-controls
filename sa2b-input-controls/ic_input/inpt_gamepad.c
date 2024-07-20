@@ -102,16 +102,20 @@ OpenGamepad(const int id)
         if (p_gp->id == id)
         {
             SDL2_GameControllerClose(p_gp->pSdlGp);
+            ResetGamepadStruct(p_gp);
             goto OPEN;
         }
 
         if (!p_gp->pSdlGp)
         {
         OPEN:
-            p_gp->pSdlGp = SDL2_GameControllerOpen(id);
-            p_gp->id     = id;
+            SDL_GameController* const p_sdlgc = SDL2_GameControllerOpen(id);
 
-            SDL_GameController* const p_sdlgc = p_gp->pSdlGp;
+            if (!p_sdlgc)
+                break;
+
+            p_gp->pSdlGp = p_sdlgc;
+            p_gp->id     = id;
 
             for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
             {
