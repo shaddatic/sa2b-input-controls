@@ -815,7 +815,7 @@ SDL_GameControllerGetBindForButton(SDL_GameController *gamecontroller,
  *
  * \since This function is available since SDL 2.0.14.
  */
-extern DECLSPEC SDL_bool SDLCALL U(SDL_GameController *gamecontroller,
+extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasButton(SDL_GameController *gamecontroller,
                                                              SDL_GameControllerButton button);
 
 /**
