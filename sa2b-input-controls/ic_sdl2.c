@@ -185,7 +185,7 @@ GetMappingFilePath(void)
 
 /****** Init ************************************************************************/
 bool
-SDL_InitInit(void)
+ICSDL_Init(void)
 {
     dll_handle* const p_hdl = DLL_Mount2(GetModPath(), "lib/SDL2.dll");
 
@@ -214,7 +214,7 @@ SDL_InitInit(void)
 }
 
 void
-SDL_ExitExit(void)
+ICSDL_Exit(void)
 {
     if (!SdlHandle)
         return;

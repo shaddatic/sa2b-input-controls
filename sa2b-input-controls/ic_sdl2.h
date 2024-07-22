@@ -26,8 +26,8 @@ EXTERN_START
 /*  Prototypes          */
 /************************/
 /****** Module Init *****************************************************************/
-bool    SDL_InitInit( void );
-void    SDL_ExitExit( void );
+bool    ICSDL_Init( void );
+void    ICSDL_Exit( void );
 
 #ifndef IC_SDL2_INITONLY
 

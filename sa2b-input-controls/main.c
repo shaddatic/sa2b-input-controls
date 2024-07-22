@@ -67,7 +67,7 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
         }
     }
 
-    if ( SDL_InitInit() )
+    if ( ICSDL_Init() )
     {
         CnfInit();
 
@@ -93,7 +93,7 @@ EXPORT_DLL
 void __cdecl
 OnExit(u32 code, s32 a1, s32 a2)
 {
-    SDL_ExitExit();
+    ICSDL_Exit();
 }
 
 EXPORT_DLL
