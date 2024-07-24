@@ -41,24 +41,26 @@ typedef struct zxsdwstr    ZXSDWSTR;
 #define LANDATTR_NOSHADOW       (0x00008000)
 #define LANDATTR_ACCELERATE     (0x00100000)
 #define LANDATTR_NOFOG          (0x00400000)
+#define LANDATTR_COMPILED       (0x02000000) /* compiled with DirectCompile         */
+#define LANDATTR_NOCOMPILE      (0x04000000) /* don't compile model                 */
 #define LANDATTR_DYNAMIC        (0x08000000)
 #define LANDATTR_UNK1           (0x20000000) // Usually medium-sized collisions
 #define LANDATTR_UNK2           (0x40000000) // Usually small-sized collisions
-#define LANDATTR_VISIBLE        (0x80000000)
+#define LANDATTR_VISIBLE        (0x80000000) /* land entry is visible geometry      */
 
 /************************/
 /*  Structures          */
 /************************/
 typedef struct _OBJ_LANDENTRY
 {
-    f32         CenterX;
-    f32         CenterY;
-    f32         CenterZ;
-    f32         Radius;
-    ANY_OBJECT* pObject;
-    int32_t     field_14;
-    int32_t     Chunks;
-    int32_t     slAttribute;
+    f32         xCenter;        /* center, x                                        */
+    f32         yCenter;        /* center, y                                        */
+    f32         zCenter;        /* center, z                                        */
+    f32         r;              /* radius                                           */
+    ANY_OBJECT* pObject;        /* object pointer, chunk or ginja                   */
+    void*       pDirect;        /* direct compiled model pointer                    */
+    s32         blockbit;       /* draw model bitmask, 0 ignores it                 */
+    s32         slAttribute;    /* land attributes                                  */
 }
 OBJ_LANDENTRY;
 
@@ -74,12 +76,12 @@ OBJ_MOTLANDENTRY;
 
 typedef struct _OBJ_LANDTABLE
 {
-    int16_t             ssCount;            /* land entry count     */
-    int16_t             ssVisibleCount;     /* visible entry count  */
-    int16_t             ssUnknown;          /* ??????               */
-    int16_t             ssMotCount;         /* motion entry count   */
-    int16_t             ssAttribute;        /* attribute            */
-    int16_t             ssLoadFlag;         /* is loaded            */
+    s16                 ssCount;            /* land entry count     */
+    s16                 ssVisibleCount;     /* visible entry count  */
+    s16                 ssUnknown;          /* ??????               */
+    s16                 ssMotCount;         /* motion entry count   */
+    s16                 ssAttribute;        /* attribute            */
+    s16                 ssLoadFlag;         /* is loaded            */
     f32                 fFarClipping;       /* clip distance        */
     OBJ_LANDENTRY*      pLandEntry;         /* land entry list      */
     OBJ_MOTLANDENTRY*   pMotLandEntry;      /* motion entry list    */
@@ -90,7 +92,7 @@ OBJ_LANDTABLE;
 
 typedef struct _OBJ_LANDCOLL
 {
-    int         slAttribute;
+    s32         slAttribute;
     NJS_OBJECT* pObject;
     TASK*       pTask;
 }

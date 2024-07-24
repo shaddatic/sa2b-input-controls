@@ -4,7 +4,7 @@
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
 #include <sa2b/modloader.h> /* modloader                                            */
-#include <sa2b/mods.h>      /* mods                                                 */
+#include <sa2b/modinfo.h>   /* mods                                                 */
 
 /****** Util ************************************************************************/
 #include <sa2b/util/dllexport.h>    /* EXPORT_DLL                                   */
@@ -49,16 +49,16 @@ typedef void(__cdecl IC_INIT)(const ICAPI_CORE*, const char*, const HelperFuncti
 static void
 ApiCallByFuncName(const char* name)
 {
-    const size_t nb_mod = ModGetTotalNumber();
+    const size_t nb_mod = MI_GetTotalNumber();
 
     for (size_t i = 0; i < nb_mod; ++i)
     {
-        const mod_handle* mhp = ModGetHandlePosition(i);
+        const mod_info* mhp = MI_GetInfoByPosition(i);
 
-        IC_INIT* const init = ModGetExport(mhp, name);
+        IC_INIT* const init = MI_GetExport(mhp, name);
 
         if (init)
-            init(&icapi_core, ModGetPath(mhp), ML_GetHelperFunctions());
+            init(&icapi_core, mhp->cPath, ML_GetHelperFunctions());
     }
 }
 
