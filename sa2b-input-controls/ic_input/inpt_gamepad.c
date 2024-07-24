@@ -13,6 +13,9 @@
 /****** Game ************************************************************************/
 #include <sa2b/sonic/debug.h>   /* OutputFormat                                     */
 
+/****** Simple DirectMedia Layer ****************************************************/
+#include <SDL2/SDL.h>       /* core                                                 */
+
 /****** Std *************************************************************************/
 #include <stdio.h>  /* snprintf                                                     */
 #include <math.h>   /* nearintf                                                     */
@@ -20,7 +23,6 @@
 /****** Input Controls **************************************************************/
 #include <ic_core.h>    /* core                                                     */
 #include <ic_config.h>  /* CnfGet___                                                */
-#include <ic_sdl2.h>    /* SDL2                                                     */
 
 /****** Self ************************************************************************/
 #include <ic_input/inpt_internal.h> /* internal                                     */
@@ -91,7 +93,7 @@ ResetGamepadStruct(GAMEPAD* const pGp)
 static void
 OpenGamepad(const int id)
 {
-    if (!SDL2_IsGameController(id))
+    if (!SDL_IsGameController(id))
         return;
 
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
@@ -101,7 +103,7 @@ OpenGamepad(const int id)
         /** If ID matches, reset device **/
         if (p_gp->id == id)
         {
-            SDL2_GameControllerClose(p_gp->pSdlGp);
+            SDL_GameControllerClose(p_gp->pSdlGp);
             ResetGamepadStruct(p_gp);
             goto OPEN;
         }
@@ -109,7 +111,7 @@ OpenGamepad(const int id)
         if (!p_gp->pSdlGp)
         {
         OPEN:
-            SDL_GameController* const p_sdlgc = SDL2_GameControllerOpen(id);
+            SDL_GameController* const p_sdlgc = SDL_GameControllerOpen(id);
 
             if (!p_sdlgc)
                 break;
@@ -119,14 +121,14 @@ OpenGamepad(const int id)
 
             for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
             {
-                if (SDL2_GameControllerHasButton(p_sdlgc, i))
+                if (SDL_GameControllerHasButton(p_sdlgc, i))
                     p_gp->support |= (1<<i);
             }
 
-            p_gp->name = SDL2_GameControllerName(p_sdlgc);
+            p_gp->name = SDL_GameControllerName(p_sdlgc);
 
-            p_gp->support |= SDL2_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLE_TRIGGER : 0;
-            p_gp->support |= SDL2_GameControllerHasRumble(p_sdlgc)         ? GPDDEV_SUPPORT_RUMBLE         : 0;
+            p_gp->support |= SDL_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLE_TRIGGER : 0;
+            p_gp->support |= SDL_GameControllerHasRumble(p_sdlgc)         ? GPDDEV_SUPPORT_RUMBLE         : 0;
             break;
         }
     }
@@ -141,7 +143,7 @@ CloseGamepad(const int id)
 
         if (p_gp->id == id)
         {
-            SDL2_GameControllerClose(p_gp->pSdlGp);
+            SDL_GameControllerClose(p_gp->pSdlGp);
             ResetGamepadStruct(p_gp);
         }
     }
@@ -152,7 +154,7 @@ HandleSdlEvents(void)
 {
     SDL_Event ev;
 
-    while (SDL2_PollEvent(&ev))
+    while (SDL_PollEvent(&ev))
     {
         switch (ev.type) {
         case SDL_JOYDEVICEADDED:
@@ -198,7 +200,7 @@ GamepadVibSet(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
 
     const f32 str = p_usr->vibStr;
 
-    return SDL2_GameControllerRumble(p_gpd->pSdlGp,
+    return SDL_GameControllerRumble(p_gpd->pSdlGp,
         (Sint16)((spdL*65535.f)*str),
         (Sint16)((spdR*65535.f)*str),
         0xFFFFFFFF
@@ -371,17 +373,17 @@ GamepadUpdate(void)
 
         for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
         {
-            if (SDL2_GameControllerGetButton(p_sdlgc, i))
+            if (SDL_GameControllerGetButton(p_sdlgc, i))
                 p_gp->down |= (1<<i);
         }
 
-        p_gp->x1 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTX);
-        p_gp->y1 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTY);
-        p_gp->x2 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTX);
-        p_gp->y2 = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTY);
+        p_gp->x1 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTX);
+        p_gp->y1 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTY);
+        p_gp->x2 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTX);
+        p_gp->y2 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTY);
 
-        p_gp->l = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
-        p_gp->r = SDL2_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+        p_gp->l = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
+        p_gp->r = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
     }
 }
 

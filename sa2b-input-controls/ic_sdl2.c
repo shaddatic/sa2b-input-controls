@@ -45,7 +45,7 @@ SDL_FUNC_PTR(void               , GameControllerClose            , (SDL_GameCont
 SDL_FUNC_PTR(SDL_bool           , IsGameController               , (int)                                          );
 SDL_FUNC_PTR(Sint16             , GameControllerGetAxis          , (SDL_GameController*, int)                     );
 SDL_FUNC_PTR(SDL_bool           , GameControllerHasButton        , (SDL_GameController*, SDL_GameControllerButton));
-SDL_FUNC_PTR(SDL_bool           , GameControllerGetButton        , (SDL_GameController*, SDL_GameControllerButton));
+SDL_FUNC_PTR(Uint8              , GameControllerGetButton        , (SDL_GameController*, SDL_GameControllerButton));
 SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumble        , (SDL_GameController*)                          );
 SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumbleTriggers, (SDL_GameController*)                          );
 SDL_FUNC_PTR(int                , GameControllerRumble           , (SDL_GameController*, Uint16, Uint16, Uint32)  );
@@ -81,96 +81,97 @@ static const dll_export SdlExports[] =
 /*  Source              */
 /************************/
 /****** SDL Exports *****************************************************************/
-int
-SDL2_Init(u32 flag)
+int SDLCALL
+SDL_Init(Uint32 flags)
 {
-    return ___Init(flag);
+    return ___Init(flags);
 }
 
-void
-SDL2_Quit(void)
+void SDLCALL
+SDL_Quit(void)
 {
     ___Quit();
 }
 
-int
-SDL2_PollEvent(SDL_Event* const pOutEvent)
+int SDLCALL
+SDL_PollEvent(SDL_Event* const event)
 {
-    return ___PollEvent(pOutEvent);
+    return ___PollEvent(event);
 }
 
-SDL_GameController*
-SDL2_GameControllerOpen(const int nbGp)
+SDL_GameController* SDLCALL
+SDL_GameControllerOpen(const int joystick_index)
 {
-    return ___GameControllerOpen(nbGp);
+    return ___GameControllerOpen(joystick_index);
 }
 
-void
-SDL2_GameControllerClose(SDL_GameController* const pGp)
+void SDLCALL
+SDL_GameControllerClose(SDL_GameController* const gamecontroller)
 {
-    ___GameControllerClose(pGp);
+    ___GameControllerClose(gamecontroller);
 }
 
-int
-SDL2_IsGameController(const int nbGp)
+int SDLCALL
+SDL_IsGameController(const int joystick_index)
 {
-    return ___IsGameController(nbGp);
+    return ___IsGameController(joystick_index);
 }
 
-Sint16
-SDL2_GameControllerGetAxis(SDL_GameController* pGp, SDL_GameControllerAxis axis)
+Sint16 SDLCALL
+SDL_GameControllerGetAxis(SDL_GameController* const gamecontroller, const SDL_GameControllerAxis axis)
 {
-    return ___GameControllerGetAxis(pGp, axis);
+    return ___GameControllerGetAxis(gamecontroller, axis);
 }
 
-SDL_bool
-SDL2_GameControllerHasButton(SDL_GameController* pGp, SDL_GameControllerButton btn)
+SDL_bool SDLCALL
+SDL_GameControllerHasButton(SDL_GameController* const gamecontroller, const SDL_GameControllerButton button)
 {
-    return ___GameControllerHasButton(pGp, btn);
+    return ___GameControllerHasButton(gamecontroller, button);
 }
 
-SDL_bool
-SDL2_GameControllerGetButton(SDL_GameController* pGp, SDL_GameControllerButton btn)
+Uint8 SDLCALL
+SDL_GameControllerGetButton(SDL_GameController* const gamecontroller, const SDL_GameControllerButton button)
 {
-    return ___GameControllerGetButton(pGp, btn);
+    return ___GameControllerGetButton(gamecontroller, button);
 }
 
-SDL_bool
-SDL2_GameControllerHasRumble(SDL_GameController* pGp)
+SDL_bool SDLCALL
+SDL_GameControllerHasRumble(SDL_GameController* const gamecontroller)
 {
-    return ___GameControllerHasRumble(pGp);
+    return ___GameControllerHasRumble(gamecontroller);
 }
 
-SDL_bool
-SDL2_GameControllerHasRumbleTriggers(SDL_GameController* pGp)
+SDL_bool SDLCALL
+SDL_GameControllerHasRumbleTriggers(SDL_GameController* const gamecontroller)
 {
-    return ___GameControllerHasRumbleTriggers(pGp);
+    return ___GameControllerHasRumbleTriggers(gamecontroller);
 }
 
-int
-SDL2_GameControllerRumble(SDL_GameController* pGp, Uint16 freqLo, Uint16 freqHi, Uint32 msDur)
+int SDLCALL
+SDL_GameControllerRumble(SDL_GameController* const gamecontroller, const Uint16 low_frequency_rumble, const Uint16 high_frequency_rumble, const Uint32 duration_ms)
 {
-    return ___GameControllerRumble(pGp, freqLo, freqHi, msDur);
+    return ___GameControllerRumble(gamecontroller, low_frequency_rumble, high_frequency_rumble, duration_ms);
 }
 
-SDL_bool
-SDL2_GameControllerRumbleTriggers(SDL_GameController* pGp, Uint16 freqL, Uint16 freqR, Uint32 msDur)
+SDL_bool SDLCALL
+SDL_GameControllerRumbleTriggers(SDL_GameController* const pGp, const Uint16 left_rumble, const Uint16 right_rumble, const Uint32 duration_ms)
 {
-    return ___GameControllerRumbleTriggers(pGp, freqL, freqR, msDur);
+    return ___GameControllerRumbleTriggers(pGp, left_rumble, right_rumble, duration_ms);
 }
 
-int
-SDL2_NumJoysticks(void)
+int SDLCALL
+SDL_NumJoysticks(void)
 {
     return ___NumJoysticks();
 }
 
-const char*
-SDL2_GameControllerName(SDL_GameController* pGp)
+const char* SDLCALL
+SDL_GameControllerName(SDL_GameController* const gamecontroller)
 {
-    return ___GameControllerName(pGp);
+    return ___GameControllerName(gamecontroller);
 }
 
+/****** Static **********************************************************************/
 static utf8*
 GetMappingFilePath(void)
 {
@@ -200,7 +201,7 @@ ICSDL_Init(void)
 
     DLL_GetExportList(p_hdl, SdlExports, ARYLEN(SdlExports));
 
-    SDL2_Init( SDL_INIT_GAMECONTROLLER );
+    SDL_Init( SDL_INIT_GAMECONTROLLER );
 
     utf8* const pu_buf = GetMappingFilePath();
     
@@ -219,7 +220,7 @@ ICSDL_Exit(void)
     if (!SdlHandle)
         return;
 
-    SDL2_Quit();
+    SDL_Quit();
 
     DLL_Unmount(SdlHandle);
 }

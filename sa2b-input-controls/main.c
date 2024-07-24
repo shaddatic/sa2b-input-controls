@@ -18,10 +18,9 @@
 #include <ic_os.h>          /* operating system                                     */
 #include <ic_vibtask.h>     /* vibtask                                              */
 #include <ic_window.h>      /* window                                               */
-#include <ic_camera.h>      /* sonic input                                          */
+#include <ic_camera.h>      /* camera                                               */
 #include <ic_sonicinput.h>  /* sonic input                                          */
 #include <ic_api.h>
-#define IC_SDL2_INITONLY
 #include <ic_sdl2.h>        /* SDL2                                                 */
 
 /************************/
