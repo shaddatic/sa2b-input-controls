@@ -48,18 +48,18 @@ typedef void(__cdecl IC_INIT)(const ICAPI_CORE*, const char*, const HelperFuncti
 /*  Source              */
 /************************/
 static void
-ApiCallByFuncName(const char* name)
+ApiCallByFuncName(const char* const cExName)
 {
     const size_t nb_mod = MI_GetTotalNumber();
 
     for (size_t i = 0; i < nb_mod; ++i)
     {
-        const mod_info* mhp = MI_GetInfoByPosition(i);
+        const mod_info* const p_mi = MI_GetInfoByPosition(i);
 
-        IC_INIT* const init = MI_GetExport(mhp, name);
+        IC_INIT* const init = MI_GetExport(p_mi, cExName);
 
         if (init)
-            init(&icapi_core, mhp->cPath, ML_GetHelperFunctions());
+            init(&icapi_core, p_mi->cPath, ML_GetHelperFunctions());
     }
 }
 
