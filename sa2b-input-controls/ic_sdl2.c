@@ -28,8 +28,6 @@
 
 #define SDL_EXPORT(name)                    { &___##name, "SDL_"#name }
 
-#define SDL2_GameControllerAddMappingsFromFile(file)    ___GameControllerAddMappingsFromRW( ___RWFromFile(file, "rb"), 1 )
-
 /************************/
 /*  File Data           */
 /************************/
@@ -171,6 +169,18 @@ SDL_GameControllerName(SDL_GameController* const gamecontroller)
     return ___GameControllerName(gamecontroller);
 }
 
+int SDLCALL
+SDL_GameControllerAddMappingsFromRW(SDL_RWops* const rw, const int freerw)
+{
+    return ___GameControllerAddMappingsFromRW(rw, freerw);
+}
+
+SDL_RWops* SDLCALL
+SDL_RWFromFile(const char* const file, const char* const mode)
+{
+    return ___RWFromFile(file, mode);
+}
+
 /****** Static **********************************************************************/
 static utf8*
 GetMappingFilePath(void)
@@ -218,7 +228,7 @@ ICSDL_Init(void)
 
     utf8* const pu_buf = GetMappingFilePath();
     
-    SDL2_GameControllerAddMappingsFromFile(pu_buf);
+    SDL_GameControllerAddMappingsFromFile(pu_buf);
 
     MemFree(pu_buf);
 
