@@ -22,23 +22,44 @@ typedef float               f32;    /* 4 byte real number                       
 /************************/
 /*  Constants           */
 /************************/
-/****** User Button *****************************************************************/
-#define USRBTN_DPAD_UP          (0x00000001) /* directional pad, up                 */
-#define USRBTN_DPAD_DOWN        (0x00000002) /* directional pad, down               */
-#define USRBTN_DPAD_LEFT        (0x00000004) /* directional pad, left               */
-#define USRBTN_DPAD_RIGHT       (0x00000008) /* directional pad, right              */
-#define USRBTN_START            (0x00000010) /* button start                        */
-#define USRBTN_BACK             (0x00000020) /* button back                         */
-#define USRBTN_LS               (0x00000040) /* button ls                      (l3) */
-#define USRBTN_RS               (0x00000080) /* button rs                      (r3) */
-#define USRBTN_ZL               (0x00000100) /* button zl                  (lb, l1) */
-#define USRBTN_ZR               (0x00000200) /* button zr               (z, rb, r1) */
-#define USRBTN_L                (0x00000400) /* button l                 (emulated) */
-#define USRBTN_R                (0x00000800) /* button r                 (emulated) */
-#define USRBTN_A                (0x00001000) /* button a                            */
-#define USRBTN_B                (0x00002000) /* button b                            */
-#define USRBTN_X                (0x00004000) /* button x                            */
-#define USRBTN_Y                (0x00008000) /* button y                            */
+/****** User Buttons ****************************************************************/
+#define USRBTN_A                    (1<< 0) /* button a                             */
+#define USRBTN_B                    (1<< 1) /* button b                             */
+#define USRBTN_X                    (1<< 2) /* button x                             */
+#define USRBTN_Y                    (1<< 3) /* button y                             */
+#define USRBTN_START                (1<< 4) /* button start                         */
+#define USRBTN_BACK                 (1<< 5) /* button back                          */
+#define USRBTN_ZL                   (1<< 6) /* button zl                   (lb, l1) */
+#define USRBTN_ZR                   (1<< 7) /* button zr                (z, rb, r1) */
+#define USRBTN_LS                   (1<< 8) /* button ls                       (l3) */
+#define USRBTN_RS                   (1<< 9) /* button rs                       (r3) */
+#define USRBTN_DPAD_UP              (1<<10) /* directional pad, up                  */
+#define USRBTN_DPAD_DOWN            (1<<11) /* directional pad, down                */
+#define USRBTN_DPAD_LEFT            (1<<12) /* directional pad, left                */
+#define USRBTN_DPAD_RIGHT           (1<<13) /* directional pad, right               */
+
+/****** Raw Gamepad Buttons *********************************************************/
+#define GPDBTN_A                    (1<< 0) /* button a                             */
+#define GPDBTN_B                    (1<< 1) /* button b                             */
+#define GPDBTN_X                    (1<< 2) /* button x                             */
+#define GPDBTN_Y                    (1<< 3) /* button y                             */
+#define GPDBTN_BACK                 (1<< 4) /* button back                          */
+#define GPDBTN_GUIDE                (1<< 5) /* xb/ps button, ns: home button        */
+#define GPDBTN_START                (1<< 6) /* button start                         */
+#define GPDBTN_LS                   (1<< 7) /* button ls                       (l3) */
+#define GPDBTN_RS                   (1<< 8) /* button rs                       (r3) */
+#define GPDBTN_ZL                   (1<< 9) /* button zl                   (lb, l1) */
+#define GPDBTN_ZR                   (1<<10) /* button zr                (z, rb, r1) */
+#define GPDBTN_DPAD_UP              (1<<11) /* directional pad, up                  */
+#define GPDBTN_DPAD_DOWN            (1<<12) /* directional pad, down                */
+#define GPDBTN_DPAD_LEFT            (1<<13) /* directional pad, left                */
+#define GPDBTN_DPAD_RIGHT           (1<<14) /* directional pad, right               */
+#define GPDBTN_MISC                 (1<<15) /* xb: share, ps: mic, ns: capture      */
+#define GPDBTN_XBPADDLE_UR          (1<<16) /* xb paddle: upper right  (from front) */
+#define GPDBTN_XBPADDLE_UL          (1<<17) /* xb paddle: upper left   (from front) */
+#define GPDBTN_XBPADDLE_LR          (1<<18) /* xb paddle: lower right  (from front) */
+#define GPDBTN_XBPADDLE_LL          (1<<19) /* xb paddle: lower left   (from front) */
+#define GPDBTN_TOUCHPAD             (1<<20) /* ps 4/5 touchpad button               */
 
 /****** Keyboard Keys ***************************************************************/
 /****** Main Keys ***********************************************************/
