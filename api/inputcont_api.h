@@ -414,6 +414,50 @@ typedef struct
 ICAPI_WINDOW;
 
 /************************/
+/*  SDL API             */
+/************************/
+/*
+* 
+*/
+typedef struct
+{
+    uint8_t release, major, minor, ___reserved; 
+}
+SDL_VERSION;
+
+typedef struct
+{
+    /****** Version >= 0 ************************************************************/
+    uint32_t version;
+
+    /**** SDL API Version ***************************************************/
+    SDL_VERSION sdl_version;
+
+    /**** DLL Library *******************************************************/
+    /*
+    *   Description:
+    *     Get HMODULE for mounted SDL library.
+    *     
+    *   Returns:
+    *     HMODULE for mounted SDL DLL file.
+    */
+    void* (__cdecl* GetHandle)( void );
+    /*
+    *   Description:
+    *     Get a DLL export from the mounted SDL library.
+    * 
+    *   Parameters:
+    *     cExName   : name of DLL export
+    *     
+    *   Returns:
+    *     Pointer to the DLL export, or nullptr if nothing is exported under
+    *   that name.
+    */
+    void* (__cdecl* GetExport)( const char* cExName );
+}
+ICAPI_SDL;
+
+/************************/
 /*  Core API            */
 /************************/
 /*
@@ -432,7 +476,7 @@ typedef struct
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Mod version *******************************************************/
+    /**** Mod Version *******************************************************/
     IC_VERSION ic_version;
 
     /**** APIs **************************************************************/
@@ -441,6 +485,7 @@ typedef struct
     const ICAPI_KEYBOARD*   pApiKeyboard;
     const ICAPI_MOUSE*      pApiMouse;
     const ICAPI_WINDOW*     pApiWindow;
+    const ICAPI_SDL*        pApiSdl;
 }
 ICAPI_CORE;
 

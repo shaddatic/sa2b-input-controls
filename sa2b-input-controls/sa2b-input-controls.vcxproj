@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="ic_api.c" />
     <ClCompile Include="ic_api\icapi_keyboard.c" />
+    <ClCompile Include="ic_api\icapi_sdl.c" />
     <ClCompile Include="ic_camera.c" />
     <ClCompile Include="ic_config.c" />
     <ClCompile Include="ic_input.c" />

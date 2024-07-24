@@ -19,6 +19,9 @@ EXTERN_START
 bool    ICSDL_Init( void );
 void    ICSDL_Exit( void );
 
+/****** Input Controls API **********************************************************/
+void*   ICSDL_GetHandle( void );
+void*   ICSDL_GetExport( const char* cExName );
 
 EXTERN_END
 

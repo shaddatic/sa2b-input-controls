@@ -184,6 +184,19 @@ GetMappingFilePath(void)
     return pu_buf;
 }
 
+/****** API *************************************************************************/
+void*
+ICSDL_GetHandle(void)
+{
+    return SdlHandle;
+}
+
+void*
+ICSDL_GetExport(const char* const cExName)
+{
+    return DLL_GetExport(SdlHandle, cExName);
+}
+
 /****** Init ************************************************************************/
 bool
 ICSDL_Init(void)

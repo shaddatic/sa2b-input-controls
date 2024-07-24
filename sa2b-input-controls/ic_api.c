@@ -36,6 +36,7 @@ const ICAPI_CORE icapi_core =
     .pApiKeyboard = &icapi_keyboard,
     .pApiMouse    = nullptr,
     .pApiWindow   = nullptr,
+    .pApiSdl      = &icapi_sdl,
 };
 
 /************************/
