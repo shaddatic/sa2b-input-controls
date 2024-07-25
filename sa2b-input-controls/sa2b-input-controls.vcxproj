@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ic_api.c" />
+    <ClCompile Include="ic_api\icapi_gamepad.c" />
     <ClCompile Include="ic_api\icapi_keyboard.c" />
     <ClCompile Include="ic_api\icapi_mouse.c" />
     <ClCompile Include="ic_api\icapi_sdl.c" />

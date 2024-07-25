@@ -32,7 +32,7 @@ const ICAPI_CORE icapi_core =
     .ic_version = { 1,0,0,0 },
 
     .pApiUser     = nullptr,
-    .pApiGamepad  = nullptr,
+    .pApiGamepad  = &icapi_gamepad,
     .pApiKeyboard = &icapi_keyboard,
     .pApiMouse    = &icapi_mouse,
     .pApiWindow   = nullptr,
