@@ -35,7 +35,7 @@ const ICAPI_CORE icapi_core =
     .pApiGamepad  = &icapi_gamepad,
     .pApiKeyboard = &icapi_keyboard,
     .pApiMouse    = &icapi_mouse,
-    .pApiWindow   = nullptr,
+    .pApiWindow   = &icapi_window,
     .pApiSdl      = &icapi_sdl,
 };
 
