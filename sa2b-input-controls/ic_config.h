@@ -97,11 +97,11 @@ f64         CnfGetPercent( const CONFIG_INT*    pCnfDef );
 *   Returns:
 *     The user setting if it exists. If not, the default value
 */
-s32         CnfDirectGetInt(     const char* section, const char* key, s32          def );
-f64         CnfDirectGetFloat(   const char* section, const char* key, f64          def );
-bool        CnfDirectGetBool(    const char* section, const char* key, bool         def );
-const utf8* CnfDirectGetString(  const char* section, const char* key, const utf8*  def );
-f64         CnfDirectGetPercent( const char* section, const char* key, s32          def );
+s32         CnfDirectGetInt(     const char* uSect, const char* uKey, s32          def );
+f64         CnfDirectGetFloat(   const char* uSect, const char* uKey, f64          def );
+bool        CnfDirectGetBool(    const char* uSect, const char* uKey, bool         def );
+const utf8* CnfDirectGetString(  const char* uSect, const char* uKey, const utf8*  def );
+f64         CnfDirectGetPercent( const char* uSect, const char* uKey, s32          def );
 
 EXTERN_END
 

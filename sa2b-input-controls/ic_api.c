@@ -25,18 +25,20 @@
 /*  File Data           */
 /************************/
 EXPORT_DLL
-const ICAPI_CORE icapi_core =
+ICAPI_CORE icapi_core =
 {
     .version = ICAPI_CORE_VER,
 
     .ic_version = { 1,0,0,0 },
 
+    .pApiConfig   = nullptr,
+
     .pApiUser     = &icapi_user,
     .pApiGamepad  = &icapi_gamepad,
     .pApiKeyboard = &icapi_keyboard,
     .pApiMouse    = &icapi_mouse,
-    .pApiWindow   = &icapi_window,
-    .pApiSdl      = &icapi_sdl,
+    .pApiWindow   = nullptr,
+    .pApiSdl      = nullptr,
 };
 
 /************************/
@@ -66,6 +68,11 @@ ApiCallByFuncName(const char* const cExName)
 void
 ICAPI_Init(void)
 {
+    icapi_core.pApiConfig = &icapi_config,
+
+    icapi_core.pApiWindow = &icapi_window;
+    icapi_core.pApiSdl    = &icapi_sdl;
+
     ApiCallByFuncName("IC_EarlyInit");
 }
 
@@ -73,4 +80,6 @@ void
 ICAPI_End(void)
 {
     ApiCallByFuncName("IC_Init");
+
+    icapi_core.pApiConfig = nullptr;
 }

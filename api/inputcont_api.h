@@ -18,6 +18,10 @@
 /************************/
 /****** Base Types ******************************************************************/
 typedef float               f32;    /* 4 byte real number                           */
+typedef double              f64;    /* 8 byte real number                           */
+
+/****** String Formats **************************************************************/
+typedef char                utf8;   /* supports UTF-8 strings                       */
 
 /************************/
 /*  Constants           */
@@ -238,6 +242,51 @@ eIC_MOUSE_MODE;
 typedef void                IC_USER_INPUT;
 typedef void                IC_MOUSE;
 typedef void                IC_GAMEPAD;
+
+/************************/
+/*  Config API          */
+/************************/
+typedef struct
+{
+    /****** Version >= 0 ************************************************************/
+    uint32_t version;
+
+    /**** Get Config ********************************************************/
+    /*
+    *   Description:
+    *     Read user-settings inside Input Controls' configuration file. It's
+    *   important to remember that strings are stored in UTF-8 format.
+    *
+    *   Parameters:
+    *     - uSect   : config setting section
+    *     - uKey    : config setting key
+    *     - def     : default config value
+    *
+    *   Returns:
+    *     The value of the config entry, or 'def' if no entry exists
+    */
+    int32_t    (__cdecl* GetInt)(    const utf8* uSect, const utf8* uKey, int32_t     def );
+    bool       (__cdecl* GetBool)(   const utf8* uSect, const utf8* uKey, bool        def );
+    f64        (__cdecl* GetFloat)(  const utf8* uSect, const utf8* uKey, f64         def );
+    const utf8*(__cdecl* GetString)( const utf8* uSect, const utf8* uKey, const utf8* def );
+
+    /**** Get Config (IC Specific) ******************************************/
+    /*
+    *   Description:
+    *     Get a percentage config option, with '0' representing 0% and '1'
+    *   representing 100%.
+    *
+    *   Parameters:
+    *     - uSect   : config setting section
+    *     - uKey    : config setting key
+    *     - def     : default percentage value (0~100)
+    *
+    *   Returns:
+    *     The percentage of the config entry or 'def' if no entry exists (0~1)
+    */
+    f64 (__cdecl* GetPercent)( const utf8* uSect, const utf8* uKey, int32_t def );
+}
+ICAPI_CONFIG;
 
 /************************/
 /*  User Input API      */

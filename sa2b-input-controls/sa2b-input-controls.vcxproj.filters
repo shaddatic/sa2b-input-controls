@@ -78,6 +78,9 @@
     <ClCompile Include="ic_api\icapi_window.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ic_api\icapi_config.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
