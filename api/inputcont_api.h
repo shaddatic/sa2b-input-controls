@@ -189,6 +189,17 @@ eIC_USER_NUM;
 
 typedef enum
 {
+    IC_INPUT_MD_NONE = -1,
+
+    IC_INPUT_MD_KEYBOARD,
+    IC_INPUT_MD_GAMEPAD,
+    IC_INPUT_MD_SWITCH,
+    IC_INPUT_MD_BOTH,
+}
+eIC_INPUT_MODE;
+
+typedef enum
+{
     IC_GAMEPAD_NONE = -1,
 
     IC_GAMEPAD_1,
@@ -242,12 +253,48 @@ typedef struct
     /**** Raw Input *********************************************************/
     /*
     *   Description:
-    *     Get the raw user input
+    *     Get the raw user input. The pointer will be constant for the
+    *   lifetime of the program.
     * 
+    *   Parameters:
+    *     - nbUser  : user number to get raw input of
+    *
     *   Returns:
     *     A pointer to the specified user's raw input structure
     */
     const IC_USER_INPUT* (__cdecl* GetInput)( eIC_USER_NUM nbUser );
+
+    /**** Input Settings ****************************************************/
+    /*
+    *   Description:
+    *
+    *   Parameters:
+    *     - nbUser  : user number to get raw input of
+    *
+    *   Returns:
+    *     The user's set input mode
+    */
+    eIC_INPUT_MODE (__cdecl* GetInputMode)( eIC_USER_NUM nbUser );
+    /*
+    *   Description:
+    *
+    *   Parameters:
+    *     - nbUser  : user number to get raw input of
+    *
+    *   Returns:
+    *     The user's set gamepad number
+    */
+    eIC_GAMEPAD_NUM (__cdecl* GetGamepadNum)( eIC_USER_NUM nbUser );
+    /*
+    *   Description:
+    *
+    *   Parameters:
+    *     - nbUser  : user number to get raw input of
+    *
+    *   Returns:
+    *     The user's set keyboard layout number
+    */
+    eIC_KEYBOARD_NUM (__cdecl* GetKeyboardNum)( eIC_USER_NUM nbUser );
 }
 ICAPI_USER;
 
@@ -265,7 +312,8 @@ typedef struct
     /**** Raw Gamepad *******************************************************/
     /*
     *   Description:
-    *     Get raw gamepad input and attributes.
+    *     Get raw gamepad input and attributes. The pointer will be constant
+    *   for the lifetime of the program.
     * 
     *   Parameters:
     *     - nbGp    : gamepad number to get

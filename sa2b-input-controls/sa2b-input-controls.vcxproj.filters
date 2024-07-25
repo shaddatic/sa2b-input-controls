@@ -72,6 +72,9 @@
     <ClCompile Include="ic_api\icapi_gamepad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ic_api\icapi_user.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

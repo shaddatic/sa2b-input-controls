@@ -211,6 +211,17 @@ eUSER_NUM;
 
 typedef enum
 {
+    INPUT_MD_NONE = -1,
+
+    INPUT_MD_KEYBOARD,
+    INPUT_MD_GAMEPAD,
+    INPUT_MD_SWITCH,
+    INPUT_MD_BOTH,
+}
+eINPUT_MODE;
+
+typedef enum
+{
     GAMEPAD_NONE = -1,
 
     GAMEPAD_1,
@@ -314,9 +325,19 @@ void    IC_InputInit(void);
 const USER_INPUT* UserGetInput( eUSER_NUM nbUser );
 /*
 *   Description:
+*     Get the input mode for a specified user
+*/
+eINPUT_MODE UserGetInputMode( eUSER_NUM nbUser );
+/*
+*   Description:
 *     Get the gamepad number for a specified user
 */
 eGAMEPAD_NUM UserGetGamepadNum( eUSER_NUM nbUser );
+/*
+*   Description:
+*     Get the keyboard layout number for a specified user
+*/
+eKEYBOARD_NUM UserGetKeyboardNum( eUSER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
 const GAMEPAD* GamepadGetGamepad( eGAMEPAD_NUM nbGp );

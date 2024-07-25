@@ -21,20 +21,6 @@
 #include <ic_input/inpt_internal.h> /* internal                                     */
 
 /************************/
-/*  Enums               */
-/************************/
-typedef enum
-{
-    INPUT_MD_NONE = -1,
-
-    INPUT_MD_KEYBOARD,
-    INPUT_MD_GAMEPAD,
-    INPUT_MD_SWITCH,
-    INPUT_MD_BOTH,
-}
-eINPUT_MODE;
-
-/************************/
 /*  Structures          */
 /************************/
 typedef struct
@@ -67,6 +53,12 @@ static USER_INPUT UserInput[NB_USER];
 /************************/
 /*  Source              */
 /************************/
+eINPUT_MODE
+UserGetInputMode(const eUSER_NUM nbUser)
+{
+    return UserInfos[nbUser].mode;
+}
+
 eGAMEPAD_NUM
 UserGetGamepadNum(const eUSER_NUM nbUser)
 {
