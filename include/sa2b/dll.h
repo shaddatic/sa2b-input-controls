@@ -103,6 +103,9 @@ void    DLL_Unmount( dll_handle* pHdl );
 *   Parameters:
 *     - pHdl    : handle to a dll to unmount
 *     - cExName : name of the export in ASCII
+* 
+*   Returns:
+*     A pointer to the DLL export, or nullptr if no export is found
 */
 void*   DLL_GetExport(const dll_handle* pHdl, const char* cExName);
 /*
