@@ -73,30 +73,6 @@ UserGetGamepadNum(const eUSER_NUM nbUser)
     return UserInfos[nbUser].nbGp;
 }
 
-bool
-UserGetGamepadValid(const eUSER_NUM nbUser)
-{
-    const eGAMEPAD_NUM nb_gp = UserGetGamepadNum(nbUser);
-
-    return GamepadValid(nb_gp);
-}
-
-bool
-UserVibSet(const eUSER_NUM nbUser, const f32 spdL, const f32 spdR)
-{
-    const eGAMEPAD_NUM nb_gp = UserGetGamepadNum(nbUser);
-
-    return GamepadVibSet(nb_gp, spdL, spdR);
-}
-
-bool
-UserVibStop(const eUSER_NUM nbUser)
-{
-    const eGAMEPAD_NUM nb_gp = UserGetGamepadNum(nbUser);
-
-    return GamepadVibStop(nb_gp);
-}
-
 eKEYBOARD_NUM
 UserGetKeyboardNum(const eUSER_NUM nbUser)
 {
@@ -286,8 +262,14 @@ SetPdsPeripheral(void)
 
         PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
 
+        const GAMEPAD* p_gp = GamepadGetGamepad(UserInfos[i].nbGp);
+
         if (p_padinfo)
-            p_padinfo->type = GamepadVibValid(UserInfos[i].nbGp) ? PDD_DEVTYPE_CONTROLLER|PDD_DEVTYPE_VIBRATION : PDD_DEVTYPE_CONTROLLER;
+        {
+            p_padinfo->type = (p_gp && p_gp->support & GPDDEV_SUPPORT_RUMBLE) ?
+                PDD_DEVTYPE_CONTROLLER|PDD_DEVTYPE_VIBRATION :
+                PDD_DEVTYPE_CONTROLLER;
+        }
     }
 }
 

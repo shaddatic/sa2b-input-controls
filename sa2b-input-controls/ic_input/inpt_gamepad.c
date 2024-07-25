@@ -52,26 +52,6 @@ typedef struct
 }
 USER_GAMEPAD;
 
-#define GPDDEV_SUPPORT_RUMBLE_TRIGGER   (1<<30)
-#define GPDDEV_SUPPORT_RUMBLE           (1<<31)
-
-typedef struct
-{
-    SDL_GameController* pSdlGp;
-    int                 id;
-
-    const char*         name;
-
-    u32                 support;
-
-    u32                 down;
-
-    s16                 x1, y1;
-    s16                 x2, y2;
-    s16                 l , r;
-}
-GAMEPAD;
-
 /************************/
 /*  File Data           */
 /************************/
@@ -171,6 +151,15 @@ HandleSdlEvents(void)
     }
 }
 
+const GAMEPAD*
+GamepadGetGamepad(const eGAMEPAD_NUM nbGp)
+{
+    if (nbGp == GAMEPAD_NONE)
+        return false;
+
+    return &Gamepads[nbGp];
+}
+
 bool
 GamepadValid(const eGAMEPAD_NUM nbGp)
 {
@@ -181,16 +170,7 @@ GamepadValid(const eGAMEPAD_NUM nbGp)
 }
 
 bool
-GamepadVibValid(const eGAMEPAD_NUM nbGp)
-{
-    if (nbGp == GAMEPAD_NONE)
-        return false;
-
-    return Gamepads[nbGp].support & GPDDEV_SUPPORT_RUMBLE;
-}
-
-bool
-GamepadVibSet(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
+GamepadSetVibration(const eGAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi)
 {
     if (nbGp == GAMEPAD_NONE)
         return false;
@@ -200,17 +180,27 @@ GamepadVibSet(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
 
     const f32 str = p_usr->vibStr;
 
-    return SDL_GameControllerRumble(p_gpd->pSdlGp,
-        (Sint16)((spdL*65535.f)*str),
-        (Sint16)((spdR*65535.f)*str),
-        0xFFFFFFFF
-    );
+    const Sint16 lo = (Sint16)( ( CLAMP(spdLo, 0.f, 1.f) * 65535.f ) * str );
+    const Sint16 hi = (Sint16)( ( CLAMP(spdHi, 0.f, 1.f) * 65535.f ) * str );
+
+    return SDL_GameControllerRumble(p_gpd->pSdlGp, lo, hi, 0xFFFFFFFF);
 }
 
 bool
-GamepadVibStop(const eGAMEPAD_NUM nbGp)
+GamepadSetTriggerVibration(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
 {
-    return GamepadVibSet(nbGp, 0.f, 0.f);
+    if (nbGp == GAMEPAD_NONE)
+        return false;
+
+    const GAMEPAD*      const p_gpd = &Gamepads[nbGp];
+    const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
+
+    const f32 str = p_usr->vibStr;
+
+    const Sint16 l = (Sint16)( ( CLAMP(spdL, 0.f, 1.f) * 65535.f ) * str );
+    const Sint16 r = (Sint16)( ( CLAMP(spdR, 0.f, 1.f) * 65535.f ) * str );
+
+    return SDL_GameControllerRumbleTriggers(p_gpd->pSdlGp, l, r, 0xFFFFFFFF);
 }
 
 static void
@@ -301,8 +291,8 @@ GamepadSetUserInput(const eGAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
     if (nbGp == GAMEPAD_NONE || !GamepadValid(nbGp))
         return false;
 
-    const USER_GAMEPAD*       const p_usrgp = &UserGamepads[nbGp];
-    const GAMEPAD*            const p_gp    = &Gamepads[nbGp];
+    const USER_GAMEPAD* const p_usrgp = &UserGamepads[nbGp];
+    const GAMEPAD*      const p_gp    = &Gamepads[nbGp];
 
     pOutInput->down = GamepadToUserButton(p_gp->down);
 

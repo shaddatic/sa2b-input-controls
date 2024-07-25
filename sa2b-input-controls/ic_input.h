@@ -73,7 +73,14 @@ EXTERN_START
 #define GPDBTN_TOUCHPAD             (1<<20) /* ps 4/5 touchpad button               */
 
 /************************/
-/*  Mouse Input          */
+/*  Gamepad Flags       */
+/************************/
+/****** Support *********************************************************************/
+#define GPDDEV_SUPPORT_RUMBLE_TRIGGER   (1<<30) /* supports rumble triggers         */
+#define GPDDEV_SUPPORT_RUMBLE           (1<<31) /* supports rumble                  */
+
+/************************/
+/*  Mouse Input         */
 /************************/
 /****** Mouse Buttons ***************************************************************/
 #define MSEBTN_LEFT             (0b0000'0001)   /* left click                       */
@@ -251,12 +258,30 @@ typedef struct
     uint32_t press;
     uint32_t release;
 
-    f32 r, l;
+    f32 l, r;
 
     f32 x1, y1;
     f32 x2, y2;
 }
 USER_INPUT;
+
+typedef struct
+{
+    void*               pSdlGp;
+    int                 id;
+
+    const char*         name;
+
+    u32                 support;
+
+    u32                 down;
+
+    s16                 l, r;
+
+    s16                 x1, y1;
+    s16                 x2, y2;
+}
+GAMEPAD;
 
 typedef struct
 {
@@ -292,14 +317,10 @@ const USER_INPUT* UserGetInput( eUSER_NUM nbUser );
 *     Get the gamepad number for a specified user
 */
 eGAMEPAD_NUM UserGetGamepadNum( eUSER_NUM nbUser );
-/*
-*   Description:
-*     Set the gamepad vibration state for a specified user.
-*/
-bool    UserVibSet(  eUSER_NUM nbUser, f32 spdL, f32 spdR );
-bool    UserVibStop( eUSER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
+const GAMEPAD* GamepadGetGamepad( eGAMEPAD_NUM nbGp );
+
 /*
 *   Description:
 *     If the specified gamepad is on and available.
@@ -307,19 +328,14 @@ bool    UserVibStop( eUSER_NUM nbUser );
 bool    GamepadValid( eGAMEPAD_NUM nbGp );
 /*
 *   Description:
-*     If the specified gamepad is vibration capable, and vibration is enabled.
+*     Set vibration for a specified gamepad.
 */
-bool    GamepadVibValid( eGAMEPAD_NUM nbGp );
+bool    GamepadSetVibration( eGAMEPAD_NUM nbGp, f32 spdLo, f32 spdHi );
 /*
 *   Description:
 *     Set vibration for a specified gamepad.
 */
-bool    GamepadVibSet( eGAMEPAD_NUM nbGp, f32 spdL, f32 spdR );
-/*
-*   Description:
-*     Stop vibration for a specified gamepad.
-*/
-bool    GamepadVibStop( eGAMEPAD_NUM nbGp );
+bool    GamepadSetTriggerVibration( eGAMEPAD_NUM nbGp, f32 spdL, f32 spdR );
 
 /****** Keyboard ********************************************************************/
 u8      KeyboardPoll( void ); /* poll most recent key press                         */

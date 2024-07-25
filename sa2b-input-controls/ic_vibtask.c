@@ -47,7 +47,7 @@ NewVibTask(TASK* const tp)
 
             const int nb_gp = UserGetGamepadNum(vpp->unit);
 
-            GamepadVibSet(nb_gp, pwr, pwr);
+            GamepadSetVibration(nb_gp, pwr, pwr);
         }
 
         if (timer <= vpp->maxTime)
@@ -71,19 +71,21 @@ NewVibTaskDest(TASK* const tp)
 
         if (vpp->flag != 3)
         {
-            GamepadVibStop(UserGetGamepadNum(vpp->unit));
+            GamepadSetVibration(UserGetGamepadNum(vpp->unit), -1.f, -1.f);
         }
         else
-            GamepadVibStop(UserGetGamepadNum(vpp->unit));
+            GamepadSetVibration(UserGetGamepadNum(vpp->unit), -1.f, -1.f);
     }
 }
 
 static void
 NewVibStop(void)
 {
-    for (int i = 0; i < 4; ++i)
+    for (eUSER_NUM i = 0; i < NB_USER; ++i)
     {
-        UserVibStop(i);
+        const int nb_gp = UserGetGamepadNum(i);
+
+        GamepadSetVibration((eGAMEPAD_NUM)nb_gp, -1.f, -1.f);
     }
 }
 
