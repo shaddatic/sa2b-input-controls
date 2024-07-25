@@ -36,9 +36,9 @@ eEMU_STICK;
 typedef struct
 {
     u32 down;
+    f32 l , r;
     f32 x1, y1;
     f32 x2, y2;
-    f32 l , r;
 }
 INPUT_OUT;
 
