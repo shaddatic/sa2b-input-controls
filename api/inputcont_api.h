@@ -226,6 +226,7 @@ eIC_MOUSE_MODE;
 /****** ################## **********************************************************/
 typedef void                IC_USER_INPUT;
 typedef void                IC_MOUSE;
+typedef void                IC_GAMEPAD;
 
 /************************/
 /*  User Input API      */
@@ -261,17 +262,63 @@ typedef struct
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Raw XInput ********************************************************/
+    /**** Raw Gamepad *******************************************************/
     /*
     *   Description:
-    *     
+    *     Get raw gamepad input and attributes.
+    * 
+    *   Parameters:
+    *     - nbGp    : gamepad number to get
+    * 
+    *   Returns:
+    *     Gamepad struct pointer, or nullptr if 'nbGp' is <0 or >3
     */
-    void* (__cdecl* GetXInput)( eIC_GAMEPAD_NUM nbGp );
+    const IC_GAMEPAD* (__cdecl* GetGamepad)( eIC_GAMEPAD_NUM nbGp );
+
+    /**** Valid/Open *******************************************************/
     /*
     *   Description:
-    *     
+    *     Check if the given gamepad is active and linked to an open, 
+    *   physical device.
+    * 
+    *   Parameters:
+    *     - nbGp    : gamepad number to get state of
+    * 
+    *   Returns:
+    *     If the given gamepad is valid.
     */
-    void* (__cdecl* GetCapabilities)( eIC_GAMEPAD_NUM nbGp );
+    bool (__cdecl* Valid)( eIC_GAMEPAD_NUM nbGp );
+
+    /**** Vibration *********************************************************/
+    /*
+    *   Description:
+    *     Set the vibration motors on a gamepad. You can check support by
+    *   searching for the GPDDEV_SUPPORT_RUMBLE flag in 'support'.
+    *     
+    *   Parameters:
+    *     - nbGp    : gamepad number to set vibration for
+    *     - freqLo  : speed of the low frequency motor (0~1)
+    *     - freqHi  : speed of the high frequency motor (0~1)
+    * 
+    *   Returns:
+    *     If successful
+    */
+    bool (__cdecl* SetVibration)( eIC_GAMEPAD_NUM nbGp, f32 freqLo, f32 freqHi );
+    /*
+    *   Description:
+    *     Set the trigger vibration motors on a gamepad. Only applicable to
+    *   Xbox One and higher controllers. You can check support by searching
+    *   for the GPDDEV_SUPPORT_RUMBLE_TRIGGER flag in 'support'.
+    * 
+    *   Parameters:
+    *     - nbGp    : gamepad number to set vibration for
+    *     - freqL   : speed of the left trigger motor (0~1)
+    *     - freqR   : speed of the right trigger motor (0~1)
+    *     
+    *   Returns:
+    *     If successful
+    */
+    bool (__cdecl* SetTriggerVibration)( eIC_GAMEPAD_NUM nbGp, f32 freqL, f32 freqR );
 }
 ICAPI_GAMEPAD;
 
