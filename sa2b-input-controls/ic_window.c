@@ -17,8 +17,8 @@
 /************************/
 static bool         FocusState;
 
-static INT_POINT2   WindowSize;
-static INT_POINT2   GameResolution;
+static NJS_POINT2I  WindowSize;
+static NJS_POINT2I  GameResolution;
 
 /************************/
 /*  Source              */
@@ -30,12 +30,29 @@ WindowInFocus(void)
 }
 
 void
+WindowGetSize(NJS_POINT2I* const pOutSize)
+{
+    *pOutSize = WindowSize;
+}
+
+void
+WindowGetGameResolution(NJS_POINT2I* const pOutRes)
+{
+    *pOutRes = GameResolution;
+}
+
+void
 IC_WindowUpdate(void)
 {
-    OS_GetGameWindowSize(&WindowSize);
+    INT_POINT2 size;
 
-    GameResolution.x = (int32_t) DisplayResolutionX;
-    GameResolution.y = (int32_t) DisplayResolutionY;
+    OS_GetGameWindowSize(&size);
+
+    WindowSize.x = (Sint16) size.x;
+    WindowSize.y = (Sint16) size.y;
+
+    GameResolution.x = (Sint16) DisplayResolutionX;
+    GameResolution.y = (Sint16) DisplayResolutionY;
 }
 
 void

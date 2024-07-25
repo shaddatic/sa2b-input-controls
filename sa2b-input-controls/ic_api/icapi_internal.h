@@ -13,6 +13,9 @@
 /************************/
 /*  External Headers    */
 /************************/
+/****** Ninja ***********************************************************************/
+#include <sa2b/ninja/njcommon.h>
+
 /****** External API ****************************************************************/
 #include <../api/inputcont_api.h>
 
@@ -24,6 +27,7 @@ EXTERN const ICAPI_USER     icapi_user;
 EXTERN const ICAPI_GAMEPAD  icapi_gamepad;
 EXTERN const ICAPI_KEYBOARD icapi_keyboard;
 EXTERN const ICAPI_MOUSE    icapi_mouse;
+EXTERN const ICAPI_WINDOW   icapi_window;
 EXTERN const ICAPI_SDL      icapi_sdl;
 
 #endif/*H_IC_API_INTERNAL*/

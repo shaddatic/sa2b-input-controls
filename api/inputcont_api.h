@@ -255,7 +255,7 @@ typedef struct
     *   Description:
     *     Get the raw user input. The pointer will be constant for the
     *   lifetime of the program.
-    * 
+    *
     *   Parameters:
     *     - nbUser  : user number to get raw input of
     *
@@ -342,7 +342,7 @@ typedef struct
     *   Description:
     *     Set the vibration motors on a gamepad. You can check support by
     *   searching for the GPDDEV_SUPPORT_RUMBLE flag in 'support'.
-    *     
+    * 
     *   Parameters:
     *     - nbGp    : gamepad number to set vibration for
     *     - freqLo  : speed of the low frequency motor (0~1)
@@ -362,7 +362,7 @@ typedef struct
     *     - nbGp    : gamepad number to set vibration for
     *     - freqL   : speed of the left trigger motor (0~1)
     *     - freqR   : speed of the right trigger motor (0~1)
-    *     
+    * 
     *   Returns:
     *     If successful
     */
@@ -505,6 +505,34 @@ typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
+
+    /**** Focus *************************************************************/
+    /*
+    *   Description:
+    *     Check if the main game window is in focus.
+    * 
+    *   Returns:
+    *     Window focus state
+    */
+    bool (__cdecl* InFocus)( void );
+
+    /**** Parameters ********************************************************/
+    /*
+    *   Description:
+    *     Get the size of the game window in physical pixels.
+    * 
+    *   Parameters:
+    *     - pOutSize : return pointer for window size
+    */
+    void (__cdecl* GetSize)( NJS_POINT2I* pOutSize );
+    /*
+    *   Description:
+    *     Get the game's internal rendering resolution.
+    * 
+    *   Parameters:
+    *     - pOutRes : return pointer for game resolution
+    */
+    void (__cdecl* GetGameResolution)( NJS_POINT2I* pOutRes );
 }
 ICAPI_WINDOW;
 

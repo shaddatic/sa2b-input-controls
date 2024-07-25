@@ -10,6 +10,12 @@
 #ifndef H_IC_WINDOW
 #define H_IC_WINDOW
 
+/************************/
+/*  External Headers    */
+/************************/
+/****** Ninja ***********************************************************************/
+#include <sa2b/ninja/njcommon.h> /* NJS_POINT2I                                     */
+
 EXTERN_START
 
 /************************/
@@ -35,6 +41,16 @@ void    IC_WindowUpdate( void );
 *     Get if the game window is in focus
 */
 bool    WindowInFocus( void );
+/*
+*   Description:
+*     Get the window size in physical pixels
+*/
+void    WindowGetSize( NJS_POINT2I* pOutSize );
+/*
+*   Description:
+*     Get the game's internal rendering resolution
+*/
+void    WindowGetGameResolution( NJS_POINT2I* pOutRes );
 
 EXTERN_END
 
