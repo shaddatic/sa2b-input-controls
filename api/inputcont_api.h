@@ -652,6 +652,8 @@ typedef struct
     IC_VERSION ic_version;
 
     /**** APIs **************************************************************/
+    const ICAPI_CONFIG*     pApiConfig;
+
     const ICAPI_USER*       pApiUser;
     const ICAPI_GAMEPAD*    pApiGamepad;
     const ICAPI_KEYBOARD*   pApiKeyboard;
