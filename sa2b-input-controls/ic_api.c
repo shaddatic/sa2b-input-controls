@@ -34,7 +34,7 @@ const ICAPI_CORE icapi_core =
     .pApiUser     = nullptr,
     .pApiGamepad  = nullptr,
     .pApiKeyboard = &icapi_keyboard,
-    .pApiMouse    = nullptr,
+    .pApiMouse    = &icapi_mouse,
     .pApiWindow   = nullptr,
     .pApiSdl      = &icapi_sdl,
 };
@@ -56,10 +56,10 @@ ApiCallByFuncName(const char* const cExName)
     {
         const mod_info* const p_mi = MI_GetInfoByPosition(i);
 
-        IC_INIT* const init = MI_GetExport(p_mi, cExName);
+        IC_INIT* const p_init = MI_GetExport(p_mi, cExName);
 
-        if (init)
-            init(&icapi_core, p_mi->cPath, ML_GetHelperFunctions());
+        if (p_init)
+            p_init(&icapi_core, p_mi->cPath, ML_GetHelperFunctions());
     }
 }
 
