@@ -22,6 +22,7 @@
 #include <ic_core.h>
 #include <ic_config.h>
 #include <ic_input.h>
+#include <ic_feature.h> /*  */
 
 /****** Self ************************************************************************/
 #include <ic_sonicinput.h>  /* self                                                 */
@@ -97,7 +98,7 @@ NewGetPlayersInputData(void)
         {
             f32 x1, y1;
 
-            if (InputUseRawAnalog() && i < NB_USER)
+            if (ICF_UseRawAnalog() && i < NB_USER)
             {
                 GetUserRawAnalog(i, &x1, &y1);
             }
@@ -153,7 +154,7 @@ NewGetPlayersInputData_FH(void)
         {
             f32 x1, y1;
 
-            if (InputUseRawAnalog() && i < NB_USER)
+            if (ICF_UseRawAnalog() && i < NB_USER)
             {
                 GetUserRawAnalog((i < 2) ? 0 : i, &x1, &y1);
             }

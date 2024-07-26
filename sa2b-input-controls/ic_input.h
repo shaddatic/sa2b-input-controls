@@ -391,13 +391,6 @@ void    MouseCapture( void );
 */
 void    MouseFree( void );
 
-/****** Other ***********************************************************************/
-/*
-*   Description:
-*     If the user has 'Use Raw Analog' enabled.
-*/
-bool    InputUseRawAnalog( void );
-
 EXTERN_END
 
 #endif/*H_IC_INPUT*/

@@ -284,7 +284,7 @@ SetPeripheral(void)
 }
 
 bool
-InputUseRawAnalog(void)
+ICF_UseRawAnalog(void)
 {
     return UseRawAnalog;
 }

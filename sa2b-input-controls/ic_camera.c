@@ -18,6 +18,7 @@
 #include <ic_core.h>    /*  */
 #include <ic_input.h>   /*  */
 #include <ic_config.h>  /*  */
+#include <ic_feature.h> /*  */
 
 /****** Self ************************************************************************/
 #include <ic_camera.h>  /* self                                                     */
@@ -37,7 +38,7 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
     
     f32 l, r, x2;
 
-    if (InputUseRawAnalog() && nb_cam < NB_USER)
+    if (ICF_UseRawAnalog() && nb_cam < NB_USER)
     {
         const bool in_state = (nb_cam > 1 || ucInputStatusForEachPlayer[nb_cam] == 1);
 
@@ -124,7 +125,7 @@ ___CameraGetAnalog(void)
 static int
 CheckCamInput(const int nbPer)
 {
-    if (InputUseRawAnalog() && nbPer < NB_USER)
+    if (ICF_UseRawAnalog() && nbPer < NB_USER)
     {
         const USER_INPUT* const p_user = UserGetInput(nbPer);
         const bool in_state = (nbPer > 1 || ucInputStatusForEachPlayer[nbPer] == 1);
