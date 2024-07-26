@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="ic_api.c" />
     <ClCompile Include="ic_api\icapi_config.c" />
+    <ClCompile Include="ic_api\icapi_feature.c" />
     <ClCompile Include="ic_api\icapi_gamepad.c" />
     <ClCompile Include="ic_api\icapi_keyboard.c" />
     <ClCompile Include="ic_api\icapi_mouse.c" />
@@ -48,6 +49,7 @@
   <ItemGroup>
     <ClInclude Include="ic_api.h" />
     <ClInclude Include="ic_api\icapi_internal.h" />
+    <ClInclude Include="ic_feature.h" />
     <ClInclude Include="ic_camera.h" />
     <ClInclude Include="ic_config.h" />
     <ClInclude Include="ic_config\cnf_def.h" />

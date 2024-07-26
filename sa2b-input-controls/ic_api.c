@@ -31,6 +31,8 @@ ICAPI_CORE icapi_core =
 
     .ic_version = { 1,0,0,0 },
 
+    .pApiFeature  = nullptr,
+
     .pApiConfig   = nullptr,
 
     .pApiUser     = &icapi_user,
@@ -79,6 +81,8 @@ ICAPI_Init(void)
 void
 ICAPI_End(void)
 {
+    icapi_core.pApiFeature = &icapi_feature;
+
     ApiCallByFuncName("IC_Init");
 
     icapi_core.pApiConfig = nullptr;

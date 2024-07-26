@@ -246,6 +246,9 @@ typedef void                IC_GAMEPAD;
 /************************/
 /*  Config API          */
 /************************/
+/*
+*   
+*/
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
@@ -287,6 +290,30 @@ typedef struct
     f64 (__cdecl* GetPercent)( const utf8* uSect, const utf8* uKey, int32_t def );
 }
 ICAPI_CONFIG;
+
+/************************/
+/*  Feature API         */
+/************************/
+/*
+*   
+*/
+typedef struct
+{
+    /****** Version >= 0 ************************************************************/
+    uint32_t version;
+
+    /**** Features **********************************************************/
+    /*
+    *   Description:
+    *     If Input Controls is set to use raw analog values, rather than
+    *   values from the emulated Dreamcast controller.
+    *
+    *   Returns:
+    *     If the feature is enabled
+    */
+    bool (__cdecl* UseRawAnalog)( void );
+}
+ICAPI_FEATURE;
 
 /************************/
 /*  User Input API      */
@@ -652,6 +679,8 @@ typedef struct
     IC_VERSION ic_version;
 
     /**** APIs **************************************************************/
+    const ICAPI_FEATURE*    pApiFeature;
+
     const ICAPI_CONFIG*     pApiConfig;
 
     const ICAPI_USER*       pApiUser;

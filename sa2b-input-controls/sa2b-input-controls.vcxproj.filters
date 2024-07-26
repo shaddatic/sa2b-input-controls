@@ -81,6 +81,9 @@
     <ClCompile Include="ic_api\icapi_config.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ic_api\icapi_feature.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ic_sdl2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ic_feature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

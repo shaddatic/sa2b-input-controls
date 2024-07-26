@@ -23,6 +23,7 @@
 /*  API Structs         */
 /************************/
 /****** APIs ************************************************************************/
+EXTERN const ICAPI_FEATURE  icapi_feature;
 EXTERN const ICAPI_CONFIG   icapi_config;
 EXTERN const ICAPI_USER     icapi_user;
 EXTERN const ICAPI_GAMEPAD  icapi_gamepad;
