@@ -170,11 +170,11 @@ typedef char                utf8;   /* supports UTF-8 strings                   
 #define KEY_NONE            (0xFF) /* no key                                */
 
 /****** Mouse Buttons ***************************************************************/
-#define MSEBTN_LEFT             (0b0000'0001)   /* left click                       */
-#define MSEBTN_RIGHT            (0b0000'0010)   /* right click                      */
-#define MSEBTN_MIDDLE           (0b0000'0100)   /* mouse wheel button               */
-#define MSEBTN_X1               (0b0000'1000)   /* side/eXtra button 1              */
-#define MSEBTN_X2               (0b0001'0000)   /* side/eXtra button 2              */
+#define MSEBTN_LEFT         (1<<0) /* left click                                    */
+#define MSEBTN_RIGHT        (1<<1) /* right click                                   */
+#define MSEBTN_MIDDLE       (1<<2) /* mouse wheel button                            */
+#define MSEBTN_X1           (1<<3) /* side/eXtra button 1                           */
+#define MSEBTN_X2           (1<<4) /* side/eXtra button 2                           */
 
 /************************/
 /*  Enums               */
