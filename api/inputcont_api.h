@@ -65,6 +65,31 @@ typedef char                utf8;   /* supports UTF-8 strings                   
 #define GPDBTN_XBPADDLE_LL          (1<<19) /* xb paddle: lower left   (from front) */
 #define GPDBTN_TOUCHPAD             (1<<20) /* ps 4/5 touchpad button               */
 
+/****** Support *********************************************************************/
+#define GPDDEV_SUPPORT_A              (1<< 0) /* button a                           */
+#define GPDDEV_SUPPORT_B              (1<< 1) /* button b                           */
+#define GPDDEV_SUPPORT_X              (1<< 2) /* button x                           */
+#define GPDDEV_SUPPORT_Y              (1<< 3) /* button y                           */
+#define GPDDEV_SUPPORT_BACK           (1<< 4) /* button back                        */
+#define GPDDEV_SUPPORT_GUIDE          (1<< 5) /* xb/ps button, ns: home button      */
+#define GPDDEV_SUPPORT_START          (1<< 6) /* button start                       */
+#define GPDDEV_SUPPORT_LS             (1<< 7) /* button ls                     (l3) */
+#define GPDDEV_SUPPORT_RS             (1<< 8) /* button rs                     (r3) */
+#define GPDDEV_SUPPORT_ZL             (1<< 9) /* button zl                 (lb, l1) */
+#define GPDDEV_SUPPORT_ZR             (1<<10) /* button zr              (z, rb, r1) */
+#define GPDDEV_SUPPORT_DPAD_UP        (1<<11) /* directional pad, up                */
+#define GPDDEV_SUPPORT_DPAD_DOWN      (1<<12) /* directional pad, down              */
+#define GPDDEV_SUPPORT_DPAD_LEFT      (1<<13) /* directional pad, left              */
+#define GPDDEV_SUPPORT_DPAD_RIGHT     (1<<14) /* directional pad, right             */
+#define GPDDEV_SUPPORT_MISC           (1<<15) /* xb: share, ps: mic, ns: capture    */
+#define GPDDEV_SUPPORT_XBPADDLE_UR    (1<<16) /* xb paddle: upper right (fr. front) */
+#define GPDDEV_SUPPORT_XBPADDLE_UL    (1<<17) /* xb paddle: upper left  (fr. front) */
+#define GPDDEV_SUPPORT_XBPADDLE_LR    (1<<18) /* xb paddle: lower right (fr. front) */
+#define GPDDEV_SUPPORT_XBPADDLE_LL    (1<<19) /* xb paddle: lower left  (fr. front) */
+#define GPDDEV_SUPPORT_TOUCHPAD       (1<<20) /* ps 4/5 touchpad button             */
+#define GPDDEV_SUPPORT_RUMBLE_TRIGGER (1<<30) /* supports rumble triggers           */
+#define GPDDEV_SUPPORT_RUMBLE         (1<<31) /* supports rumble                    */
+
 /****** Keyboard Keys ***************************************************************/
 /****** Main Keys ***********************************************************/
 #define KEY_BACKSPACE       (0x08) /* backspace key                         */
