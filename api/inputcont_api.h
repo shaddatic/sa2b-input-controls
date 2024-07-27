@@ -24,6 +24,12 @@ typedef double              f64;    /* 8 byte real number                       
 typedef char                utf8;   /* supports UTF-8 strings                       */
 
 /************************/
+/*  Opaque Types        */
+/************************/
+/****** SDL *************************************************************************/
+typedef struct _SDL_GameController  SDL_GameController;
+
+/************************/
 /*  Constants           */
 /************************/
 /****** User Buttons ****************************************************************/
@@ -266,7 +272,24 @@ eIC_MOUSE_MODE;
 /****** ################## **********************************************************/
 typedef void                IC_USER_INPUT;
 typedef void                IC_MOUSE;
-typedef void                IC_GAMEPAD;
+
+typedef struct
+{
+    SDL_GameController* pSdlGp;
+    int32_t             id;
+
+    const char*         name;
+
+    uint32_t            support;
+
+    uint32_t            down;
+
+    int16_t             l, r;
+
+    int16_t             x1, y1;
+    int16_t             x2, y2;
+}
+IC_GAMEPAD;
 
 /************************/
 /*  Config API          */

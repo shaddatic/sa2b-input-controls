@@ -22,6 +22,12 @@
 EXTERN_START
 
 /************************/
+/*  Opaque Types        */
+/************************/
+/****** SDL *************************************************************************/
+typedef struct _SDL_GameController  SDL_GameController;
+
+/************************/
 /*  Macro               */
 /************************/
 /* Normalize PDS Directional -128~128 to -1~1 */
@@ -299,8 +305,8 @@ USER_INPUT;
 
 typedef struct
 {
-    void*               pSdlGp;
-    int                 id;
+    SDL_GameController* pSdlGp;
+    s32                 id;
 
     const char*         name;
 
