@@ -99,13 +99,13 @@ OpenGamepad(const int id)
             p_gp->pSdlGp = p_sdlgc;
             p_gp->id     = id;
 
+            p_gp->name = SDL_GameControllerName(p_sdlgc);
+
             for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
             {
                 if (SDL_GameControllerHasButton(p_sdlgc, i))
                     p_gp->support |= (1<<i);
             }
-
-            p_gp->name = SDL_GameControllerName(p_sdlgc);
 
             p_gp->support |= SDL_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLE_TRIGGER : 0;
             p_gp->support |= SDL_GameControllerHasRumble(p_sdlgc)         ? GPDDEV_SUPPORT_RUMBLE         : 0;
