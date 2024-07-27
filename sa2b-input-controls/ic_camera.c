@@ -26,7 +26,7 @@
 /************************/
 /*  File Data           */
 /************************/
-static bool CameraInvStickLR;
+static bool CameraInvX2;
 
 /************************/
 /*  Source              */
@@ -61,7 +61,7 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
     }
 
     /** Invert the stick if setting enabled **/
-    if (CameraInvStickLR) x2 = -x2;
+    if (CameraInvX2) x2 = -x2;
 
     CAMADJUSTWK_KNUCKLES* const p_work = (CAMADJUSTWK_KNUCKLES*)pParam->work;
 
@@ -155,6 +155,12 @@ ___CheckCamInput(void)
     }
 }
 
+bool
+ICF_CamInvertX2(void)
+{
+    return CameraInvX2;
+}
+
 void
 IC_CameraInit(void)
 {
@@ -181,5 +187,5 @@ IC_CameraInit(void)
         WriteCall(0x004EDBF3, ___CheckCamInput);
     }
 
-    CameraInvStickLR = CnfGetInt(CNF_CAMERA_LRINV);
+    CameraInvX2 = CnfGetInt(CNF_CAMERA_LRINV);
 }

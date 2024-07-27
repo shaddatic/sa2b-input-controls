@@ -23,5 +23,14 @@
 *     If the feature is enabled
 */
 bool    ICF_UseRawAnalog( void );
+/*
+*   Description:
+*     If the camera is set to invert the X axis of the right analog stick input from
+*   vanilla.
+*
+*   Returns:
+*     If the feature is enabled
+*/
+bool    ICF_CamInvertX2( void );
 
 #endif/*H_IC_FEATURE*/

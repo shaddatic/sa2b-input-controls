@@ -337,6 +337,16 @@ typedef struct
     *     If the feature is enabled
     */
     bool (__cdecl* UseRawAnalog)( void );
+    /*
+    *   Description:
+    *     If the camera is set to invert the X axis of the right analog
+    *   stick input from vanilla. When inverted, it better matches regular
+    *   camera input from other games.
+    *
+    *   Returns:
+    *     If the feature is enabled
+    */
+    bool (__cdecl* CamInvertX2)( void );
 }
 ICAPI_FEATURE;
 
