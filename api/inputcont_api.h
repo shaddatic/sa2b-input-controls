@@ -430,7 +430,7 @@ typedef struct
     *     - nbGp    : gamepad number to get
     * 
     *   Returns:
-    *     Gamepad struct pointer, or nullptr if 'nbGp' is <0 or >3
+    *     Gamepad struct pointer, or nullptr if 'nbGp' is GAMEPAD_NONE.
     */
     const IC_GAMEPAD* (__cdecl* GetGamepad)( eIC_GAMEPAD_NUM nbGp );
 
@@ -580,7 +580,11 @@ typedef struct
     /**** Get Mouse *********************************************************/
     /*
     *   Description:
-    *     
+    *      Get the mouse info structure. The pointer will be constant for
+    *   the lifetime of the program.
+    * 
+    *   Returns:
+    *     Mouse struct pointer
     */
     const IC_MOUSE* (__cdecl* GetMouse)( void );
 
@@ -589,18 +593,15 @@ typedef struct
     *   Description:
     *     
     *   Returns:
+    *     Current mouse mode
     */
     eIC_MOUSE_MODE (__cdecl* GetMode)( void );
     /*
     *   Description:
-    *     
-    *   Returns:
     */
     void (__cdecl* Capture)( void );
     /*
     *   Description:
-    *     
-    *   Returns:
     */
     void (__cdecl* Free)( void );
 
