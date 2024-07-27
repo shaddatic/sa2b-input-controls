@@ -403,14 +403,24 @@ const MOUSE* MouseGetMouse( void );
 eCURSOR_STATE MouseGetMode( void );
 /*
 *   Description:
-*     Get the mouse mode
+*     Capture the mouse to the game window
 */
 void    MouseCapture( void );
 /*
 *   Description:
-*     Get the mouse mode
+*     Free the mouse from the game window
 */
 void    MouseFree( void );
+/*
+*   Description:
+*     Manually hide the mouse cursor over the game window
+*/
+void    MouseHide( void );
+/*
+*   Description:
+*     Manually show the mouse cursor over the game window
+*/
+void    MouseShow( void );
 
 EXTERN_END
 

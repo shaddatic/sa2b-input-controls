@@ -31,4 +31,7 @@ const ICAPI_MOUSE icapi_mouse =
 
     .Capture  = (void*) MouseCapture,
     .Free     = (void*) MouseFree,
+
+    .Hide     = (void*) MouseHide,
+    .Show     = (void*) MouseShow,
 };

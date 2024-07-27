@@ -234,6 +234,18 @@ MouseFree(void)
 }
 
 void
+MouseHide(void)
+{
+    OS_ShowCursor(true);
+}
+
+void
+MouseShow(void)
+{
+    OS_ShowCursor(false);
+}
+
+void
 MouseInit(void)
 {
     MouseEmuKbIndex = CnfGetInt(CNF_EMUANALOG_KEYBRD);

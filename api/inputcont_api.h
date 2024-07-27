@@ -593,6 +593,20 @@ typedef struct
     *   Returns:
     */
     void (__cdecl* Free)( void );
+
+    /**** Cursor Display ****************************************************/
+    /*
+    *   Description:
+    *     Manually hide the mouse cursor from the game window. This is
+    *   automatically done when capturing the mouse.
+    */
+    void (__cdecl* Hide)( void );
+    /*
+    *   Description:
+    *     Manually show the mouse cursor from the game window. This is
+    *   automatically done when freeing the mouse.
+    */
+    void (__cdecl* Show)( void );
 }
 ICAPI_MOUSE;
 
