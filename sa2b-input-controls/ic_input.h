@@ -292,45 +292,45 @@ eCURSOR_STATE;
 /************************/
 typedef struct
 {
-    uint32_t down;
-    uint32_t press;
-    uint32_t release;
+    uint32_t down;      /* user input buttons currently pressed            (USRBTN) */
+    uint32_t press;     /* user input buttons pressed this moment          (USRBTN) */
+    uint32_t release;   /* user input buttons released this moment         (USRBTN) */
 
-    f32 l, r;
+    f32 l, r;           /* analog l/r triggers                            (0.f~1.f) */
 
-    f32 x1, y1;
-    f32 x2, y2;
+    f32 x1, y1;         /* left analog stick                             (-1.f~1.f) */
+    f32 x2, y2;         /* right analog stick                            (-1.f~1.f) */
 }
 USER_INPUT;
 
 typedef struct
 {
-    SDL_GameController* pSdlGp;
-    s32                 id;
+    SDL_GameController* pSdlGp; /* SDL gamepad pointer                              */
+    int32_t             id;     /* SDL gamepad/joystick index                       */
 
-    const char*         name;
+    const char*         name;   /* gamepad name                                     */
 
-    u32                 support;
+    uint32_t            support;/* gamepad supported features                       */
 
-    u32                 down;
+    uint32_t            down;   /* currently pressed buttons              (GPDBTN)  */
 
-    s16                 l, r;
+    int16_t             l, r;   /* analog l/r triggers                    (0~32767) */
 
-    s16                 x1, y1;
-    s16                 x2, y2;
+    int16_t             x1, y1; /* left analog stick                 (-32768~32767) */
+    int16_t             x2, y2; /* right analog stick                (-32768~32767) */
 }
 GAMEPAD;
 
 typedef struct
 {
-    uint8_t down;
-    uint8_t press;
-    uint8_t release;
+    uint8_t down;    /* mouse buttons currently pressed                    (MSEBTN) */
+    uint8_t press;   /* mouse buttons pressed this moment                  (MSEBTN) */
+    uint8_t release; /* mouse buttons released this moment                 (MSEBTN) */
 
-    f32     wheel;
+    f32     wheel;   /* mouse wheel rotation, in notches                            */
 
-    NJS_POINT2I vec;
-    NJS_POINT2I pos;
+    NJS_POINT2I vec; /* mouse movement vector, in pixels                            */
+    NJS_POINT2I pos; /* mouse position on the game surface, in pixels               */
 }
 MOUSE;
 

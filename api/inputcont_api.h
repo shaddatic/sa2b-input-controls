@@ -264,19 +264,19 @@ typedef void                IC_MOUSE;
 
 typedef struct
 {
-    SDL_GameController* pSdlGp;
-    int32_t             id;
+    SDL_GameController* pSdlGp; /* SDL gamepad pointer                              */
+    int32_t             id;     /* SDL gamepad/joystick index                       */
 
-    const char*         name;
+    const char*         name;   /* gamepad name                                     */
 
-    uint32_t            support;
+    uint32_t            support;/* gamepad supported features                       */
 
-    uint32_t            down;
+    uint32_t            down;   /* currently pressed buttons                        */
 
-    int16_t             l, r;
+    int16_t             l, r;   /* analog l/r triggers                    (0~32767) */
 
-    int16_t             x1, y1;
-    int16_t             x2, y2;
+    int16_t             x1, y1; /* left analog stick                 (-32768~32767) */
+    int16_t             x2, y2; /* right analog stick                (-32768~32767) */
 }
 IC_GAMEPAD;
 
