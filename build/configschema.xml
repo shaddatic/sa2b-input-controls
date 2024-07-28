@@ -65,36 +65,6 @@ NOTE: Requres 'Analog Controls'</HelpText>
 'Both' will use Keyboard and Gamepad interchangeably.</HelpText>
 			</Property>
 		</Group>
-		<Group name="user2" display="Player 3 Settings">
-			<Property name="gp_nb" display="Gamepad" type="eGAMEPAD" defaultvalue="-1">
-				<HelpText>Which Gamepad this player will read from.</HelpText>
-			</Property>
-			<Property name="kb_nb" display="Keyboard" type="eKEYBOARD" defaultvalue="-1">
-				<HelpText>Which Keyboard layout this player will read from.</HelpText>
-			</Property>
-			<Property name="input_md" display="Input Method" type="eINPUT_MODE" defaultvalue="-1">
-				<HelpText>Which input device this player will use.
-
-'Switch' will prioritize Gamepad; but if it is not available, Keyboard will be used instead.
-
-'Both' will use Keyboard and Gamepad interchangeably.</HelpText>
-			</Property>
-		</Group>
-		<Group name="user3" display="Player 4 Settings">
-			<Property name="gp_nb" display="Gamepad" type="eGAMEPAD" defaultvalue="-1">
-				<HelpText>Which Gamepad this player will read from.</HelpText>
-			</Property>
-			<Property name="kb_nb" display="Keyboard" type="eKEYBOARD" defaultvalue="-1">
-				<HelpText>Which Keyboard layout this player will read from.</HelpText>
-			</Property>
-			<Property name="input_md" display="Input Method" type="eINPUT_MODE" defaultvalue="-1">
-				<HelpText>Which input device this player will use.
-
-'Switch' will prioritize Gamepad; but if it is not available, Keyboard will be used instead.
-
-'Both' will use Keyboard and Gamepad interchangeably.</HelpText>
-			</Property>
-		</Group>
 		<Group name="gp0" display="Gamepad: 1">
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
 				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
@@ -112,38 +82,6 @@ A value of 0 will disable rumble for this Gamepad.</HelpText>
 			</Property>
 		</Group>
 		<Group name="gp1" display="Gamepad: 2">
-			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
-				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
-			</Property>
-			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
-				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_idz" display="Right Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
-				<HelpText>Right analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
-
-A value of 0 will disable rumble for this Gamepad.</HelpText>
-			</Property>
-		</Group>
-		<Group name="gp2" display="Gamepad: 3">
-			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
-				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
-			</Property>
-			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
-				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="rs_idz" display="Right Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
-				<HelpText>Right analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
-			</Property>
-			<Property name="vib_str" display="Rumble Strength" type="float" defaultvalue="100" minvalue="0" maxvalue="100">
-				<HelpText>Rumble motors strength as a percentage. All vibration values will be multiplied by this value.
-
-A value of 0 will disable rumble for this Gamepad.</HelpText>
-			</Property>
-		</Group>
-		<Group name="gp3" display="Gamepad: 4">
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
 				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
 			</Property>
@@ -337,154 +275,6 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 				<HelpText>Key to map to right on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
 			</Property>
 		</Group>
-		<Group name="kb2" display="Keyboard Layout: 3">
-			<Property name="ls_up" display="Left Stick Up" type="eKEYBOARD_KEY" defaultvalue="87">
-				<HelpText>Key to map to left stick up, used to move forward.</HelpText>
-			</Property>
-			<Property name="ls_down" display="Left Stick Down" type="eKEYBOARD_KEY" defaultvalue="83">
-				<HelpText>Key to map to left stick down, used to move backward.</HelpText>
-			</Property>
-			<Property name="ls_left" display="Left Stick Left" type="eKEYBOARD_KEY" defaultvalue="65">
-				<HelpText>Key to map to left stick left, used to move left.</HelpText>
-			</Property>
-			<Property name="ls_right" display="Left Stick Right" type="eKEYBOARD_KEY" defaultvalue="68">
-				<HelpText>Key to map to left stick right, used to move right.</HelpText>
-			</Property>
-			<Property name="rs_up" display="Right Stick Up" type="eKEYBOARD_KEY" defaultvalue="104">
-				<HelpText>Key to map to right stick up, used to move forward.</HelpText>
-			</Property>
-			<Property name="rs_down" display="Right Stick Down" type="eKEYBOARD_KEY" defaultvalue="98">
-				<HelpText>Key to map to right stick down, used to move backward.</HelpText>
-			</Property>
-			<Property name="rs_left" display="Right Stick Left" type="eKEYBOARD_KEY" defaultvalue="100">
-				<HelpText>Key to map to right stick left, used to move left.</HelpText>
-			</Property>
-			<Property name="rs_right" display="Right Stick Right" type="eKEYBOARD_KEY" defaultvalue="102">
-				<HelpText>Key to map to right stick right, used to move right.</HelpText>
-			</Property>
-			<Property name="btn_a" display="A Button" type="eKEYBOARD_KEY" defaultvalue="32">
-				<HelpText>Key to map to the A button, used to accept and jump.</HelpText>
-			</Property>
-			<Property name="btn_b" display="B Button" type="eKEYBOARD_KEY" defaultvalue="67">
-				<HelpText>Key to map to the B button, used to decline, spindash, and many other actions.</HelpText>
-			</Property>
-			<Property name="btn_x" display="X Button" type="eKEYBOARD_KEY" defaultvalue="88">
-				<HelpText>Key to map to the X button, used as a secondary button to decline, spindash, and many other actions.</HelpText>
-			</Property>
-			<Property name="btn_y" display="Y Button" type="eKEYBOARD_KEY" defaultvalue="90">
-				<HelpText>Key to map to the Y button, used to cycle through different actions which can then be performed with B or X.</HelpText>
-			</Property>
-			<Property name="btn_l" display="L Button" type="eKEYBOARD_KEY" defaultvalue="81">
-				<HelpText>Key to map to the L button, used to rotate the camera right.</HelpText>
-			</Property>
-			<Property name="btn_r" display="R Button" type="eKEYBOARD_KEY" defaultvalue="69">
-				<HelpText>Key to map to the R button, used to rotate the camera right.</HelpText>
-			</Property>
-			<Property name="btn_start" display="Start Button" type="eKEYBOARD_KEY" defaultvalue="27">
-				<HelpText>Key to map to the Start button, used to pause.</HelpText>
-			</Property>
-			<Property name="btn_back" display="Back Button" type="eKEYBOARD_KEY" defaultvalue="192">
-				<HelpText>Key to map to the Back button, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_zl" display="ZL/LB Button" type="eKEYBOARD_KEY" defaultvalue="50">
-				<HelpText>Key to map to the left shoulder button, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_zr" display="ZR/RB Button" type="eKEYBOARD_KEY" defaultvalue="51">
-				<HelpText>Key to map to the right shoulder button, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_ls" display="Left Stick Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the left analog stick click, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_rs" display="Right Stick Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the right analog stick click, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="dp_up" display="D-Pad Up" type="eKEYBOARD_KEY" defaultvalue="38">
-				<HelpText>Key to map to up on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-			<Property name="dp_down" display="D-Pad Down" type="eKEYBOARD_KEY" defaultvalue="40">
-				<HelpText>Key to map to down on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-			<Property name="dp_left" display="D-Pad Left" type="eKEYBOARD_KEY" defaultvalue="37">
-				<HelpText>Key to map to left on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-			<Property name="dp_right" display="D-Pad Right" type="eKEYBOARD_KEY" defaultvalue="39">
-				<HelpText>Key to map to right on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-		</Group>
-		<Group name="kb3" display="Keyboard Layout: 4">
-			<Property name="ls_up" display="Left Stick Up" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to left stick up, used to move forward.</HelpText>
-			</Property>
-			<Property name="ls_down" display="Left Stick Down" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to left stick down, used to move backward.</HelpText>
-			</Property>
-			<Property name="ls_left" display="Left Stick Left" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to left stick left, used to move left.</HelpText>
-			</Property>
-			<Property name="ls_right" display="Left Stick Right" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to left stick right, used to move right.</HelpText>
-			</Property>
-			<Property name="rs_up" display="Right Stick Up" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to right stick up, used to move forward.</HelpText>
-			</Property>
-			<Property name="rs_down" display="Right Stick Down" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to right stick down, used to move backward.</HelpText>
-			</Property>
-			<Property name="rs_left" display="Right Stick Left" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to right stick left, used to move left.</HelpText>
-			</Property>
-			<Property name="rs_right" display="Right Stick Right" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to right stick right, used to move right.</HelpText>
-			</Property>
-			<Property name="btn_a" display="A Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the A button, used to accept and jump.</HelpText>
-			</Property>
-			<Property name="btn_b" display="B Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the B button, used to decline, spindash, and many other actions.</HelpText>
-			</Property>
-			<Property name="btn_x" display="X Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the X button, used as a secondary button to decline, spindash, and many other actions.</HelpText>
-			</Property>
-			<Property name="btn_y" display="Y Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the Y button, used to cycle through different actions which can then be performed with B or X.</HelpText>
-			</Property>
-			<Property name="btn_l" display="L Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the L button, used to rotate the camera right.</HelpText>
-			</Property>
-			<Property name="btn_r" display="R Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the R button, used to rotate the camera right.</HelpText>
-			</Property>
-			<Property name="btn_start" display="Start Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the Start button, used to pause.</HelpText>
-			</Property>
-			<Property name="btn_back" display="Back Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the Back button, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_zl" display="ZL/LB Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the left shoulder button, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_zr" display="ZR/RB Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the right shoulder button, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_ls" display="Left Stick Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the left analog stick click, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="btn_rs" display="Right Stick Button" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to the right analog stick click, unused in the vanilla game but mods may use it.</HelpText>
-			</Property>
-			<Property name="dp_up" display="D-Pad Up" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to up on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-			<Property name="dp_down" display="D-Pad Down" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to down on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-			<Property name="dp_left" display="D-Pad Left" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to left on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-			<Property name="dp_right" display="D-Pad Right" type="eKEYBOARD_KEY" defaultvalue="255">
-				<HelpText>Key to map to right on the directional pad, used for moving through menus alongside the left analog stick.</HelpText>
-			</Property>
-		</Group>
 		<Group name="misc" display="Miscellaneous Settings">
 		<Property name="dc_drift" display="Dreamcast Accuracy Mode" type="eBOOL" defaultvalue="0">
 			<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
@@ -507,15 +297,11 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 		<Enum name="eGAMEPAD">
 			<EnumMember name="0"  display="Gamepad 1"></EnumMember>
 			<EnumMember name="1"  display="Gamepad 2"></EnumMember>
-			<EnumMember name="2"  display="Gamepad 3"></EnumMember>
-			<EnumMember name="3"  display="Gamepad 4"></EnumMember>
 			<EnumMember name="-1" display="No Gamepad"></EnumMember>
 		</Enum>
 		<Enum name="eKEYBOARD">
 			<EnumMember name="0"  display="Keyboard 1"></EnumMember>
 			<EnumMember name="1"  display="Keyboard 2"></EnumMember>
-			<EnumMember name="2"  display="Keyboard 3"></EnumMember>
-			<EnumMember name="3"  display="Keyboard 4"></EnumMember>
 			<EnumMember name="-1" display="No Keyboard"></EnumMember>
 		</Enum>
 		<Enum name="eINPUT_MODE">
@@ -528,8 +314,6 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 		<Enum name="eEMU_KB">
 			<EnumMember name="0"  display="Keyboard 1"></EnumMember>
 			<EnumMember name="1"  display="Keyboard 2"></EnumMember>
-			<EnumMember name="2"  display="Keyboard 3"></EnumMember>
-			<EnumMember name="3"  display="Keyboard 4"></EnumMember>
 			<EnumMember name="-1" display="Off/Disabled"></EnumMember>
 		</Enum>
 		<Enum name="eEMU_STICK">
