@@ -224,17 +224,6 @@ eIC_USER_NUM;
 
 typedef enum
 {
-    IC_INPUT_MD_NONE = -1,
-
-    IC_INPUT_MD_KEYBOARD,
-    IC_INPUT_MD_GAMEPAD,
-    IC_INPUT_MD_SWITCH,
-    IC_INPUT_MD_BOTH,
-}
-eIC_INPUT_MODE;
-
-typedef enum
-{
     IC_GAMEPAD_NONE = -1,
 
     IC_GAMEPAD_1,
@@ -399,16 +388,6 @@ typedef struct
     const IC_USER_INPUT* (__cdecl* GetInput)( eIC_USER_NUM nbUser );
 
     /**** Input Settings ****************************************************/
-    /*
-    *   Description:
-    *
-    *   Parameters:
-    *     - nbUser  : user number to get raw input of
-    *
-    *   Returns:
-    *     The user's set input mode
-    */
-    eIC_INPUT_MODE (__cdecl* GetInputMode)( eIC_USER_NUM nbUser );
     /*
     *   Description:
     *

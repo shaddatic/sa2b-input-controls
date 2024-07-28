@@ -27,7 +27,6 @@ const ICAPI_USER icapi_user =
 
     .GetInput = (void*) UserGetInput,
 
-    .GetInputMode   = (void*) UserGetInputMode,
     .GetGamepadNum  = (void*) UserGetGamepadNum,
     .GetKeyboardNum = (void*) UserGetKeyboardNum,
 };

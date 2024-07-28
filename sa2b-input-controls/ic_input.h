@@ -352,11 +352,6 @@ void    IC_InputInit(void);
 const USER_INPUT* UserGetInput( eUSER_NUM nbUser );
 /*
 *   Description:
-*     Get the input mode for a specified user
-*/
-eINPUT_MODE UserGetInputMode( eUSER_NUM nbUser );
-/*
-*   Description:
 *     Get the gamepad number for a specified user
 */
 eGAMEPAD_NUM UserGetGamepadNum( eUSER_NUM nbUser );

@@ -92,17 +92,6 @@ typedef enum
 }
 CNFE_USER_KEYBOARD;
 
-typedef enum
-{
-    CNFE_USER_INPUTMD_NONE = -1,
-
-    CNFE_USER_INPUTMD_KEYBOARD,
-    CNFE_USER_INPUTMD_GAMEPAD,
-    CNFE_USER_INPUTMD_SWITCH,
-    CNFE_USER_INPUTMD_BOTH,
-}
-CNFE_USER_INPUTMD;
-
 /****** Gamepad *********************************************************************/
 typedef enum
 {
@@ -140,16 +129,12 @@ CNFE_EMUANALOG_KEYBRD;
 /****** User ****************************************************************************************************************************/
 #define CNF_USER1_GAMEPD_NB             CNFO_INT(   CNFS_USER1          , "gp_nb"               , CNFE_USER_GAMEPAD_1                   )
 #define CNF_USER1_KEYBRD_NB             CNFO_INT(   CNFS_USER1          , "kb_nb"               , CNFE_USER_KEYBOARD_1                  )
-#define CNF_USER1_INPUT_MODE            CNFO_INT(   CNFS_USER1          , "input_md"            , CNFE_USER_INPUTMD_SWITCH              )
 #define CNF_USER2_GAMEPD_NB             CNFO_INT(   CNFS_USER2          , "gp_nb"               , CNFE_USER_GAMEPAD_2                   )
 #define CNF_USER2_KEYBRD_NB             CNFO_INT(   CNFS_USER2          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
-#define CNF_USER2_INPUT_MODE            CNFO_INT(   CNFS_USER2          , "input_md"            , CNFE_USER_INPUTMD_SWITCH              )
 #define CNF_USER3_GAMEPD_NB             CNFO_INT(   CNFS_USER3          , "gp_nb"               , CNFE_USER_GAMEPAD_NONE                )
 #define CNF_USER3_KEYBRD_NB             CNFO_INT(   CNFS_USER3          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
-#define CNF_USER3_INPUT_MODE            CNFO_INT(   CNFS_USER3          , "input_md"            , CNFE_USER_INPUTMD_NONE                )
 #define CNF_USER4_GAMEPD_NB             CNFO_INT(   CNFS_USER4          , "gp_nb"               , CNFE_USER_GAMEPAD_NONE                )
 #define CNF_USER4_KEYBRD_NB             CNFO_INT(   CNFS_USER4          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
-#define CNF_USER4_INPUT_MODE            CNFO_INT(   CNFS_USER4          , "input_md"            , CNFE_USER_INPUTMD_NONE                )
 
 /****** Gamepad *************************************************************************************************************************/
 #define CNFV_GAMEPD_DZ_MODE(s)          CNFO_INT(   s                   , "dz_md"               , CNFE_GAMEPD_DZ_MODE_CIRCULAR          )

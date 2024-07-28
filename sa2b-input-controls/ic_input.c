@@ -27,7 +27,6 @@ typedef struct
 {
     eGAMEPAD_NUM  nbGp;
     eKEYBOARD_NUM nbKb;
-    eINPUT_MODE   mode;
 }
 USER_INFO;
 
@@ -53,12 +52,6 @@ static USER_INPUT UserInput[NB_USER];
 /************************/
 /*  Source              */
 /************************/
-eINPUT_MODE
-UserGetInputMode(const eUSER_NUM nbUser)
-{
-    return UserInfos[nbUser].mode;
-}
-
 eGAMEPAD_NUM
 UserGetGamepadNum(const eUSER_NUM nbUser)
 {
@@ -89,37 +82,9 @@ SetUserInput(void)
         INPUT_OUT input_gp = {0};
         INPUT_OUT input_kb = {0};
 
-        /** This looks confusing, I know, but trust me this is the best idea I had
-            on how to do this. I tried others, it was messy. This though is fine **/
-        switch (p_info->mode) {
-        case INPUT_MD_NONE:
-            break;
-
-        case INPUT_MD_GAMEPAD:
-        {
-            GamepadSetUserInput(p_info->nbGp, &input_gp);
-            break;
-        }
-        case INPUT_MD_KEYBOARD: 
-        {
-            KeyboardSetUserInput(p_info->nbKb, &input_kb);
-            break;
-        }
-        case INPUT_MD_SWITCH:
-        {
-            if ( !GamepadSetUserInput(p_info->nbGp, &input_gp) )
-            {
-                KeyboardSetUserInput(p_info->nbKb, &input_kb);
-            }
-            break;
-        }
-        case INPUT_MD_BOTH:
-        {
-            GamepadSetUserInput(p_info->nbGp, &input_gp);
-            KeyboardSetUserInput(p_info->nbKb, &input_kb);
-            break;
-        }
-        }
+        /** Get inputs **/
+        GamepadSetUserInput(  p_info->nbGp, &input_gp );
+        KeyboardSetUserInput( p_info->nbKb, &input_kb );
 
         /** Axis Info **/
         p_input->x1 = MAX_ABS(input_gp.x1, input_kb.x1);
@@ -298,21 +263,17 @@ IC_InputInit(void)
     DgtLROn  = (Sint16) CnfGetInt(CNF_MAIN_DGTLR_ON);
     DgtLROff = (Sint16) CnfGetInt(CNF_MAIN_DGTLR_OFF);
 
-    UserInfos[0].nbGp = CnfGetInt( CNF_USER1_GAMEPD_NB  );
-    UserInfos[0].nbKb = CnfGetInt( CNF_USER1_KEYBRD_NB  );
-    UserInfos[0].mode = CnfGetInt( CNF_USER1_INPUT_MODE ); 
+    UserInfos[0].nbGp = CnfGetInt( CNF_USER1_GAMEPD_NB );
+    UserInfos[0].nbKb = CnfGetInt( CNF_USER1_KEYBRD_NB );
 
-    UserInfos[1].nbGp = CnfGetInt( CNF_USER2_GAMEPD_NB  );
-    UserInfos[1].nbKb = CnfGetInt( CNF_USER2_KEYBRD_NB  );
-    UserInfos[1].mode = CnfGetInt( CNF_USER2_INPUT_MODE );
+    UserInfos[1].nbGp = CnfGetInt( CNF_USER2_GAMEPD_NB );
+    UserInfos[1].nbKb = CnfGetInt( CNF_USER2_KEYBRD_NB );
 
-    UserInfos[2].nbGp = CnfGetInt( CNF_USER3_GAMEPD_NB  );
-    UserInfos[2].nbKb = CnfGetInt( CNF_USER3_KEYBRD_NB  );
-    UserInfos[2].mode = CnfGetInt( CNF_USER3_INPUT_MODE );
+    UserInfos[2].nbGp = CnfGetInt( CNF_USER3_GAMEPD_NB );
+    UserInfos[2].nbKb = CnfGetInt( CNF_USER3_KEYBRD_NB );
 
-    UserInfos[3].nbGp = CnfGetInt( CNF_USER4_GAMEPD_NB  );
-    UserInfos[3].nbKb = CnfGetInt( CNF_USER4_KEYBRD_NB  );
-    UserInfos[3].mode = CnfGetInt( CNF_USER4_INPUT_MODE ); 
+    UserInfos[3].nbGp = CnfGetInt( CNF_USER4_GAMEPD_NB );
+    UserInfos[3].nbKb = CnfGetInt( CNF_USER4_KEYBRD_NB );
 
     GamepadInit();
     KeyboardInit();
