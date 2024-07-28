@@ -167,8 +167,8 @@ IC_SocMagicInit(void)
     {
         SOCInput* const p_socin = SOC_GetInput();
     
-        p_socin->m_pInput->vft->Destructor(p_socin->m_pInput, 1);
-        p_socin->m_pInput = nullptr;
+        //p_socin->m_pInput->vft->Destructor(p_socin->m_pInput, 1);
+        //p_socin->m_pInput = nullptr;
     
         for (int i = 0; i < ARYLEN(p_socin->m_pController); ++i)
         {
