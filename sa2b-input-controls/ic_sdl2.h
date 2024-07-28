@@ -13,6 +13,12 @@
 EXTERN_START
 
 /************************/
+/*  Opaque Types        */
+/************************/
+/****** Event Handling ***************************************************************/
+typedef union SDL_Event     SDL_Event;
+
+/************************/
 /*  Prototypes          */
 /************************/
 /****** Module Init *****************************************************************/
@@ -29,6 +35,10 @@ bool    ICSDL_Init( void );
 *     SDL Exit function for OnExit
 */
 void    ICSDL_Exit( void );
+
+/****** Event Handling ***************************************************************/
+void    ICSDL_PollEvents( void );
+void    ICSDL_RegisterEventHandler( void(__cdecl* fnEvHandler)(const SDL_Event*) );
 
 /****** Input Controls API **********************************************************/
 /*

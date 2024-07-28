@@ -3,7 +3,7 @@
 /************************/
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/memory.h>    /* MemAlloc, MemFree                                    */
+#include <sa2b/memory.h>    /* MemAlloc, MemFree, mReAlloc                          */
 #include <sa2b/string.h>    /* StringSize                                           */
 #include <sa2b/dll.h>       /* DLL_Mount2, DLL_GetExportList                        */
 #include <sa2b/user.h>      /* UserErrorMessageBox                                  */
@@ -29,10 +29,23 @@
 #define SDL_EXPORT(name)                    { &___##name, "SDL_"#name }
 
 /************************/
+/*  Structures          */
+/************************/
+/****** Event Handler ***************************************************************/
+typedef struct
+{
+    void (__cdecl* func)( const SDL_Event* );
+}
+EVENT_HANDLER;
+
+/************************/
 /*  File Data           */
 /************************/
 /****** DLL Handle ******************************************************************/
 static dll_handle* SdlHandle;
+
+static EVENT_HANDLER* EvHandlerListP;
+static size_t         EvHandlerListNum;
 
 /****** Function Pointers ***********************************************************/
 SDL_FUNC_PTR(int                , Init                           , (int)                                          );
@@ -246,4 +259,40 @@ ICSDL_Exit(void)
     SDL_Quit();
 
     DLL_Unmount(SdlHandle);
+}
+
+void
+ICSDL_RegisterEventHandler(void (__cdecl* fnEvHandler)(const SDL_Event*))
+{
+    if (!fnEvHandler)
+        return;
+
+    const size_t nb = EvHandlerListNum;
+
+    EVENT_HANDLER* p_hdl = EvHandlerListP;
+
+    p_hdl = mReAlloc(EVENT_HANDLER, p_hdl, nb+1);
+
+    p_hdl[nb].func = fnEvHandler;
+
+    EvHandlerListP = p_hdl;
+    EvHandlerListNum = nb+1;
+}
+
+void
+ICSDL_PollEvents(void)
+{
+    SDL_Event ev;
+
+    while ( SDL_PollEvent(&ev) )
+    {
+        const size_t nb_hdl = EvHandlerListNum;
+
+        const EVENT_HANDLER* p_hdl = EvHandlerListP;
+
+        for (size_t i = 0; i < nb_hdl; ++i, ++p_hdl)
+        {
+            p_hdl->func( &ev );
+        }
+    }
 }

@@ -15,6 +15,7 @@
 #include <ic_window.h>      /* WindowUpdate                                         */
 #include <ic_config.h>      /* CnfGet___                                            */
 #include <ic_socmagic.h>    /* SetSocPeripheral                                     */
+#include <ic_sdl2.h>        /* ICSDL_PollEvents                                     */
 
 /****** Self ************************************************************************/
 #include <ic_input.h>               /* self                                         */
@@ -234,6 +235,8 @@ SetPdsPeripheral(void)
 static int
 SetPeripheral(void)
 {
+    ICSDL_PollEvents();
+
     IC_WindowUpdate();
 
     GamepadUpdate();

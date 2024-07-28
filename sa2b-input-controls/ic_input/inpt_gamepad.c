@@ -23,6 +23,7 @@
 /****** Input Controls **************************************************************/
 #include <ic_core.h>    /* core                                                     */
 #include <ic_config.h>  /* CnfGet___                                                */
+#include <ic_sdl2.h>    /* ICSDL_RegisterEventHandler                               */
 
 /****** Self ************************************************************************/
 #include <ic_input/inpt_internal.h> /* internal                                     */
@@ -130,24 +131,16 @@ CloseGamepad(const int id)
 }
 
 static void
-HandleSdlEvents(void)
+GamepadEventHandler(const SDL_Event* pEvent)
 {
-    SDL_Event ev;
+    switch (pEvent->type) {
+    case SDL_JOYDEVICEADDED:
+        OpenGamepad(pEvent->cdevice.which);
+        break;
 
-    while (SDL_PollEvent(&ev))
-    {
-        switch (ev.type) {
-        case SDL_JOYDEVICEADDED:
-            OpenGamepad(ev.cdevice.which);
-            break;
-
-        case SDL_JOYDEVICEREMOVED:
-            CloseGamepad(ev.cdevice.which);
-            break;
-
-        default:
-            break;
-        }
+    case SDL_JOYDEVICEREMOVED:
+        CloseGamepad(pEvent->cdevice.which);
+        break;
     }
 }
 
@@ -349,8 +342,6 @@ GamepadSetUserInput(const eGAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
 void
 GamepadUpdate(void)
 {
-    HandleSdlEvents();
-
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
     {
         if (!GamepadValid(i))
@@ -404,4 +395,6 @@ GamepadInit(void)
 
         ResetGamepadStruct(p_gp);
     }
+
+    ICSDL_RegisterEventHandler( GamepadEventHandler );
 }
