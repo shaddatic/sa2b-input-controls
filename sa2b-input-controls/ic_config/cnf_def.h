@@ -117,8 +117,6 @@ CNFE_EMUANALOG_KEYBRD;
 /************************/
 /**                                   | Type      | Section             | Key                   | Default                              **/
 /****** Main ****************************************************************************************************************************/
-#define CNF_MAIN_DGTLR_ON               CNFO_INT(   CNFS_MAIN           , "lr_on"               , 192                                   )
-#define CNF_MAIN_DGTLR_OFF              CNFO_INT(   CNFS_MAIN           , "lr_off"              , 160                                   )
 #define CNF_MAIN_RAWANALOG              CNFO_INT(   CNFS_MAIN           , "raw_analog"          , CNFE_BOOL_ENABLED                     )
 #define CNF_MAIN_X2LR                   CNFO_INT(   CNFS_MAIN           , "x2_lr"               , CNFE_BOOL_DISABLED                    )
 
@@ -129,12 +127,23 @@ CNFE_EMUANALOG_KEYBRD;
 /****** User ****************************************************************************************************************************/
 #define CNF_USER1_GAMEPD_NB             CNFO_INT(   CNFS_USER1          , "gp_nb"               , CNFE_USER_GAMEPAD_1                   )
 #define CNF_USER1_KEYBRD_NB             CNFO_INT(   CNFS_USER1          , "kb_nb"               , CNFE_USER_KEYBOARD_1                  )
+#define CNF_USER1_DGTLR_ON              CNFO_INT(   CNFS_USER1          , "lr_on"               , 192                                   )
+#define CNF_USER1_DGTLR_OFF             CNFO_INT(   CNFS_USER1          , "lr_off"              , 160                                   )
+
 #define CNF_USER2_GAMEPD_NB             CNFO_INT(   CNFS_USER2          , "gp_nb"               , CNFE_USER_GAMEPAD_2                   )
 #define CNF_USER2_KEYBRD_NB             CNFO_INT(   CNFS_USER2          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
+#define CNF_USER2_DGTLR_ON              CNFO_INT(   CNFS_USER2          , "lr_on"               , 192                                   )
+#define CNF_USER2_DGTLR_OFF             CNFO_INT(   CNFS_USER2          , "lr_off"              , 160                                   )
+
 #define CNF_USER3_GAMEPD_NB             CNFO_INT(   CNFS_USER3          , "gp_nb"               , CNFE_USER_GAMEPAD_NONE                )
 #define CNF_USER3_KEYBRD_NB             CNFO_INT(   CNFS_USER3          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
+#define CNF_USER3_DGTLR_ON              CNFO_INT(   CNFS_USER3          , "lr_on"               , 192                                   )
+#define CNF_USER3_DGTLR_OFF             CNFO_INT(   CNFS_USER3          , "lr_off"              , 160                                   )
+
 #define CNF_USER4_GAMEPD_NB             CNFO_INT(   CNFS_USER4          , "gp_nb"               , CNFE_USER_GAMEPAD_NONE                )
 #define CNF_USER4_KEYBRD_NB             CNFO_INT(   CNFS_USER4          , "kb_nb"               , CNFE_USER_KEYBOARD_NONE               )
+#define CNF_USER4_DGTLR_ON              CNFO_INT(   CNFS_USER4          , "lr_on"               , 192                                   )
+#define CNF_USER4_DGTLR_OFF             CNFO_INT(   CNFS_USER4          , "lr_off"              , 160                                   )
 
 /****** Gamepad *************************************************************************************************************************/
 #define CNFV_GAMEPD_DZ_MODE(s)          CNFO_INT(   s                   , "dz_md"               , CNFE_GAMEPD_DZ_MODE_CIRCULAR          )

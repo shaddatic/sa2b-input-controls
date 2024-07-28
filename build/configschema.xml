@@ -7,18 +7,6 @@
 
 Some mods modify the emulated Dreamcast controller values to perform certain effects, like flipping the controls. Turning this setting off will allow such effects to work correctly.</HelpText>
 			</Property>
-			<Property name="lr_on" display="Digital Trigger 'On' Threshold" type="int" defaultvalue="192" minvalue="0" maxvalue="255">
-				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to start registering as a digital press.
-
-Dreamcast used a value of 192.
-PC used a value of 140.</HelpText>
-			</Property>
-			<Property name="lr_off" display="Digital Trigger 'Off' Threshold" type="int" defaultvalue="160" minvalue="0" maxvalue="255">
-				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to stop registering as a digital press.
-
-Dreamcast used a value of 160.
-PC used a value of 139.</HelpText>
-			</Property>
 			<Property name="x2_lr" display="Right Stick Sets Triggers" type="eBOOL" defaultvalue="0">
 				<HelpText>Allow the right analog stick set the analog triggers on the emulated Dreamcast controller.
 
@@ -42,6 +30,18 @@ NOTE: Requres 'Analog Controls'</HelpText>
 			<Property name="kb_nb" display="Keyboard" type="eKEYBOARD" defaultvalue="0">
 				<HelpText>Which Keyboard layout this player will read from.</HelpText>
 			</Property>
+			<Property name="lr_on" display="Digital Trigger 'On' Threshold" type="int" defaultvalue="192" minvalue="0" maxvalue="255">
+				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to start registering as a digital press.
+
+Dreamcast used a value of 192.
+PC used a value of 140.</HelpText>
+			</Property>
+			<Property name="lr_off" display="Digital Trigger 'Off' Threshold" type="int" defaultvalue="160" minvalue="0" maxvalue="255">
+				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to stop registering as a digital press.
+
+Dreamcast used a value of 160.
+PC used a value of 139.</HelpText>
+			</Property>
 		</Group>
 		<Group name="user1" display="Player 2 Settings">
 			<Property name="gp_nb" display="Gamepad" type="eGAMEPAD" defaultvalue="1">
@@ -49,6 +49,18 @@ NOTE: Requres 'Analog Controls'</HelpText>
 			</Property>
 			<Property name="kb_nb" display="Keyboard" type="eKEYBOARD" defaultvalue="-1">
 				<HelpText>Which Keyboard layout this player will read from.</HelpText>
+			</Property>
+			<Property name="lr_on" display="Digital Trigger 'On' Threshold" type="int" defaultvalue="192" minvalue="0" maxvalue="255">
+				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to start registering as a digital press.
+
+Dreamcast used a value of 192.
+PC used a value of 140.</HelpText>
+			</Property>
+			<Property name="lr_off" display="Digital Trigger 'Off' Threshold" type="int" defaultvalue="160" minvalue="0" maxvalue="255">
+				<HelpText>Analog threshold of L/R on the emulated Dreamcast controller (0~255) for it to stop registering as a digital press.
+
+Dreamcast used a value of 160.
+PC used a value of 139.</HelpText>
 			</Property>
 		</Group>
 		<Group name="gp0" display="Gamepad: 1">
