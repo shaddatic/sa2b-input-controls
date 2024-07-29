@@ -58,9 +58,9 @@ Dreamcast used a value of 160.
 PC used a value of 139.</HelpText>
 			</Property>
 		</Group>
-		<Group name="gp0" display="Gamepad: 1">
+		<Group name="gp0" display="Gamepad 1 Settings">
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
-				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
+				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' may feel easier to reproduce the same cardinal movement repeatedly.</HelpText>
 			</Property>
 			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
@@ -74,9 +74,9 @@ PC used a value of 139.</HelpText>
 A value of 0 will disable rumble for this Gamepad.</HelpText>
 			</Property>
 		</Group>
-		<Group name="gp1" display="Gamepad: 2">
+		<Group name="gp1" display="Gamepad 2 Settings">
 			<Property name="dz_md" display="Deadzone Mode" type="eDZ_MODE" defaultvalue="0">
-				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' will be easier to reproduce the same movement repeatedly.</HelpText>
+				<HelpText>Type of analog deadzone to use. 'Circular' will feel smoother and will have more fine control, but 'Square' may feel easier to reproduce the same cardinal movement repeatedly.</HelpText>
 			</Property>
 			<Property name="ls_idz" display="Left Stick Deadzone" type="float" defaultvalue="10" minvalue="0" maxvalue="100">
 				<HelpText>Left analog stick inner-deadzone, as a minimum percentage. A value of '0' will act as no inner-deadzone.</HelpText>
@@ -269,8 +269,8 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 			</Property>
 		</Group>
 		<Group name="misc" display="Miscellaneous Settings">
-		<Property name="dc_drift" display="Dreamcast Accuracy Mode" type="eBOOL" defaultvalue="0">
-			<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
+			<Property name="dc_drift" display="Dreamcast Accuracy Mode (!)" type="eBOOL" defaultvalue="0">
+				<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
 			</Property>
 		</Group>
 		<Group name="compatibility" display="Compatibility Settings">
