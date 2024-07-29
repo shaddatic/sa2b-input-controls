@@ -36,7 +36,7 @@ typedef struct
 {
     void (__cdecl* func)( const SDL_Event* );
 }
-EVENT_HANDLER;
+EVSDL_HANDLER;
 
 /************************/
 /*  File Data           */
@@ -44,7 +44,7 @@ EVENT_HANDLER;
 /****** DLL Handle ******************************************************************/
 static dll_handle* SdlHandle;
 
-static EVENT_HANDLER* EvHandlerListP;
+static EVSDL_HANDLER* EvHandlerListP;
 static size_t         EvHandlerListNum;
 
 /****** Function Pointers ***********************************************************/
@@ -269,9 +269,9 @@ ICSDL_RegisterEventHandler(void (__cdecl* fnEvHandler)(const SDL_Event*))
 
     const size_t nb = EvHandlerListNum;
 
-    EVENT_HANDLER* p_hdl = EvHandlerListP;
+    EVSDL_HANDLER* p_hdl = EvHandlerListP;
 
-    p_hdl = mReAlloc(EVENT_HANDLER, p_hdl, nb+1);
+    p_hdl = mReAlloc(EVSDL_HANDLER, p_hdl, nb+1);
 
     p_hdl[nb].func = fnEvHandler;
 
@@ -288,7 +288,7 @@ ICSDL_PollEvents(void)
     {
         const size_t nb_hdl = EvHandlerListNum;
 
-        const EVENT_HANDLER* p_hdl = EvHandlerListP;
+        const EVSDL_HANDLER* p_hdl = EvHandlerListP;
 
         for (size_t i = 0; i < nb_hdl; ++i, ++p_hdl)
         {
