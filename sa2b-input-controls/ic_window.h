@@ -52,6 +52,10 @@ void    WindowGetSize( NJS_POINT2I* pOutSize );
 */
 void    WindowGetGameResolution( NJS_POINT2I* pOutRes );
 
+void    WND_RegisterMessageHandler( void(__cdecl* fnMsgHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
+
+void    WND_SendMessage(uint32_t msg, uint32_t wParam, int32_t lParam);
+
 EXTERN_END
 
 #endif/*H_IC_WINDOW*/

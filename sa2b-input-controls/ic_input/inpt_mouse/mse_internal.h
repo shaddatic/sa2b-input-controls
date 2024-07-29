@@ -31,4 +31,22 @@ void    MouseVisualizerInit( void );
 */
 void    MouseSetVisualizerInfo( f32 x, f32 y );
 
+/****** Message Functions ***********************************************************/
+void    MouseWindowMsgInit( void );
+
+/*
+*   Description:
+*     Handles mouse wheel window messages, input must be converted to wheel
+*   increments by dividing raw value by 120, or WHEEL_DELTA.
+*
+*   Module:
+*     Input::Mouse
+*
+*   Parameters:
+*     - wheel   : wheel increments as a float value (RawVal/WHEEL_DELTA)
+*/
+void    MouseMsgWheelY( f32 wheel );
+
+void    MouseMsgWheelX( f32 wheel );
+
 #endif/*H_IC_INPUT_MOUSE_INTERNAL*/

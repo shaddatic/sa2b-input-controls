@@ -34,6 +34,7 @@
     <ClCompile Include="ic_input\inpt_gamepad.c" />
     <ClCompile Include="ic_input\inpt_keyboard.c" />
     <ClCompile Include="ic_input\inpt_mouse.c" />
+    <ClCompile Include="ic_input\inpt_mouse\mse_wndmsg.c" />
     <ClCompile Include="ic_input\inpt_mouse\mse_visualizer.c" />
     <ClCompile Include="ic_os.c" />
     <ClCompile Include="ic_sdl2.c" />
@@ -41,6 +42,7 @@
     <ClCompile Include="ic_sonicinput.c" />
     <ClCompile Include="ic_vibtask.c" />
     <ClCompile Include="ic_window.c" />
+    <ClCompile Include="ic_window\icwnd_msg.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
@@ -59,7 +61,7 @@
     <ClInclude Include="ic_limits.h" />
     <ClInclude Include="ic_sdl2.h" />
     <ClInclude Include="ic_vibtask.h" />
-    <ClInclude Include="ic_wndmsg.h" />
+    <ClInclude Include="ic_window\icwnd_internal.h" />
     <ClInclude Include="ic_input\inpt_internal.h" />
     <ClInclude Include="ic_os.h" />
     <ClInclude Include="ic_socmagic.h" />

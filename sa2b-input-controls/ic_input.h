@@ -327,7 +327,8 @@ typedef struct
     uint8_t press;   /* mouse buttons pressed this moment                  (MSEBTN) */
     uint8_t release; /* mouse buttons released this moment                 (MSEBTN) */
 
-    f32     wheel;   /* mouse wheel rotation, in notches                            */
+    f32     wheelX;  /* mouse wheel X rotation, in notches                          */
+    f32     wheelY;  /* mouse wheel Y rotation, in notches                          */
 
     NJS_POINT2I vec; /* mouse movement vector, in pixels                            */
     NJS_POINT2I pos; /* mouse position on the game surface, in pixels               */

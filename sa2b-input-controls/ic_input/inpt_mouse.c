@@ -4,8 +4,8 @@
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
 
-/****** Input Controls **************************************************************/
-#include <sa2b/ninja/njcommon.h>    /* ninja                                        */
+/****** Ninja ***********************************************************************/
+#include <sa2b/ninja/njcommon.h>    /* ninja common                                 */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
@@ -46,7 +46,8 @@ static eCURSOR_SUBSTATE CursorSubState;     /* cursor sub-state                 
 static INT_POINT2    CursorPos;
 static INT_POINT2    CursorPosLast;         /* last position of the cursor          */
 
-static f32           WheelBuffer;           /* os message wheel buffer              */
+static f32           WheelBufferX;          /* os message wheel buffer X            */
+static f32           WheelBufferY;          /* os message wheel buffer Y            */
 
 static eKEYBOARD_NUM MouseEmuKbIndex;       /* analog emulation keyboard num        */
 static eEMU_STICK    MouseEmuStickIndex;    /* analog emulation stick num           */
@@ -160,8 +161,11 @@ MouseUpdate(void)
         Mouse.pos.y = (Sint16)cursor_wndpos.y; 
     }
 
-    Mouse.wheel = WheelBuffer;
-    WheelBuffer = 0.0f;
+    Mouse.wheelX = WheelBufferX;
+    WheelBufferX = 0.0f;
+
+    Mouse.wheelY = WheelBufferY;
+    WheelBufferY = 0.0f;
 
     CursorSubState = CURSOR_SUB_NONE;
 }
@@ -204,9 +208,15 @@ MouseGetEmulatedAnalog(const eKEYBOARD_NUM nbKb, const eEMU_STICK nbAnalog, f32*
 }
 
 void
-OSMSG_MouseWheel(const f32 wheel)
+MouseMsgWheelX(const f32 wheel)
 {
-    WheelBuffer += wheel;
+    WheelBufferX += wheel;
+}
+
+void
+MouseMsgWheelY(const f32 wheel)
+{
+    WheelBufferY += wheel;
 }
 
 const MOUSE*
@@ -264,4 +274,6 @@ MouseInit(void)
 
         MouseCapture();
     }
+
+    MouseWindowMsgInit();
 }

@@ -12,7 +12,7 @@
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>
-#include <ic_wndmsg.h>
+#include <ic_window.h>
 
 /****** Self ************************************************************************/
 #include <ic_os.h>      /* self                                                     */
@@ -44,22 +44,7 @@ static fnWndProc*   WndProcFunc;
 static LRESULT __stdcall
 WndProcInputControls(const HWND hWnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam)
 {
-    switch (uMsg) {
-    case WM_KILLFOCUS:
-        OSMSG_KillFocus();
-        break;
-
-    case WM_SETFOCUS:
-        OSMSG_SetFocus();
-        break;
-
-    /** Converts the raw mouse wheel message into a float, then adds that to the wheel
-        buffer. Each notch is 120, or 'WHEEL_DELTA', so we divide by that. The buffer is
-        collected and emptied later by the input/mouse sub-module. **/
-    case WM_MOUSEWHEEL:
-        OSMSG_MouseWheel((f32)(s16)(wParam >> 16) / (f32)WHEEL_DELTA);
-        break;
-    };
+    WND_SendMessage( uMsg, wParam, lParam );
 
     return WndProcFunc(hWnd, uMsg, wParam, lParam);
 }
