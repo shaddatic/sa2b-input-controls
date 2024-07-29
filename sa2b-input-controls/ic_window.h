@@ -26,31 +26,31 @@ EXTERN_START
 *   Description:
 *     Init Window module
 */
-void    IC_WindowInit( void );
+void    WND_Init( void );
 
 /****** Update **********************************************************************/
 /*
 *   Description:
 *     Update Window module. To be called before USER_INPUT is calculated
 */
-void    IC_WindowUpdate( void );
+void    WND_Update( void );
 
 /****** Info ************************************************************************/
 /*
 *   Description:
 *     Get if the game window is in focus
 */
-bool    WindowInFocus( void );
+bool    WND_InFocus( void );
 /*
 *   Description:
 *     Get the window size in physical pixels
 */
-void    WindowGetSize( NJS_POINT2I* pOutSize );
+void    WND_GetSize( NJS_POINT2I* pOutSize );
 /*
 *   Description:
 *     Get the game's internal rendering resolution
 */
-void    WindowGetGameResolution( NJS_POINT2I* pOutRes );
+void    WND_GetGameResolution( NJS_POINT2I* pOutRes );
 
 void    WND_RegisterMessageHandler( void(__cdecl* fnMsgHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
 

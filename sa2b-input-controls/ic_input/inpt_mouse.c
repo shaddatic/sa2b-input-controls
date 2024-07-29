@@ -67,7 +67,7 @@ MouseUpdate(void)
 {
     Mouse = (MOUSE){0};
 
-    if (!WindowInFocus()) 
+    if (!WND_InFocus()) 
     {
         /** If the cursor is currently captured, set the sub-state to 'capturing'
             so it can be re-captured next exec. **/

@@ -25,8 +25,8 @@ const ICAPI_WINDOW icapi_window =
 {
     .version = ICAPI_WINDOW_VER,
 
-    .InFocus = WindowInFocus,
+    .InFocus = WND_InFocus,
 
-    .GetSize           = WindowGetSize,
-    .GetGameResolution = WindowGetGameResolution,
+    .GetSize           = WND_GetSize,
+    .GetGameResolution = WND_GetGameResolution,
 };

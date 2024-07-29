@@ -267,7 +267,7 @@ KeyboardUpdate(void)
 {
     KEY_MAP key_states;
 
-    if (WindowInFocus() && OS_GetKeyboardState(key_states))
+    if (WND_InFocus() && OS_GetKeyboardState(key_states))
     {
         Keyboard.capslock = key_states[KEY_CAPSLOCK]    & KEY_TOGGLED;
         Keyboard.numblock = key_states[KEY_NUMLOCK]     & KEY_TOGGLED;

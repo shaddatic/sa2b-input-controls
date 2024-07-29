@@ -79,7 +79,7 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
         IC_SocMagicInit();
         IC_SonicInputInit();
         OS_Init();
-        IC_WindowInit();
+        WND_Init();
 
         if (can_api)
             ICAPI_End();

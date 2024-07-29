@@ -242,7 +242,7 @@ SetPeripheral(void)
 {
     ICSDL_PollEvents();
 
-    IC_WindowUpdate();
+    WND_Update();
 
     GamepadUpdate();
     KeyboardUpdate();

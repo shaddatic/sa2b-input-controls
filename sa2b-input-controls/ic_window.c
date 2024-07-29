@@ -42,25 +42,25 @@ static size_t          MsgHandlerListNum;
 /*  Source              */
 /************************/
 bool
-WindowInFocus(void)
+WND_InFocus(void)
 {
     return FocusState;
 }
 
 void
-WindowGetSize(NJS_POINT2I* const pOutSize)
+WND_GetSize(NJS_POINT2I* const pOutSize)
 {
     *pOutSize = WindowSize;
 }
 
 void
-WindowGetGameResolution(NJS_POINT2I* const pOutRes)
+WND_GetGameResolution(NJS_POINT2I* const pOutRes)
 {
     *pOutRes = GameResolution;
 }
 
 void
-IC_WindowUpdate(void)
+WND_Update(void)
 {
     INT_POINT2 size;
 
@@ -116,7 +116,7 @@ WND_MsgSetFocus(void)
 }
 
 void
-IC_WindowInit(void)
+WND_Init(void)
 {
     FocusState = true;
 
