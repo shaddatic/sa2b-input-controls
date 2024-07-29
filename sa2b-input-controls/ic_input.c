@@ -45,6 +45,11 @@ static USER_INFO UserInfos[NB_USER];
 static USER_INPUT UserInput[NB_USER];
 
 /************************/
+/*  Game Data           */
+/************************/
+#define ga_InputWay                 DATA_ARY(s32, 0x0174B5FC, [4])
+
+/************************/
 /*  Game Functions      */
 /************************/
 #define UpdateRawXInput             FUNC_PTR(int, __cdecl, (void), 0x00425700)
@@ -300,4 +305,11 @@ IC_InputInit(void)
     WritePointer(0x0061E04E, &mulf);
 
     WriteCall(UpdateControllers, SetPeripheral);
+
+    const s32 text_md = CnfGetInt( CNF_MISC_TEXTMD );
+
+    ga_InputWay[0] = text_md;
+    ga_InputWay[1] = text_md;
+    ga_InputWay[2] = text_md;
+    ga_InputWay[3] = text_md;
 }

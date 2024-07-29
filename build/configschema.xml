@@ -272,6 +272,9 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 			<Property name="dc_drift" display="Dreamcast Accuracy Mode (!)" type="eBOOL" defaultvalue="0">
 				<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
 			</Property>
+			<Property name="text_mode" display="Text Device Mode" type="eTEXT_MODE" defaultvalue="0">
+				<HelpText>Which input device the in-game messages and tips should use. 'Gamepad' is the recommended option.</HelpText>
+			</Property>
 		</Group>
 		<Group name="compatibility" display="Compatibility Settings">
 			<Property name="x2_lr" display="Control Triggers With Right Stick" type="eBOOL" defaultvalue="0">
@@ -346,7 +349,6 @@ This is used in the Vanilla PC version to, hackily, allow the right analog stick
 			<EnumMember name="45"  display="Insert"></EnumMember>
 			<EnumMember name="46"  display="Delete"></EnumMember>
 			<EnumMember name="47"  display="Help"></EnumMember>
-
 			<EnumMember name="48"  display="0 "></EnumMember>
 			<EnumMember name="49"  display="1 "></EnumMember>
 			<EnumMember name="50"  display="2 "></EnumMember>
@@ -357,7 +359,6 @@ This is used in the Vanilla PC version to, hackily, allow the right analog stick
 			<EnumMember name="55"  display="7 "></EnumMember>
 			<EnumMember name="56"  display="8 "></EnumMember>
 			<EnumMember name="57"  display="9 "></EnumMember>
-
 			<EnumMember name="65"  display="A"></EnumMember>
 			<EnumMember name="66"  display="B"></EnumMember>
 			<EnumMember name="67"  display="C"></EnumMember>
@@ -384,7 +385,6 @@ This is used in the Vanilla PC version to, hackily, allow the right analog stick
 			<EnumMember name="88"  display="X"></EnumMember>
 			<EnumMember name="89"  display="Y"></EnumMember>
 			<EnumMember name="90"  display="Z"></EnumMember>
-
 			<EnumMember name="96"  display="Numpad 0"></EnumMember>
 			<EnumMember name="97"  display="Numpad 1"></EnumMember>
 			<EnumMember name="98"  display="Numpad 2"></EnumMember>
@@ -400,7 +400,6 @@ This is used in the Vanilla PC version to, hackily, allow the right analog stick
 			<EnumMember name="109" display="Numpad -"></EnumMember>
 			<EnumMember name="110" display="Numpad ."></EnumMember>
 			<EnumMember name="111" display="Numpad /"></EnumMember>
-
 			<EnumMember name="112" display="F1"></EnumMember>
 			<EnumMember name="113" display="F2"></EnumMember>
 			<EnumMember name="114" display="F3"></EnumMember>
@@ -425,18 +424,15 @@ This is used in the Vanilla PC version to, hackily, allow the right analog stick
 			<EnumMember name="133" display="F22"></EnumMember>
 			<EnumMember name="134" display="F23"></EnumMember>
 			<EnumMember name="135" display="F24"></EnumMember>
-
 			<EnumMember name="20"  display="Caps Lock"></EnumMember>
 			<EnumMember name="144" display="Num Lock"></EnumMember>
 			<EnumMember name="145" display="Scroll Lock"></EnumMember>
-
 			<EnumMember name="160" display="Left Shift"></EnumMember>
 			<EnumMember name="161" display="Right Shift"></EnumMember>
 			<EnumMember name="162" display="Left Control"></EnumMember>
 			<EnumMember name="163" display="Right Control"></EnumMember>
 			<EnumMember name="164" display="Left Alt"></EnumMember>
 			<EnumMember name="165" display="Right Alt"></EnumMember>
-
 			<EnumMember name="186" display=";"></EnumMember>
 			<EnumMember name="187" display="="></EnumMember>
 			<EnumMember name="188" display=","></EnumMember>
@@ -448,12 +444,15 @@ This is used in the Vanilla PC version to, hackily, allow the right analog stick
 			<EnumMember name="220" display="]"></EnumMember>
 			<EnumMember name="221" display="\"></EnumMember>
 			<EnumMember name="222" display="'"></EnumMember>
-
 			<EnumMember name="1" display="Mouse: Left Click"></EnumMember>
 			<EnumMember name="2" display="Mouse: Right Click"></EnumMember>
 			<EnumMember name="4" display="Mouse: Middle Click"></EnumMember>
 			<EnumMember name="5" display="Mouse: Side Button 1"></EnumMember>
 			<EnumMember name="6" display="Mouse: Side Button 2"></EnumMember>
+		</Enum>
+		<Enum name="eTEXT_MODE">
+			<EnumMember name="1" display="Gamepad"></EnumMember>
+			<EnumMember name="0" display="Keyboard"></EnumMember>
 		</Enum>
 	</Enums>
 </ConfigSchema>

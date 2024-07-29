@@ -112,6 +112,14 @@ typedef enum
 }
 CNFE_EMUANALOG_KEYBRD;
 
+/****** Misc ************************************************************************/
+typedef enum
+{
+    CNFE_MISC_TEXTMD_KEYBOARD,
+    CNFE_MISC_TEXTMD_GAMEPAD,
+}
+CNFE_MISC_TEXTMD;
+
 /************************/
 /*  Options             */
 /************************/
@@ -190,6 +198,7 @@ CNFE_EMUANALOG_KEYBRD;
 
 /****** Misc Section ********************************************************************************************************************/
 #define CNF_MISC_DCDRIFT                CNFO_INT(   CNFS_MISC           , "dc_drift"            , CNFE_BOOL_DISABLED                    )
+#define CNF_MISC_TEXTMD                 CNFO_INT(   CNFS_MISC           , "text_mode"           , CNFE_MISC_TEXTMD_GAMEPAD              )
 
 /****** Compatibility  Section **********************************************************************************************************/
 #define CNF_COMPAT_X2SETLR              CNFO_INT(   CNFS_COMPAT         , "x2_lr"               , CNFE_BOOL_DISABLED                    )
