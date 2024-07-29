@@ -118,7 +118,6 @@ CNFE_EMUANALOG_KEYBRD;
 /**                                   | Type      | Section             | Key                   | Default                              **/
 /****** Main ****************************************************************************************************************************/
 #define CNF_MAIN_RAWANALOG              CNFO_INT(   CNFS_MAIN           , "raw_analog"          , CNFE_BOOL_ENABLED                     )
-#define CNF_MAIN_X2LR                   CNFO_INT(   CNFS_MAIN           , "x2_lr"               , CNFE_BOOL_DISABLED                    )
 
 /****** Camera **************************************************************************************************************************/
 #define CNF_CAMERA_ANALOG               CNFO_INT(   CNFS_CAMERA         , "analog"              , CNFE_BOOL_ENABLED                     )
@@ -191,6 +190,9 @@ CNFE_EMUANALOG_KEYBRD;
 
 /****** Misc Section ********************************************************************************************************************/
 #define CNF_MISC_DCDRIFT                CNFO_INT(   CNFS_MISC           , "dc_drift"            , CNFE_BOOL_DISABLED                    )
+
+/****** Compatibility  Section **********************************************************************************************************/
+#define CNF_COMPAT_X2SETLR              CNFO_INT(   CNFS_COMPAT         , "x2_lr"               , CNFE_BOOL_DISABLED                    )
 
 /****** Debug Section *******************************************************************************************************************/
 #define CNF_DEBUG_AXIS                  CNFO_INT(   CNFS_DEBUG          , "gp_axis"             , CNFE_BOOL_DISABLED                    )

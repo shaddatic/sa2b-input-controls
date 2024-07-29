@@ -261,7 +261,7 @@ ICF_UseRawAnalog(void)
 void
 IC_InputInit(void)
 {
-    X2SetsLR     = CnfGetInt(CNF_MAIN_X2LR);
+    X2SetsLR     = CnfGetInt(CNF_COMPAT_X2SETLR);
     UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
 
     UserInfos[0].nbGamepad  = CnfGetInt( CNF_USER1_GAMEPD_NB );

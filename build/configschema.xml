@@ -7,11 +7,6 @@
 
 Some mods modify the emulated Dreamcast controller values to perform certain effects, like flipping the controls. Turning this setting off will allow such effects to work correctly.</HelpText>
 			</Property>
-			<Property name="x2_lr" display="Right Stick Sets Triggers" type="eBOOL" defaultvalue="0">
-				<HelpText>Allow the right analog stick set the analog triggers on the emulated Dreamcast controller.
-
-This is used in the Vanilla PC version to, hackily, allow the right analog stick to move the camera. It is not recommended to enable this without reason.</HelpText>
-			</Property>
 		</Group>
 		<Group name="camera" display="Camera Settings">
 			<Property name="analog" display="Analog Controls" type="eBOOL" defaultvalue="1">
@@ -276,6 +271,13 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 		<Group name="misc" display="Miscellaneous Settings">
 		<Property name="dc_drift" display="Dreamcast Accuracy Mode" type="eBOOL" defaultvalue="0">
 			<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
+			</Property>
+		</Group>
+		<Group name="compatibility" display="Compatibility Settings">
+			<Property name="x2_lr" display="Control Triggers With Right Stick" type="eBOOL" defaultvalue="0">
+				<HelpText>Allow the right analog stick set the analog triggers on the emulated Dreamcast controller.
+
+This is used in the Vanilla PC version to, hackily, allow the right analog stick to move the camera. Some mods may also assume this is the default state of the game. It is not recommended to enable this without reason.</HelpText>
 			</Property>
 		</Group>
 		<Group name="debug" display="Debug Settings">
