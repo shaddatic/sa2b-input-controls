@@ -27,7 +27,8 @@ typedef char                utf8;   /* supports UTF-8 strings                   
 /*  Opaque Types        */
 /************************/
 /****** SDL *************************************************************************/
-typedef struct _SDL_GameController  SDL_GameController;
+typedef struct _SDL_GameController  SDL_GameController; /* SDL headers              */
+typedef union  SDL_Event            SDL_Event;          /* SDL headers              */
 
 /************************/
 /*  Constants           */
@@ -634,6 +635,18 @@ typedef struct
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
+    /**** Message Handler ***************************************************/
+    /*
+    *   Description:
+    *     Register an SDL_Event handler function. Once registered, your
+    *   function will recieve all polled SDL events. Be aware that not all
+    *   SDL event types can be polled as not every SDL system is in use.
+    * 
+    *   Parameters:
+    *     - fnHandler : function to handle incoming SDL events
+    */
+    void (__cdecl* RegisterMessageHandler)( void(__cdecl* fnHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
+
     /**** Focus *************************************************************/
     /*
     *   Description:
@@ -683,6 +696,18 @@ typedef struct
 
     /**** SDL API Version ***************************************************/
     SDL_VERSION sdl_version;
+
+    /**** Event Handler *****************************************************/
+    /*
+    *   Description:
+    *     Register an SDL_Event handler function. Once registered, your
+    *   function will recieve all polled SDL events. Be aware that not all
+    *   SDL event types can be polled as not every SDL system is in use.
+    * 
+    *   Parameters:
+    *     - fnHandler : function to handle incoming SDL events
+    */
+    void (__cdecl* RegisterEventHandler)( void(__cdecl* fnHandler)(const SDL_Event*) );
 
     /**** DLL Library *******************************************************/
     /*

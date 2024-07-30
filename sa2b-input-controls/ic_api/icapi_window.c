@@ -25,6 +25,8 @@ const ICAPI_WINDOW icapi_window =
 {
     .version = ICAPI_WINDOW_VER,
 
+    .RegisterMessageHandler = WND_RegisterMessageHandler,
+
     .InFocus = WND_InFocus,
 
     .GetSize           = WND_GetSize,

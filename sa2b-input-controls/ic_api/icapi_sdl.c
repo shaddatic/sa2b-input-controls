@@ -27,6 +27,8 @@ const ICAPI_SDL icapi_sdl =
 
     .sdl_version = { 2,30,5 },
 
+    .RegisterEventHandler = ICSDL_RegisterEventHandler,
+
     .GetHandle = ICSDL_GetHandle,
     .GetExport = ICSDL_GetExport,
 };
