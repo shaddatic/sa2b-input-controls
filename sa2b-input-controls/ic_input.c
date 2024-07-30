@@ -30,7 +30,7 @@ static bool X2SetsLR;
 static Sint16 DgtTrigOn[NB_USER];
 static Sint16 DgtTrigOff[NB_USER];
 
-static IC_USER UserInput[NB_USER];
+static IC_USER Users[NB_USER];
 
 /************************/
 /*  Game Data           */
@@ -47,18 +47,18 @@ static IC_USER UserInput[NB_USER];
 /*  Source              */
 /************************/
 const IC_USER*
-UserGetInput(const eUSER_NUM nbUser)
+UserGetUser(const eUSER_NUM nbUser)
 {
-    return &UserInput[nbUser];
+    return &Users[nbUser];
 }
 
 static void
 SetUserInput(void)
 {
-    for (int i = 0; i < ARYLEN(UserInput); ++i)
+    for (int i = 0; i < ARYLEN(Users); ++i)
     {
         /** Setup **/
-        IC_USER* const p_user = &UserInput[i];
+        IC_USER* const p_user = &Users[i];
 
         INPUT_OUT input_gp = {0};
         INPUT_OUT input_kb = {0};
@@ -128,12 +128,12 @@ SetPdsPeripheral(void)
 {
     for (int i = 0; i < ARYLEN(PeripheralData); ++i)
     {
-        PDS_PERIPHERAL*   const p_pad   = &PeripheralData[i];
-        const IC_USER* const p_input = &UserInput[i];
+        PDS_PERIPHERAL* const p_pad  = &PeripheralData[i];
+        const IC_USER*  const p_user = &Users[i];
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
             to emulate the controller being disconnected **/
-        if (!GamepadValid(p_input->gp) && p_input->kb == KEYBOARD_NONE)
+        if (!GamepadValid(p_user->gp) && p_user->kb == KEYBOARD_NONE)
         {
             *p_pad = (PDS_PERIPHERAL){0};
 
@@ -154,18 +154,18 @@ SetPdsPeripheral(void)
 
         /** Get analog inputs **/
         {
-            p_pad->x1 = UserToPdsStick(p_input->x1);
-            p_pad->y1 = UserToPdsStick(p_input->y1);
+            p_pad->x1 = UserToPdsStick(p_user->x1);
+            p_pad->y1 = UserToPdsStick(p_user->y1);
 
-            p_pad->x2 = UserToPdsStick(p_input->x2);
-            p_pad->y2 = UserToPdsStick(p_input->y2);
+            p_pad->x2 = UserToPdsStick(p_user->x2);
+            p_pad->y2 = UserToPdsStick(p_user->y2);
 
-            p_pad->r = UserToPdsTrigger(p_input->r);
-            p_pad->l = UserToPdsTrigger(p_input->l);
+            p_pad->r = UserToPdsTrigger(p_user->r);
+            p_pad->l = UserToPdsTrigger(p_user->l);
 
-            if (X2SetsLR && p_input->x2)
+            if (X2SetsLR && p_user->x2)
             {
-                int x2_lr = (int)(p_input->x2 * (f32)PDSLIM_LR_MAX);
+                int x2_lr = (int)(p_user->x2 * (f32)PDSLIM_LR_MAX);
 
                 if (p_pad->l < -x2_lr) p_pad->l = -x2_lr;
                 if (p_pad->r <  x2_lr) p_pad->r =  x2_lr;
@@ -180,7 +180,7 @@ SetPdsPeripheral(void)
             const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtTrigOff[i] ? PDD_DGT_TL : 0) : (p_pad->l >= DgtTrigOn[i] ? PDD_DGT_TL : 0) ) |
                                 ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[i] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[i] ? PDD_DGT_TR : 0) );
 
-            u32 btn_on = UserToDreamcastButton(p_input->down) | trig_on;
+            u32 btn_on = UserToDreamcastButton(p_user->down) | trig_on;
 
             /** Keep opposite dpad directions exclusive **/
             {
@@ -200,7 +200,7 @@ SetPdsPeripheral(void)
 
         PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
 
-        const IC_GAMEPAD* p_gp = GamepadGetGamepad(p_input->gp);
+        const IC_GAMEPAD* p_gp = GamepadGetGamepad(p_user->gp);
 
         if (p_padinfo)
         {
@@ -244,17 +244,17 @@ IC_InputInit(void)
     UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
 
     /** Gamepad/Keyboard index **/
-    UserInput[0].gp = CnfGetInt( CNF_USER1_GAMEPD_NB );
-    UserInput[0].kb = CnfGetInt( CNF_USER1_KEYBRD_NB );
+    Users[0].gp = CnfGetInt( CNF_USER1_GAMEPD_NB );
+    Users[0].kb = CnfGetInt( CNF_USER1_KEYBRD_NB );
 
-    UserInput[1].gp = CnfGetInt( CNF_USER2_GAMEPD_NB );
-    UserInput[1].kb = CnfGetInt( CNF_USER2_KEYBRD_NB );
+    Users[1].gp = CnfGetInt( CNF_USER2_GAMEPD_NB );
+    Users[1].kb = CnfGetInt( CNF_USER2_KEYBRD_NB );
 
-    UserInput[2].gp = CnfGetInt( CNF_USER3_GAMEPD_NB );
-    UserInput[2].kb = CnfGetInt( CNF_USER3_KEYBRD_NB );
+    Users[2].gp = CnfGetInt( CNF_USER3_GAMEPD_NB );
+    Users[2].kb = CnfGetInt( CNF_USER3_KEYBRD_NB );
 
-    UserInput[3].gp = CnfGetInt( CNF_USER4_GAMEPD_NB );
-    UserInput[3].kb = CnfGetInt( CNF_USER4_KEYBRD_NB );
+    Users[3].gp = CnfGetInt( CNF_USER4_GAMEPD_NB );
+    Users[3].kb = CnfGetInt( CNF_USER4_KEYBRD_NB );
 
     /** Digital Trigger **/
     DgtTrigOn[0]  = CnfGetInt( CNF_USER1_DGTLR_ON  );

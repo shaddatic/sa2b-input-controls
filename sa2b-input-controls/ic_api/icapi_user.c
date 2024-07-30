@@ -25,5 +25,5 @@ const ICAPI_USER icapi_user =
 {
     .version = ICAPI_USER_VER,
 
-    .GetInput = UserGetInput,
+    .GetUser = UserGetUser,
 };

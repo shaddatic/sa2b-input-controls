@@ -350,14 +350,14 @@ IC_MOUSE;
 *   Description:
 *     Init Input module, and its sub-modules
 */
-void    IC_InputInit(void);
+void    IC_InputInit( void );
 
 /****** User Input ******************************************************************/
 /*
 *   Description:
 *     Get the raw USER_INPUT for a specified user
 */
-const IC_USER* UserGetInput( eUSER_NUM nbUser );
+const IC_USER* UserGetUser( eUSER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
 const IC_GAMEPAD* GamepadGetGamepad( eGAMEPAD_NUM nbGp );

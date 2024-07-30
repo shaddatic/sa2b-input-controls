@@ -47,7 +47,7 @@ NewSocGetActiveIndex(void)
 static void
 IC_SetVib(const int pno, const int mode, const int l, const int r)
 {
-    const eGAMEPAD_NUM nb_gp = UserGetInput((eUSER_NUM)pno)->gp;
+    const eGAMEPAD_NUM nb_gp = UserGetUser((eUSER_NUM)pno)->gp;
 
     if (mode == 1)
     {
@@ -81,7 +81,7 @@ ___SetVib(void)
 static SOCController* __stdcall
 VibFixMenu1(SOCInput* pSocInput, int nbGp)
 {
-    GamepadSetVibration(UserGetInput((eUSER_NUM)nbGp)->gp, -1.f, -1.f);
+    GamepadSetVibration(UserGetUser((eUSER_NUM)nbGp)->gp, -1.f, -1.f);
 
     return nullptr;
 }
@@ -89,7 +89,7 @@ VibFixMenu1(SOCInput* pSocInput, int nbGp)
 static SOCController* __stdcall
 VibFixMenu2(SOCInput* pSocInput, int nbGp)
 {
-    GamepadSetVibration(UserGetInput((eUSER_NUM)nbGp)->gp, 1.f, 1.f);
+    GamepadSetVibration(UserGetUser((eUSER_NUM)nbGp)->gp, 1.f, 1.f);
 
     return nullptr;
 }
@@ -134,24 +134,24 @@ SetSocPeripheral(void)
     {
         SocPeripheralLast[i] = SocPeripheral[i]; // copy
 
-        SOC_PERIPHERAL*   const p_socper = &SocPeripheral[i];
-        const IC_USER* const p_uinput = UserGetInput((eUSER_NUM)i);
+        SOC_PERIPHERAL* const p_socper = &SocPeripheral[i];
+        const IC_USER*  const p_user   = UserGetUser((eUSER_NUM)i);
 
-        p_socper->button = UserToSocButton(p_uinput->down);
+        p_socper->button = UserToSocButton(p_user->down);
 
-        const f32 lr = p_uinput->r - p_uinput->l;
+        const f32 lr = p_user->r - p_user->l;
 
         if (lr)
             p_socper->button |= ( lr > 0 ? SOCBTN_R : SOCBTN_L );
 
-        p_socper->x1 = UserToSocStick( p_uinput->x1);
-        p_socper->y1 = UserToSocStick(-p_uinput->y1);
+        p_socper->x1 = UserToSocStick( p_user->x1);
+        p_socper->y1 = UserToSocStick(-p_user->y1);
 
-        p_socper->x2 = UserToSocStick( p_uinput->x2);
-        p_socper->y2 = UserToSocStick(-p_uinput->y2);
+        p_socper->x2 = UserToSocStick( p_user->x2);
+        p_socper->y2 = UserToSocStick(-p_user->y2);
 
-        p_socper->r = UserToSocTrigger(p_uinput->r);
-        p_socper->l = UserToSocTrigger(p_uinput->l);
+        p_socper->r = UserToSocTrigger(p_user->r);
+        p_socper->l = UserToSocTrigger(p_user->l);
     }
 }
 
