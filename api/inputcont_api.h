@@ -261,7 +261,6 @@ eIC_MOUSE_MODE;
 /************************/
 /****** ################## **********************************************************/
 typedef void                IC_USER_INPUT;
-typedef void                IC_MOUSE;
 
 typedef struct
 {
@@ -280,6 +279,20 @@ typedef struct
     int16_t             x2, y2; /* right analog stick                (-32768~32767) */
 }
 IC_GAMEPAD;
+
+typedef struct
+{
+    uint8_t down;    /* mouse buttons currently pressed                    (MSEBTN) */
+    uint8_t press;   /* mouse buttons pressed this moment                  (MSEBTN) */
+    uint8_t release; /* mouse buttons released this moment                 (MSEBTN) */
+
+    f32     wheelX;  /* mouse wheel X rotation, in notches                          */
+    f32     wheelY;  /* mouse wheel Y rotation, in notches                          */
+
+    NJS_POINT2I vec; /* mouse movement vector, in pixels                            */
+    NJS_POINT2I pos; /* mouse position on the game surface, in pixels               */
+}
+IC_MOUSE;
 
 /************************/
 /*  Config API          */
