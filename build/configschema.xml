@@ -272,9 +272,6 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 			<Property name="dc_drift" display="Dreamcast Accuracy Mode (!)" type="eBOOL" defaultvalue="0">
 				<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
 			</Property>
-			<Property name="text_mode" display="Text Device Mode" type="eTEXT_MODE" defaultvalue="0">
-				<HelpText>Which input device the in-game messages and tips should use. 'Gamepad' is the recommended option.</HelpText>
-			</Property>
 		</Group>
 		<Group name="compatibility" display="Compatibility Settings">
 			<Property name="x2_lr" display="Control Triggers With Right Stick" type="eBOOL" defaultvalue="0">
@@ -449,10 +446,6 @@ This is used in the Vanilla PC version to, hackily, allow the right analog stick
 			<EnumMember name="4" display="Mouse: Middle Click"></EnumMember>
 			<EnumMember name="5" display="Mouse: Side Button 1"></EnumMember>
 			<EnumMember name="6" display="Mouse: Side Button 2"></EnumMember>
-		</Enum>
-		<Enum name="eTEXT_MODE">
-			<EnumMember name="1" display="Gamepad"></EnumMember>
-			<EnumMember name="0" display="Keyboard"></EnumMember>
 		</Enum>
 	</Enums>
 </ConfigSchema>
