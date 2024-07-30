@@ -27,7 +27,7 @@ const ICAPI_MOUSE icapi_mouse =
 
     .GetMouse = MouseGetMouse,
 
-    .GetMode  = MouseGetMode,
+    .GetMode  = (void*) MouseGetMode,
 
     .Capture  = MouseCapture,
     .Free     = MouseFree,
