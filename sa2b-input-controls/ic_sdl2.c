@@ -21,6 +21,12 @@
 #include <ic_sdl2.h>        /* self                                                 */
 
 /************************/
+/*  Constants           */
+/************************/
+/****** Event Handler ***************************************************************/
+#define HANDLER_CHUNK_SIZE      (8)
+
+/************************/
 /*  Macros              */
 /************************/
 /****** SDL Function Exports ********************************************************/
@@ -267,16 +273,20 @@ ICSDL_RegisterEventHandler(void (__cdecl* fnEvHandler)(const SDL_Event*))
     if (!fnEvHandler)
         return;
 
-    const size_t nb = EvHandlerListNum;
+    const size_t nb_hdl = EvHandlerListNum;
 
     EVSDL_HANDLER* p_hdl = EvHandlerListP;
 
-    p_hdl = mReAlloc(EVSDL_HANDLER, p_hdl, nb+1);
+    if ( !(nb_hdl % HANDLER_CHUNK_SIZE) )
+    {
+        p_hdl = mReAlloc(EVSDL_HANDLER, p_hdl, ( nb_hdl + HANDLER_CHUNK_SIZE ));
 
-    p_hdl[nb].func = fnEvHandler;
+        EvHandlerListP = p_hdl;
+    }
 
-    EvHandlerListP = p_hdl;
-    EvHandlerListNum = nb+1;
+    p_hdl[nb_hdl].func = fnEvHandler;
+
+    EvHandlerListNum = nb_hdl+1;
 }
 
 void

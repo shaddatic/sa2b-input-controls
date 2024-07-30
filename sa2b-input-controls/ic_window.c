@@ -18,9 +18,15 @@
 #include <ic_window/icwnd_internal.h>
 
 /************************/
+/*  Constants           */
+/************************/
+/****** Message Handler *************************************************************/
+#define HANDLER_CHUNK_SIZE      (8)
+
+/************************/
 /*  Structures          */
 /************************/
-/****** Event Handler ***************************************************************/
+/****** Message Handler *************************************************************/
 typedef struct
 {
     void (__cdecl* func)( uint32_t msg, uint32_t wParam, int32_t lParam );
@@ -79,16 +85,20 @@ WND_RegisterMessageHandler(void (__cdecl* fnMsgHandler)(uint32_t msg, uint32_t w
     if (!fnMsgHandler)
         return;
 
-    const size_t nb = MsgHandlerListNum;
+    const size_t nb_hdl = MsgHandlerListNum;
 
     WNDMSG_HANDLER* p_hdl = MsgHandlerListP;
 
-    p_hdl = mReAlloc(WNDMSG_HANDLER, p_hdl, nb+1);
+    if ( !(nb_hdl % HANDLER_CHUNK_SIZE) )
+    {
+        p_hdl = mReAlloc(WNDMSG_HANDLER, p_hdl, ( nb_hdl + HANDLER_CHUNK_SIZE ));
 
-    p_hdl[nb].func = fnMsgHandler;
+        MsgHandlerListP = p_hdl;
+    }
+    
+    p_hdl[nb_hdl].func = fnMsgHandler;
 
-    MsgHandlerListP = p_hdl;
-    MsgHandlerListNum = nb+1;
+    MsgHandlerListNum = nb_hdl+1;
 }
 
 void
