@@ -162,46 +162,46 @@ IC_SocMagicInit(void)
     /** Call the destructors for SOCInput **/
     {
         SOCInput* const p_socin = SOC_GetInput();
-    
+
         p_socin->m_pInput->vft->Destructor(p_socin->m_pInput, 1);
         p_socin->m_pInput = nullptr;
-    
+
         for (int i = 0; i < ARYLEN(p_socin->m_pController); ++i)
         {
             SOCController* const p_cont = p_socin->m_pController[i];
-            
+
             if (p_cont)
                 p_cont->vft->Destructor(p_cont, 1);
-            
+
             p_socin->m_pController[i] = nullptr;
         }
-    
+
         SocInputGlobalP = p_socin;
     }
-    
+
     /** We don't want the Magic Singleton code to run when the SOCInput is fetched,
         so instead we replace the function with our own which just returns the
         pointer. By this point, SOCInput already exists so this is fine to do **/
     WriteJump(SOC_GetInput_p     , NewGetSocInput);
-    
+
     /** If this function isn't killed, the game will crash whenever the controller
         index is searched for, and that wouldn't be great **/
     WriteJump(SOC_GetController_p, NewGetController);
-    
+
     /** This function crashes too, although we're still not very sure what it does **/
     WriteJump(0x00425460         , NewSocGetActiveIndex);
-    
+
     /** Make sure this function is still operational **/
     WriteJump(0x00425A40, ___SetVib);       // Replace SOC_SetVib
-    
+
     /** Disable SoC input warning messages **/
     WriteNOP(0x0040A92D, 0x0040A943);       /* Disables SoC input change warning message   */
     WriteNOP(0x0040A9E7, 0x0040A9FD);       /* Also for the warning message, but secondary */
-    
+
     /** Menu fixes **/
     WriteCall(0x0066D9CA, VibFixMenu1);     /* Fix menu directly calling SOCController->VibStop */
     WriteCall(0x0066E32F, VibFixMenu2);     /* Fix menu directly calling SOCController->VibSet  */
-    
+
     /** Main Menu Exit crash **/
     WriteNOP(0x0040173A, 0x00401749);
 }
