@@ -79,7 +79,7 @@ NewVibTaskDest(TASK* const tp)
 static void
 NewVibStop(void)
 {
-    for (eUSER_NUM i = 0; i < NB_USER; ++i)
+    for (eIC_USER_NUM i = 0; i < NB_IC_USER; ++i)
     {
         GamepadSetVibration(UserGetUser(i)->gp, -1.f, -1.f);
     }
@@ -90,6 +90,5 @@ IC_VibTaskInit(void)
 {
     WriteJump(VibTask_p    , NewVibTask);
     WriteJump(VibTaskDest_p, NewVibTaskDest);
-
-    WriteJump(VibStop_p, NewVibStop);
+    WriteJump(VibStop_p    , NewVibStop);
 }

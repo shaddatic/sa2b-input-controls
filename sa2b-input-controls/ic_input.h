@@ -222,89 +222,71 @@ typedef struct _SDL_GameController  SDL_GameController;
 /****** No Key **********************************************************************/
 #define KEY_NONE            (0xFF)  /* no key                                       */
 
+#ifndef H_IC_EXTERN_API
+
 /************************/
 /*  Enums               */
 /************************/
 typedef enum
 {
-    USER_1,
-    USER_2,
-    USER_3,
-    USER_4,
+    IC_USER_1,
+    IC_USER_2,
+    IC_USER_3,
+    IC_USER_4,
 
-    NB_USER,
+    NB_IC_USER,
 }
-eUSER_NUM;
+eIC_USER_NUM;
 
 typedef enum
 {
-    INPUT_MD_NONE = -1,
+    IC_GAMEPAD_NONE = -1,
 
-    INPUT_MD_KEYBOARD,
-    INPUT_MD_GAMEPAD,
-    INPUT_MD_SWITCH,
-    INPUT_MD_BOTH,
+    IC_GAMEPAD_1,
+    IC_GAMEPAD_2,
+    IC_GAMEPAD_3,
+    IC_GAMEPAD_4,
+
+    NB_IC_GAMEPAD,
 }
-eINPUT_MODE;
+eIC_GAMEPAD_NUM;
 
 typedef enum
 {
-    GAMEPAD_NONE = -1,
+    IC_KEYBOARD_NONE = -1,
 
-    GAMEPAD_1,
-    GAMEPAD_2,
-    GAMEPAD_3,
-    GAMEPAD_4,
+    IC_KEYBOARD_1,
+    IC_KEYBOARD_2,
+    IC_KEYBOARD_3,
+    IC_KEYBOARD_4,
 
-    NB_GAMEPAD,
+    NB_IC_KEYBOARD,
 }
-eGAMEPAD_NUM;
+eIC_KEYBOARD_NUM;
 
 typedef enum
 {
-    KEYBOARD_NONE = -1,
-
-    KEYBOARD_1,
-    KEYBOARD_2,
-    KEYBOARD_3,
-    KEYBOARD_4,
-
-    NB_KEYBOARD,
+    IC_MOUSE_MD_FREE,     /* cursor is unlocked from the center of the game window  */
+    IC_MOUSE_MD_CAPTURED, /* cursor is locked to the center of the game window      */
 }
-eKEYBOARD_NUM;
-
-typedef enum
-{
-    DZ_MD_CIRCULAR,
-    DZ_MD_SQUARE,
-}
-eDZ_MODE;
-
-typedef enum
-{
-    CURSOR_FREE,        /* cursor is unlocked from the center of the game window    */
-    CURSOR_CAPTURED,    /* cursor is locked to the center of the game window        */
-}
-eCURSOR_STATE;
+eIC_MOUSE_MODE;
 
 /************************/
 /*  Structures          */
 /************************/
-#ifndef H_IC_EXTERN_API
-
 typedef struct
 {
-    eGAMEPAD_NUM  gp;   /* gamepad index for this user                              */
-    eKEYBOARD_NUM kb;   /* keyboard layout index for this user                      */
+    eIC_GAMEPAD_NUM  gp; /* gamepad index for this user                             */
+    eIC_KEYBOARD_NUM kb; /* keyboard layout index for this user                     */
 
-    uint32_t down;      /* user input buttons currently pressed            (USRBTN) */
-    uint32_t press;     /* user input buttons pressed this moment          (USRBTN) */
-    uint32_t release;   /* user input buttons released this moment         (USRBTN) */
+    uint32_t down;       /* user input buttons currently pressed           (USRBTN) */
+    uint32_t press;      /* user input buttons pressed this moment         (USRBTN) */
+    uint32_t release;    /* user input buttons released this moment        (USRBTN) */
 
-    f32 l, r;           /* analog l/r triggers                            (0.f~1.f) */
+    f32 l, r;            /* analog l/r triggers                           (0.f~1.f) */
 
-    f32 x1, y1;         /* left analog stick                             (-1.f~1.f) */
-    f32 x2, y2;         /* right analog stick                            (-1.f~1.f) */
+    f32 x1, y1;          /* left analog stick                            (-1.f~1.f) */
+    f32 x2, y2;          /* right analog stick                           (-1.f~1.f) */
 }
 IC_USER;
 
@@ -357,26 +339,26 @@ void    IC_InputInit( void );
 *   Description:
 *     Get the raw USER_INPUT for a specified user
 */
-const IC_USER* UserGetUser( eUSER_NUM nbUser );
+const IC_USER* UserGetUser( eIC_USER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
-const IC_GAMEPAD* GamepadGetGamepad( eGAMEPAD_NUM nbGp );
+const IC_GAMEPAD* GamepadGetGamepad( eIC_GAMEPAD_NUM nbGp );
 
 /*
 *   Description:
 *     If the specified gamepad is on and available.
 */
-bool    GamepadValid( eGAMEPAD_NUM nbGp );
+bool    GamepadValid( eIC_GAMEPAD_NUM nbGp );
 /*
 *   Description:
 *     Set vibration for a specified gamepad.
 */
-bool    GamepadSetVibration( eGAMEPAD_NUM nbGp, f32 spdLo, f32 spdHi );
+bool    GamepadSetVibration( eIC_GAMEPAD_NUM nbGp, f32 spdLo, f32 spdHi );
 /*
 *   Description:
 *     Set vibration for a specified gamepad.
 */
-bool    GamepadSetTriggerVibration( eGAMEPAD_NUM nbGp, f32 spdL, f32 spdR );
+bool    GamepadSetTriggerVibration( eIC_GAMEPAD_NUM nbGp, f32 spdL, f32 spdR );
 
 /****** Keyboard ********************************************************************/
 u8      KeyboardPoll( void ); /* poll most recent key press                         */
@@ -399,7 +381,7 @@ const IC_MOUSE* MouseGetMouse( void );
 *   Description:
 *     Get the mouse mode
 */
-eCURSOR_STATE MouseGetMode( void );
+eIC_MOUSE_MODE MouseGetMode( void );
 /*
 *   Description:
 *     Capture the mouse to the game window

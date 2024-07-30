@@ -59,8 +59,8 @@ void    MouseUpdate(    void );
 *   Description:
 *     Get USER_INPUT from physical device, using user-settings for said device.
 */
-bool    GamepadSetUserInput(  eGAMEPAD_NUM  nbGp, INPUT_OUT* pOutInput );
-bool    KeyboardSetUserInput( eKEYBOARD_NUM nbKb, INPUT_OUT* pOutInput );
+bool    GamepadSetUserInput(  eIC_GAMEPAD_NUM  nbGp, INPUT_OUT* pOutInput );
+bool    KeyboardSetUserInput( eIC_KEYBOARD_NUM nbKb, INPUT_OUT* pOutInput );
 
 /****** Input Init ******************************************************************/
 /*
@@ -86,7 +86,7 @@ void    MouseInit(    void );
 *   Returns:
 *     If 'pOutX' and 'Y' were modified
 */
-bool    MouseGetEmulatedAnalog( eKEYBOARD_NUM nbKb, eEMU_STICK nbAnalog, f32* pOutX, f32* pOutY );
+bool    MouseGetEmulatedAnalog( eIC_KEYBOARD_NUM nbKb, eEMU_STICK nbAnalog, f32* pOutX, f32* pOutY );
 
 EXTERN_END
 

@@ -318,9 +318,9 @@ GetStickAxis(const uint8_t keyPos, const uint8_t keyNeg)
 }
 
 bool
-KeyboardSetUserInput(const eKEYBOARD_NUM nbKb, INPUT_OUT* const pOutInput)
+KeyboardSetUserInput(const eIC_KEYBOARD_NUM nbKb, INPUT_OUT* const pOutInput)
 {
-    if (nbKb == KEYBOARD_NONE)
+    if (nbKb == IC_KEYBOARD_NONE)
         return false;
 
     const USER_KEYS* const p_kbl = &KeyboardLayout[nbKb];

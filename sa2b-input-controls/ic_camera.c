@@ -38,7 +38,7 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
     
     f32 l, r, x2;
 
-    if (ICF_UseRawAnalog() && nb_cam < NB_USER)
+    if (ICF_UseRawAnalog() && nb_cam < NB_IC_USER)
     {
         const bool in_state = (nb_cam > 1 || ucInputStatusForEachPlayer[nb_cam] == 1);
 
@@ -125,7 +125,7 @@ ___CameraGetAnalog(void)
 static int
 CheckCamInput(const int nbPer)
 {
-    if (ICF_UseRawAnalog() && nbPer < NB_USER)
+    if (ICF_UseRawAnalog() && nbPer < NB_IC_USER)
     {
         const IC_USER* const p_user = UserGetUser(nbPer);
         const bool in_state = (nbPer > 1 || ucInputStatusForEachPlayer[nbPer] == 1);

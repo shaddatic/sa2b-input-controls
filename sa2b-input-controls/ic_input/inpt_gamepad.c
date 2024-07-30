@@ -35,6 +35,16 @@
 #define NORM_GPD_TRIG(mag)  ((f64)mag/(f64)(SDL_JOYSTICK_AXIS_MAX))
 
 /************************/
+/*  Enums               */
+/************************/
+typedef enum
+{
+    DZ_MD_CIRCULAR,
+    DZ_MD_SQUARE,
+}
+eDZ_MODE;
+
+/************************/
 /*  Structures          */
 /************************/
 typedef struct
@@ -145,27 +155,27 @@ GamepadEventHandler(const SDL_Event* pEvent)
 }
 
 const IC_GAMEPAD*
-GamepadGetGamepad(const eGAMEPAD_NUM nbGp)
+GamepadGetGamepad(const eIC_GAMEPAD_NUM nbGp)
 {
-    if (nbGp == GAMEPAD_NONE)
+    if (nbGp == IC_GAMEPAD_NONE)
         return false;
 
     return &Gamepads[nbGp];
 }
 
 bool
-GamepadValid(const eGAMEPAD_NUM nbGp)
+GamepadValid(const eIC_GAMEPAD_NUM nbGp)
 {
-    if (nbGp == GAMEPAD_NONE)
+    if (nbGp == IC_GAMEPAD_NONE)
         return false;
 
     return Gamepads[nbGp].pSdlGp;
 }
 
 bool
-GamepadSetVibration(const eGAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi)
+GamepadSetVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi)
 {
-    if (nbGp == GAMEPAD_NONE)
+    if (nbGp == IC_GAMEPAD_NONE)
         return false;
 
     const IC_GAMEPAD*      const p_gpd = &Gamepads[nbGp];
@@ -180,9 +190,9 @@ GamepadSetVibration(const eGAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi)
 }
 
 bool
-GamepadSetTriggerVibration(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
+GamepadSetTriggerVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
 {
-    if (nbGp == GAMEPAD_NONE)
+    if (nbGp == IC_GAMEPAD_NONE)
         return false;
 
     const IC_GAMEPAD*      const p_gpd = &Gamepads[nbGp];
@@ -279,9 +289,9 @@ GamepadToUserButton(u32 gpbtn)
 }
 
 bool
-GamepadSetUserInput(const eGAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
+GamepadSetUserInput(const eIC_GAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
 {
-    if (nbGp == GAMEPAD_NONE || !GamepadValid(nbGp))
+    if (nbGp == IC_GAMEPAD_NONE || !GamepadValid(nbGp))
         return false;
 
     const USER_GAMEPAD* const p_usrgp = &UserGamepads[nbGp];

@@ -75,7 +75,7 @@ CalcDreamcastDeadzone(f32* const pX, f32* const pY)
 }
 
 static void
-GetUserRawAnalog(const eUSER_NUM nbUser, f32* const pX, f32* const pY)
+GetUserRawAnalog(const eIC_USER_NUM nbUser, f32* const pX, f32* const pY)
 {
     const IC_USER* const p_user = UserGetUser(nbUser);
 
@@ -98,7 +98,7 @@ NewGetPlayersInputData(void)
         {
             f32 x1, y1;
 
-            if (ICF_UseRawAnalog() && i < NB_USER)
+            if (ICF_UseRawAnalog() && i < NB_IC_USER)
             {
                 GetUserRawAnalog(i, &x1, &y1);
             }
@@ -154,7 +154,7 @@ NewGetPlayersInputData_FH(void)
         {
             f32 x1, y1;
 
-            if (ICF_UseRawAnalog() && i < NB_USER)
+            if (ICF_UseRawAnalog() && i < NB_IC_USER)
             {
                 GetUserRawAnalog((i < 2) ? 0 : i, &x1, &y1);
             }

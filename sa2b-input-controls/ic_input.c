@@ -27,10 +27,10 @@
 static bool UseRawAnalog;
 static bool X2SetsLR;
 
-static Sint16 DgtTrigOn[NB_USER];
-static Sint16 DgtTrigOff[NB_USER];
+static Sint16 DgtTrigOn[NB_IC_USER];
+static Sint16 DgtTrigOff[NB_IC_USER];
 
-static IC_USER Users[NB_USER];
+static IC_USER Users[NB_IC_USER];
 
 /************************/
 /*  Game Data           */
@@ -47,7 +47,7 @@ static IC_USER Users[NB_USER];
 /*  Source              */
 /************************/
 const IC_USER*
-UserGetUser(const eUSER_NUM nbUser)
+UserGetUser(const eIC_USER_NUM nbUser)
 {
     return &Users[nbUser];
 }
@@ -133,7 +133,7 @@ SetPdsPeripheral(void)
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
             to emulate the controller being disconnected **/
-        if (!GamepadValid(p_user->gp) && p_user->kb == KEYBOARD_NONE)
+        if (!GamepadValid(p_user->gp) && p_user->kb == IC_KEYBOARD_NONE)
         {
             *p_pad = (PDS_PERIPHERAL){0};
 
