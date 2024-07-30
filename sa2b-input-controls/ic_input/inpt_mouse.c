@@ -38,7 +38,7 @@ eEMU_MODE;
 /************************/
 /*  File Variables      */
 /************************/
-static MOUSE Mouse;                         /* mouse struct                         */
+static IC_MOUSE Mouse;                      /* mouse struct                         */
 
 static eCURSOR_STATE    CursorState;        /* cursor state                         */
 static eCURSOR_SUBSTATE CursorSubState;     /* cursor sub-state                     */
@@ -65,7 +65,7 @@ static int8_t        MouseEmuClickKey;      /* click & drag 'click' key         
 void
 MouseUpdate(void)
 {
-    Mouse = (MOUSE){0};
+    Mouse = (IC_MOUSE){0};
 
     if (!WND_InFocus()) 
     {
@@ -219,7 +219,7 @@ MouseMsgWheelY(const f32 wheel)
     WheelBufferY += wheel;
 }
 
-const MOUSE*
+const IC_MOUSE*
 MouseGetMouse(void)
 {
     return &Mouse;

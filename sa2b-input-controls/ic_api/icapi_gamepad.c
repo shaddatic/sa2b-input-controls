@@ -4,12 +4,12 @@
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
 
-/****** Self ************************************************************************/
+/****** Input Controls **************************************************************/
 #include <ic_core.h>    /* core                                                     */
-#include <ic_input.h>   /* input                                                    */
 
 /****** Self ************************************************************************/
 #include <ic_api/icapi_internal.h>  /* self                                         */
+#include <ic_input.h>               /* input                                        */
 
 /************************/
 /*  Constants           */
@@ -25,10 +25,10 @@ const ICAPI_GAMEPAD icapi_gamepad =
 {
     .version = ICAPI_GAMEPAD_VER,
 
-    .GetGamepad = (void*) GamepadGetGamepad,
+    .GetGamepad = GamepadGetGamepad,
 
-    .Valid = (void*) GamepadValid,
+    .Valid = GamepadValid,
 
-    .SetVibration        = (void*) GamepadSetVibration,
-    .SetTriggerVibration = (void*) GamepadSetTriggerVibration,
+    .SetVibration        = GamepadSetVibration,
+    .SetTriggerVibration = GamepadSetTriggerVibration,
 };

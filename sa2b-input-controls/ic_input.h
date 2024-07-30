@@ -290,8 +290,13 @@ eCURSOR_STATE;
 /************************/
 /*  Structures          */
 /************************/
+#ifndef H_IC_EXTERN_API
+
 typedef struct
 {
+    eGAMEPAD_NUM  gp;   /* gamepad index for this user                              */
+    eKEYBOARD_NUM kb;   /* keyboard layout index for this user                      */
+
     uint32_t down;      /* user input buttons currently pressed            (USRBTN) */
     uint32_t press;     /* user input buttons pressed this moment          (USRBTN) */
     uint32_t release;   /* user input buttons released this moment         (USRBTN) */
@@ -301,7 +306,7 @@ typedef struct
     f32 x1, y1;         /* left analog stick                             (-1.f~1.f) */
     f32 x2, y2;         /* right analog stick                            (-1.f~1.f) */
 }
-USER_INPUT;
+IC_USER;
 
 typedef struct
 {
@@ -319,7 +324,7 @@ typedef struct
     int16_t             x1, y1; /* left analog stick                 (-32768~32767) */
     int16_t             x2, y2; /* right analog stick                (-32768~32767) */
 }
-GAMEPAD;
+IC_GAMEPAD;
 
 typedef struct
 {
@@ -333,7 +338,9 @@ typedef struct
     NJS_POINT2I vec; /* mouse movement vector, in pixels                            */
     NJS_POINT2I pos; /* mouse position on the game surface, in pixels               */
 }
-MOUSE;
+IC_MOUSE;
+
+#endif/*H_IC_EXTERN_API*/
 
 /************************/
 /*  Functions           */
@@ -350,20 +357,10 @@ void    IC_InputInit(void);
 *   Description:
 *     Get the raw USER_INPUT for a specified user
 */
-const USER_INPUT* UserGetInput( eUSER_NUM nbUser );
-/*
-*   Description:
-*     Get the gamepad number for a specified user
-*/
-eGAMEPAD_NUM UserGetGamepadNum( eUSER_NUM nbUser );
-/*
-*   Description:
-*     Get the keyboard layout number for a specified user
-*/
-eKEYBOARD_NUM UserGetKeyboardNum( eUSER_NUM nbUser );
+const IC_USER* UserGetInput( eUSER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
-const GAMEPAD* GamepadGetGamepad( eGAMEPAD_NUM nbGp );
+const IC_GAMEPAD* GamepadGetGamepad( eGAMEPAD_NUM nbGp );
 
 /*
 *   Description:
@@ -397,7 +394,7 @@ bool    KeyboardNumLock(    void );
 *   Description:
 *     Get the MOUSE input structure
 */
-const MOUSE* MouseGetMouse( void );
+const IC_MOUSE* MouseGetMouse( void );
 /*
 *   Description:
 *     Get the mouse mode

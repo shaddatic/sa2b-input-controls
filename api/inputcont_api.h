@@ -260,7 +260,21 @@ eIC_MOUSE_MODE;
 /*  Structures          */
 /************************/
 /****** ################## **********************************************************/
-typedef void                IC_USER_INPUT;
+typedef struct
+{
+    eIC_GAMEPAD_NUM  gp;/* gamepad index for this user                              */
+    eIC_KEYBOARD_NUM kb;/* keyboard layout index for this user                      */
+
+    uint32_t down;      /* user input buttons currently pressed            (USRBTN) */
+    uint32_t press;     /* user input buttons pressed this moment          (USRBTN) */
+    uint32_t release;   /* user input buttons released this moment         (USRBTN) */
+
+    f32 l, r;           /* analog l/r triggers                            (0.f~1.f) */
+
+    f32 x1, y1;         /* left analog stick                             (-1.f~1.f) */
+    f32 x2, y2;         /* right analog stick                            (-1.f~1.f) */
+}
+IC_USER;
 
 typedef struct
 {
@@ -399,29 +413,7 @@ typedef struct
     *   Returns:
     *     A pointer to the specified user's raw input structure
     */
-    const IC_USER_INPUT* (__cdecl* GetInput)( eIC_USER_NUM nbUser );
-
-    /**** Input Settings ****************************************************/
-    /*
-    *   Description:
-    *
-    *   Parameters:
-    *     - nbUser  : user number to get raw input of
-    *
-    *   Returns:
-    *     The user's set gamepad number
-    */
-    eIC_GAMEPAD_NUM (__cdecl* GetGamepadNum)( eIC_USER_NUM nbUser );
-    /*
-    *   Description:
-    *
-    *   Parameters:
-    *     - nbUser  : user number to get raw input of
-    *
-    *   Returns:
-    *     The user's set keyboard layout number
-    */
-    eIC_KEYBOARD_NUM (__cdecl* GetKeyboardNum)( eIC_USER_NUM nbUser );
+    const IC_USER* (__cdecl* GetInput)( eIC_USER_NUM nbUser );
 }
 ICAPI_USER;
 

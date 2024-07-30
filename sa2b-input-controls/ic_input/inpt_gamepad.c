@@ -58,7 +58,7 @@ USER_GAMEPAD;
 /************************/
 static USER_GAMEPAD UserGamepads[4]; /* user gamepad settings                        */
 
-static GAMEPAD Gamepads[4];          /* physical gamepad data                        */
+static IC_GAMEPAD Gamepads[4];          /* physical gamepad data                        */
 
 static bool GamepadDbgAxis;
 
@@ -66,9 +66,9 @@ static bool GamepadDbgAxis;
 /*  Source              */
 /************************/
 static void
-ResetGamepadStruct(GAMEPAD* const pGp)
+ResetGamepadStruct(IC_GAMEPAD* const pGp)
 {
-    *pGp = (GAMEPAD){ .id = -1 };
+    *pGp = (IC_GAMEPAD){ .id = -1 };
 }
 
 static void
@@ -79,7 +79,7 @@ OpenGamepad(const int id)
 
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
     {
-        GAMEPAD* const p_gp = &Gamepads[i];
+        IC_GAMEPAD* const p_gp = &Gamepads[i];
 
         /** If ID matches, reset device **/
         if (p_gp->id == id)
@@ -120,7 +120,7 @@ CloseGamepad(const int id)
 {
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
     {
-        GAMEPAD* const p_gp = &Gamepads[i];
+        IC_GAMEPAD* const p_gp = &Gamepads[i];
 
         if (p_gp->id == id)
         {
@@ -144,7 +144,7 @@ GamepadEventHandler(const SDL_Event* pEvent)
     }
 }
 
-const GAMEPAD*
+const IC_GAMEPAD*
 GamepadGetGamepad(const eGAMEPAD_NUM nbGp)
 {
     if (nbGp == GAMEPAD_NONE)
@@ -168,7 +168,7 @@ GamepadSetVibration(const eGAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi)
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    const GAMEPAD*      const p_gpd = &Gamepads[nbGp];
+    const IC_GAMEPAD*      const p_gpd = &Gamepads[nbGp];
     const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
 
     const f32 str = p_usr->vibStr;
@@ -185,7 +185,7 @@ GamepadSetTriggerVibration(const eGAMEPAD_NUM nbGp, const f32 spdL, const f32 sp
     if (nbGp == GAMEPAD_NONE)
         return false;
 
-    const GAMEPAD*      const p_gpd = &Gamepads[nbGp];
+    const IC_GAMEPAD*      const p_gpd = &Gamepads[nbGp];
     const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
 
     const f32 str = p_usr->vibStr;
@@ -285,7 +285,7 @@ GamepadSetUserInput(const eGAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
         return false;
 
     const USER_GAMEPAD* const p_usrgp = &UserGamepads[nbGp];
-    const GAMEPAD*      const p_gp    = &Gamepads[nbGp];
+    const IC_GAMEPAD*      const p_gp    = &Gamepads[nbGp];
 
     pOutInput->down = GamepadToUserButton(p_gp->down);
 
@@ -347,7 +347,7 @@ GamepadUpdate(void)
         if (!GamepadValid(i))
             continue;
 
-        GAMEPAD*            const p_gp    = &Gamepads[i];
+        IC_GAMEPAD*            const p_gp    = &Gamepads[i];
         SDL_GameController* const p_sdlgc = p_gp->pSdlGp;
 
         p_gp->down = 0;
@@ -391,7 +391,7 @@ GamepadInit(void)
 
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
     {
-        GAMEPAD* const p_gp = &Gamepads[i];
+        IC_GAMEPAD* const p_gp = &Gamepads[i];
 
         ResetGamepadStruct(p_gp);
     }

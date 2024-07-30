@@ -6,10 +6,10 @@
 
 /****** Self ************************************************************************/
 #include <ic_core.h>    /* core                                                     */
-#include <ic_input.h>   /* input                                                    */
 
 /****** Self ************************************************************************/
 #include <ic_api/icapi_internal.h>  /* self                                         */
+#include <ic_input.h>               /* input                                        */
 
 /************************/
 /*  Constants           */
@@ -25,8 +25,5 @@ const ICAPI_USER icapi_user =
 {
     .version = ICAPI_USER_VER,
 
-    .GetInput = (void*) UserGetInput,
-
-    .GetGamepadNum  = (void*) UserGetGamepadNum,
-    .GetKeyboardNum = (void*) UserGetKeyboardNum,
+    .GetInput = UserGetInput,
 };

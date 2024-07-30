@@ -47,7 +47,7 @@ NewSocGetActiveIndex(void)
 static void
 IC_SetVib(const int pno, const int mode, const int l, const int r)
 {
-    const eGAMEPAD_NUM nb_gp = UserGetGamepadNum((eUSER_NUM)pno);
+    const eGAMEPAD_NUM nb_gp = UserGetInput((eUSER_NUM)pno)->gp;
 
     if (mode == 1)
     {
@@ -81,9 +81,7 @@ ___SetVib(void)
 static SOCController* __stdcall
 VibFixMenu1(SOCInput* pSocInput, int nbGp)
 {
-    const eGAMEPAD_NUM nb_gp = UserGetGamepadNum((eUSER_NUM)nbGp);
-
-    GamepadSetVibration(nb_gp, -1.f, -1.f);
+    GamepadSetVibration(UserGetInput((eUSER_NUM)nbGp)->gp, -1.f, -1.f);
 
     return nullptr;
 }
@@ -91,9 +89,7 @@ VibFixMenu1(SOCInput* pSocInput, int nbGp)
 static SOCController* __stdcall
 VibFixMenu2(SOCInput* pSocInput, int nbGp)
 {
-    const eGAMEPAD_NUM nb_gp = UserGetGamepadNum((eUSER_NUM)nbGp);
-
-    GamepadSetVibration(nb_gp, 1.f, 1.f);
+    GamepadSetVibration(UserGetInput((eUSER_NUM)nbGp)->gp, 1.f, 1.f);
 
     return nullptr;
 }
@@ -139,7 +135,7 @@ SetSocPeripheral(void)
         SocPeripheralLast[i] = SocPeripheral[i]; // copy
 
         SOC_PERIPHERAL*   const p_socper = &SocPeripheral[i];
-        const USER_INPUT* const p_uinput = UserGetInput((eUSER_NUM)i);
+        const IC_USER* const p_uinput = UserGetInput((eUSER_NUM)i);
 
         p_socper->button = UserToSocButton(p_uinput->down);
 
@@ -167,8 +163,8 @@ IC_SocMagicInit(void)
     {
         SOCInput* const p_socin = SOC_GetInput();
     
-        //p_socin->m_pInput->vft->Destructor(p_socin->m_pInput, 1);
-        //p_socin->m_pInput = nullptr;
+        p_socin->m_pInput->vft->Destructor(p_socin->m_pInput, 1);
+        p_socin->m_pInput = nullptr;
     
         for (int i = 0; i < ARYLEN(p_socin->m_pController); ++i)
         {

@@ -22,27 +22,15 @@
 #include <ic_input/inpt_internal.h> /* internal                                     */
 
 /************************/
-/*  Structures          */
-/************************/
-typedef struct
-{
-    eGAMEPAD_NUM  nbGamepad;
-    eKEYBOARD_NUM nbKeyboard;
-
-    Sint16 dgtTrigOn;
-    Sint16 dgtTrigOff;
-}
-USER_INFO;
-
-/************************/
 /*  File Variables      */
 /************************/
 static bool UseRawAnalog;
 static bool X2SetsLR;
 
-static USER_INFO UserInfos[NB_USER];
+static Sint16 DgtTrigOn[NB_USER];
+static Sint16 DgtTrigOff[NB_USER];
 
-static USER_INPUT UserInput[NB_USER];
+static IC_USER UserInput[NB_USER];
 
 /************************/
 /*  Game Data           */
@@ -58,19 +46,7 @@ static USER_INPUT UserInput[NB_USER];
 /************************/
 /*  Source              */
 /************************/
-eGAMEPAD_NUM
-UserGetGamepadNum(const eUSER_NUM nbUser)
-{
-    return UserInfos[nbUser].nbGamepad;
-}
-
-eKEYBOARD_NUM
-UserGetKeyboardNum(const eUSER_NUM nbUser)
-{
-    return UserInfos[nbUser].nbKeyboard;
-}
-
-const USER_INPUT*
+const IC_USER*
 UserGetInput(const eUSER_NUM nbUser)
 {
     return &UserInput[nbUser];
@@ -82,33 +58,32 @@ SetUserInput(void)
     for (int i = 0; i < ARYLEN(UserInput); ++i)
     {
         /** Setup **/
-        USER_INFO*  const p_info  = &UserInfos[i];
-        USER_INPUT* const p_input = &UserInput[i];
+        IC_USER* const p_user = &UserInput[i];
 
         INPUT_OUT input_gp = {0};
         INPUT_OUT input_kb = {0};
 
         /** Get inputs **/
-        GamepadSetUserInput(  p_info->nbGamepad , &input_gp );
-        KeyboardSetUserInput( p_info->nbKeyboard, &input_kb );
+        GamepadSetUserInput(  p_user->gp, &input_gp );
+        KeyboardSetUserInput( p_user->kb, &input_kb );
 
         /** Axis Info **/
-        p_input->x1 = MAX_ABS(input_gp.x1, input_kb.x1);
-        p_input->y1 = MAX_ABS(input_gp.y1, input_kb.y1);
-        p_input->x2 = MAX_ABS(input_gp.x2, input_kb.x2);
-        p_input->y2 = MAX_ABS(input_gp.y2, input_kb.y2);
+        p_user->x1 = MAX_ABS(input_gp.x1, input_kb.x1);
+        p_user->y1 = MAX_ABS(input_gp.y1, input_kb.y1);
+        p_user->x2 = MAX_ABS(input_gp.x2, input_kb.x2);
+        p_user->y2 = MAX_ABS(input_gp.y2, input_kb.y2);
 
-        p_input->r = MAX_ABS(input_gp.r, input_kb.r);
-        p_input->l = MAX_ABS(input_gp.l, input_kb.l);
+        p_user->r = MAX_ABS(input_gp.r, input_kb.r);
+        p_user->l = MAX_ABS(input_gp.l, input_kb.l);
 
         /** Button Info **/
-        const u32 btn_old = p_input->down;
+        const u32 btn_old = p_user->down;
 
         const u32 btn_new = input_gp.down | input_kb.down;
 
-        p_input->down    = btn_new;
-        p_input->press   = btn_new & ~btn_old;
-        p_input->release = btn_old & ~btn_new;
+        p_user->down    = btn_new;
+        p_user->press   = btn_new & ~btn_old;
+        p_user->release = btn_old & ~btn_new;
     }
 }
 
@@ -154,12 +129,11 @@ SetPdsPeripheral(void)
     for (int i = 0; i < ARYLEN(PeripheralData); ++i)
     {
         PDS_PERIPHERAL*   const p_pad   = &PeripheralData[i];
-        const USER_INPUT* const p_input = &UserInput[i];
-        const USER_INFO*  const p_uinfo = &UserInfos[i];
+        const IC_USER* const p_input = &UserInput[i];
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
             to emulate the controller being disconnected **/
-        if (!GamepadValid(p_uinfo->nbGamepad) && p_uinfo->nbKeyboard == KEYBOARD_NONE)
+        if (!GamepadValid(p_input->gp) && p_input->kb == KEYBOARD_NONE)
         {
             *p_pad = (PDS_PERIPHERAL){0};
 
@@ -203,8 +177,8 @@ SetPdsPeripheral(void)
             const u32 old_on = p_pad->on;
 
             /** Calculate emulated trigger buttons **/
-            const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > p_uinfo->dgtTrigOff ? PDD_DGT_TL : 0) : (p_pad->l >= p_uinfo->dgtTrigOn ? PDD_DGT_TL : 0) ) |
-                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > p_uinfo->dgtTrigOff ? PDD_DGT_TR : 0) : (p_pad->r >= p_uinfo->dgtTrigOn ? PDD_DGT_TR : 0) );
+            const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtTrigOff[i] ? PDD_DGT_TL : 0) : (p_pad->l >= DgtTrigOn[i] ? PDD_DGT_TL : 0) ) |
+                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[i] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[i] ? PDD_DGT_TR : 0) );
 
             u32 btn_on = UserToDreamcastButton(p_input->down) | trig_on;
 
@@ -226,7 +200,7 @@ SetPdsPeripheral(void)
 
         PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
 
-        const GAMEPAD* p_gp = GamepadGetGamepad(UserInfos[i].nbGamepad);
+        const IC_GAMEPAD* p_gp = GamepadGetGamepad(p_input->gp);
 
         if (p_padinfo)
         {
@@ -269,26 +243,33 @@ IC_InputInit(void)
     X2SetsLR     = CnfGetInt(CNF_COMPAT_X2SETLR);
     UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
 
-    UserInfos[0].nbGamepad  = CnfGetInt( CNF_USER1_GAMEPD_NB );
-    UserInfos[0].nbKeyboard = CnfGetInt( CNF_USER1_KEYBRD_NB );
-    UserInfos[0].dgtTrigOn  = CnfGetInt( CNF_USER1_DGTLR_ON  );
-    UserInfos[0].dgtTrigOff = CnfGetInt( CNF_USER1_DGTLR_OFF );
+    /** Gamepad/Keyboard index **/
+    UserInput[0].gp = CnfGetInt( CNF_USER1_GAMEPD_NB );
+    UserInput[0].kb = CnfGetInt( CNF_USER1_KEYBRD_NB );
 
-    UserInfos[1].nbGamepad  = CnfGetInt( CNF_USER2_GAMEPD_NB );
-    UserInfos[1].nbKeyboard = CnfGetInt( CNF_USER2_KEYBRD_NB );
-    UserInfos[1].dgtTrigOn  = CnfGetInt( CNF_USER2_DGTLR_ON  );
-    UserInfos[1].dgtTrigOff = CnfGetInt( CNF_USER2_DGTLR_OFF );
+    UserInput[1].gp = CnfGetInt( CNF_USER2_GAMEPD_NB );
+    UserInput[1].kb = CnfGetInt( CNF_USER2_KEYBRD_NB );
 
-    UserInfos[2].nbGamepad  = CnfGetInt( CNF_USER3_GAMEPD_NB );
-    UserInfos[2].nbKeyboard = CnfGetInt( CNF_USER3_KEYBRD_NB );
-    UserInfos[2].dgtTrigOn  = CnfGetInt( CNF_USER3_DGTLR_ON  );
-    UserInfos[2].dgtTrigOff = CnfGetInt( CNF_USER3_DGTLR_OFF );
+    UserInput[2].gp = CnfGetInt( CNF_USER3_GAMEPD_NB );
+    UserInput[2].kb = CnfGetInt( CNF_USER3_KEYBRD_NB );
 
-    UserInfos[3].nbGamepad  = CnfGetInt( CNF_USER4_GAMEPD_NB );
-    UserInfos[3].nbKeyboard = CnfGetInt( CNF_USER4_KEYBRD_NB );
-    UserInfos[3].dgtTrigOn  = CnfGetInt( CNF_USER4_DGTLR_ON  );
-    UserInfos[3].dgtTrigOff = CnfGetInt( CNF_USER4_DGTLR_OFF );
+    UserInput[3].gp = CnfGetInt( CNF_USER4_GAMEPD_NB );
+    UserInput[3].kb = CnfGetInt( CNF_USER4_KEYBRD_NB );
 
+    /** Digital Trigger **/
+    DgtTrigOn[0]  = CnfGetInt( CNF_USER1_DGTLR_ON  );
+    DgtTrigOff[0] = CnfGetInt( CNF_USER1_DGTLR_OFF );
+
+    DgtTrigOn[1]  = CnfGetInt( CNF_USER2_DGTLR_ON  );
+    DgtTrigOff[1] = CnfGetInt( CNF_USER2_DGTLR_OFF );
+
+    DgtTrigOn[2]  = CnfGetInt( CNF_USER3_DGTLR_ON  );
+    DgtTrigOff[2] = CnfGetInt( CNF_USER3_DGTLR_OFF );
+
+    DgtTrigOn[3]  = CnfGetInt( CNF_USER4_DGTLR_ON  );
+    DgtTrigOff[3] = CnfGetInt( CNF_USER4_DGTLR_OFF );
+
+    /** Sub-module Init **/
     GamepadInit();
     KeyboardInit();
     MouseInit();
@@ -306,6 +287,7 @@ IC_InputInit(void)
 
     WriteCall(UpdateControllers, SetPeripheral);
 
+    /** Text Mode **/
     const s32 text_md = CnfGetInt( CNF_MISC_TEXTMD );
 
     ga_InputWay[0] = text_md;

@@ -6,10 +6,10 @@
 
 /****** Self ************************************************************************/
 #include <ic_core.h>    /* core                                                     */
-#include <ic_input.h>   /* input                                                    */
 
 /****** Self ************************************************************************/
 #include <ic_api/icapi_internal.h>  /* self                                         */
+#include <ic_input.h>               /* input                                        */
 
 /************************/
 /*  Constants           */
@@ -25,13 +25,13 @@ const ICAPI_MOUSE icapi_mouse =
 {
     .version = ICAPI_MOUSE_VER,
 
-    .GetMouse = (void*) MouseGetMouse,
+    .GetMouse = MouseGetMouse,
 
-    .GetMode  = (void*) MouseGetMode,
+    .GetMode  = MouseGetMode,
 
-    .Capture  = (void*) MouseCapture,
-    .Free     = (void*) MouseFree,
+    .Capture  = MouseCapture,
+    .Free     = MouseFree,
 
-    .Hide     = (void*) MouseHide,
-    .Show     = (void*) MouseShow,
+    .Hide     = MouseHide,
+    .Show     = MouseShow,
 };
