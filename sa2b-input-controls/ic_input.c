@@ -276,16 +276,21 @@ IC_InputInit(void)
 
     /** The rest of UpdateControllers needs to run, as the mod loader hooks the retn
         op at the end to run OnInput. By NOP'ing the entire function up until the
-        return, we maintain compatibility with the mod loader **/
-    WriteNOP(0x0077E780, 0x0077E897);
+        return, we maintain compatibility with the mod loader.
+
+        The reason we're leaving 5 bytes at the beginning is because of the Cheat
+        Table commonly used for SA2. It's hardcoded to push the registers like the
+        original code does, so we have no choice but to leave the beginning 'push's
+        and end 'pop's as is to maintain compatibility with a Cheat Engine Table
+        made in 2013 **/
+    WriteNOP(0x0077E785, 0x0077E892);       // UpdateControllers (0x0077E780) + 5
+    WriteCall(0x0077E785, SetPeripheral);   // ^^
 
     /** Fix cart controls being *0.5 **/
     WriteNOP(0x0061F5E2, 0x0061F5E8);
     WriteNOP(0x0061E4FC, 0x0061E502);
     static const f64 mulf = 1.0;
     WritePointer(0x0061E04E, &mulf);
-
-    WriteCall(UpdateControllers, SetPeripheral);
 
     /** Text Mode **/
     const s32 text_md = CnfGetInt( CNF_MISC_TEXTMD );
