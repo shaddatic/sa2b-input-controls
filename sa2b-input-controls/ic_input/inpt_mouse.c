@@ -161,10 +161,10 @@ MouseUpdate(void)
         Mouse.pos.y = (Sint16)cursor_wndpos.y; 
     }
 
-    Mouse.wheelX = WheelBufferX;
+    Mouse.wheelx = WheelBufferX;
     WheelBufferX = 0.0f;
 
-    Mouse.wheelY = WheelBufferY;
+    Mouse.wheely = WheelBufferY;
     WheelBufferY = 0.0f;
 
     MouseSubState = MOUSE_SUB_NONE;

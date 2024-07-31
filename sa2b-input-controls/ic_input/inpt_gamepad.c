@@ -87,9 +87,9 @@ ResetGamepadStruct(IC_GAMEPAD* const pGp)
 }
 
 static void
-OpenGamepad(const int id)
+OpenGamepad(const int joy)
 {
-    if (!SDL_IsGameController(id))
+    if (!SDL_IsGameController(joy))
         return;
 
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
@@ -97,23 +97,23 @@ OpenGamepad(const int id)
         IC_GAMEPAD* const p_gp = &Gamepads[i];
 
         /** If ID matches, reset device **/
-        if (p_gp->id == id)
+        if (p_gp->id == joy)
         {
-            SDL_GameControllerClose(p_gp->pSdlGp);
+            SDL_GameControllerClose(p_gp->pgp);
             ResetGamepadStruct(p_gp);
             goto OPEN;
         }
 
-        if (!p_gp->pSdlGp)
+        if (!p_gp->pgp)
         {
         OPEN:
-            SDL_GameController* const p_sdlgc = SDL_GameControllerOpen(id);
+            SDL_GameController* const p_sdlgc = SDL_GameControllerOpen(joy);
 
             if (!p_sdlgc)
                 break;
 
-            p_gp->pSdlGp = p_sdlgc;
-            p_gp->id     = id;
+            p_gp->pgp = p_sdlgc;
+            p_gp->id  = joy;
 
             p_gp->name = SDL_GameControllerName(p_sdlgc);
 
@@ -131,15 +131,15 @@ OpenGamepad(const int id)
 }
 
 static void
-CloseGamepad(const int id)
+CloseGamepad(const int joy)
 {
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
     {
         IC_GAMEPAD* const p_gp = &Gamepads[i];
 
-        if (p_gp->id == id)
+        if (p_gp->id == joy)
         {
-            SDL_GameControllerClose(p_gp->pSdlGp);
+            SDL_GameControllerClose(p_gp->pgp);
             ResetGamepadStruct(p_gp);
         }
     }
@@ -174,7 +174,7 @@ GamepadValid(const eIC_GAMEPAD_NUM nbGp)
     if (nbGp == IC_GAMEPAD_NONE)
         return false;
 
-    return Gamepads[nbGp].pSdlGp;
+    return Gamepads[nbGp].pgp;
 }
 
 bool
@@ -183,7 +183,7 @@ GamepadSetVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi
     if (nbGp == IC_GAMEPAD_NONE)
         return false;
 
-    const IC_GAMEPAD*      const p_gpd = &Gamepads[nbGp];
+    const IC_GAMEPAD*   const p_gpd = &Gamepads[nbGp];
     const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
 
     const f32 str = p_usr->vibStr;
@@ -191,7 +191,7 @@ GamepadSetVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi
     const Sint16 lo = (Sint16)( ( CLAMP(spdLo, 0.f, 1.f) * 65535.f ) * str );
     const Sint16 hi = (Sint16)( ( CLAMP(spdHi, 0.f, 1.f) * 65535.f ) * str );
 
-    return SDL_GameControllerRumble(p_gpd->pSdlGp, lo, hi, 0xFFFFFFFF);
+    return SDL_GameControllerRumble(p_gpd->pgp, lo, hi, 0xFFFFFFFF);
 }
 
 bool
@@ -200,7 +200,7 @@ GamepadSetTriggerVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdL, const f32
     if (nbGp == IC_GAMEPAD_NONE)
         return false;
 
-    const IC_GAMEPAD*      const p_gpd = &Gamepads[nbGp];
+    const IC_GAMEPAD*   const p_gpd = &Gamepads[nbGp];
     const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
 
     const f32 str = p_usr->vibStr;
@@ -208,7 +208,7 @@ GamepadSetTriggerVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdL, const f32
     const Sint16 l = (Sint16)( ( CLAMP(spdL, 0.f, 1.f) * 65535.f ) * str );
     const Sint16 r = (Sint16)( ( CLAMP(spdR, 0.f, 1.f) * 65535.f ) * str );
 
-    return SDL_GameControllerRumbleTriggers(p_gpd->pSdlGp, l, r, 0xFFFFFFFF);
+    return SDL_GameControllerRumbleTriggers(p_gpd->pgp, l, r, 0xFFFFFFFF);
 }
 
 static void
@@ -300,7 +300,7 @@ GamepadSetUserInput(const eIC_GAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
         return false;
 
     const USER_GAMEPAD* const p_usrgp = &UserGamepads[nbGp];
-    const IC_GAMEPAD*      const p_gp    = &Gamepads[nbGp];
+    const IC_GAMEPAD*   const p_gp    = &Gamepads[nbGp];
 
     pOutInput->down = GamepadToUserButton(p_gp->down);
 
@@ -362,8 +362,8 @@ GamepadUpdate(void)
         if (!GamepadValid(i))
             continue;
 
-        IC_GAMEPAD*            const p_gp    = &Gamepads[i];
-        SDL_GameController* const p_sdlgc = p_gp->pSdlGp;
+        IC_GAMEPAD*         const p_gp    = &Gamepads[i];
+        SDL_GameController* const p_sdlgc = p_gp->pgp;
 
         p_gp->down = 0;
 

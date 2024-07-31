@@ -279,43 +279,43 @@ typedef struct
     eIC_GAMEPAD_NUM  gp; /* gamepad index for this user                             */
     eIC_KEYBOARD_NUM kb; /* keyboard layout index for this user                     */
 
-    uint32_t down;       /* user input buttons currently pressed           (USRBTN) */
-    uint32_t press;      /* user input buttons pressed this moment         (USRBTN) */
-    uint32_t release;    /* user input buttons released this moment        (USRBTN) */
+    uint32_t       down; /* user input buttons currently pressed           (USRBTN) */
+    uint32_t      press; /* user input buttons pressed this moment         (USRBTN) */
+    uint32_t    release; /* user input buttons released this moment        (USRBTN) */
 
-    f32 l, r;            /* analog l/r triggers                           (0.f~1.f) */
+    f32            l, r; /* analog l/r triggers                            (0.f~1.f) */
 
-    f32 x1, y1;          /* left analog stick                            (-1.f~1.f) */
-    f32 x2, y2;          /* right analog stick                           (-1.f~1.f) */
+    f32          x1, y1; /* left analog stick                             (-1.f~1.f) */
+    f32          x2, y2; /* right analog stick                            (-1.f~1.f) */
 }
 IC_USER;
 
 typedef struct
 {
-    SDL_GameController* pSdlGp; /* SDL gamepad pointer                              */
-    int32_t             id;     /* SDL gamepad/joystick index                       */
+    SDL_GameController* pgp; /* SDL gamepad pointer                                 */
+    int32_t              id; /* SDL gamepad/joystick index                          */
 
-    const char*         name;   /* gamepad name                                     */
+    const char*        name; /* gamepad name                                        */
 
-    uint32_t            support;/* gamepad supported features                       */
+    uint32_t        support; /* gamepad supported features                          */
 
-    uint32_t            down;   /* currently pressed buttons              (GPDBTN)  */
+    uint32_t           down; /* currently pressed buttons                 (GPDBTN)  */
+       
+    int16_t            l, r; /* analog l/r triggers                       (0~32767) */
 
-    int16_t             l, r;   /* analog l/r triggers                    (0~32767) */
-
-    int16_t             x1, y1; /* left analog stick                 (-32768~32767) */
-    int16_t             x2, y2; /* right analog stick                (-32768~32767) */
+    int16_t          x1, y1; /* left analog stick                    (-32768~32767) */
+    int16_t          x2, y2; /* right analog stick                   (-32768~32767) */
 }
 IC_GAMEPAD;
 
 typedef struct
 {
-    uint8_t down;    /* mouse buttons currently pressed                    (MSEBTN) */
-    uint8_t press;   /* mouse buttons pressed this moment                  (MSEBTN) */
+    uint8_t    down; /* mouse buttons currently pressed                    (MSEBTN) */
+    uint8_t   press; /* mouse buttons pressed this moment                  (MSEBTN) */
     uint8_t release; /* mouse buttons released this moment                 (MSEBTN) */
 
-    f32     wheelX;  /* mouse wheel X rotation, in notches                          */
-    f32     wheelY;  /* mouse wheel Y rotation, in notches                          */
+    f32      wheelx; /* mouse wheel X rotation, in notches                          */
+    f32      wheely; /* mouse wheel Y rotation, in notches                          */
 
     NJS_POINT2I vec; /* mouse movement vector, in pixels                            */
     NJS_POINT2I pos; /* mouse position on the game surface, in pixels               */
