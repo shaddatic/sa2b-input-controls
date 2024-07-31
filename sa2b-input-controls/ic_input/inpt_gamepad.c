@@ -29,6 +29,11 @@
 #include <ic_input/inpt_internal.h> /* internal                                     */
 
 /************************/
+/*  Constants           */
+/************************/
+#define GPD_SDLIDX_NONE     (-1)
+
+/************************/
 /*  File Macro          */
 /************************/
 #define NORM_GPD_DIR(mag)   ((f64)mag/(mag>0?(f64)GPDLIM_XY_MAX:(f64)-GPDLIM_XY_MIN))
@@ -78,7 +83,7 @@ static bool GamepadDbgAxis;
 static void
 ResetGamepadStruct(IC_GAMEPAD* const pGp)
 {
-    *pGp = (IC_GAMEPAD){ .id = -1 };
+    *pGp = (IC_GAMEPAD){ .id = GPD_SDLIDX_NONE };
 }
 
 static void
