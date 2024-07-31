@@ -65,21 +65,6 @@ static int8_t        MouseEmuClickKey;      /* click & drag 'click' key         
 void
 MouseUpdate(void)
 {
-    Mouse = (IC_MOUSE){0};
-
-    if (!WND_InFocus()) 
-    {
-        /** If the cursor is currently captured, set the sub-state to 'capturing'
-            so it can be re-captured next exec. **/
-        if (MouseState == IC_MOUSE_MD_CAPTURED)
-        {
-            MouseSubState = MOUSE_SUB_CAPTURING;
-            OS_ShowCursor(true);
-        }
-
-        return;
-    }
-
     /** on button **/
     {
         uint8_t button = 0;
@@ -117,6 +102,24 @@ MouseUpdate(void)
         button |= ( KeyboardRelease(KEY_M_X2)     ? MSEBTN_X2     : 0 );
 
         Mouse.release = button;
+    }
+
+    if (!WND_InFocus()) 
+    {
+        /** If the cursor is currently captured, set the sub-state to 'capturing'
+            so it can be re-captured next exec. **/
+        if (MouseState == IC_MOUSE_MD_CAPTURED)
+        {
+            MouseSubState = MOUSE_SUB_CAPTURING;
+            OS_ShowCursor(true);
+        }
+
+        Mouse.wheelx = 0.f;
+        Mouse.wheely = 0.f;
+
+        Mouse.vec = (NJS_POINT2I){0};
+        /** 'pos' should be left as it was **/
+        return;
     }
 
     INT_POINT2 cursor_pos;
