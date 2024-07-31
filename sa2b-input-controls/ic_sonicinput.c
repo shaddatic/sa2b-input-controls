@@ -131,9 +131,7 @@ SetSonicInput(const int pno, f32 x1, f32 y1)
         if (DreamcastMode)
             CalcDreamcastDeadzone(&x1, &y1);
 
-        Angle angy = njArcTan2(y1, x1);
-
-        angy -= GetCameraAngle(pno); // Rotate to camera
+        const Angle angy = njArcTan2(y1, x1) - GetCameraAngle(pno); // And rotate to camera
 
         const f64 xy2 = (x1*x1)+(y1*y1);
         const f64 mag = sqrt(xy2) * xy2; // add a sensitivity ramp
