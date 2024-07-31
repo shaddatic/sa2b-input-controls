@@ -84,53 +84,87 @@ GetUserRawAnalog(const eIC_USER_NUM nbUser, f32* const pX, f32* const pY)
 }
 
 static void
+GetPlayerInput(int player, f32* const pX, f32* const pY, const bool plOneAsTwo)
+{
+    if (ICF_UseRawAnalog() && player < NB_IC_USER)
+    {
+        const eIC_USER_NUM usr = !plOneAsTwo ? player :
+            ((player < 2) ? 0 : player);
+
+        const IC_USER* const p_user = UserGetUser(usr);
+
+        *pX = p_user->x1;
+        *pY = p_user->y1;
+    }
+    else
+    {
+        *pX = NORM_PDS_DIR(perG[player].x1);
+        *pY = NORM_PDS_DIR(perG[player].y1);
+    }
+}
+
+static Angle
+GetCameraAngle(int nbCam)
+{
+    if (camera_twp) // Rotate to camera
+    {
+        if (nbCam >= cameraCount)
+            return cameraControlWork[0    ]->ang.y;
+        else
+            return cameraControlWork[nbCam]->ang.y;
+    }
+
+    return 0;
+}
+
+static void
+SetSonicInput(const int pno, f32 x1, f32 y1)
+{
+    SONIC_INPUT* const p_sin = &input_dataG[pno];
+
+    const f32 last_stroke = p_sin->stroke;
+
+    const bool input_status = (pno > 1 || ucInputStatusForEachPlayer[pno] == 1);
+
+    if (ucInputStatus == 1 && input_status)
+    {
+        if (DreamcastMode)
+            CalcDreamcastDeadzone(&x1, &y1);
+
+        Angle angy = njArcTan2(y1, x1);
+
+        angy -= GetCameraAngle(pno); // Rotate to camera
+
+        const f64 xy2 = (x1*x1)+(y1*y1);
+        const f64 mag = sqrt(xy2) * xy2; // add a sensitivity ramp
+
+        p_sin->stroke = (f32) MIN(mag, 1.0);
+        p_sin->angle  = angy;
+    }
+    else
+        *p_sin = (SONIC_INPUT){0};
+
+    AnalogThrust[pno] = p_sin->stroke >= 0.5f && last_stroke <= 0.5f;
+}
+
+static void
 NewGetPlayersInputData(void)
 {
     for (int i = 0; i < ARYLEN(input_dataG); ++i)
     {
-        SONIC_INPUT* const p_sin = &input_dataG[i];
+        f32 x1, y1;
 
-        const f32 last_stroke = p_sin->stroke;
-
-        const bool input_status = (i > 1 || ucInputStatusForEachPlayer[i] == 1);
-
-        if (ucInputStatus == 1 && input_status)
+        if (ICF_UseRawAnalog() && i < NB_IC_USER)
         {
-            f32 x1, y1;
-
-            if (ICF_UseRawAnalog() && i < NB_IC_USER)
-            {
-                GetUserRawAnalog(i, &x1, &y1);
-            }
-            else
-            {
-                x1 = NORM_PDS_DIR(perG[i].x1);
-                y1 = NORM_PDS_DIR(perG[i].y1);
-            }
-
-            if (DreamcastMode)
-                CalcDreamcastDeadzone(&x1, &y1);
-
-            Angle angy = njArcTan2(y1, x1);
-
-            if (camera_twp) // Rotate to camera
-            {
-                if (i >= cameraCount)
-                    angy -= cameraControlWork[0]->ang.y;
-                else
-                    angy -= cameraControlWork[i]->ang.y;
-            }
-
-            const f64 xy2 = (x1*x1)+(y1*y1);
-            const f64 mag = sqrt(xy2) * xy2; // add a sensitivity ramp
-
-            p_sin->stroke = (f32) MIN(mag, 1.0);
-            p_sin->angle  = angy;
+            GetUserRawAnalog(i, &x1, &y1);
         }
         else
-            *p_sin = (SONIC_INPUT){0};
+        {
+            x1 = NORM_PDS_DIR(perG[i].x1);
+            y1 = NORM_PDS_DIR(perG[i].y1);
+        }
 
-        AnalogThrust[i] = p_sin->stroke >= 0.5f && last_stroke <= 0.5f;
+        SetSonicInput(i, x1, y1);
     }
 }
 
@@ -144,49 +178,19 @@ NewGetPlayersInputData_FH(void)
 
     for (int i = 0; i < ARYLEN(input_dataG); ++i)
     {
-        SONIC_INPUT* const p_sin  = &input_dataG[i];
+        f32 x1, y1;
 
-        const f32 last_stroke = p_sin->stroke;
-
-        const bool input_status = (i > 1 || ucInputStatusForEachPlayer[i] == 1);
-
-        if (ucInputStatus == 1 && input_status)
+        if (ICF_UseRawAnalog() && i < NB_IC_USER)
         {
-            f32 x1, y1;
-
-            if (ICF_UseRawAnalog() && i < NB_IC_USER)
-            {
-                GetUserRawAnalog((i < 2) ? 0 : i, &x1, &y1);
-            }
-            else
-            {
-                x1 = NORM_PDS_DIR(perG[i].x1);
-                y1 = NORM_PDS_DIR(perG[i].y1);
-            }
-
-            if (DreamcastMode)
-                CalcDreamcastDeadzone(&x1, &y1);
-
-            Angle angy = njArcTan2(y1, x1);
-
-            if (camera_twp) // Rotate to camera
-            {
-                if (i >= cameraCount)
-                    angy -= cameraControlWork[0]->ang.y;
-                else
-                    angy -= cameraControlWork[i]->ang.y;
-            }
-
-            const f64 xy2 = (x1*x1)+(y1*y1);
-            const f64 mag = sqrt(xy2) * xy2; // add a sensitivity ramp
-
-            p_sin->stroke = (f32) MIN(mag, 1.0);
-            p_sin->angle  = angy;
+            GetUserRawAnalog((i < 2) ? 0 : i, &x1, &y1);
         }
         else
-            *p_sin = (SONIC_INPUT){0};
+        {
+            x1 = NORM_PDS_DIR(perG[i].x1);
+            y1 = NORM_PDS_DIR(perG[i].y1);
+        }
 
-        AnalogThrust[i] = p_sin->stroke >= 0.5f && last_stroke <= 0.5f;
+        SetSonicInput(i, x1, y1);
     }
 }
 
