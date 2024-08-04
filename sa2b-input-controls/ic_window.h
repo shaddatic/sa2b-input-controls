@@ -46,11 +46,6 @@ bool    WND_InFocus( void );
 *     Get the window size in physical pixels
 */
 void    WND_GetSize( NJS_POINT2I* pOutSize );
-/*
-*   Description:
-*     Get the game's internal rendering resolution
-*/
-void    WND_GetGameResolution( NJS_POINT2I* pOutRes );
 
 void    WND_RegisterMessageHandler( void(__cdecl* fnMsgHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
 

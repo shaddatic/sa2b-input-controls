@@ -671,14 +671,6 @@ typedef struct
     *     - pOutSize : return pointer for window size
     */
     void (__cdecl* GetSize)( NJS_POINT2I* pOutSize );
-    /*
-    *   Description:
-    *     Get the game's internal rendering resolution.
-    * 
-    *   Parameters:
-    *     - pOutRes : return pointer for game resolution
-    */
-    void (__cdecl* GetGameResolution)( NJS_POINT2I* pOutRes );
 }
 ICAPI_WINDOW;
 

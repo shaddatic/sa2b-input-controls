@@ -59,11 +59,7 @@ WND_GetSize(NJS_POINT2I* const pOutSize)
     *pOutSize = WindowSize;
 }
 
-void
-WND_GetGameResolution(NJS_POINT2I* const pOutRes)
-{
-    *pOutRes = GameResolution;
-}
+
 
 void
 WND_Update(void)
@@ -72,11 +68,8 @@ WND_Update(void)
 
     OS_GetGameWindowSize(&size);
 
-    WindowSize.x = (Sint16) size.x;
-    WindowSize.y = (Sint16) size.y;
-
-    GameResolution.x = (Sint16) DisplayResolutionX;
-    GameResolution.y = (Sint16) DisplayResolutionY;
+    SurfaceSize.x = (Sint16) size.x;
+    SurfaceSize.y = (Sint16) size.y;
 }
 
 void
