@@ -57,6 +57,17 @@ void    WND_GetSize( NJS_POINT2I* pOutSize );
 */
 void    WND_RegisterMessageHandler( void(__cdecl* fnHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
 
+/****** Coordinates *****************************************************************/
+/*
+*   Description:
+*     Translate window surface coordinates to the game's 640x480 coordinates.
+*
+*   Parameters:
+*     pIn       : pointer to surface coordinates to translate
+*     pOut      : return pointer for game screen coordinates
+*/
+void    WND_TranslateSurfaceToGameCoords( const NJS_POINT2I* pIn, NJS_POINT2* pOut );
+
 /****** Internal Message ************************************************************/
 /*
 *   Description:

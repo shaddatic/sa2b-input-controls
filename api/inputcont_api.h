@@ -652,6 +652,18 @@ typedef struct
     */
     void (__cdecl* RegisterMessageHandler)( void(__cdecl* fnHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
 
+    /**** Coordinates *******************************************************/
+    /*
+    *   Description:
+    *     Translate window surface coordinates, like the mouse position
+    *   coordinates, to the game's 640x480 screen coordinates.
+    * 
+    *   Parameters:
+    *     - pIn     : pointer to window surface coordinates
+    *     - pOut    : return pointer for game screen coordinates
+    */
+    void (__cdecl* TranslateSurfaceToGameCoords)( const NJS_POINT2I* pIn, NJS_POINT2* pOut );
+
     /**** Focus *************************************************************/
     /*
     *   Description:

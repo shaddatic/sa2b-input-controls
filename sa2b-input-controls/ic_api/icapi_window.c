@@ -27,6 +27,8 @@ const ICAPI_WINDOW icapi_window =
 
     .RegisterMessageHandler = WND_RegisterMessageHandler,
 
+    .TranslateSurfaceToGameCoords = WND_TranslateSurfaceToGameCoords,
+
     .InFocus = WND_InFocus,
 
     .GetSize = WND_GetSize,
