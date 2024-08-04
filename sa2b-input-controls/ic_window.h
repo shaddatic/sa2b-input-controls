@@ -47,8 +47,26 @@ bool    WND_InFocus( void );
 */
 void    WND_GetSize( NJS_POINT2I* pOutSize );
 
-void    WND_RegisterMessageHandler( void(__cdecl* fnMsgHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
+/****** Window Message **************************************************************/
+/*
+*   Description:
+*     Register a window message handler function
+*
+*   Parameters:
+*     fnHandler : function pointer to handle incomming window messages
+*/
+void    WND_RegisterMessageHandler( void(__cdecl* fnHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
 
+/****** Internal Message ************************************************************/
+/*
+*   Description:
+*     Send a window message to the message handlers
+*
+*   Parameters:
+*     msg       : message type
+*     wParam    : wParam
+*     lParam    : lParam
+*/
 void    WND_SendMessage(uint32_t msg, uint32_t wParam, int32_t lParam);
 
 EXTERN_END
