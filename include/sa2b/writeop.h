@@ -107,7 +107,7 @@ void    OpWriteNoOp( void* pDst, size_t nb );
 *     - from    : starting address of the NOP block
 *     - to      : end address of the NOP block (non-inclusive)
 */
-#define WriteNOP(from, to)                  OpWriteNoOp((void*)(from), ((to)-(from)));
+#define WriteNOP(from, to)                  OpWriteNoOp((void*)(from), (((uintptr_t)to)-((uintptr_t)from)));
 /*
 *   Description:
 *     Write a return instruction to 'addr' with no additional opcodes

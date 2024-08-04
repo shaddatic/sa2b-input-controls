@@ -24,7 +24,8 @@ EXTERN_START
 /************************/
 /*  Constants           */
 /************************/
-#define ML_VERSION          (13) /* supported Mod loader version                     */
+/****** Mod Loader Version **********************************************************/
+#define ML_VERSION          (13) /* supported Mod loader version                    */
 
 /************************/
 /*  Functions           */
