@@ -276,9 +276,6 @@ eIC_MOUSE_MODE;
 /************************/
 typedef struct
 {
-    eIC_GAMEPAD_NUM  gp; /* gamepad index for this user                             */
-    eIC_KEYBOARD_NUM kb; /* keyboard layout index for this user                     */
-
     uint32_t       down; /* user input buttons currently pressed           (USRBTN) */
     uint32_t      press; /* user input buttons pressed this moment         (USRBTN) */
     uint32_t    release; /* user input buttons released this moment        (USRBTN) */
@@ -340,6 +337,10 @@ void    IC_InputInit( void );
 *     Get the raw USER_INPUT for a specified user
 */
 const IC_USER* UserGetUser( eIC_USER_NUM nbUser );
+
+eIC_GAMEPAD_NUM UserGetGamepadNum( const eIC_USER_NUM nbUser );
+
+eIC_KEYBOARD_NUM UserGetKeyboardNum( const eIC_USER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
 const IC_GAMEPAD* GamepadGetGamepad( eIC_GAMEPAD_NUM nbGp );

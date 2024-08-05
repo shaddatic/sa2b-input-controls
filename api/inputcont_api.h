@@ -414,6 +414,30 @@ typedef struct
     *     A pointer to the specified user's raw input structure
     */
     const IC_USER* (__cdecl* GetUser)( eIC_USER_NUM nbUser );
+
+    /**** Device Number *********************************************************/
+    /*
+    *   Description:
+    *     Get the gamepad number of a given user
+    *
+    *   Parameters:
+    *     - nbUser  : user number
+    *
+    *   Returns:
+    *     The user's gamepad number
+    */
+    eIC_GAMEPAD_NUM (__cdecl* GetGamepadNum)( eIC_USER_NUM nbUser );
+    /*
+    *   Description:
+    *     Get the keyboard layout number of a given user
+    *
+    *   Parameters:
+    *     - nbUser  : user number
+    *
+    *   Returns:
+    *     The user's keyboard layout number
+    */
+    eIC_KEYBOARD_NUM (__cdecl* GetKeyboardNum)( eIC_USER_NUM nbUser );
 }
 ICAPI_USER;
 

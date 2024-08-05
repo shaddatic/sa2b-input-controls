@@ -26,4 +26,7 @@ const ICAPI_USER icapi_user =
     .version = ICAPI_USER_VER,
 
     .GetUser = UserGetUser,
+
+    .GetGamepadNum  = UserGetGamepadNum,
+    .GetKeyboardNum = UserGetKeyboardNum,
 };

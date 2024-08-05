@@ -47,7 +47,7 @@ NewSocGetActiveIndex(void)
 static void
 IC_SetVib(const int pno, const int mode, const int l, const int r)
 {
-    const eIC_GAMEPAD_NUM nb_gp = UserGetUser((eIC_USER_NUM)pno)->gp;
+    const eIC_GAMEPAD_NUM nb_gp = UserGetGamepadNum((eIC_USER_NUM)pno);
 
     if (mode == 1)
     {
@@ -81,7 +81,7 @@ ___SetVib(void)
 static SOCController* __stdcall
 VibFixMenu1(SOCInput* pSocInput, int nbGp)
 {
-    GamepadSetVibration(UserGetUser((eIC_USER_NUM)nbGp)->gp, -1.f, -1.f);
+    GamepadSetVibration(UserGetGamepadNum((eIC_USER_NUM)nbGp), -1.f, -1.f);
 
     return nullptr;
 }
@@ -89,7 +89,7 @@ VibFixMenu1(SOCInput* pSocInput, int nbGp)
 static SOCController* __stdcall
 VibFixMenu2(SOCInput* pSocInput, int nbGp)
 {
-    GamepadSetVibration(UserGetUser((eIC_USER_NUM)nbGp)->gp, 1.f, 1.f);
+    GamepadSetVibration(UserGetGamepadNum((eIC_USER_NUM)nbGp), 1.f, 1.f);
 
     return nullptr;
 }

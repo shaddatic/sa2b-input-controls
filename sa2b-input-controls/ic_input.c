@@ -22,6 +22,16 @@
 #include <ic_input/inpt_internal.h> /* internal                                     */
 
 /************************/
+/*  Structures          */
+/************************/
+typedef struct
+{
+    eIC_GAMEPAD_NUM  gp;
+    eIC_KEYBOARD_NUM kb;
+}
+USER_PERI;
+
+/************************/
 /*  File Variables      */
 /************************/
 static bool UseRawAnalog;
@@ -31,6 +41,8 @@ static Sint16 DgtTrigOn[NB_IC_USER];
 static Sint16 DgtTrigOff[NB_IC_USER];
 
 static IC_USER Users[NB_IC_USER];
+
+USER_PERI UserPeris[NB_IC_USER];
 
 /************************/
 /*  Game Data           */
@@ -52,20 +64,33 @@ UserGetUser(const eIC_USER_NUM nbUser)
     return &Users[nbUser];
 }
 
+eIC_GAMEPAD_NUM
+UserGetGamepadNum(const eIC_USER_NUM nbUser)
+{
+    return UserPeris[nbUser].gp;
+}
+
+eIC_KEYBOARD_NUM
+UserGetKeyboardNum(const eIC_USER_NUM nbUser)
+{
+    return UserPeris[nbUser].kb;
+}
+
 static void
 SetUserInput(void)
 {
     for (int i = 0; i < ARYLEN(Users); ++i)
     {
         /** Setup **/
-        IC_USER* const p_user = &Users[i];
+        IC_USER*   const p_user = &Users[i];
+        USER_PERI* const p_peri = &UserPeris[i];
 
         INPUT_OUT input_gp = {0};
         INPUT_OUT input_kb = {0};
 
         /** Get inputs **/
-        GamepadSetUserInput(  p_user->gp, &input_gp );
-        KeyboardSetUserInput( p_user->kb, &input_kb );
+        GamepadSetUserInput(  p_peri->gp, &input_gp );
+        KeyboardSetUserInput( p_peri->kb, &input_kb );
 
         /** Axis Info **/
         p_user->x1 = MAX_ABS(input_gp.x1, input_kb.x1);
@@ -128,12 +153,13 @@ SetPdsPeripheral(void)
 {
     for (int i = 0; i < ARYLEN(PeripheralData); ++i)
     {
-        PDS_PERIPHERAL* const p_pad  = &PeripheralData[i];
-        const IC_USER*  const p_user = &Users[i];
+        PDS_PERIPHERAL*  const p_pad  = &PeripheralData[i];
+        const IC_USER*   const p_user = &Users[i];
+        const USER_PERI* const p_peri = &UserPeris[i];
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
             to emulate the controller being disconnected **/
-        if (!GamepadValid(p_user->gp) && p_user->kb == IC_KEYBOARD_NONE)
+        if (!GamepadValid(p_peri->gp) && p_peri->kb == IC_KEYBOARD_NONE)
         {
             *p_pad = (PDS_PERIPHERAL){0};
 
@@ -200,7 +226,7 @@ SetPdsPeripheral(void)
 
         PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
 
-        const IC_GAMEPAD* p_gp = GamepadGetGamepad(p_user->gp);
+        const IC_GAMEPAD* p_gp = GamepadGetGamepad(p_peri->gp);
 
         if (p_padinfo)
         {
@@ -243,18 +269,18 @@ IC_InputInit(void)
     X2SetsLR     = CnfGetInt(CNF_COMPAT_X2SETLR);
     UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
 
-    /** Gamepad/Keyboard index **/
-    Users[0].gp = CnfGetInt( CNF_USER1_GAMEPD_NB );
-    Users[0].kb = CnfGetInt( CNF_USER1_KEYBRD_NB );
+    /** User peripheral indexes **/
+    UserPeris[0].gp = CnfGetInt( CNF_USER1_GAMEPD_NB );
+    UserPeris[0].kb = CnfGetInt( CNF_USER1_KEYBRD_NB );
 
-    Users[1].gp = CnfGetInt( CNF_USER2_GAMEPD_NB );
-    Users[1].kb = CnfGetInt( CNF_USER2_KEYBRD_NB );
+    UserPeris[1].gp = CnfGetInt( CNF_USER2_GAMEPD_NB );
+    UserPeris[1].kb = CnfGetInt( CNF_USER2_KEYBRD_NB );
 
-    Users[2].gp = CnfGetInt( CNF_USER3_GAMEPD_NB );
-    Users[2].kb = CnfGetInt( CNF_USER3_KEYBRD_NB );
+    UserPeris[2].gp = CnfGetInt( CNF_USER3_GAMEPD_NB );
+    UserPeris[2].kb = CnfGetInt( CNF_USER3_KEYBRD_NB );
 
-    Users[3].gp = CnfGetInt( CNF_USER4_GAMEPD_NB );
-    Users[3].kb = CnfGetInt( CNF_USER4_KEYBRD_NB );
+    UserPeris[3].gp = CnfGetInt( CNF_USER4_GAMEPD_NB );
+    UserPeris[3].kb = CnfGetInt( CNF_USER4_KEYBRD_NB );
 
     /** Digital Trigger **/
     DgtTrigOn[0]  = CnfGetInt( CNF_USER1_DGTLR_ON  );
