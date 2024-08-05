@@ -5,17 +5,17 @@
 #include <sa2b/core.h>      /* core                                                 */
 
 /****** Self ************************************************************************/
-#include <ic_core.h>    /* core                                                     */
-#include <ic_feature.h> /* config                                                   */
+#include <ic_core.h>        /* core                                                 */
+#include <ic_feature.h>     /* config                                               */
 
 /****** Self ************************************************************************/
-#include <ic_api/icapi_internal.h>  /* self                                         */
+#include <ic_api/icapi_internal.h> /* self                                          */
 
 /************************/
 /*  Constants           */
 /************************/
 /****** Version *********************************************************************/
-#define ICAPI_FEATURE_VER      (0)
+#define ICAPI_FEATURE_VER       (0) /* API version                                  */
 
 /************************/
 /*  File Data           */
