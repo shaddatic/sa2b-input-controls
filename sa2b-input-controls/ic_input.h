@@ -297,6 +297,8 @@ typedef struct
     uint32_t        support; /* gamepad supported features                          */
 
     uint32_t           down; /* currently pressed buttons                 (GPDBTN)  */
+    uint32_t          press; /* currently pressed buttons                 (GPDBTN)  */
+    uint32_t        release; /* currently pressed buttons                 (GPDBTN)  */
        
     int16_t            l, r; /* analog l/r triggers                       (0~32767) */
 

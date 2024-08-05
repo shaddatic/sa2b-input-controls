@@ -365,13 +365,20 @@ GamepadUpdate(void)
         IC_GAMEPAD*         const p_gp    = &Gamepads[i];
         SDL_GameController* const p_sdlgc = p_gp->pgp;
 
-        p_gp->down = 0;
+        const uint32_t old_down = p_gp->down;
+
+        uint32_t new_down = 0;
 
         for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
         {
             if (SDL_GameControllerGetButton(p_sdlgc, i))
-                p_gp->down |= (1<<i);
+                new_down |= (1<<i);
         }
+
+        p_gp->down = new_down;
+
+        p_gp->press   = new_down & ~old_down;
+        p_gp->release = old_down & ~new_down;
 
         p_gp->x1 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTX);
         p_gp->y1 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTY);
