@@ -8,78 +8,87 @@
 #include <sa2b/modloader.h> /* ML_DisplayDebugStringF                               */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/ninja.h>   /* Ninja                                            */
+#include <sa2b/ninja/ninja.h> /* ninja                                              */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/debug.h>   /* OutputFormat                                     */
+#include <sa2b/sonic/debug.h> /* OutputFormat                                       */
 
 /****** Simple DirectMedia Layer ****************************************************/
 #include <SDL2/SDL.h>       /* core                                                 */
 
 /****** Std *************************************************************************/
-#include <stdio.h>  /* snprintf                                                     */
-#include <math.h>   /* nearintf                                                     */
+#include <stdio.h>          /* snprintf                                             */
+#include <math.h>           /* nearintf                                             */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>    /* core                                                     */
-#include <ic_config.h>  /* CnfGet___                                                */
-#include <ic_sdl2.h>    /* ICSDL_RegisterEventHandler                               */
+#include <ic_core.h>        /* core                                                 */
+#include <ic_config.h>      /* CnfGet___                                            */
+#include <ic_sdl2.h>        /* ICSDL_RegisterEventHandler                           */
 
 /****** Self ************************************************************************/
-#include <ic_input/inpt_internal.h> /* internal                                     */
+#include <ic_input/inpt_internal.h> /* parent                                       */
 
 /************************/
 /*  Constants           */
 /************************/
-#define GPD_SDLIDX_NONE     (-1)
+/****** SDL GameController Index ****************************************************/
+#define GPD_SDLIDX_NONE     (-1) /* gamepad slot is not linked to an open gamepad   */
 
 /************************/
-/*  File Macro          */
+/*  Macros              */
 /************************/
+/****** Normalize Gamepad Analogs ***************************************************/
 #define NORM_GPD_DIR(mag)   ((f64)mag/(mag>0?(f64)GPDLIM_XY_MAX:(f64)-GPDLIM_XY_MIN))
 #define NORM_GPD_TRIG(mag)  ((f64)mag/(f64)(SDL_JOYSTICK_AXIS_MAX))
 
 /************************/
 /*  Enums               */
 /************************/
+/****** Deadzone Modes **************************************************************/
 typedef enum
 {
-    DZ_MD_CIRCULAR,
-    DZ_MD_SQUARE,
+    DZ_MD_CIRCULAR,         /* use circular deadzone calculations                   */
+    DZ_MD_SQUARE,           /* use square deadzone calculations                     */
 }
 eDZ_MODE;
 
 /************************/
 /*  Structures          */
 /************************/
+/****** Deadzone Settings ***********************************************************/
 typedef struct
 {
-    f32 idz;    /* inner deadzone                                                   */
-    f32 odz;    /* outer deadzone                                                   */
+    f32 idz;                /* inner deadzone                                       */
+    f32 odz;                /* outer deadzone                                       */
 }
 DEADZONE;
 
+/****** Gamepad Settings ************************************************************/
 typedef struct
 {
-    DEADZONE StickL;
-    DEADZONE StickR;
-    f32      vibStr;
-    u8       dzMode;
+    DEADZONE StickL;        /* left stick deadzone                                  */
+    DEADZONE StickR;        /* right stick deadzone                                 */
+    f32      vibStr;        /* vibration strength                                   */
+    u8       dzMode;        /* deadzone mode                                        */
 }
-USER_GAMEPAD;
+GAMEPAD_SETTINGS;
 
 /************************/
 /*  File Data           */
 /************************/
-static USER_GAMEPAD UserGamepads[4]; /* user gamepad settings                        */
+/****** Gamepad Settings ************************************************************/
+static GAMEPAD_SETTINGS GpSettings[4]; /* gamepad settings                          */
 
-static IC_GAMEPAD Gamepads[4];          /* physical gamepad data                        */
+/****** Gamepad Slots ***************************************************************/
+static IC_GAMEPAD Gamepads[4]; /* physical gamepad data                             */
 
-static bool GamepadDbgAxis;
+/****** Debug ***********************************************************************/
+static bool GamepadDbgAxis; /* display gamepad debug menu                           */
 
 /************************/
 /*  Source              */
 /************************/
+/****** Static **********************************************************************/
 static void
 ResetGamepadStruct(IC_GAMEPAD* const pGp)
 {
@@ -157,58 +166,6 @@ GamepadEventHandler(const SDL_Event* pEvent)
         CloseGamepad(pEvent->cdevice.which);
         break;
     }
-}
-
-const IC_GAMEPAD*
-GamepadGetGamepad(const eIC_GAMEPAD_NUM nbGp)
-{
-    if (nbGp == IC_GAMEPAD_NONE)
-        return false;
-
-    return &Gamepads[nbGp];
-}
-
-bool
-GamepadValid(const eIC_GAMEPAD_NUM nbGp)
-{
-    if (nbGp == IC_GAMEPAD_NONE)
-        return false;
-
-    return Gamepads[nbGp].pgp;
-}
-
-bool
-GamepadSetVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi)
-{
-    if (nbGp == IC_GAMEPAD_NONE)
-        return false;
-
-    const IC_GAMEPAD*   const p_gpd = &Gamepads[nbGp];
-    const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
-
-    const f32 str = p_usr->vibStr;
-
-    const Sint16 lo = (Sint16)( ( CLAMP(spdLo, 0.f, 1.f) * 65535.f ) * str );
-    const Sint16 hi = (Sint16)( ( CLAMP(spdHi, 0.f, 1.f) * 65535.f ) * str );
-
-    return SDL_GameControllerRumble(p_gpd->pgp, lo, hi, 0xFFFFFFFF);
-}
-
-bool
-GamepadSetTriggerVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
-{
-    if (nbGp == IC_GAMEPAD_NONE)
-        return false;
-
-    const IC_GAMEPAD*   const p_gpd = &Gamepads[nbGp];
-    const USER_GAMEPAD* const p_usr = &UserGamepads[nbGp];
-
-    const f32 str = p_usr->vibStr;
-
-    const Sint16 l = (Sint16)( ( CLAMP(spdL, 0.f, 1.f) * 65535.f ) * str );
-    const Sint16 r = (Sint16)( ( CLAMP(spdR, 0.f, 1.f) * 65535.f ) * str );
-
-    return SDL_GameControllerRumbleTriggers(p_gpd->pgp, l, r, 0xFFFFFFFF);
 }
 
 static void
@@ -293,13 +250,66 @@ GamepadToUserButton(u32 gpbtn)
     return btn;
 }
 
+/****** Extern **********************************************************************/
+const IC_GAMEPAD*
+GamepadGetGamepad(const eIC_GAMEPAD_NUM nbGp)
+{
+    if (nbGp == IC_GAMEPAD_NONE)
+        return false;
+
+    return &Gamepads[nbGp];
+}
+
+bool
+GamepadValid(const eIC_GAMEPAD_NUM nbGp)
+{
+    if (nbGp == IC_GAMEPAD_NONE)
+        return false;
+
+    return Gamepads[nbGp].pgp;
+}
+
+bool
+GamepadSetVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdLo, const f32 spdHi)
+{
+    if (nbGp == IC_GAMEPAD_NONE)
+        return false;
+
+    const IC_GAMEPAD*   const p_gpd = &Gamepads[nbGp];
+    const GAMEPAD_SETTINGS* const p_usr = &GpSettings[nbGp];
+
+    const f32 str = p_usr->vibStr;
+
+    const Sint16 lo = (Sint16)( ( CLAMP(spdLo, 0.f, 1.f) * 65535.f ) * str );
+    const Sint16 hi = (Sint16)( ( CLAMP(spdHi, 0.f, 1.f) * 65535.f ) * str );
+
+    return SDL_GameControllerRumble(p_gpd->pgp, lo, hi, 0xFFFFFFFF);
+}
+
+bool
+GamepadSetTriggerVibration(const eIC_GAMEPAD_NUM nbGp, const f32 spdL, const f32 spdR)
+{
+    if (nbGp == IC_GAMEPAD_NONE)
+        return false;
+
+    const IC_GAMEPAD*   const p_gpd = &Gamepads[nbGp];
+    const GAMEPAD_SETTINGS* const p_usr = &GpSettings[nbGp];
+
+    const f32 str = p_usr->vibStr;
+
+    const Sint16 l = (Sint16)( ( CLAMP(spdL, 0.f, 1.f) * 65535.f ) * str );
+    const Sint16 r = (Sint16)( ( CLAMP(spdR, 0.f, 1.f) * 65535.f ) * str );
+
+    return SDL_GameControllerRumbleTriggers(p_gpd->pgp, l, r, 0xFFFFFFFF);
+}
+
 bool
 GamepadSetUserInput(const eIC_GAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
 {
     if (nbGp == IC_GAMEPAD_NONE || !GamepadValid(nbGp))
         return false;
 
-    const USER_GAMEPAD* const p_usrgp = &UserGamepads[nbGp];
+    const GAMEPAD_SETTINGS* const p_usrgp = &GpSettings[nbGp];
     const IC_GAMEPAD*   const p_gp    = &Gamepads[nbGp];
 
     pOutInput->down = GamepadToUserButton(p_gp->down);
@@ -390,22 +400,23 @@ GamepadUpdate(void)
     }
 }
 
+/****** Init ************************************************************************/
 void
 GamepadInit(void)
 {
     /** Get Gamepad sections info **/
-    for (int i = 0; i < ARYLEN(UserGamepads); ++i)
+    for (int i = 0; i < ARYLEN(GpSettings); ++i)
     {
         char buf[8];
 
         snprintf(buf, sizeof(buf), "gp%i", i);
 
-        UserGamepads[i].dzMode =     (u8)  CnfGetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
-        UserGamepads[i].StickL.idz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
-        UserGamepads[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
-        UserGamepads[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
-        UserGamepads[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
-        UserGamepads[i].vibStr  =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_STR( buf ) );
+        GpSettings[i].dzMode =     (u8)  CnfGetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
+        GpSettings[i].StickL.idz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
+        GpSettings[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
+        GpSettings[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
+        GpSettings[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
+        GpSettings[i].vibStr  =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_STR( buf ) );
     }
 
     /** Get debug info **/

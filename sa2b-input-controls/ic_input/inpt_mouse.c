@@ -14,54 +14,61 @@
 #include <ic_config.h>      /* config                                               */
 
 /****** Self ************************************************************************/
-#include <ic_input/inpt_internal.h>
-#include <ic_input/inpt_mouse/mse_internal.h>
+#include <ic_input/inpt_internal.h>           /* parent                             */
+#include <ic_input/inpt_mouse/mse_internal.h> /* self                               */
 
 /************************/
 /*  Enums               */
 /************************/
+/****** Sub State *******************************************************************/
 typedef enum
 {
-    MOUSE_SUB_NONE,        /* no sub state                                         */
-    MOUSE_SUB_FREEING,     /* cursor is to be freed next input execution           */
-    MOUSE_SUB_CAPTURING,   /* cursor is to be captured, if possible, next exec     */
+    MOUSE_SUB_NONE,         /* no sub state                                         */
+    MOUSE_SUB_FREEING,      /* cursor is to be freed next input execution           */
+    MOUSE_SUB_CAPTURING,    /* cursor is to be captured, if possible, next exec     */
 }
 eMOUSE_SUBSTATE;
 
+/****** Analog Emulation Mode *******************************************************/
 typedef enum
 {
-    EMU_MD_RAWVEC,
-    EMU_MD_CLICKDRAG,
+    EMU_MD_RAWVEC,          /* use raw mouse vector                                 */
+    EMU_MD_CLICKDRAG,       /* use click and drag                                   */
 }
 eEMU_MODE;
 
 /************************/
 /*  File Variables      */
 /************************/
+/****** Mouse ***********************************************************************/
 static IC_MOUSE Mouse;                      /* mouse struct                         */
 
-static eIC_MOUSE_MODE   MouseState;         /* cursor state                         */
-static eMOUSE_SUBSTATE  MouseSubState;      /* cursor sub-state                     */
+/****** Mouse State *****************************************************************/
+static eIC_MOUSE_MODE  MouseState;          /* cursor state                         */
+static eMOUSE_SUBSTATE MouseSubState;       /* cursor sub-state                     */
 
-static INT_POINT2    CursorPos;
+/****** Global Cursor Position ******************************************************/
 static INT_POINT2    CursorPosLast;         /* last position of the cursor          */
 
-static f32           WheelBufferX;          /* os message wheel buffer X            */
-static f32           WheelBufferY;          /* os message wheel buffer Y            */
+/****** Mouse Wheel Message Buffer **************************************************/
+static f32           WheelBufferX;          /* OS message wheel buffer X            */
+static f32           WheelBufferY;          /* OS message wheel buffer Y            */
 
+/****** Analog Emulation Settings ***************************************************/
 static eIC_KEYBOARD_NUM MouseEmuKbIndex;    /* analog emulation keyboard num        */
 static eEMU_STICK       MouseEmuStickIndex; /* analog emulation stick num           */
 static int32_t          MouseEmuMode;       /* analog emulation input mode          */
 static f32              MouseEmuSensitivity;/* analog emulation sensitivity         */
 
+/****** Click & Drag ****************************************************************/
 static NJS_POINT2I   MouseEmuDragVector;    /* click & drag vector                  */
 static int32_t       MouseEmuDragMax;       /* click & drag max vector              */
-
 static int8_t        MouseEmuClickKey;      /* click & drag 'click' key             */
 
 /************************/
 /*  Source              */
 /************************/
+/****** Extern **********************************************************************/
 void
 MouseUpdate(void)
 {
@@ -258,6 +265,7 @@ MouseShow(void)
     OS_ShowCursor(false);
 }
 
+/****** Init ************************************************************************/
 void
 MouseInit(void)
 {

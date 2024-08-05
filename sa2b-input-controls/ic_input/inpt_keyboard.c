@@ -12,34 +12,37 @@
 #include <sa2b/ninja/njdebug.h> /* NJM_LOCATION                                     */
 
 /****** Std *************************************************************************/
-#include <stdio.h>  /* snprintf                                                     */
+#include <stdio.h>          /* snprintf                                             */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/debug.h>   /* OutputInt                                        */
+#include <sa2b/sonic/debug.h> /* OutputInt                                          */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>    /* core                                                     */
-#include <ic_config.h>  /* CnfGet___                                                */
-#include <ic_window.h>
-#include <ic_os.h>
+#include <ic_core.h>        /* core                                                 */
+#include <ic_config.h>      /* CnfGet___                                            */
+#include <ic_window.h>      /* WND_InFocus                                          */
+#include <ic_os.h>          /* OS_GetKeyboardState                                  */
 
 /****** Self ************************************************************************/
-#include <ic_input/inpt_internal.h>
+#include <ic_input/inpt_internal.h> /* parent                                       */
 
 /************************/
 /*  Constants           */
 /************************/
-#define LEN_KEY_BITMAP      (256/8)
+/****** Key Bitmap Array Size *******************************************************/
+#define LEN_KEY_BITMAP      (256/8) /* length of the key bitmap                     */
 
 /************************/
 /*  Typedefs            */
 /************************/
-typedef uint8_t     KEY_MAP[256];
-typedef uint8_t     KEY_BITMAP[LEN_KEY_BITMAP];
+/****** Key State Arrays ************************************************************/
+typedef uint8_t             KEY_MAP[256];               /* OS key state array       */
+typedef uint8_t             KEY_BITMAP[LEN_KEY_BITMAP]; /* key bitmap state array   */
 
 /************************/
 /*  Structures          */
 /************************/
+/****** Keyboard State **************************************************************/
 typedef struct
 {
     KEY_BITMAP down;
@@ -52,6 +55,7 @@ typedef struct
 }
 KEYBOARD;
 
+/****** Directional Key Input Settings **********************************************/
 typedef struct
 {
     uint8_t up;
@@ -61,6 +65,7 @@ typedef struct
 }
 DIR_KEYS;
 
+/****** Key Input Settings ***********************************************************/
 typedef struct
 {
     DIR_KEYS StickL;
@@ -90,10 +95,10 @@ USER_KEYS;
 /************************/
 /*  File Variables      */
 /************************/
-static bool     KeyboardDebugPoll;
+/****** Keyboard ********************************************************************/
+static KEYBOARD Keyboard;    /* keyboard state                                      */
 
-static KEYBOARD Keyboard;
-
+/****** Keyboard Input Settings *****************************************************/
 static USER_KEYS KeyboardLayout[4] = /* default options */
 {
     /** SA2 P1 default **/
@@ -171,13 +176,42 @@ static USER_KEYS KeyboardLayout[4] = /* default options */
         .btn_rs    = KEY_NONE,
         .DPad      = { .up = KEY_NONE, .down = KEY_NONE, .left = KEY_NONE, .right = KEY_NONE },
     },
-
-
 };
+
+/****** Debug ***********************************************************************/
+static bool     KeyboardDebugPoll; /* display debug key poll menu                   */
 
 /************************/
 /*  Source              */
 /************************/
+/****** Static **********************************************************************/
+static f32
+GetStickAxis(const uint8_t keyPos, const uint8_t keyNeg)
+{
+    return (KeyboardDown(keyPos) ? 1.0f : 0.0f) - (KeyboardDown(keyNeg) ? 1.0f : 0.0f);
+}
+
+static void
+DebugPoll(void)
+{
+    static int s_LastDbgPoll;
+
+    uint8_t poll = KeyboardPoll();
+
+    if (poll == KEY_NONE)
+        poll = s_LastDbgPoll;
+    else
+        s_LastDbgPoll = poll;
+
+    ML_SetDebugFontColor(0xFFFFFFFF);
+    ML_SetDebugFontScale(12.f);
+
+    char buf[64];
+
+    ML_DisplayDebugStringF(NJM_LOCATION(1, 1), buf, 64, "LAST KEY: %i", poll);
+}
+
+/****** Extern **********************************************************************/
 u8
 KeyboardPoll(void)
 {
@@ -242,26 +276,6 @@ KeyboardNumLock(void)
     return Keyboard.numblock;
 }
 
-static void
-DebugPoll(void)
-{
-    static int s_LastDbgPoll;
-
-    uint8_t poll = KeyboardPoll();
-
-    if (poll == KEY_NONE)
-        poll = s_LastDbgPoll;
-    else
-        s_LastDbgPoll = poll;
-
-    ML_SetDebugFontColor(0xFFFFFFFF);
-    ML_SetDebugFontScale(12.f);
-
-    char buf[64];
-
-    ML_DisplayDebugStringF(NJM_LOCATION(1, 1), buf, 64, "LAST KEY: %i", poll);
-}
-
 void
 KeyboardUpdate(void)
 {
@@ -309,12 +323,6 @@ KeyboardUpdate(void)
 
     if (KeyboardDebugPoll)
         DebugPoll();
-}
-
-static f32
-GetStickAxis(const uint8_t keyPos, const uint8_t keyNeg)
-{
-    return (KeyboardDown(keyPos) ? 1.0f : 0.0f) - (KeyboardDown(keyNeg) ? 1.0f : 0.0f);
 }
 
 bool
@@ -396,6 +404,7 @@ KeyboardSetUserInput(const eIC_KEYBOARD_NUM nbKb, INPUT_OUT* const pOutInput)
     return true;
 }
 
+/****** Init ************************************************************************/
 void
 KeyboardInit(void)
 {

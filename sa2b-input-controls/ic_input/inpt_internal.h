@@ -14,7 +14,7 @@
 /*  External Headers    */
 /************************/
 /****** Input Controls **************************************************************/
-#include <ic_input.h>   /* external self                                            */
+#include <ic_input.h>       /* parent                                               */
 
 EXTERN_START
 
@@ -24,8 +24,8 @@ EXTERN_START
 /****** Emulated Analog *************************************************************/
 typedef enum
 {
-    EMU_STICK_LEFT,
-    EMU_STICK_RIGHT,
+    EMU_STICK_LEFT,         /* mouse emulation, left stick                          */
+    EMU_STICK_RIGHT,        /* mouse emulation, right stick                         */
 }
 eEMU_STICK;
 
@@ -35,10 +35,10 @@ eEMU_STICK;
 /****** Internal Input Buffer *******************************************************/
 typedef struct
 {
-    u32 down;
-    f32 l , r;
-    f32 x1, y1;
-    f32 x2, y2;
+    u32 down;               /* down buttons                                         */
+    f32 l , r;              /* l & r values                                         */
+    f32 x1, y1;             /* left stick values                                    */
+    f32 x2, y2;             /* right stick value                                    */
 }
 INPUT_OUT;
 
