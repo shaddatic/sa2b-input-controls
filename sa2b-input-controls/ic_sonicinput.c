@@ -20,9 +20,11 @@
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>
-#include <ic_config.h>
 #include <ic_input.h>
-#include <ic_feature.h> /*  */
+#include <ic_feature.h> /* ICF_ */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /****** Self ************************************************************************/
 #include <ic_sonicinput.h>  /* self                                                 */
@@ -195,7 +197,7 @@ NewGetPlayersInputData_FH(void)
 void
 IC_SonicInputInit(void)
 {
-    DreamcastMode = CnfGetInt(CNF_MISC_DCDRIFT);
+    DreamcastMode = CNF_GetInt(CNF_MISC_DCDRIFT);
 
     WriteJump(0x00441EF0, NewGetPlayersInputData);
 

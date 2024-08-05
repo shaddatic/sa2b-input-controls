@@ -29,7 +29,7 @@
     <ClCompile Include="ic_api\icapi_user.c" />
     <ClCompile Include="ic_api\icapi_window.c" />
     <ClCompile Include="ic_camera.c" />
-    <ClCompile Include="ic_config.c" />
+    <ClCompile Include="cnf.c" />
     <ClCompile Include="ic_input.c" />
     <ClCompile Include="ic_input\inpt_gamepad.c" />
     <ClCompile Include="ic_input\inpt_keyboard.c" />
@@ -53,8 +53,8 @@
     <ClInclude Include="ic_api\icapi_internal.h" />
     <ClInclude Include="ic_feature.h" />
     <ClInclude Include="ic_camera.h" />
-    <ClInclude Include="ic_config.h" />
-    <ClInclude Include="ic_config\cnf_def.h" />
+    <ClInclude Include="cnf.h" />
+    <ClInclude Include="cnf\cnf_def.h" />
     <ClInclude Include="ic_core.h" />
     <ClInclude Include="ic_input.h" />
     <ClInclude Include="ic_input\inpt_mouse\mse_internal.h" />

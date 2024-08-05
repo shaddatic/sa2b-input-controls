@@ -18,7 +18,7 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ic_config.c">
+    <ClCompile Include="cnf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ic_input.c">
@@ -95,7 +95,7 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ic_config.h">
+    <ClInclude Include="cnf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ic_core.h">
@@ -122,7 +122,7 @@
     <ClInclude Include="ic_input\inpt_mouse\mse_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ic_config\cnf_def.h">
+    <ClInclude Include="cnf\cnf_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ic_vibtask.h">

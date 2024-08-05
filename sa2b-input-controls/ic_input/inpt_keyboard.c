@@ -19,9 +19,11 @@
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
-#include <ic_config.h>      /* CnfGet___                                            */
 #include <ic_window.h>      /* WND_InFocus                                          */
 #include <ic_os.h>          /* OS_GetKeyboardState                                  */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /****** Self ************************************************************************/
 #include <ic_input/inpt_internal.h> /* parent                                       */
@@ -417,38 +419,38 @@ KeyboardInit(void)
 
         snprintf(buf, sizeof(buf), "kb%i", i);
 
-        p_kbl->StickL.up    = CnfGetInt( CNFV_KEYBRD_LS_UP(    buf, p_kbl->StickL.up    ) );
-        p_kbl->StickL.down  = CnfGetInt( CNFV_KEYBRD_LS_DOWN(  buf, p_kbl->StickL.down  ) );
-        p_kbl->StickL.left  = CnfGetInt( CNFV_KEYBRD_LS_LEFT(  buf, p_kbl->StickL.left  ) );
-        p_kbl->StickL.right = CnfGetInt( CNFV_KEYBRD_LS_RIGHT( buf, p_kbl->StickL.right ) );
+        p_kbl->StickL.up    = CNF_GetInt( CNFV_KEYBRD_LS_UP(    buf, p_kbl->StickL.up    ) );
+        p_kbl->StickL.down  = CNF_GetInt( CNFV_KEYBRD_LS_DOWN(  buf, p_kbl->StickL.down  ) );
+        p_kbl->StickL.left  = CNF_GetInt( CNFV_KEYBRD_LS_LEFT(  buf, p_kbl->StickL.left  ) );
+        p_kbl->StickL.right = CNF_GetInt( CNFV_KEYBRD_LS_RIGHT( buf, p_kbl->StickL.right ) );
 
-        p_kbl->StickR.up    = CnfGetInt( CNFV_KEYBRD_RS_UP(    buf, p_kbl->StickR.up    ) );
-        p_kbl->StickR.down  = CnfGetInt( CNFV_KEYBRD_RS_DOWN(  buf, p_kbl->StickR.down  ) );
-        p_kbl->StickR.left  = CnfGetInt( CNFV_KEYBRD_RS_LEFT(  buf, p_kbl->StickR.left  ) );
-        p_kbl->StickR.right = CnfGetInt( CNFV_KEYBRD_RS_RIGHT( buf, p_kbl->StickR.right ) );
+        p_kbl->StickR.up    = CNF_GetInt( CNFV_KEYBRD_RS_UP(    buf, p_kbl->StickR.up    ) );
+        p_kbl->StickR.down  = CNF_GetInt( CNFV_KEYBRD_RS_DOWN(  buf, p_kbl->StickR.down  ) );
+        p_kbl->StickR.left  = CNF_GetInt( CNFV_KEYBRD_RS_LEFT(  buf, p_kbl->StickR.left  ) );
+        p_kbl->StickR.right = CNF_GetInt( CNFV_KEYBRD_RS_RIGHT( buf, p_kbl->StickR.right ) );
 
-        p_kbl->btn_a = CnfGetInt( CNFV_KEYBRD_BTN_A( buf, p_kbl->btn_a ) );
-        p_kbl->btn_b = CnfGetInt( CNFV_KEYBRD_BTN_B( buf, p_kbl->btn_b ) );
-        p_kbl->btn_x = CnfGetInt( CNFV_KEYBRD_BTN_X( buf, p_kbl->btn_x ) );
-        p_kbl->btn_y = CnfGetInt( CNFV_KEYBRD_BTN_Y( buf, p_kbl->btn_y ) );
+        p_kbl->btn_a = CNF_GetInt( CNFV_KEYBRD_BTN_A( buf, p_kbl->btn_a ) );
+        p_kbl->btn_b = CNF_GetInt( CNFV_KEYBRD_BTN_B( buf, p_kbl->btn_b ) );
+        p_kbl->btn_x = CNF_GetInt( CNFV_KEYBRD_BTN_X( buf, p_kbl->btn_x ) );
+        p_kbl->btn_y = CNF_GetInt( CNFV_KEYBRD_BTN_Y( buf, p_kbl->btn_y ) );
 
-        p_kbl->btn_l = CnfGetInt( CNFV_KEYBRD_BTN_L( buf, p_kbl->btn_l) );
-        p_kbl->btn_r = CnfGetInt( CNFV_KEYBRD_BTN_R( buf, p_kbl->btn_r) );
+        p_kbl->btn_l = CNF_GetInt( CNFV_KEYBRD_BTN_L( buf, p_kbl->btn_l) );
+        p_kbl->btn_r = CNF_GetInt( CNFV_KEYBRD_BTN_R( buf, p_kbl->btn_r) );
 
-        p_kbl->btn_start = CnfGetInt( CNFV_KEYBRD_BTN_START( buf, p_kbl->btn_start) );
-        p_kbl->btn_back  = CnfGetInt( CNFV_KEYBRD_BTN_BACK(  buf, p_kbl->btn_back ) );
+        p_kbl->btn_start = CNF_GetInt( CNFV_KEYBRD_BTN_START( buf, p_kbl->btn_start) );
+        p_kbl->btn_back  = CNF_GetInt( CNFV_KEYBRD_BTN_BACK(  buf, p_kbl->btn_back ) );
 
-        p_kbl->btn_zl = CnfGetInt( CNFV_KEYBRD_BTN_ZL( buf, p_kbl->btn_zl ) );
-        p_kbl->btn_zr = CnfGetInt( CNFV_KEYBRD_BTN_ZR( buf, p_kbl->btn_zr ) );
+        p_kbl->btn_zl = CNF_GetInt( CNFV_KEYBRD_BTN_ZL( buf, p_kbl->btn_zl ) );
+        p_kbl->btn_zr = CNF_GetInt( CNFV_KEYBRD_BTN_ZR( buf, p_kbl->btn_zr ) );
 
-        p_kbl->btn_ls = CnfGetInt( CNFV_KEYBRD_BTN_LS( buf, p_kbl->btn_ls ) );
-        p_kbl->btn_rs = CnfGetInt( CNFV_KEYBRD_BTN_RS( buf, p_kbl->btn_rs ) );
+        p_kbl->btn_ls = CNF_GetInt( CNFV_KEYBRD_BTN_LS( buf, p_kbl->btn_ls ) );
+        p_kbl->btn_rs = CNF_GetInt( CNFV_KEYBRD_BTN_RS( buf, p_kbl->btn_rs ) );
 
-        p_kbl->DPad.up    = CnfGetInt( CNFV_KEYBRD_DIR_UP(    buf, p_kbl->DPad.up    ) );
-        p_kbl->DPad.down  = CnfGetInt( CNFV_KEYBRD_DIR_DOWN(  buf, p_kbl->DPad.down  ) );
-        p_kbl->DPad.left  = CnfGetInt( CNFV_KEYBRD_DIR_LEFT(  buf, p_kbl->DPad.left  ) );
-        p_kbl->DPad.right = CnfGetInt( CNFV_KEYBRD_DIR_RIGHT( buf, p_kbl->DPad.right ) );
+        p_kbl->DPad.up    = CNF_GetInt( CNFV_KEYBRD_DIR_UP(    buf, p_kbl->DPad.up    ) );
+        p_kbl->DPad.down  = CNF_GetInt( CNFV_KEYBRD_DIR_DOWN(  buf, p_kbl->DPad.down  ) );
+        p_kbl->DPad.left  = CNF_GetInt( CNFV_KEYBRD_DIR_LEFT(  buf, p_kbl->DPad.left  ) );
+        p_kbl->DPad.right = CNF_GetInt( CNFV_KEYBRD_DIR_RIGHT( buf, p_kbl->DPad.right ) );
     }
 
-    KeyboardDebugPoll = CnfGetInt(CNF_DEBUG_KEYPOLL);
+    KeyboardDebugPoll = CNF_GetInt(CNF_DEBUG_KEYPOLL);
 }

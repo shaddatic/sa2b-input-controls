@@ -4,9 +4,11 @@
 /****** Core Toolkit ****************************************************************/
 #include <sa2b/core.h>      /* core                                                 */
 
-/****** Self ************************************************************************/
+/****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
-#include <ic_config.h>      /* config                                               */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfDirectGet##                                       */
 
 /****** Self ************************************************************************/
 #include <ic_api/icapi_internal.h> /* self                                          */
@@ -25,10 +27,10 @@ const ICAPI_CONFIG icapi_config =
 {
     .version = ICAPI_CONFIG_VER,
 
-    .GetInt    = CnfDirectGetInt,
-    .GetFloat  = CnfDirectGetFloat,
-    .GetBool   = CnfDirectGetBool,
-    .GetString = CnfDirectGetString,
+    .GetInt    = CNF_DirectGetInt,
+    .GetFloat  = CNF_DirectGetFloat,
+    .GetBool   = CNF_DirectGetBool,
+    .GetString = CNF_DirectGetString,
 
-    .GetPercent = CnfDirectGetPercent,
+    .GetPercent = CNF_DirectGetPercent,
 };

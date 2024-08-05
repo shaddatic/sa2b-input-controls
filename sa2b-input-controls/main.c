@@ -11,7 +11,6 @@
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
-#include <ic_config.h>      /* config                                               */
 #include <ic_input.h>       /* input                                                */
 #include <ic_socmagic.h>    /* soc/magic                                            */
 #include <ic_sonicinput.h>  /* sonic input                                          */
@@ -22,6 +21,9 @@
 #include <ic_sonicinput.h>  /* sonic input                                          */
 #include <ic_api.h>
 #include <ic_sdl2.h>        /* SDL2                                                 */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /************************/
 /*  Constants           */
@@ -68,7 +70,7 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
 
     if ( ICSDL_Init() )
     {
-        CnfInit();
+        CNF_Init();
 
         if (can_api)
             ICAPI_Init();
@@ -84,7 +86,7 @@ Init(const char* path, const HelperFunctions* pHelperFunctions)
         if (can_api)
             ICAPI_End();
 
-        CnfEnd();
+        CNF_End();
     }
 }
 

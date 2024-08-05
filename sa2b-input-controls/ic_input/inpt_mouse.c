@@ -11,7 +11,9 @@
 #include <ic_core.h>        /* core                                                 */
 #include <ic_os.h>          /* operating system                                     */
 #include <ic_window.h>      /* window                                               */
-#include <ic_config.h>      /* config                                               */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /****** Self ************************************************************************/
 #include <ic_input/inpt_internal.h>           /* parent                             */
@@ -269,15 +271,15 @@ MouseShow(void)
 void
 MouseInit(void)
 {
-    MouseEmuKbIndex = CnfGetInt(CNF_EMUANALOG_KEYBRD);
+    MouseEmuKbIndex = CNF_GetInt(CNF_EMUANALOG_KEYBRD);
 
     if (MouseEmuKbIndex != IC_KEYBOARD_NONE)
     {
-        MouseEmuStickIndex  =     CnfGetInt(CNF_EMUANALOG_STICK);
-        MouseEmuMode        =     CnfGetInt(CNF_EMUANALOG_MODE);
-        MouseEmuClickKey    = (u8)CnfGetInt(CNF_EMUANALOG_CLICK);
+        MouseEmuStickIndex  =     CNF_GetInt(CNF_EMUANALOG_STICK);
+        MouseEmuMode        =     CNF_GetInt(CNF_EMUANALOG_MODE);
+        MouseEmuClickKey    = (u8)CNF_GetInt(CNF_EMUANALOG_CLICK);
 
-        MouseEmuSensitivity = (f32)(CnfGetPercent(CNF_EMUANALOG_SENSITIVITY) * 0.01);
+        MouseEmuSensitivity = (f32)(CNF_GetPercent(CNF_EMUANALOG_SENSITIVITY) * 0.01);
 
         MouseEmuDragMax = (s32)(1.0f/MouseEmuSensitivity)+1;
 

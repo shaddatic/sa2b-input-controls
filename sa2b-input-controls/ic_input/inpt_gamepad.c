@@ -22,8 +22,10 @@
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
-#include <ic_config.h>      /* CnfGet___                                            */
 #include <ic_sdl2.h>        /* ICSDL_RegisterEventHandler                           */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /****** Self ************************************************************************/
 #include <ic_input/inpt_internal.h> /* parent                                       */
@@ -411,16 +413,16 @@ GamepadInit(void)
 
         snprintf(buf, sizeof(buf), "gp%i", i);
 
-        GpSettings[i].dzMode =     (u8)  CnfGetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
-        GpSettings[i].StickL.idz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
-        GpSettings[i].StickL.odz = (f32) CnfGetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
-        GpSettings[i].StickR.idz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
-        GpSettings[i].StickR.odz = (f32) CnfGetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
-        GpSettings[i].vibStr  =    (f32) CnfGetPercent( CNFV_GAMEPD_VIB_STR( buf ) );
+        GpSettings[i].dzMode =     (u8)  CNF_GetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
+        GpSettings[i].StickL.idz = (f32) CNF_GetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
+        GpSettings[i].StickL.odz = (f32) CNF_GetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
+        GpSettings[i].StickR.idz = (f32) CNF_GetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
+        GpSettings[i].StickR.odz = (f32) CNF_GetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
+        GpSettings[i].vibStr  =    (f32) CNF_GetPercent( CNFV_GAMEPD_VIB_STR( buf ) );
     }
 
     /** Get debug info **/
-    GamepadDbgAxis = CnfGetInt(CNF_DEBUG_AXIS);
+    GamepadDbgAxis = CNF_GetInt(CNF_DEBUG_AXIS);
 
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
     {

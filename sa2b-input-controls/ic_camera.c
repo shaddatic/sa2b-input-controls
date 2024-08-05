@@ -16,8 +16,10 @@
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
 #include <ic_input.h>       /* input                                                */
-#include <ic_config.h>      /* CNF_Get##                                            */
 #include <ic_feature.h>     /* ICF_UseRawAnalog                                     */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /****** Self ************************************************************************/
 #include <ic_camera.h>      /* self                                                 */
@@ -167,7 +169,7 @@ ICF_CamInvertX2(void)
 void
 IC_CameraInit(void)
 {
-    if (CnfGetInt(CNF_CAMERA_ANALOG))
+    if (CNF_GetInt(CNF_CAMERA_ANALOG))
     {
         /* CameraKnukles */
         WriteNOP( 0x004F4D37, 0x004F4DB4);
@@ -190,5 +192,5 @@ IC_CameraInit(void)
         WriteCall(0x004EDBF3, ___CheckCamInput);
     }
 
-    CameraInvX2 = CnfGetInt(CNF_CAMERA_LRINV);
+    CameraInvX2 = CNF_GetInt(CNF_CAMERA_LRINV);
 }

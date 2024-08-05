@@ -12,7 +12,9 @@
 
 /****** Core Toolkit ****************************************************************/
 #include <ic_core.h>        /* core                                                 */
-#include <ic_config.h>      /* CNF_Get##                                            */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /****** Self ************************************************************************/
 #include <ic_input/inpt_mouse/mse_internal.h> /* parent                             */
@@ -331,9 +333,9 @@ MouseSetVisualizerInfo(const f32 x, const f32 y)
 void
 MouseVisualizerInit(void)
 {
-    MouseVisuMode =        CnfGetInt(     CNF_EMUANALOG_VISU_MODE  );
-    MouseVisuAlpha = (f32) CnfGetPercent( CNF_EMUANALOG_VISU_ALPHA );
-    MouseVisuScale = (f32) CnfGetFloat(   CNF_EMUANALOG_VISU_SCALE );
+    MouseVisuMode =        CNF_GetInt(     CNF_EMUANALOG_VISU_MODE  );
+    MouseVisuAlpha = (f32) CNF_GetPercent( CNF_EMUANALOG_VISU_ALPHA );
+    MouseVisuScale = (f32) CNF_GetFloat(   CNF_EMUANALOG_VISU_SCALE );
 
     MouseVisuWaitTimer = VISUTASK_WAITTIMER;
 }

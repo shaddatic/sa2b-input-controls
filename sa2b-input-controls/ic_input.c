@@ -13,9 +13,11 @@
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
 #include <ic_window.h>      /* WindowUpdate                                         */
-#include <ic_config.h>      /* CnfGet___                                            */
 #include <ic_socmagic.h>    /* SetSocPeripheral                                     */
 #include <ic_sdl2.h>        /* ICSDL_PollEvents                                     */
+
+/****** Config **********************************************************************/
+#include <cnf.h>            /* CnfGet##                                             */
 
 /****** Self ************************************************************************/
 #include <ic_input.h>               /* self                                         */
@@ -266,34 +268,34 @@ ICF_UseRawAnalog(void)
 void
 IC_InputInit(void)
 {
-    X2SetsLR     = CnfGetInt(CNF_COMPAT_X2SETLR);
-    UseRawAnalog = CnfGetInt(CNF_MAIN_RAWANALOG);
+    X2SetsLR     = CNF_GetInt(CNF_COMPAT_X2SETLR);
+    UseRawAnalog = CNF_GetInt(CNF_MAIN_RAWANALOG);
 
     /** User peripheral indexes **/
-    UserPeris[0].gp = CnfGetInt( CNF_USER1_GAMEPD_NB );
-    UserPeris[0].kb = CnfGetInt( CNF_USER1_KEYBRD_NB );
+    UserPeris[0].gp = CNF_GetInt( CNF_USER1_GAMEPD_NB );
+    UserPeris[0].kb = CNF_GetInt( CNF_USER1_KEYBRD_NB );
 
-    UserPeris[1].gp = CnfGetInt( CNF_USER2_GAMEPD_NB );
-    UserPeris[1].kb = CnfGetInt( CNF_USER2_KEYBRD_NB );
+    UserPeris[1].gp = CNF_GetInt( CNF_USER2_GAMEPD_NB );
+    UserPeris[1].kb = CNF_GetInt( CNF_USER2_KEYBRD_NB );
 
-    UserPeris[2].gp = CnfGetInt( CNF_USER3_GAMEPD_NB );
-    UserPeris[2].kb = CnfGetInt( CNF_USER3_KEYBRD_NB );
+    UserPeris[2].gp = CNF_GetInt( CNF_USER3_GAMEPD_NB );
+    UserPeris[2].kb = CNF_GetInt( CNF_USER3_KEYBRD_NB );
 
-    UserPeris[3].gp = CnfGetInt( CNF_USER4_GAMEPD_NB );
-    UserPeris[3].kb = CnfGetInt( CNF_USER4_KEYBRD_NB );
+    UserPeris[3].gp = CNF_GetInt( CNF_USER4_GAMEPD_NB );
+    UserPeris[3].kb = CNF_GetInt( CNF_USER4_KEYBRD_NB );
 
     /** Digital Trigger **/
-    DgtTrigOn[0]  = CnfGetInt( CNF_USER1_DGTLR_ON  );
-    DgtTrigOff[0] = CnfGetInt( CNF_USER1_DGTLR_OFF );
+    DgtTrigOn[0]  = CNF_GetInt( CNF_USER1_DGTLR_ON  );
+    DgtTrigOff[0] = CNF_GetInt( CNF_USER1_DGTLR_OFF );
 
-    DgtTrigOn[1]  = CnfGetInt( CNF_USER2_DGTLR_ON  );
-    DgtTrigOff[1] = CnfGetInt( CNF_USER2_DGTLR_OFF );
+    DgtTrigOn[1]  = CNF_GetInt( CNF_USER2_DGTLR_ON  );
+    DgtTrigOff[1] = CNF_GetInt( CNF_USER2_DGTLR_OFF );
 
-    DgtTrigOn[2]  = CnfGetInt( CNF_USER3_DGTLR_ON  );
-    DgtTrigOff[2] = CnfGetInt( CNF_USER3_DGTLR_OFF );
+    DgtTrigOn[2]  = CNF_GetInt( CNF_USER3_DGTLR_ON  );
+    DgtTrigOff[2] = CNF_GetInt( CNF_USER3_DGTLR_OFF );
 
-    DgtTrigOn[3]  = CnfGetInt( CNF_USER4_DGTLR_ON  );
-    DgtTrigOff[3] = CnfGetInt( CNF_USER4_DGTLR_OFF );
+    DgtTrigOn[3]  = CNF_GetInt( CNF_USER4_DGTLR_ON  );
+    DgtTrigOff[3] = CNF_GetInt( CNF_USER4_DGTLR_OFF );
 
     /** Sub-module Init **/
     GamepadInit();
@@ -319,7 +321,7 @@ IC_InputInit(void)
     WritePointer(0x0061E04E, &mulf);
 
     /** Text Mode **/
-    const s32 text_md = CnfGetInt( CNF_MISC_TEXTMD );
+    const s32 text_md = CNF_GetInt( CNF_MISC_TEXTMD );
 
     ga_InputWay[0] = text_md;
     ga_InputWay[1] = text_md;
