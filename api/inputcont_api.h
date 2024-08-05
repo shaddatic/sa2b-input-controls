@@ -415,7 +415,7 @@ typedef struct
     *   Returns:
     *     A pointer to the specified user's raw input structure
     */
-    const IC_USER* (__cdecl* GetUser)( eIC_USER_NUM nbUser );
+    const IC_USER* (__cdecl* GetInput)( eIC_USER_NUM nbUser );
 
     /**** Device Number *********************************************************/
     /*

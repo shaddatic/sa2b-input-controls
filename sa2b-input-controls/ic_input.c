@@ -59,7 +59,7 @@ USER_PERI UserPeris[NB_IC_USER];
 /*  Source              */
 /************************/
 const IC_USER*
-UserGetUser(const eIC_USER_NUM nbUser)
+UserGetInput(const eIC_USER_NUM nbUser)
 {
     return &Users[nbUser];
 }

@@ -338,7 +338,7 @@ void    IC_InputInit( void );
 *   Description:
 *     Get the raw USER_INPUT for a specified user
 */
-const IC_USER* UserGetUser( eIC_USER_NUM nbUser );
+const IC_USER* UserGetInput( eIC_USER_NUM nbUser );
 
 eIC_GAMEPAD_NUM UserGetGamepadNum( const eIC_USER_NUM nbUser );
 

@@ -135,7 +135,7 @@ SetSocPeripheral(void)
         SocPeripheralLast[i] = SocPeripheral[i]; // copy
 
         SOC_PERIPHERAL* const p_socper = &SocPeripheral[i];
-        const IC_USER*  const p_user   = UserGetUser((eIC_USER_NUM)i);
+        const IC_USER*  const p_user   = UserGetInput((eIC_USER_NUM)i);
 
         p_socper->button = UserToSocButton(p_user->down);
 
