@@ -14,7 +14,7 @@
 /*  External Headers    */
 /************************/
 /****** Input Controls **************************************************************/
-#include <ic_window.h>  /* external self                                            */
+#include <ic_window.h>  /* external parent                                          */
 
 EXTERN_START
 
@@ -22,9 +22,17 @@ EXTERN_START
 /*  Prototypes          */
 /************************/
 /****** Init ************************************************************************/
+/*
+*   Description:
+*     Init sub-modules.
+*/
 void    WND_MessageInit( void );
 
-/****** Init ************************************************************************/
+/****** Messages ********************************************************************/
+/*
+*   Description:
+*     Send window focus messages to parent window module.
+*/
 void    WND_MsgKillFocus( void );
 void    WND_MsgSetFocus( void );
 

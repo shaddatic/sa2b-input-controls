@@ -14,7 +14,7 @@
 /*  External Headers    */
 /************************/
 /****** Input Controls **************************************************************/
-#include <ic_input.h>       /* parent                                               */
+#include <ic_input.h>       /* external parent                                      */
 
 EXTERN_START
 
@@ -45,6 +45,15 @@ INPUT_OUT;
 /************************/
 /*  Prototypes          */
 /************************/
+/****** Input Init ******************************************************************/
+/*
+*   Description:
+*     Init sub-modules.
+*/
+void    GamepadInit(  void );
+void    KeyboardInit( void );
+void    MouseInit(    void );
+
 /****** Update **********************************************************************/
 /*
 *   Description:
@@ -61,15 +70,6 @@ void    MouseUpdate(    void );
 */
 bool    GamepadSetUserInput(  eIC_GAMEPAD_NUM  nbGp, INPUT_OUT* pOutInput );
 bool    KeyboardSetUserInput( eIC_KEYBOARD_NUM nbKb, INPUT_OUT* pOutInput );
-
-/****** Input Init ******************************************************************/
-/*
-*   Description:
-*     Init sub-modules.
-*/
-void    GamepadInit(  void );
-void    KeyboardInit( void );
-void    MouseInit(    void );
 
 /****** Emulated Analog *************************************************************/
 /*
