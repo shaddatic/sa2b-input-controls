@@ -7,30 +7,31 @@
 #include <sa2b/memory.h>    /* MemCopy                                              */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/ninja.h>   /* ninja                                            */
+#include <sa2b/ninja/ninja.h> /* ninja                                              */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/input.h>   /*  */
-#include <sa2b/sonic/camera.h>  /*  */
-#include <sa2b/sonic/debug.h>   /*  */
+#include <sa2b/sonic/input.h>  /* per, perG                                         */
+#include <sa2b/sonic/camera.h> /* sa2 camera                                        */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>    /*  */
-#include <ic_input.h>   /*  */
-#include <ic_config.h>  /*  */
-#include <ic_feature.h> /*  */
+#include <ic_core.h>        /* core                                                 */
+#include <ic_input.h>       /* input                                                */
+#include <ic_config.h>      /* CNF_Get##                                            */
+#include <ic_feature.h>     /* ICF_UseRawAnalog                                     */
 
 /****** Self ************************************************************************/
-#include <ic_camera.h>  /* self                                                     */
+#include <ic_camera.h>      /* self                                                 */
 
 /************************/
 /*  File Data           */
 /************************/
-static bool CameraInvX2;
+/****** Invert **********************************************************************/
+static bool CameraInvX2;    /* invert right stick camera input                      */
 
 /************************/
 /*  Source              */
 /************************/
+/****** Static **********************************************************************/
 static Angle
 CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
 {
@@ -155,12 +156,14 @@ ___CheckCamInput(void)
     }
 }
 
+/****** Extern **********************************************************************/
 bool
 ICF_CamInvertX2(void)
 {
     return CameraInvX2;
 }
 
+/****** Init ************************************************************************/
 void
 IC_CameraInit(void)
 {

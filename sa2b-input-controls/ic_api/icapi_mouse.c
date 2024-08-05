@@ -15,7 +15,7 @@
 /*  Constants           */
 /************************/
 /****** Version *********************************************************************/
-#define ICAPI_MOUSE_VER         (0) /* API version                                  */
+#define ICAPI_MOUSE_VER     (0) /* API version                                      */
 
 /************************/
 /*  File Data           */

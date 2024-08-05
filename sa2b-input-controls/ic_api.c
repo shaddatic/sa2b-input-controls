@@ -7,23 +7,31 @@
 #include <sa2b/modinfo.h>   /* mods                                                 */
 
 /****** Util ************************************************************************/
-#include <sa2b/util/dllexport.h>    /* EXPORT_DLL                                   */
+#include <sa2b/util/dllexport.h> /* EXPORT_DLL                                      */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>    /* core                                                     */
+#include <ic_core.h>        /* core                                                 */
 
 /****** Self ************************************************************************/
-#include <ic_api.h>                 /* self                                         */
-#include <ic_api/icapi_internal.h>  /* internal                                     */
+#include <ic_api.h>                /* self                                          */
+#include <ic_api/icapi_internal.h> /* internal                                      */
 
 /************************/
 /*  Constants           */
 /************************/
-#define ICAPI_CORE_VER      (0)
+/****** Version *********************************************************************/
+#define ICAPI_CORE_VER      (0) /* API version                                      */
+
+/************************/
+/*  Typedefs            */
+/************************/
+/****** API Init User-Function ******************************************************/
+typedef void(__cdecl IC_INIT)(const ICAPI_CORE*, const char*, const HelperFunctions*);
 
 /************************/
 /*  File Data           */
 /************************/
+/****** API Struct ******************************************************************/
 EXPORT_DLL
 ICAPI_CORE icapi_core =
 {
@@ -44,13 +52,9 @@ ICAPI_CORE icapi_core =
 };
 
 /************************/
-/*  Typedefs            */
-/************************/
-typedef void(__cdecl IC_INIT)(const ICAPI_CORE*, const char*, const HelperFunctions*);
-
-/************************/
 /*  Source              */
 /************************/
+/****** Static **********************************************************************/
 static void
 ApiCallByFuncName(const char* const cExName)
 {
@@ -67,6 +71,7 @@ ApiCallByFuncName(const char* const cExName)
     }
 }
 
+/****** Init/End ********************************************************************/
 void
 ICAPI_Init(void)
 {

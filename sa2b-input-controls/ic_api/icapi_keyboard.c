@@ -15,7 +15,7 @@
 /*  Constants           */
 /************************/
 /****** Version *********************************************************************/
-#define ICAPI_KEYBOARD_VER      (0) /* API version                                  */
+#define ICAPI_KEYBOARD_VER  (0) /* API version                                      */
 
 /************************/
 /*  File Data           */

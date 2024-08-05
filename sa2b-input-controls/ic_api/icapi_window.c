@@ -15,7 +15,7 @@
 /*  Constants           */
 /************************/
 /****** Version *********************************************************************/
-#define ICAPI_WINDOW_VER        (0) /* API version                                  */
+#define ICAPI_WINDOW_VER    (0) /* API version                                      */
 
 /************************/
 /*  File Data           */
