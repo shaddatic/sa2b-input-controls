@@ -23,40 +23,40 @@
 /*  Sections            */
 /************************/
 /****** Main ************************************************************************/
-#define CNFS_MAIN           "main"
+#define CNFS_MAIN           "main" /* main section                                  */
 
 /****** Camera **********************************************************************/
-#define CNFS_CAMERA         "camera"
+#define CNFS_CAMERA         "camera" /* camera section                              */
 
 /****** User/Player *****************************************************************/
-#define CNFS_USER1          "user0"
-#define CNFS_USER2          "user1"
-#define CNFS_USER3          "user2"
-#define CNFS_USER4          "user3"
+#define CNFS_USER1          "user0" /* user 1 section                               */
+#define CNFS_USER2          "user1" /* user 2 section                               */
+#define CNFS_USER3          "user2" /* user 3 section                               */
+#define CNFS_USER4          "user3" /* user 4 section                               */
 
 /****** Gamepad *********************************************************************/
-#define CNFS_GAMEPD_1       "gp0"
-#define CNFS_GAMEPD_2       "gp1"
-#define CNFS_GAMEPD_3       "gp2"
-#define CNFS_GAMEPD_4       "gp3"
+#define CNFS_GAMEPD_1       "gp0" /* gamepad 1 section                              */
+#define CNFS_GAMEPD_2       "gp1" /* gamepad 2 section                              */
+#define CNFS_GAMEPD_3       "gp2" /* gamepad 3 section                              */
+#define CNFS_GAMEPD_4       "gp3" /* gamepad 4 section                              */
 
 /****** Keyboard ********************************************************************/
-#define CNFS_KEYBRD_1       "kb0"
-#define CNFS_KEYBRD_2       "kb1"
-#define CNFS_KEYBRD_3       "kb2"
-#define CNFS_KEYBRD_4       "kb3"
+#define CNFS_KEYBRD_1       "kb0" /* keyboard layout 1 section                      */
+#define CNFS_KEYBRD_2       "kb1" /* keyboard layout 2 section                      */
+#define CNFS_KEYBRD_3       "kb2" /* keyboard layout 3 section                      */
+#define CNFS_KEYBRD_4       "kb3" /* keyboard layout 4 section                      */
 
 /****** Analog Emulation ************************************************************/
-#define CNFS_EMUANALOG      "emu_analog"
+#define CNFS_EMUANALOG      "emu_analog" /* analog emulation section                */
 
 /****** Compatibility ***************************************************************/
-#define CNFS_COMPAT         "compatibility"
+#define CNFS_COMPAT         "compatibility" /* compatibility section                */
 
-/****** Misc ***********************************************************************/
-#define CNFS_MISC           "misc"
+/****** Misc ************************************************************************/
+#define CNFS_MISC           "misc" /* misc section                                  */
 
 /****** Debug ***********************************************************************/
-#define CNFS_DEBUG          "debug"
+#define CNFS_DEBUG          "debug" /* debug section                                */
 
 /************************/
 /*  Enums               */
@@ -70,53 +70,55 @@ typedef enum
 CNFE_BOOL;
 
 /****** User ************************************************************************/
+/**** Gamepad *******************************************************************/
 typedef enum
 {
-    CNFE_USER_GAMEPAD_NONE = -1,
+    CNFE_USER_GAMEPAD_NONE = -1, /* no gamepad                                  */
 
-    CNFE_USER_GAMEPAD_1,
-    CNFE_USER_GAMEPAD_2,
-    CNFE_USER_GAMEPAD_3,
-    CNFE_USER_GAMEPAD_4,
+    CNFE_USER_GAMEPAD_1,         /* gamepad 1                                   */
+    CNFE_USER_GAMEPAD_2,         /* gamepad 2                                   */
+    CNFE_USER_GAMEPAD_3,         /* gamepad 3                                   */
+    CNFE_USER_GAMEPAD_4,         /* gamepad 4                                   */
 }
 CNFE_USER_GAMEPAD;
 
+/**** Keyboard ******************************************************************/
 typedef enum
 {
-    CNFE_USER_KEYBOARD_NONE = -1,
+    CNFE_USER_KEYBOARD_NONE = -1, /* no keyboard                                */
 
-    CNFE_USER_KEYBOARD_1,
-    CNFE_USER_KEYBOARD_2,
-    CNFE_USER_KEYBOARD_3,
-    CNFE_USER_KEYBOARD_4,
+    CNFE_USER_KEYBOARD_1,         /* keyboard layout 1                          */
+    CNFE_USER_KEYBOARD_2,         /* keyboard layout 2                          */
+    CNFE_USER_KEYBOARD_3,         /* keyboard layout 3                          */
+    CNFE_USER_KEYBOARD_4,         /* keyboard layout 4                          */
 }
 CNFE_USER_KEYBOARD;
 
 /****** Gamepad *********************************************************************/
 typedef enum
 {
-    CNFE_GAMEPD_DZ_MODE_CIRCULAR,
-    CNFE_GAMEPD_DZ_MODE_SQUARE,
+    CNFE_GAMEPD_DZ_MODE_CIRCULAR, /* use circular deadzone                          */
+    CNFE_GAMEPD_DZ_MODE_SQUARE,   /* use square deadzone                            */
 }
 CNFE_GAMEPD_DZ_MODE;
 
 /****** Mouse Emulated Analog *******************************************************/
 typedef enum
 {
-    CNFE_EMUANALOG_KEYBRD_NONE = -1,
+    CNFE_EMUANALOG_KEYBRD_NONE = -1, /* no analog emulation                         */
 
-    CNFE_EMUANALOG_KEYBRD_1,
-    CNFE_EMUANALOG_KEYBRD_2,
-    CNFE_EMUANALOG_KEYBRD_3,
-    CNFE_EMUANALOG_KEYBRD_4,
+    CNFE_EMUANALOG_KEYBRD_1,         /* keyboard layout 1                           */
+    CNFE_EMUANALOG_KEYBRD_2,         /* keyboard layout 2                           */
+    CNFE_EMUANALOG_KEYBRD_3,         /* keyboard layout 3                           */
+    CNFE_EMUANALOG_KEYBRD_4,         /* keyboard layout 4                           */
 }
 CNFE_EMUANALOG_KEYBRD;
 
 /****** Misc ************************************************************************/
 typedef enum
 {
-    CNFE_MISC_TEXTMD_KEYBOARD,
-    CNFE_MISC_TEXTMD_GAMEPAD,
+    CNFE_MISC_TEXTMD_KEYBOARD, /* text should show keyboard buttons                 */
+    CNFE_MISC_TEXTMD_GAMEPAD,  /* text should show gamepad buttons                  */
 }
 CNFE_MISC_TEXTMD;
 
