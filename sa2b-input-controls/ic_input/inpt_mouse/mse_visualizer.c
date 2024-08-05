@@ -1,41 +1,70 @@
-#include <sa2b/core.h>
+/************************/
+/*  Includes            */
+/************************/
+/****** Core Toolkit ****************************************************************/
+#include <sa2b/core.h>      /* core                                                 */
 
-#include <sa2b/ninja/ninja.h>
+/****** Ninja ***********************************************************************/
+#include <sa2b/ninja/ninja.h> /* ninja                                              */
 
-#include <sa2b/sonic/task.h>
+/****** Core Toolkit ****************************************************************/
+#include <sa2b/sonic/task.h> /* CreateElementalTask                                 */
 
-#include <ic_core.h>
-#include <ic_config.h>
+/****** Core Toolkit ****************************************************************/
+#include <ic_core.h>        /* core                                                 */
+#include <ic_config.h>      /* CNF_Get##                                            */
 
-#include <ic_input/inpt_mouse/mse_internal.h>
+/****** Self ************************************************************************/
+#include <ic_input/inpt_mouse/mse_internal.h> /* parent                             */
 
-#define VISUTASK_TIMERMAX           (30)
+/************************/
+/*  Constants           */
+/************************/
+/****** Fade Timer ******************************************************************/
+#define VISUTASK_TIMERMAX           (30) /* visualizer fade time in frames          */
 
-#define VISUTASK_WAITTIMER          (10)
+/****** Create Task Wait Timer ******************************************************/
+#define VISUTASK_WAITTIMER          (10) /* visualizer create wait timer            */
 
-#define VISUTASK_POINT_SIZE         (1.5f)
-#define VISUTASK_POINT_DISTANCE     (16.0f)
-#define VISUTASK_POINT_LINESIZE     (0.4f)
+/****** Size Constants **************************************************************/
+#define VISUTASK_POINT_SIZE         (1.5f)  /* point mode point size                */
+#define VISUTASK_POINT_DISTANCE     (16.0f) /* point mode max distance              */
+#define VISUTASK_POINT_LINESIZE     (0.4f)  /* point mode line thickness            */
 
+/************************/
+/*  Enums               */
+/************************/
+/****** Size Constants **************************************************************/
 typedef enum
 {
-    VISU_MD_DISABLED,
-    VISU_MD_POINT,
-    VISU_MD_ARROW,
+    VISU_MD_DISABLED,       /* visualizer disabled                                  */
+    VISU_MD_POINT,          /* use point visualizer                                 */
+    VISU_MD_ARROW,          /* use arrow visulizer                                  */
 }
 eVISU_MODE;
 
-static eVISU_MODE MouseVisuMode;
-static f32        MouseVisuScale;
-static f32        MouseVisuAlpha;
+/************************/
+/*  File Variables      */
+/************************/
+/****** User-Settings ***************************************************************/
+static eVISU_MODE MouseVisuMode;  /* visualizer mode                                */
+static f32        MouseVisuScale; /* visualizer scale                               */
+static f32        MouseVisuAlpha; /* visualizer alpha                               */
 
-static TASK*      MouseVisuTaskP;
-static s32        MouseVisuTaskTimer;
+/****** Task Variables **************************************************************/
+static TASK* MouseVisuTaskP;     /* task pointer                                    */
+static s32   MouseVisuTaskTimer; /* task display timer                              */
 
-static NJS_POINT2 VisualizerPos;
+/****** Cursor Position *************************************************************/
+static NJS_POINT2 VisualizerPos; /* position of the cursor                          */
 
-static s32        MouseVisuWaitTimer;
+/****** Create Task Wait Timer ******************************************************/
+static s32 MouseVisuWaitTimer; /* visualizer create wait timer                      */
 
+/************************/
+/*  Source              */
+/************************/
+/****** Static **********************************************************************/
 static void
 MouseVisuTaskDestructor(TASK* const tp)
 {
@@ -276,6 +305,7 @@ MouseVisuTaskCreate(void)
     MouseVisuTaskP = tp;
 }
 
+/****** Extern **********************************************************************/
 void
 MouseSetVisualizerInfo(const f32 x, const f32 y)
 {
@@ -297,6 +327,7 @@ MouseSetVisualizerInfo(const f32 x, const f32 y)
     MouseVisuTaskCreate();
 }
 
+/****** Init ************************************************************************/
 void
 MouseVisualizerInit(void)
 {

@@ -13,14 +13,19 @@
 /************************/
 /*  Prototypes          */
 /************************/
-/****** Init **********************************************************************/
+/****** Init ************************************************************************/
 /*
 *   Description:
 *     Init Mouse Visualizer sub-module
 */
 void    MouseVisualizerInit( void );
+/*
+*   Description:
+*     Init Mouse Window Message sub-module.
+*/
+void    MouseWindowMsgInit( void );
 
-/****** Set Info ******************************************************************/
+/****** Set Visualizer Info *********************************************************/
 /*
 *   Description:
 *     Set visualizer X, Y analog stick info
@@ -32,21 +37,15 @@ void    MouseVisualizerInit( void );
 void    MouseSetVisualizerInfo( f32 x, f32 y );
 
 /****** Message Functions ***********************************************************/
-void    MouseWindowMsgInit( void );
-
 /*
 *   Description:
-*     Handles mouse wheel window messages, input must be converted to wheel
-*   increments by dividing raw value by 120, or WHEEL_DELTA.
-*
-*   Module:
-*     Input::Mouse
+*     Send mouse wheel window messages to parent mouse module. Wheel input must be
+*   converted to wheel increments from raw values.
 *
 *   Parameters:
-*     - wheel   : wheel increments as a float value (RawVal/WHEEL_DELTA)
+*     - wheel   : wheel increments as a float value
 */
-void    MouseMsgWheelY( f32 wheel );
-
 void    MouseMsgWheelX( f32 wheel );
+void    MouseMsgWheelY( f32 wheel );
 
 #endif/*H_IC_INPUT_MOUSE_INTERNAL*/

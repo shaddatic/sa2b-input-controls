@@ -1,12 +1,23 @@
-#include <sa2b/core.h>
+/************************/
+/*  Includes            */
+/************************/
+/****** Core Toolkit ****************************************************************/
+#include <sa2b/core.h>      /* core                                                 */
 
-#include <Windows.h>
+/****** Windows *********************************************************************/
+#include <Windows.h>        /* windows, ew                                          */
 
-#include <ic_core.h>
-#include <ic_window.h>
+/****** Windows *********************************************************************/
+#include <ic_core.h>        /* core                                                 */
+#include <ic_window.h>      /* WND_RegisterMessageHandler                           */
 
-#include <ic_input/inpt_mouse/mse_internal.h>
+/****** Self ************************************************************************/
+#include <ic_input/inpt_mouse/mse_internal.h> /* parent                             */
 
+/************************/
+/*  Source              */
+/************************/
+/****** Static **********************************************************************/
 static void
 MouseMessageHandler(uint32_t msg, uint32_t wParam, int32_t lParam)
 {
@@ -28,6 +39,7 @@ MouseMessageHandler(uint32_t msg, uint32_t wParam, int32_t lParam)
     }
 }
 
+/****** Init ************************************************************************/
 void
 MouseWindowMsgInit(void)
 {
