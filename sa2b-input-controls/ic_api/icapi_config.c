@@ -31,6 +31,4 @@ const ICAPI_CONFIG icapi_config =
     .GetFloat  = CNF_DirectGetFloat,
     .GetBool   = CNF_DirectGetBool,
     .GetString = CNF_DirectGetString,
-
-    .GetPercent = CNF_DirectGetPercent,
 };
