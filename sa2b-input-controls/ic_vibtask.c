@@ -6,34 +6,39 @@
 #include <sa2b/writeop.h>   /* WriteJump                                            */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/task.h>    /* TASK                                             */
-#include <sa2b/sonic/game.h>    /* ssStageNumber                                    */
+#include <sa2b/sonic/task.h>   /* TASK                                              */
+#include <sa2b/sonic/game.h>   /* ssStageNumber                                     */
 #define SAMT_INCL_FUNCPTRS
-#include <sa2b/sonic/output.h>  /* VibTask                                          */
+#include <sa2b/sonic/output.h> /* VibTask                                           */
 #undef  SAMT_INCL_FUNCPTRS
 
 /****** Chao ************************************************************************/
-#include <sa2b/sonic/chao/al_stage.h>   /* AL_GetStageNumber                        */
+#include <sa2b/sonic/chao/al_stage.h> /* AL_GetStageNumber                          */
 
-/****** Core Toolkit ****************************************************************/
-#include <ic_core.h>    /* core                                                     */
-#include <ic_input.h>   /* GP_VibSet                                                */
+/****** Input Controls **************************************************************/
+#include <ic_core.h>        /* core                                                 */
+#include <ic_input.h>       /* GP_VibSet                                            */
 
 /************************/
 /*  Game Variables      */
 /************************/
+/****** Now Saving ******************************************************************/
 #define now_saving          DATA_REF(int8_t , 0x0174AFD4)
 
 /************************/
 /*  Source              */
 /************************/
+/****** Static **********************************************************************/
 static void
 NewVibTask(TASK* const tp)
 {
     VIBPARAM* const vpp = GET_VIBPARAM(tp);
     VIBWK*    const vwp = GET_VIBWK(tp);
 
-    if (now_saving == 1 || (ssStageNumber == 90 && AL_GetStageNumber() != AL_GetNextStageNumber() && AL_GetStageNumber() != -1))
+    const eCHAO_STAGE_NUMBER c_stg = AL_GetStageNumber();
+    const eCHAO_STAGE_NUMBER n_stg = AL_GetNextStageNumber();
+
+    if (now_saving == 1 || (ssStageNumber == 90 && c_stg != n_stg && c_stg != -1))
     {
         DestroyTask(tp);
     }
@@ -85,6 +90,7 @@ NewVibStop(void)
     }
 }
 
+/****** Init ************************************************************************/
 void
 IC_VibTaskInit(void)
 {
