@@ -37,7 +37,15 @@ bool    ICSDL_Init( void );
 void    ICSDL_Exit( void );
 
 /****** Event Handling ***************************************************************/
+/*
+*   Description:
+*     Poll SDL events from the last frame and call event handlers
+*/
 void    ICSDL_PollEvents( void );
+/*
+*   Description:
+*     Register an SDL event handler function
+*/
 void    ICSDL_RegisterEventHandler( void(__cdecl* fnEvHandler)(const SDL_Event*) );
 
 /****** Input Controls API **********************************************************/

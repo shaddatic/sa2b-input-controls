@@ -48,10 +48,11 @@ EVSDL_HANDLER;
 /*  File Data           */
 /************************/
 /****** DLL Handle ******************************************************************/
-static dll_handle* SdlHandle;
+static dll_handle* SdlHandle; /* SDL DLL handle                                     */
 
-static EVSDL_HANDLER* EvHandlerListP;
-static size_t         EvHandlerListNum;
+/****** Event Handlers **************************************************************/
+static EVSDL_HANDLER* EvHandlerListP;   /* handler list pointer                     */
+static size_t         EvHandlerListNum; /* handler list count                       */
 
 /****** Function Pointers ***********************************************************/
 SDL_FUNC_PTR(int                , Init                           , (int)                                          );
@@ -213,7 +214,7 @@ GetMappingFilePath(void)
     return pu_buf;
 }
 
-/****** API *************************************************************************/
+/****** Extern **********************************************************************/
 void*
 ICSDL_GetHandle(void)
 {
@@ -224,47 +225,6 @@ void*
 ICSDL_GetExport(const char* const cExName)
 {
     return DLL_GetExport(SdlHandle, cExName);
-}
-
-/****** Init ************************************************************************/
-bool
-ICSDL_Init(void)
-{
-    dll_handle* const p_hdl = DLL_Mount2(GetModPath(), "lib/SDL2.dll");
-
-    if (!p_hdl)
-    {
-        UserErrorMessageBox("Input Controls : SDL2 Critical Error",
-            "The SDL2 library could not be mounted! This is likely because '/lib/SDL2.dll' is missing from the Input Controls mod folder.\n"
-            "Input Controls cannot function without SDL, the init process will now be aborted!"
-        );
-        return false;
-    }
-
-    DLL_GetExportList(p_hdl, SdlExports, ARYLEN(SdlExports));
-
-    SDL_Init( SDL_INIT_GAMECONTROLLER );
-
-    utf8* const pu_buf = GetMappingFilePath();
-    
-    SDL_GameControllerAddMappingsFromFile(pu_buf);
-
-    MemFree(pu_buf);
-
-    SdlHandle = p_hdl;
-
-    return true;
-}
-
-void
-ICSDL_Exit(void)
-{
-    if (!SdlHandle)
-        return;
-
-    SDL_Quit();
-
-    DLL_Unmount(SdlHandle);
 }
 
 void
@@ -305,4 +265,45 @@ ICSDL_PollEvents(void)
             p_hdl->func( &ev );
         }
     }
+}
+
+/****** Init/Exit *******************************************************************/
+bool
+ICSDL_Init(void)
+{
+    dll_handle* const p_hdl = DLL_Mount2(GetModPath(), "lib/SDL2.dll");
+
+    if (!p_hdl)
+    {
+        UserErrorMessageBox("Input Controls : SDL2 Critical Error",
+            "The SDL2 library could not be mounted! This is likely because '/lib/SDL2.dll' is missing from the Input Controls mod folder.\n"
+            "Input Controls cannot function without SDL, the init process will now be aborted!"
+        );
+        return false;
+    }
+
+    DLL_GetExportList(p_hdl, SdlExports, ARYLEN(SdlExports));
+
+    SDL_Init( SDL_INIT_GAMECONTROLLER );
+
+    utf8* const pu_buf = GetMappingFilePath();
+    
+    SDL_GameControllerAddMappingsFromFile(pu_buf);
+
+    MemFree(pu_buf);
+
+    SdlHandle = p_hdl;
+
+    return true;
+}
+
+void
+ICSDL_Exit(void)
+{
+    if (!SdlHandle)
+        return;
+
+    SDL_Quit();
+
+    DLL_Unmount(SdlHandle);
 }
