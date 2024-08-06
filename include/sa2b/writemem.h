@@ -155,7 +155,7 @@ EXTERN_START
 *     - dst     : address to write to
 *     - ptr     : pointer value to write
 */
-#define WritePointer(dst, ptr)             WriteData((dst), (ptr), const void*)
+#define WritePointer(dst, ptr)             WriteData((dst), (void*)(ptr), const void*)
 /*
 *   Description:
 *     Copy an entire buffer (struct/array) of known size to protected memory
