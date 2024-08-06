@@ -259,20 +259,21 @@ eIC_MOUSE_MODE;
 /************************/
 /*  Structures          */
 /************************/
-/****** ################## **********************************************************/
+/****** Raw User Input **************************************************************/
 typedef struct
 {
     uint32_t       down; /* user input buttons currently pressed           (USRBTN) */
     uint32_t      press; /* user input buttons pressed this moment         (USRBTN) */
     uint32_t    release; /* user input buttons released this moment        (USRBTN) */
 
-    f32            l, r; /* analog l/r triggers                            (0.f~1.f) */
+    f32            l, r; /* analog l/r triggers                           (0.f~1.f) */
 
-    f32          x1, y1; /* left analog stick                             (-1.f~1.f) */
-    f32          x2, y2; /* right analog stick                            (-1.f~1.f) */
+    f32          x1, y1; /* left analog stick                            (-1.f~1.f) */
+    f32          x2, y2; /* right analog stick                           (-1.f~1.f) */
 }
 IC_USER;
 
+/****** Gamepad Input ***************************************************************/
 typedef struct
 {
     SDL_GameController* pgp; /* SDL gamepad pointer                                 */
@@ -282,9 +283,9 @@ typedef struct
 
     uint32_t        support; /* gamepad supported features                          */
 
-    uint32_t           down; /* currently pressed buttons                 (GPDBTN)  */
-    uint32_t          press; /* currently pressed buttons                 (GPDBTN)  */
-    uint32_t        release; /* currently pressed buttons                 (GPDBTN)  */
+    uint32_t           down; /* buttons currently pressed                 (GPDBTN)  */
+    uint32_t          press; /* buttons pressed this moment               (GPDBTN)  */
+    uint32_t        release; /* buttons released this moment              (GPDBTN)  */
 
     int16_t            l, r; /* analog l/r triggers                       (0~32767) */
 
@@ -293,6 +294,7 @@ typedef struct
 }
 IC_GAMEPAD;
 
+/****** Mouse Input *****************************************************************/
 typedef struct
 {
     uint8_t    down; /* mouse buttons currently pressed                    (MSEBTN) */
@@ -303,7 +305,7 @@ typedef struct
     f32      wheely; /* mouse wheel Y rotation, in notches                          */
 
     NJS_POINT2I vec; /* mouse movement vector, in pixels                            */
-    NJS_POINT2I pos; /* mouse position on the game surface, in pixels               */
+    NJS_POINT2I pos; /* mouse position on the window surface, in pixels             */
 }
 IC_MOUSE;
 
