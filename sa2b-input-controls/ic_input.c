@@ -274,6 +274,12 @@ ICF_UseRawAnalog(void)
     return UseRawAnalog;
 }
 
+bool
+ICF_X2SetsLR(void)
+{
+    return X2SetsLR;
+}
+
 /****** Init ************************************************************************/
 void
 IC_InputInit(void)

@@ -389,6 +389,16 @@ typedef struct
     *     'true' if the feature is enable, or 'false' if not
     */
     bool (__cdecl* CamInvertX2)( void );
+    /*
+    *   Description:
+    *     If the right analog stick will write to the emulated Dreamcast
+    *   controller's LR analog triggers. The vanilla game does this by default,
+    *   but it's disabled by default in Input Controls.
+    *
+    *   Returns:
+    *     'true' if the feature is enable, or 'false' if not
+    */
+    bool (__cdecl* X2SetsLR)( void );
 }
 ICAPI_FEATURE;
 

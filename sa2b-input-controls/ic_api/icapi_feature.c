@@ -26,6 +26,6 @@ const ICAPI_FEATURE icapi_feature =
     .version = ICAPI_FEATURE_VER,
 
     .UseRawAnalog = ICF_UseRawAnalog,
-
     .CamInvertX2  = ICF_CamInvertX2,
+    .X2SetsLR     = ICF_X2SetsLR,
 };
