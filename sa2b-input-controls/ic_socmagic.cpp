@@ -26,6 +26,7 @@ static SOCInput* SocInputGlobalP;   /* constant global SOCInput pointer         
 /************************/
 /*  Source              */
 /************************/
+/****** Static **********************************************************************/
 static SOCInput* __cdecl
 NewGetSocInput(void)
 {
@@ -126,6 +127,7 @@ UserToSocTrigger(f64 mag)
     return !mag ? 0 : (int32_t)(mag * 255.9999999999999);
 }
 
+/****** Extern **********************************************************************/
 EXTERN
 void
 SetSocPeripheral(void)
@@ -155,6 +157,7 @@ SetSocPeripheral(void)
     }
 }
 
+/****** Init ************************************************************************/
 EXTERN
 void
 IC_SocMagicInit(void)
