@@ -38,17 +38,6 @@ ICAPI_CORE icapi_core =
     .version = ICAPI_CORE_VER,
 
     .ic_version = { 1,0,0,0 },
-
-    .pApiFeature  = nullptr,
-
-    .pApiConfig   = nullptr,
-
-    .pApiUser     = &icapi_user,
-    .pApiGamepad  = &icapi_gamepad,
-    .pApiKeyboard = &icapi_keyboard,
-    .pApiMouse    = &icapi_mouse,
-    .pApiWindow   = nullptr,
-    .pApiSdl      = nullptr,
 };
 
 /************************/
@@ -77,8 +66,13 @@ ICAPI_Init(void)
 {
     icapi_core.pApiConfig = &icapi_config,
 
-    icapi_core.pApiWindow = &icapi_window;
-    icapi_core.pApiSdl    = &icapi_sdl;
+    icapi_core.pApiUser     = &icapi_user;
+    icapi_core.pApiGamepad  = &icapi_gamepad;
+    icapi_core.pApiKeyboard = &icapi_keyboard;
+    icapi_core.pApiMouse    = &icapi_mouse;
+
+    icapi_core.pApiWindow   = &icapi_window;
+    icapi_core.pApiSdl      = &icapi_sdl;
 
     ApiCallByFuncName("IC_EarlyInit");
 }
