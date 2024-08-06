@@ -262,9 +262,6 @@ eIC_MOUSE_MODE;
 /****** ################## **********************************************************/
 typedef struct
 {
-    eIC_GAMEPAD_NUM  gp; /* gamepad index for this user                             */
-    eIC_KEYBOARD_NUM kb; /* keyboard layout index for this user                     */
-
     uint32_t       down; /* user input buttons currently pressed           (USRBTN) */
     uint32_t      press; /* user input buttons pressed this moment         (USRBTN) */
     uint32_t    release; /* user input buttons released this moment        (USRBTN) */
