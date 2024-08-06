@@ -7,19 +7,18 @@
 #include <sa2b/modloader.h> /* ML_GetVersion                                        */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/display.h>
+#include <sa2b/sonic/display.h> /* DisplayResolutionX/Y                             */
 
 /****** Utility *********************************************************************/
-#include <sa2b/util/ml_settings.h>
+#include <sa2b/util/ml_settings.h> /* ml_settings                                   */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>
-#include <ic_os.h>
-#include <ic_input.h>
+#include <ic_core.h>        /* core                                                 */
+#include <ic_os.h>          /* OS_GetGameWindowSize                                 */
 
 /****** Self ************************************************************************/
-#include <ic_window.h>
-#include <ic_window/icwnd_internal.h>
+#include <ic_window.h>                /* self                                       */
+#include <ic_window/icwnd_internal.h> /* internal                                   */
 
 /************************/
 /*  Constants           */
@@ -43,18 +42,23 @@ WNDMSG_HANDLER;
 /************************/
 /*  File Data           */
 /************************/
-static bool         FocusState;
+/****** Focus ***********************************************************************/
+static bool FocusState;     /* window focus state                                   */
 
-static bool         ScreenStretched;
+/****** Window Surface **************************************************************/
+static NJS_POINT2I SurfaceSize; /* window surface size                              */
 
-static NJS_POINT2I  SurfaceSize;
+/****** Focus ***********************************************************************/
+static bool ScreenStretched; /* game screen stretched                               */
 
-static WNDMSG_HANDLER* MsgHandlerListP;
-static size_t          MsgHandlerListNum;
+/****** Message Handler *************************************************************/
+static WNDMSG_HANDLER* MsgHandlerListP;   /* handler list pointer                   */
+static size_t          MsgHandlerListNum; /* handler list count                     */
 
 /************************/
 /*  Source              */
 /************************/
+/****** Extern **********************************************************************/
 bool
 WND_InFocus(void)
 {
@@ -169,6 +173,7 @@ WND_MsgSetFocus(void)
     FocusState = true;
 }
 
+/****** Init ************************************************************************/
 void
 WND_Init(void)
 {

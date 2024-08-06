@@ -19,7 +19,7 @@
 #include <ic_window.h>      /* window                                               */
 #include <ic_camera.h>      /* camera                                               */
 #include <ic_sonicinput.h>  /* sonic input                                          */
-#include <ic_api.h>
+#include <ic_api.h>         /* input controls API                                   */
 #include <ic_sdl2.h>        /* SDL2                                                 */
 
 /****** Config **********************************************************************/
@@ -35,6 +35,7 @@
 /************************/
 /*  Source              */
 /************************/
+/****** DLL Export ******************************************************************/
 EXPORT_DLL
 void __cdecl
 Init(const char* path, const HelperFunctions* pHelperFunctions)
