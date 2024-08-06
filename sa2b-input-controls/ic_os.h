@@ -16,8 +16,8 @@ EXTERN_START
 /*  Constants           */
 /************************/
 /****** Key States ******************************************************************/
-#define KEY_TOGGLED         (0b0000'0001)
-#define KEY_DOWN            (0b1000'0000)
+#define KEY_TOGGLED         (0b0000'0001) /* key modifier is toggled                */
+#define KEY_DOWN            (0b1000'0000) /* key is down                            */
 
 /************************/
 /*  Structures          */
@@ -25,7 +25,7 @@ EXTERN_START
 /****** Integer Point 2 *************************************************************/
 typedef struct
 {
-    int32_t x, y;
+    int32_t x, y;           /* coordinates                                          */
 }
 INT_POINT2;
 
@@ -92,7 +92,7 @@ void    OS_GetCursorPosOnGameWindow( INT_POINT2* pOutPos );
 /****** Keyboard **********************************************************************/
 /*
 *   Description:
-*     Gets the current keyboard state ############################
+*     Gets the current keyboard state array from the OS.
 *
 *   Parameters:
 *     - pOutStates : return pointer to a 256 long, u8 array

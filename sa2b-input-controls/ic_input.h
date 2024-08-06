@@ -30,11 +30,9 @@ typedef struct _SDL_GameController  SDL_GameController;
 /************************/
 /*  Macro               */
 /************************/
-/* Normalize PDS Directional -128~128 to -1~1 */
-#define NORM_PDS_DIR(a)     ((f32)(a)/(f32)PDSLIM_XY_MAX)
-
-/* Normalize PDS Trigger 0~255 to 0~1 */
-#define NORM_PDS_TRIG(a)    ((f32)(a)/(f32)PDSLIM_LR_MAX)
+/****** Normalize PDS Analog ********************************************************/
+#define NORM_PDS_DIR(a)     ((f32)(a)/(f32)PDSLIM_XY_MAX) /* PDS directional        */
+#define NORM_PDS_TRIG(a)    ((f32)(a)/(f32)PDSLIM_LR_MAX) /* PDS trigger            */
 
 /************************/
 /*  User Input          */
@@ -309,22 +307,22 @@ IC_GAMEPAD;
 
 typedef struct
 {
-    uint8_t    down; /* mouse buttons currently pressed                    (MSEBTN) */
-    uint8_t   press; /* mouse buttons pressed this moment                  (MSEBTN) */
-    uint8_t release; /* mouse buttons released this moment                 (MSEBTN) */
+    uint8_t        down; /* mouse buttons currently pressed                (MSEBTN) */
+    uint8_t       press; /* mouse buttons pressed this moment              (MSEBTN) */
+    uint8_t     release; /* mouse buttons released this moment             (MSEBTN) */
 
-    f32      wheelx; /* mouse wheel X rotation, in notches                          */
-    f32      wheely; /* mouse wheel Y rotation, in notches                          */
+    f32          wheelx; /* mouse wheel X rotation, in notches                      */
+    f32          wheely; /* mouse wheel Y rotation, in notches                      */
 
-    NJS_POINT2I vec; /* mouse movement vector, in pixels                            */
-    NJS_POINT2I pos; /* mouse position on the game surface, in pixels               */
+    NJS_POINT2I     vec; /* mouse movement vector, in pixels                        */
+    NJS_POINT2I     pos; /* mouse position on the game surface, in pixels           */
 }
 IC_MOUSE;
 
 #endif/*H_IC_EXTERN_API*/
 
 /************************/
-/*  Functions           */
+/*  Prototypes          */
 /************************/
 /****** Init ************************************************************************/
 /*
@@ -334,75 +332,227 @@ IC_MOUSE;
 void    IC_InputInit( void );
 
 /****** User Input ******************************************************************/
+/**** Raw Input *****************************************************************/
 /*
 *   Description:
-*     Get the raw USER_INPUT for a specified user
+*     Get the raw input of a user. The pointer will be constant for the
+*   lifetime of the program.
+*
+*   Parameters:
+*     - nbUser  : user number
+*
+*   Returns:
+*     The pointer to the user's raw input structure
 */
 const IC_USER* UserGetInput( eIC_USER_NUM nbUser );
 
+/**** Device Number *************************************************************/
+/*
+*   Description:
+*     Get the gamepad number of a user. The index will be constant for the
+*   lifetime of the program.
+*
+*   Parameters:
+*     - nbUser  : user number
+*
+*   Returns:
+*     The user's gamepad number
+*/
 eIC_GAMEPAD_NUM UserGetGamepadNum( const eIC_USER_NUM nbUser );
-
+/*
+*   Description:
+*     Get the keyboard layout number of a given user. The index will be
+*   constant for the lifetime of the program.
+*
+*   Parameters:
+*     - nbUser  : user number
+*
+*   Returns:
+*     The user's keyboard layout number
+*/
 eIC_KEYBOARD_NUM UserGetKeyboardNum( const eIC_USER_NUM nbUser );
 
 /****** Gamepad *********************************************************************/
+/**** Get ************************************************************************/
+/*
+*   Description:
+*     Get raw gamepad input and attributes. The pointer will be constant for
+*   the lifetime of the program.
+* 
+*   Parameters:
+*     - nbGp    : gamepad number to get
+* 
+*   Returns:
+*     A Gamepad struct pointer, or 'nullptr' if 'nbGp' is GAMEPAD_NONE.
+*/
 const IC_GAMEPAD* GamepadGetGamepad( eIC_GAMEPAD_NUM nbGp );
 
+/**** Valid *********************************************************************/
 /*
 *   Description:
-*     If the specified gamepad is on and available.
+*     Check if the given gamepad is active and linked to an open, physical
+*   game controller device.
+* 
+*   Parameters:
+*     - nbGp    : gamepad number to get state of
+* 
+*   Returns:
+*     'true' if the given gamepad is valid, or 'false' if not
 */
 bool    GamepadValid( eIC_GAMEPAD_NUM nbGp );
+
+/**** Feedback ******************************************************************/
 /*
 *   Description:
-*     Set vibration for a specified gamepad.
+*     Set the vibration motors on a gamepad. You can check support by
+*   searching for the GPDDEV_SUPPORT_RUMBLE flag in 'support'.
+* 
+*   Parameters:
+*     - nbGp    : gamepad number to set vibration for
+*     - freqLo  : speed of the low frequency motor (0~1)
+*     - freqHi  : speed of the high frequency motor (0~1)
+* 
+*   Returns:
+*     'true' if successful, or 'false' if not
 */
 bool    GamepadSetVibration( eIC_GAMEPAD_NUM nbGp, f32 spdLo, f32 spdHi );
 /*
 *   Description:
-*     Set vibration for a specified gamepad.
+*     Set the trigger vibration motors on a gamepad. Only applicable to Xbox
+*   One and higher controllers. You can check support by searching for the
+*   GPDDEV_SUPPORT_RUMBLE_TRIGGER flag in 'support'.
+* 
+*   Parameters:
+*     - nbGp    : gamepad number to set vibration for
+*     - freqL   : speed of the left trigger motor (0~1)
+*     - freqR   : speed of the right trigger motor (0~1)
+* 
+*   Returns:
+*     'true' if successful, or 'false' if not
 */
 bool    GamepadSetTriggerVibration( eIC_GAMEPAD_NUM nbGp, f32 spdL, f32 spdR );
 
 /****** Keyboard ********************************************************************/
-u8      KeyboardPoll( void ); /* poll most recent key press                         */
+/**** Poll **********************************************************************/
+/*
+*   Description:
+*     Get a key that was pressed this moment. If multiple keys are pressed
+*   at the same time, the highest key index will be returned.
+* 
+*   Returns:
+*     The index of a key pressed this moment, or 'KEY_NONE' if no keys have
+*   been pressed
+*/
+u8      KeyboardPoll( void );
 
-bool    KeyboardDown(    u8 key );
-bool    KeyboardPress(   u8 key );
+/**** Key State *****************************************************************/
+/*
+*   Description:
+*     Check if a key is currently being held down.
+*   
+*   Parameters:
+*     - key     : key to get state of
+* 
+*   Returns:
+*     'true' if they key is down, or 'false' if it is not
+*/
+bool    KeyboardDown( u8 key );
+/*
+*   Description:
+*     Check if a key was pressed this moment.
+*   
+*   Parameters:
+*     - key     : key to get state of
+* 
+*   Returns:
+*     'true' if they key was pressed, or 'false' if it was not
+*/
+bool    KeyboardPress( u8 key );
+/*
+*   Description:
+*     Check if a key was released this moment.
+*   
+*   Parameters:
+*     - key     : key to get state of
+* 
+*   Returns:
+*     'true' if they key was released, or 'false' if it was not
+*/
 bool    KeyboardRelease( u8 key );
 
-bool    KeyboardCapsLock(   void );
+/**** Modifier State ************************************************************/
+/*
+*   Description:
+*     Check if Caps Lock modifier is currently active.
+* 
+*   Returns:
+*     'true' if caps lock is active, or 'false' if it is not
+*/
+bool    KeyboardCapsLock( void );
+/*
+*   Description:
+*     Check if Scroll Lock modifier is currently active.
+* 
+*   Returns:
+*     'true' if scroll lock is active, or 'false' if it is not
+*/
 bool    KeyboardScrollLock( void );
-bool    KeyboardNumLock(    void );
+/*
+*   Description:
+*     Check if Number Lock modifier is currently active.
+* 
+*   Returns:
+*     'true' if number lock is active, or 'false' if it is not
+*/
+bool    KeyboardNumLock( void );
 
 /****** Mouse ***********************************************************************/
+/**** Get Mouse *****************************************************************/
 /*
 *   Description:
-*     Get the MOUSE input structure
+*      Get the mouse info structure. The pointer will be constant for the
+*   lifetime of the program.
+* 
+*   Returns:
+*     The mouse struct pointer
 */
 const IC_MOUSE* MouseGetMouse( void );
+
+/**** Mouse Mode ****************************************************************/
 /*
 *   Description:
-*     Get the mouse mode
+*     Get the current mouse cursor mode. If 'Capture' or 'Free' are called
+*   on this frame, the mouse mode and state will only be updated on the
+*   next frame.
+* 
+*   Returns:
+*     The current mouse mode
 */
 eIC_MOUSE_MODE MouseGetMode( void );
 /*
 *   Description:
-*     Capture the mouse to the game window
+*     Set the mouse cursor to be captured to the game window. If the mouse
+*   is currently captured, this will do nothing.
 */
 void    MouseCapture( void );
 /*
 *   Description:
-*     Free the mouse from the game window
+*     Set the mouse cursor to be freed from the game window. If the mouse
+*   is currently freed, this will do nothing.
 */
 void    MouseFree( void );
+
+/**** Cursor Display ************************************************************/
 /*
 *   Description:
-*     Manually hide the mouse cursor over the game window
+*     Manually hide the mouse cursor from the game window. This is
+*   automatically done when capturing the mouse.
 */
 void    MouseHide( void );
 /*
 *   Description:
-*     Manually show the mouse cursor over the game window
+*     Manually show the mouse cursor from the game window. This is
+*   automatically done when freeing the mouse.
 */
 void    MouseShow( void );
 

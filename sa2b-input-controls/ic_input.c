@@ -26,58 +26,48 @@
 /************************/
 /*  Structures          */
 /************************/
+/****** Peripheral Settings *********************************************************/
 typedef struct
 {
-    eIC_GAMEPAD_NUM  gp;
-    eIC_KEYBOARD_NUM kb;
+    eIC_GAMEPAD_NUM  gp;    /* gamepad number                                       */
+    eIC_KEYBOARD_NUM kb;    /* keyboard layout number                               */
 }
 USER_PERI;
 
 /************************/
 /*  File Variables      */
 /************************/
-static bool UseRawAnalog;
-static bool X2SetsLR;
+/****** Input Settings **************************************************************/
+static bool UseRawAnalog;   /* use raw analog values                                */
+static bool X2SetsLR;       /* right stick sets lr triggers                         */
 
-static Sint16 DgtTrigOn[NB_IC_USER];
-static Sint16 DgtTrigOff[NB_IC_USER];
+/****** Digital Trigger *************************************************************/
+static Sint16 DgtTrigOn[NB_IC_USER];  /* digital trigger on setting                 */
+static Sint16 DgtTrigOff[NB_IC_USER]; /* digital trigger off setting                */
 
-static IC_USER Users[NB_IC_USER];
+/****** User Input ******************************************************************/
+static IC_USER Users[NB_IC_USER]; /* user input structure                           */
 
-USER_PERI UserPeris[NB_IC_USER];
+/****** Peripheral ******************************************************************/
+static USER_PERI UserPeris[NB_IC_USER]; /* user peripheral settings                 */
 
 /************************/
 /*  Game Data           */
 /************************/
+/****** Input Way *******************************************************************/
 #define ga_InputWay                 DATA_ARY(s32, 0x0174B5FC, [4])
 
 /************************/
 /*  Game Functions      */
 /************************/
+/****** Input Update ****************************************************************/
 #define UpdateRawXInput             FUNC_PTR(int, __cdecl, (void), 0x00425700)
 #define UpdateControllers           FUNC_PTR(int, __cdecl, (void), 0x0077E780)
 
 /************************/
 /*  Source              */
 /************************/
-const IC_USER*
-UserGetInput(const eIC_USER_NUM nbUser)
-{
-    return &Users[nbUser];
-}
-
-eIC_GAMEPAD_NUM
-UserGetGamepadNum(const eIC_USER_NUM nbUser)
-{
-    return UserPeris[nbUser].gp;
-}
-
-eIC_KEYBOARD_NUM
-UserGetKeyboardNum(const eIC_USER_NUM nbUser)
-{
-    return UserPeris[nbUser].kb;
-}
-
+/****** Static **********************************************************************/
 static void
 SetUserInput(void)
 {
@@ -131,7 +121,7 @@ UserToDreamcastButton(uint32_t ubtn)
 
     result |= ( ubtn & USRBTN_START      ? PDD_DGT_ST : 0 );
     result |= ( ubtn & USRBTN_BACK       ? PDD_DGT_TD : 0 );
-    
+
     result |= ( ubtn & USRBTN_ZL         ? PDD_DGT_TC : 0 );
     result |= ( ubtn & USRBTN_ZR         ? PDD_DGT_TZ : 0 );
 
@@ -160,7 +150,7 @@ SetPdsPeripheral(void)
         const USER_PERI* const p_peri = &UserPeris[i];
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
-            to emulate the controller being disconnected **/
+        to emulate the controller being disconnected **/
         if (!GamepadValid(p_peri->gp) && p_peri->kb == IC_KEYBOARD_NONE)
         {
             *p_pad = (PDS_PERIPHERAL){0};
@@ -206,7 +196,7 @@ SetPdsPeripheral(void)
 
             /** Calculate emulated trigger buttons **/
             const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtTrigOff[i] ? PDD_DGT_TL : 0) : (p_pad->l >= DgtTrigOn[i] ? PDD_DGT_TL : 0) ) |
-                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[i] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[i] ? PDD_DGT_TR : 0) );
+                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[i] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[i] ? PDD_DGT_TR : 0) );
 
             u32 btn_on = UserToDreamcastButton(p_user->down) | trig_on;
 
@@ -259,12 +249,32 @@ SetPeripheral(void)
     return 0;
 }
 
+/****** Extern **********************************************************************/
+const IC_USER*
+UserGetInput(const eIC_USER_NUM nbUser)
+{
+    return &Users[nbUser];
+}
+
+eIC_GAMEPAD_NUM
+UserGetGamepadNum(const eIC_USER_NUM nbUser)
+{
+    return UserPeris[nbUser].gp;
+}
+
+eIC_KEYBOARD_NUM
+UserGetKeyboardNum(const eIC_USER_NUM nbUser)
+{
+    return UserPeris[nbUser].kb;
+}
+
 bool
 ICF_UseRawAnalog(void)
 {
     return UseRawAnalog;
 }
 
+/****** Init ************************************************************************/
 void
 IC_InputInit(void)
 {

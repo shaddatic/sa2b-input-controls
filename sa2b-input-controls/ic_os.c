@@ -5,50 +5,51 @@
 #include <sa2b/core.h>      /* core                                                 */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/njcommon.h>    /* ninja common                                 */
+#include <sa2b/ninja/njcommon.h> /* ninja common                                    */
 
 /****** Windows *********************************************************************/
-#include <Windows.h>    /* ugh                                                      */
+#include <Windows.h>        /* ugh                                                  */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>
-#include <ic_window.h>
+#include <ic_core.h>        /* core                                                 */
+#include <ic_window.h>      /* WND_SendMessage                                      */
 
 /****** Self ************************************************************************/
-#include <ic_os.h>      /* self                                                     */
+#include <ic_os.h>          /* self                                                 */
 
 /************************/
 /*  Typedefs            */
 /************************/
+/****** Wnd Proc Function ***********************************************************/
 typedef LRESULT(__stdcall fnWndProc)(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-/************************/
-/*  Game Functions      */
-/************************/
-#define WndProc                 FUNC_PTR(LRESULT, __stdcall, (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam), 0x00401810)
 
 /************************/
 /*  Game Data           */
 /************************/
+/****** Window Handle ***************************************************************/
 #define MainWindowHandle        DATA_REF(HWND, 0x01933EA8)
 
 /************************/
 /*  File Data           */
 /************************/
-static fnWndProc*   WndProcFunc;
+/****** Og WndProc Function *********************************************************/
+static fnWndProc*   WndProcFunc; /* original window proc function                   */
 
 /************************/
 /*  Source              */
 /************************/
-/** Collect Window Messages from the OS then call the Mod Loader WndProc **/
+/****** Static **********************************************************************/
 static LRESULT __stdcall
 WndProcInputControls(const HWND hWnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam)
 {
+    /** Collect Window Messages from the OS then call the Mod Loader WndProc **/
+
     WND_SendMessage( uMsg, wParam, lParam );
 
     return WndProcFunc(hWnd, uMsg, wParam, lParam);
 }
 
+/****** Extern **********************************************************************/
 void
 OS_GetGameWindowSize(INT_POINT2* const pOutSize)
 {
@@ -118,6 +119,7 @@ OS_GetKeyboardState(uint8_t* const pOutStates)
     return GetKeyboardState(pOutStates);
 }
 
+/****** Init ************************************************************************/
 void
 OS_Init(void)
 {
@@ -126,6 +128,7 @@ OS_Init(void)
         Yes, there's technically a chance this can return 'nullptr'.
         However, since the Mod Loader sets this, the minimum ML version
         check will ensure it never is **/
+
     WndProcFunc = (void*) GetWindowLongW(MainWindowHandle, GWL_WNDPROC);
     SetWindowLongW(MainWindowHandle, GWL_WNDPROC, (LONG)WndProcInputControls);
 }
