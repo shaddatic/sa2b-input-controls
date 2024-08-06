@@ -18,7 +18,7 @@ EXTERN_START
 /****** Init ************************************************************************/
 /*
 *   Description:
-*     Init module
+*     Init Sonic Input module
 */
 void    IC_SonicInputInit( void );
 

@@ -5,23 +5,20 @@
 #include <sa2b/core.h>      /* core                                                 */
 #include <sa2b/writeop.h>   /* WriteJump                                            */
 
-/****** System **********************************************************************/
-#include <sa2b/shinobi/sg_pad.h>
-
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/ninja.h>
+#include <sa2b/ninja/ninja.h> /* ninja                                              */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/input.h>
-#include <sa2b/sonic/camera.h>
+#include <sa2b/sonic/input.h>  /* per, perG                                         */
+#include <sa2b/sonic/camera.h> /* camera_twp                                        */
 
 /****** Std *************************************************************************/
-#include <math.h>
+#include <math.h>           /* sqrt                                                 */
 
 /****** Input Controls **************************************************************/
-#include <ic_core.h>
-#include <ic_input.h>
-#include <ic_feature.h> /* ICF_ */
+#include <ic_core.h>        /* core                                                 */
+#include <ic_input.h>       /* input                                                */
+#include <ic_feature.h>     /* ICF_UseRawAnalog                                     */
 
 /****** Config **********************************************************************/
 #include <cnf.h>            /* CnfGet##                                             */
@@ -30,28 +27,34 @@
 #include <ic_sonicinput.h>  /* self                                                 */
 
 /************************/
+/*  Macro               */
+/************************/
+/****** Sonic Deadzone **************************************************************/
+#define PDS_TO_RAW(a)           ((f64)(a)/127.0) /* convert PDS analog unit to raw  */
+
+/************************/
 /*  Constants           */
 /************************/
 /****** Sonic Deadzone **************************************************************/
-/** Convert PDS_PERIPHERAL analog unit (-128~127) to raw analog unit (-1~1) **/
-#define PDS_TO_RAW(a)           ((f64)(a)/127.0)
-
-#define SONIC_DZ                PDS_TO_RAW(12)
-#define SONIC_DZ_ADJ            (1.0/(1.0-SONIC_DZ))
+#define SONIC_DZ                PDS_TO_RAW(12)       /* dreamcast default dz        */
+#define SONIC_DZ_ADJ            (1.0/(1.0-SONIC_DZ)) /* adjust value for dz         */
 
 /************************/
 /*  Game Data           */
 /************************/
+/****** Analog Boolean Thing ********************************************************/
 #define AnalogThrust        DATA_ARY(bool, 0x01DEFDA0, [8])
 
 /************************/
 /*  File Variables      */
 /************************/
-static bool DreamcastMode;
+/****** Deadzone Bug ****************************************************************/
+static bool DreamcastMode;  /* use deadzone bug from dreamcast                      */
 
 /************************/
 /*  Source              */
 /************************/
+/****** Static **********************************************************************/
 static void
 CalcDreamcastDeadzone(f32* const pX, f32* const pY)
 {
@@ -194,6 +197,7 @@ NewGetPlayersInputData_FH(void)
     }
 }
 
+/****** Init ************************************************************************/
 void
 IC_SonicInputInit(void)
 {
