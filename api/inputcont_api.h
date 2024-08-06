@@ -313,14 +313,24 @@ IC_MOUSE;
 /*  Config API          */
 /************************/
 /*
-*   
+*   Description:
+*     The Input Controls 'Config' API is for reading user-config entries directly
+*   from Input Controls' 'config' module. Its use should be restricted to extreme
+*   circumstances & specific versions of Input Controls, as config entries are often
+*   renamed or moved around. If it's important a feature is checked, use the Feature
+*   API first. If the feature isn't available there yet, contact me and I'll add it.
+* 
+*   Availablility:
+*     - IC_EarlyInit    : Yes
+*     - IC_Init         : Yes
+*     - After IC        : No
 */
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Get Config ********************************************************/
+    /**** Get Config ************************************************************/
     /*
     *   Description:
     *     Read user-settings inside Input Controls' configuration file. It's
@@ -345,31 +355,38 @@ ICAPI_CONFIG;
 /*  Feature API         */
 /************************/
 /*
-*   
+*   Description:
+*     The Input Controls 'Feature' API is for checking if specific features of Input
+*   Controls are enabled, or specific user-settings for those features.
+* 
+*   Availablility:
+*     - IC_EarlyInit    : No
+*     - IC_Init         : Yes
+*     - After IC        : Yes
 */
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Features **********************************************************/
+    /**** Features **************************************************************/
     /*
     *   Description:
-    *     If Input Controls is set to use raw analog values, rather than
-    *   values from the emulated Dreamcast controller.
+    *     If Input Controls is set to use raw analog values, rather than values
+    *   from the emulated Dreamcast controller.
     *
     *   Returns:
-    *     If the feature is enabled
+    *     'true' if the feature is enable, or 'false' if not
     */
     bool (__cdecl* UseRawAnalog)( void );
     /*
     *   Description:
-    *     If the camera is set to invert the X axis of the right analog
-    *   stick input from vanilla. When inverted, it better matches regular
+    *     If the camera is set to invert the X axis of the right analog stick
+    *   input from vanilla. When inverted, it better matches regular analog
     *   camera input from other games.
     *
     *   Returns:
-    *     If the feature is enabled
+    *     'true' if the feature is enable, or 'false' if not
     */
     bool (__cdecl* CamInvertX2)( void );
 }
@@ -379,31 +396,39 @@ ICAPI_FEATURE;
 /*  User Input API      */
 /************************/
 /*
-*   
+*   Description:
+*     The Input Controls 'User' API is for recieving raw input directly from the
+*   user, gamepad and keyboard, adhering to their settings.
+* 
+*   Availablility:
+*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_Init         : Yes
+*     - After IC        : Yes
 */
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Raw Input *********************************************************/
+    /**** Raw Input *************************************************************/
     /*
     *   Description:
-    *     Get the raw user input. The pointer will be constant for the
+    *     Get the raw input of a user. The pointer will be constant for the
     *   lifetime of the program.
     *
     *   Parameters:
-    *     - nbUser  : user number to get raw input of
+    *     - nbUser  : user number
     *
     *   Returns:
-    *     A pointer to the specified user's raw input structure
+    *     The pointer to the user's raw input structure
     */
     const IC_USER* (__cdecl* GetInput)( eIC_USER_NUM nbUser );
 
     /**** Device Number *********************************************************/
     /*
     *   Description:
-    *     Get the gamepad number of a given user
+    *     Get the gamepad number of a user. The index will be constant for the
+    *   lifetime of the program.
     *
     *   Parameters:
     *     - nbUser  : user number
@@ -414,7 +439,8 @@ typedef struct
     eIC_GAMEPAD_NUM (__cdecl* GetGamepadNum)( eIC_USER_NUM nbUser );
     /*
     *   Description:
-    *     Get the keyboard layout number of a given user
+    *     Get the keyboard layout number of a given user. The index will be
+    *   constant for the lifetime of the program.
     *
     *   Parameters:
     *     - nbUser  : user number
@@ -430,42 +456,49 @@ ICAPI_USER;
 /*  Gamepad API         */
 /************************/
 /*
-*   
+*   Description:
+*     The Input Controls 'Gamepad' API is for recieving raw Gamepad input & setting
+*   force feedback if available.
+* 
+*   Availablility:
+*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_Init         : Yes (all values will be '0')
+*     - After IC        : Yes
 */
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Raw Gamepad *******************************************************/
+    /**** Raw Gamepad ***********************************************************/
     /*
     *   Description:
-    *     Get raw gamepad input and attributes. The pointer will be constant
-    *   for the lifetime of the program.
+    *     Get raw gamepad input and attributes. The pointer will be constant for
+    *   the lifetime of the program.
     * 
     *   Parameters:
     *     - nbGp    : gamepad number to get
     * 
     *   Returns:
-    *     Gamepad struct pointer, or nullptr if 'nbGp' is GAMEPAD_NONE.
+    *     A Gamepad struct pointer, or 'nullptr' if 'nbGp' is GAMEPAD_NONE.
     */
     const IC_GAMEPAD* (__cdecl* GetGamepad)( eIC_GAMEPAD_NUM nbGp );
 
-    /**** Valid/Open *******************************************************/
+    /**** Valid/Open ***********************************************************/
     /*
     *   Description:
-    *     Check if the given gamepad is active and linked to an open, 
-    *   physical device.
+    *     Check if the given gamepad is active and linked to an open, physical
+    *   game controller device.
     * 
     *   Parameters:
     *     - nbGp    : gamepad number to get state of
     * 
     *   Returns:
-    *     If the given gamepad is valid.
+    *     'true' if the given gamepad is valid, or 'false' if not
     */
     bool (__cdecl* Valid)( eIC_GAMEPAD_NUM nbGp );
 
-    /**** Vibration *********************************************************/
+    /**** Vibration *************************************************************/
     /*
     *   Description:
     *     Set the vibration motors on a gamepad. You can check support by
@@ -477,14 +510,14 @@ typedef struct
     *     - freqHi  : speed of the high frequency motor (0~1)
     * 
     *   Returns:
-    *     If successful
+    *     'true' if successful, or 'false' if not
     */
     bool (__cdecl* SetVibration)( eIC_GAMEPAD_NUM nbGp, f32 freqLo, f32 freqHi );
     /*
     *   Description:
-    *     Set the trigger vibration motors on a gamepad. Only applicable to
-    *   Xbox One and higher controllers. You can check support by searching
-    *   for the GPDDEV_SUPPORT_RUMBLE_TRIGGER flag in 'support'.
+    *     Set the trigger vibration motors on a gamepad. Only applicable to Xbox
+    *   One and higher controllers. You can check support by searching for the
+    *   GPDDEV_SUPPORT_RUMBLE_TRIGGER flag in 'support'.
     * 
     *   Parameters:
     *     - nbGp    : gamepad number to set vibration for
@@ -492,7 +525,7 @@ typedef struct
     *     - freqR   : speed of the right trigger motor (0~1)
     * 
     *   Returns:
-    *     If successful
+    *     'true' if successful, or 'false' if not
     */
     bool (__cdecl* SetTriggerVibration)( eIC_GAMEPAD_NUM nbGp, f32 freqL, f32 freqR );
 }
@@ -502,66 +535,74 @@ ICAPI_GAMEPAD;
 /*  Keyboard API        */
 /************************/
 /*
-*   
+*   Description:
+*     The Input Controls 'Keyboard' API is for recieving keyboard key input from the
+*   user and checking the state of the modifiers.
+* 
+*   Availablility:
+*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_Init         : Yes (all values will be '0')
+*     - After IC        : Yes
 */
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Poll Key **********************************************************/
+    /**** Poll Key **************************************************************/
     /*
     *   Description:
-    *     Get the most recent key press from the keyboard. If multiple keys are
-    *   pressed at the same time, the highest key index will be returned.
+    *     Get a key that was pressed this moment. If multiple keys are pressed
+    *   at the same time, the highest key index will be returned.
     * 
     *   Returns:
-    *     Most recent key index
+    *     The index of a key pressed this moment, or 'KEY_NONE' if no keys have
+    *   been pressed
     */
     uint8_t (__cdecl* Poll)( void );
 
-    /**** Key State *********************************************************/
+    /**** Key State *************************************************************/
     /*
     *   Description:
-    *     Check if 'key' is currently being held down.
+    *     Check if a key is currently being held down.
     *   
     *   Parameters:
-    *     - key     : key index to check
+    *     - key     : key to get state of
     * 
     *   Returns:
-    *     If 'key' is down
+    *     'true' if they key is down, or 'false' if it is not
     */
     bool (__cdecl* Down)( uint8_t key );
     /*
     *   Description:
-    *     Check if 'key' was pressed now.
+    *     Check if a key was pressed this moment.
     *   
     *   Parameters:
-    *     - key     : key index to check
+    *     - key     : key to get state of
     * 
     *   Returns:
-    *     If 'key' was pressed this frame
+    *     'true' if they key was pressed, or 'false' if it was not
     */
     bool (__cdecl* Press)( uint8_t key );
     /*
     *   Description:
-    *     Check if 'key' was released now.
+    *     Check if a key was released this moment.
     *   
     *   Parameters:
-    *     - key     : key index to check
+    *     - key     : key to get state of
     * 
     *   Returns:
-    *     If 'key' was released this frame
+    *     'true' if they key was released, or 'false' if it was not
     */
     bool (__cdecl* Release)( uint8_t key );
 
-    /**** Modifier State ****************************************************/
+    /**** Modifier State ********************************************************/
     /*
     *   Description:
     *     Check if Caps Lock modifier is currently active.
     * 
     *   Returns:
-    *     If CapsLock key is toggled
+    *     'true' if caps lock is active, or 'false' if it is not
     */
     bool (__cdecl* CapsLock)( void );
     /*
@@ -569,7 +610,7 @@ typedef struct
     *     Check if Scroll Lock modifier is currently active.
     * 
     *   Returns:
-    *     If ScrollLock key is toggled
+    *     'true' if scroll lock is active, or 'false' if it is not
     */
     bool (__cdecl* ScrollLock)( void );
     /*
@@ -577,7 +618,7 @@ typedef struct
     *     Check if Number Lock modifier is currently active.
     * 
     *   Returns:
-    *     If NumLock key is toggled
+    *     'true' if number lock is active, or 'false' if it is not
     */
     bool (__cdecl* NumLock)( void );
 }
@@ -587,42 +628,56 @@ ICAPI_KEYBOARD;
 /*  Mouse API           */
 /************************/
 /*
+*   Description:
+*     The Input Controls 'Mouse' API is for recieving mouse input from the user, and
+*   checking/setting the state of the mouse.
 * 
+*   Availablility:
+*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_Init         : Yes
+*     - After IC        : Yes
 */
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Get Mouse *********************************************************/
+    /**** Get Mouse *************************************************************/
     /*
     *   Description:
-    *      Get the mouse info structure. The pointer will be constant for
-    *   the lifetime of the program.
+    *      Get the mouse info structure. The pointer will be constant for the
+    *   lifetime of the program.
     * 
     *   Returns:
-    *     Mouse struct pointer
+    *     The mouse struct pointer
     */
     const IC_MOUSE* (__cdecl* GetMouse)( void );
 
-    /**** Mouse Mode ********************************************************/
+    /**** Mouse Mode ************************************************************/
     /*
     *   Description:
-    *     
+    *     Get the current mouse cursor mode. If 'Capture' or 'Free' are called
+    *   on this frame, the mouse mode and state will only be updated on the
+    *   next frame.
+    * 
     *   Returns:
-    *     Current mouse mode
+    *     The current mouse mode
     */
     eIC_MOUSE_MODE (__cdecl* GetMode)( void );
     /*
     *   Description:
+    *     Set the mouse cursor to be captured to the game window. If the mouse
+    *   is currently captured, this will do nothing.
     */
     void (__cdecl* Capture)( void );
     /*
     *   Description:
+    *     Set the mouse cursor to be freed from the game window. If the mouse
+    *   is currently freed, this will do nothing.
     */
     void (__cdecl* Free)( void );
 
-    /**** Cursor Display ****************************************************/
+    /**** Cursor Display ********************************************************/
     /*
     *   Description:
     *     Manually hide the mouse cursor from the game window. This is
@@ -642,26 +697,32 @@ ICAPI_MOUSE;
 /*  Window API          */
 /************************/
 /*
+*   Description:
+*     The Input Controls 'Window' API is for checking the state of and getting
+*   messages from the game window.
 * 
+*   Availablility:
+*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_Init         : Yes
+*     - After IC        : Yes
 */
 typedef struct
 {
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Message Handler ***************************************************/
+    /**** Message Handler *******************************************************/
     /*
     *   Description:
-    *     Register an SDL_Event handler function. Once registered, your
-    *   function will recieve all polled SDL events. Be aware that not all
-    *   SDL event types can be polled as not every SDL system is in use.
+    *     Register a window message handler function. Once registered, your
+    *   function will recieve all window messages sent to the game.
     * 
     *   Parameters:
-    *     - fnHandler : function to handle incoming SDL events
+    *     - fnHandler : function to handle incoming window messages
     */
     void (__cdecl* RegisterMessageHandler)( void(__cdecl* fnHandler)(uint32_t msg, uint32_t wParam, int32_t lParam) );
 
-    /**** Coordinates *******************************************************/
+    /**** Coordinates ***********************************************************/
     /*
     *   Description:
     *     Translate window surface coordinates, like the mouse position
@@ -673,20 +734,22 @@ typedef struct
     */
     void (__cdecl* TranslateSurfaceToGameCoords)( const NJS_POINT2I* pIn, NJS_POINT2* pOut );
 
-    /**** Focus *************************************************************/
+    /**** Focus *****************************************************************/
     /*
     *   Description:
-    *     Check if the main game window is in focus.
+    *     Check the main game window's focus state. If the user has set the game
+    *   to pause when out of focus, this will always be true.
     * 
     *   Returns:
-    *     Window focus state
+    *     'true' if the game window is in focus, or 'false' if it is not
     */
     bool (__cdecl* InFocus)( void );
 
-    /**** Parameters ********************************************************/
+    /**** Parameters ************************************************************/
     /*
     *   Description:
-    *     Get the size of the game window in physical pixels.
+    *     Get the current size of the game window surface in pixels. Be aware
+    *   that the user can resize the window at any time.
     * 
     *   Parameters:
     *     - pOutSize : return pointer for window size
@@ -699,7 +762,14 @@ ICAPI_WINDOW;
 /*  SDL API             */
 /************************/
 /*
+*   Description:
+*     The Input Controls 'SDL' API is for communicating with, or getting
+*   communications from, the mounted SDL library.
 * 
+*   Availablility:
+*     - IC_EarlyInit    : Yes
+*     - IC_Init         : Yes
+*     - After IC        : Yes
 */
 typedef struct
 {
@@ -712,28 +782,28 @@ typedef struct
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** SDL API Version ***************************************************/
-    SDL_VERSION sdl_version;
+    /**** SDL API Version *******************************************************/
+    SDL_VERSION sdl_version;    /* installed SDL version                        */
 
-    /**** Event Handler *****************************************************/
+    /**** Event Handler *********************************************************/
     /*
     *   Description:
-    *     Register an SDL_Event handler function. Once registered, your
-    *   function will recieve all polled SDL events. Be aware that not all
-    *   SDL event types can be polled as not every SDL system is in use.
+    *     Register an SDL_Event handler function. Once registered, your function
+    *   will recieve all polled SDL events. Be aware that not all SDL event
+    *   types can be polled as not every SDL system is in use.
     * 
     *   Parameters:
     *     - fnHandler : function to handle incoming SDL events
     */
     void (__cdecl* RegisterEventHandler)( void(__cdecl* fnHandler)(const SDL_Event*) );
 
-    /**** DLL Library *******************************************************/
+    /**** DLL Library ***********************************************************/
     /*
     *   Description:
-    *     Get HMODULE for mounted SDL library.
+    *     Get the DLL HMODULE for the mounted SDL library.
     *     
     *   Returns:
-    *     HMODULE for mounted SDL DLL file.
+    *     HMODULE for SDL.
     */
     void* (__cdecl* GetHandle)( void );
     /*
@@ -744,8 +814,8 @@ typedef struct
     *     cExName   : name of DLL export
     *     
     *   Returns:
-    *     Pointer to the DLL export, or nullptr if nothing is exported under
-    *   that name.
+    *     Pointer to the DLL export, or 'nullptr' if nothing is exported
+    *   under that name.
     */
     void* (__cdecl* GetExport)( const char* cExName );
 }
@@ -755,7 +825,8 @@ ICAPI_SDL;
 /*  Core API            */
 /************************/
 /*
-*   The Input Controls 'Core' API is the central hub for all the other API modules.
+*   Description:
+*     The Input Controls 'Core' API is the central hub for all the other API modules.
 *   It can be accessed through one of the Input Controls mod function exports as a
 *   parameter, or directly by searching Input Controls for the 'icapi_core' dllexport.
 */
@@ -770,20 +841,19 @@ typedef struct
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
-    /**** Mod Version *******************************************************/
+    /**** Mod Version ***********************************************************/
     IC_VERSION ic_version;
 
-    /**** APIs **************************************************************/
-    const ICAPI_FEATURE*    pApiFeature;
+    /**** APIs ******************************************************************/
+    const ICAPI_FEATURE*    pApiFeature;  /* feature API                        */
+    const ICAPI_CONFIG*     pApiConfig;   /* Config API                         */
 
-    const ICAPI_CONFIG*     pApiConfig;
-
-    const ICAPI_USER*       pApiUser;
-    const ICAPI_GAMEPAD*    pApiGamepad;
-    const ICAPI_KEYBOARD*   pApiKeyboard;
-    const ICAPI_MOUSE*      pApiMouse;
-    const ICAPI_WINDOW*     pApiWindow;
-    const ICAPI_SDL*        pApiSdl;
+    const ICAPI_USER*       pApiUser;     /* input controls user API            */
+    const ICAPI_GAMEPAD*    pApiGamepad;  /* gamepad API                        */
+    const ICAPI_KEYBOARD*   pApiKeyboard; /* keyboard API                       */
+    const ICAPI_MOUSE*      pApiMouse;    /* mouse API                          */
+    const ICAPI_WINDOW*     pApiWindow;   /* game window API                    */
+    const ICAPI_SDL*        pApiSdl;      /* SDL API                            */
 }
 ICAPI_CORE;
 
