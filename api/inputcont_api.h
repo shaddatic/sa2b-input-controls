@@ -323,7 +323,7 @@ IC_MOUSE;
 *   Availablility:
 *     - IC_EarlyInit    : Yes
 *     - IC_Init         : Yes
-*     - After IC        : No
+*     - After Init      : No
 */
 typedef struct
 {
@@ -362,7 +362,7 @@ ICAPI_CONFIG;
 *   Availablility:
 *     - IC_EarlyInit    : No
 *     - IC_Init         : Yes
-*     - After IC        : Yes
+*     - After Init      : Yes
 */
 typedef struct
 {
@@ -401,9 +401,9 @@ ICAPI_FEATURE;
 *   user, gamepad and keyboard, adhering to their settings.
 * 
 *   Availablility:
-*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_EarlyInit    : No
 *     - IC_Init         : Yes
-*     - After IC        : Yes
+*     - After Init      : Yes
 */
 typedef struct
 {
@@ -461,9 +461,9 @@ ICAPI_USER;
 *   force feedback if available.
 * 
 *   Availablility:
-*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_EarlyInit    : No
 *     - IC_Init         : Yes (all values will be '0')
-*     - After IC        : Yes
+*     - After Init      : Yes
 */
 typedef struct
 {
@@ -540,9 +540,9 @@ ICAPI_GAMEPAD;
 *   user and checking the state of the modifiers.
 * 
 *   Availablility:
-*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_EarlyInit    : No
 *     - IC_Init         : Yes (all values will be '0')
-*     - After IC        : Yes
+*     - After Init      : Yes
 */
 typedef struct
 {
@@ -633,9 +633,9 @@ ICAPI_KEYBOARD;
 *   checking/setting the state of the mouse.
 * 
 *   Availablility:
-*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_EarlyInit    : No
 *     - IC_Init         : Yes
-*     - After IC        : Yes
+*     - After Init      : Yes
 */
 typedef struct
 {
@@ -702,9 +702,9 @@ ICAPI_MOUSE;
 *   messages from the game window.
 * 
 *   Availablility:
-*     - IC_EarlyInit    : Yes (all values will be '0')
+*     - IC_EarlyInit    : No
 *     - IC_Init         : Yes
-*     - After IC        : Yes
+*     - After Init      : Yes
 */
 typedef struct
 {
@@ -769,7 +769,7 @@ ICAPI_WINDOW;
 *   Availablility:
 *     - IC_EarlyInit    : Yes
 *     - IC_Init         : Yes
-*     - After IC        : Yes
+*     - After Init      : Yes
 */
 typedef struct
 {
@@ -846,7 +846,7 @@ typedef struct
 
     /**** APIs ******************************************************************/
     const ICAPI_FEATURE*    pApiFeature;  /* feature API                        */
-    const ICAPI_CONFIG*     pApiConfig;   /* Config API                         */
+    const ICAPI_CONFIG*     pApiConfig;   /* config API                         */
 
     const ICAPI_USER*       pApiUser;     /* input controls user API            */
     const ICAPI_GAMEPAD*    pApiGamepad;  /* gamepad API                        */

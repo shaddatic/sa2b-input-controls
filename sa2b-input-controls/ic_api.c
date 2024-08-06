@@ -65,14 +65,7 @@ void
 ICAPI_Init(void)
 {
     icapi_core.pApiConfig = &icapi_config,
-
-    icapi_core.pApiUser     = &icapi_user;
-    icapi_core.pApiGamepad  = &icapi_gamepad;
-    icapi_core.pApiKeyboard = &icapi_keyboard;
-    icapi_core.pApiMouse    = &icapi_mouse;
-
-    icapi_core.pApiWindow   = &icapi_window;
-    icapi_core.pApiSdl      = &icapi_sdl;
+    icapi_core.pApiSdl    = &icapi_sdl;
 
     ApiCallByFuncName("IC_EarlyInit");
 }
@@ -81,6 +74,11 @@ void
 ICAPI_End(void)
 {
     icapi_core.pApiFeature = &icapi_feature;
+    icapi_core.pApiUser     = &icapi_user;
+    icapi_core.pApiGamepad  = &icapi_gamepad;
+    icapi_core.pApiKeyboard = &icapi_keyboard;
+    icapi_core.pApiMouse    = &icapi_mouse;
+    icapi_core.pApiWindow   = &icapi_window;
 
     ApiCallByFuncName("IC_Init");
 
