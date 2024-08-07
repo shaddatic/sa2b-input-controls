@@ -117,35 +117,11 @@ Once the API is confirmed available, you then need to check the function you wis
 
 After this, you're free to use API as needed. Additional info and comments about each API and their functions can be found in the API header (`inputcont_api.h`).
 
-## Complete Examples
-User-exported function method (`IC_Init`):
+## Complete Example
 ```cpp
 extern "C" __declspec(dllexport)
 void
 IC_Init(const ICAPI_CORE* pApiCore, const char* path, const HelperFunctions& helperFunctions)
-{
-    /** Assume 'Example' API is version 1 of 'Core' **/
-
-    if (pApiCore->version >= 1)
-    {
-        const ICAPI_EXAMPLE* ic_exam = pApiCore->pApiExample;
-
-        /** Assume the function examples need versions 1 & 2 **/
-
-        if (ic_exam->version >= 2)
-        {
-            ic_exam->func1(); // Needs version >= 1
-            ic_exam->func2(); // Needs version >= 2
-        }
-    }
-}
-```
-
-User-exported function method (`IC_EarlyInit`):
-```cpp
-extern "C" __declspec(dllexport)
-void
-IC_EarlyInit(const ICAPI_CORE* pApiCore, const char* path, const HelperFunctions& helperFunctions)
 {
     /** Assume 'Example' API is version 1 of 'Core' **/
 
