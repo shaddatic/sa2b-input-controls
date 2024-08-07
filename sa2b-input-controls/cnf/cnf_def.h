@@ -156,9 +156,9 @@ CNFE_MISC_TEXTMD;
 
 /****** Gamepad *************************************************************************************************************************/
 #define CNFV_GAMEPD_DZ_MODE(s)          CNFO_INT(   s                   , "dz_md"               , CNFE_GAMEPD_DZ_MODE_CIRCULAR          )
-#define CNFV_GAMEPD_LS_IDZ(s)           CNFO_INT(   s                   , "ls_idz"              , 10                                    )
+#define CNFV_GAMEPD_LS_IDZ(s)           CNFO_INT(   s                   , "ls_idz"              , 16                                    )
 #define CNFV_GAMEPD_LS_ODZ(s)           CNFO_INT(   s                   , "ls_odz"              , 100                                   )
-#define CNFV_GAMEPD_RS_IDZ(s)           CNFO_INT(   s                   , "rs_idz"              , 10                                    )
+#define CNFV_GAMEPD_RS_IDZ(s)           CNFO_INT(   s                   , "rs_idz"              , 16                                    )
 #define CNFV_GAMEPD_RS_ODZ(s)           CNFO_INT(   s                   , "rs_odz"              , 100                                   )
 #define CNFV_GAMEPD_VIB_STR(s)          CNFO_INT(   s                   , "vib_str"             , 100                                   )
 
