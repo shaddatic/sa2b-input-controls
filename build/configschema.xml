@@ -269,7 +269,7 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 			</Property>
 		</Group>
 		<Group name="misc" display="Miscellaneous Settings">
-			<Property name="dc_drift" display="Dreamcast Accuracy Mode (!)" type="eBOOL" defaultvalue="0">
+			<Property name="dc_drift" display="Dreamcast Analog Drift" type="eBOOL" defaultvalue="0">
 				<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
 			</Property>
 		</Group>
