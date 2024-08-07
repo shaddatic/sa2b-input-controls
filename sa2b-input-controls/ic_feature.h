@@ -20,7 +20,7 @@
 *   emulated Dreamcast controller.
 *
 *   Returns:
-*     If the feature is enabled
+*     'true' if the feature is enable, or 'false' if not
 */
 bool    ICF_UseRawAnalog( void );
 /*
@@ -29,8 +29,16 @@ bool    ICF_UseRawAnalog( void );
 *   vanilla.
 *
 *   Returns:
-*     If the feature is enabled
+*     'true' if the feature is enable, or 'false' if not
 */
 bool    ICF_CamInvertX2( void );
+/*
+*   Description:
+*     If mouse analog emulation is enabled on any keyboard layout.
+*
+*   Returns:
+*     'true' if the feature is enable, or 'false' if not
+*/
+bool    ICF_MouseAnalogEmulation( void );
 
 #endif/*H_IC_FEATURE*/

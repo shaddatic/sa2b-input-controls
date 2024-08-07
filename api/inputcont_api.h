@@ -389,6 +389,15 @@ typedef struct
     *     'true' if the feature is enable, or 'false' if not
     */
     bool (__cdecl* CamInvertX2)( void );
+    /*
+    *   Description:
+    *     If mouse analog emulation is enabled on any keyboard layout. If you wish
+    *   to use the mouse in your own mod, you should make sure this is disabled.
+    *
+    *   Returns:
+    *     'true' if the feature is enable, or 'false' if not
+    */
+    bool (__cdecl* MouseAnalogEmulation)( void );
 }
 ICAPI_FEATURE;
 
