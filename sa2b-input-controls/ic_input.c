@@ -19,6 +19,10 @@
 /****** Config **********************************************************************/
 #include <cnf.h>            /* CnfGet##                                             */
 
+/****** Std *************************************************************************/
+#include <math.h>           /* ceil, floor                                          */
+
+
 /****** Self ************************************************************************/
 #include <ic_input.h>               /* self                                         */
 #include <ic_input/inpt_internal.h> /* internal                                     */
@@ -130,13 +134,29 @@ UserToDreamcastButton(uint32_t ubtn)
 static Sint16
 UserToPdsStick(f64 mag)
 {
-    return (Sint16)(mag * (f64)PDSLIM_XY_MAX); // -128~128
+    /** Map raw '-1.0' to '1.0' input value to PDS '-128' to '128'. Now, this looks
+        a little mental. But, it allows the Dreamcast stick to represent the entire
+        analog stick range. **/
+
+    /*
+    *   '0.0' maps to '0';
+    *   '0.00001' maps to '1';
+    *   '0.999...' maps to '127';
+    *   '1.0' maps to '128'
+    */
+
+    return (mag > 0) ?
+        (Sint16)ceil( mag * 127.00000000000001) :
+        (Sint16)floor(mag * 127.00000000000001);
 }
 
 static Uint16
 UserToPdsTrigger(f64 mag)
 {
-    return (Uint16)(mag * (f64)PDSLIM_LR_MAX);
+    /** Map raw '0.0' to '1.0' input value to PDS '0' to '255'. Same
+        method-of-madness as above. **/
+
+    return (Uint16)(ceil(mag * 254.0000000000001));
 }
 
 static void
@@ -149,7 +169,7 @@ SetPdsPeripheral(void)
         const USER_PERI* const p_peri = &UserPeris[i];
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
-        to emulate the controller being disconnected **/
+            to emulate the controller being disconnected **/
         if (!GamepadValid(p_peri->gp) && p_peri->kb == IC_KEYBOARD_NONE)
         {
             *p_pad = (PDS_PERIPHERAL){0};
