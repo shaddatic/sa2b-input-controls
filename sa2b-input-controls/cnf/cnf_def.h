@@ -202,9 +202,6 @@ CNFE_MISC_TEXTMD;
 #define CNF_MISC_DCDRIFT                CNFO_INT(   CNFS_MISC           , "dc_drift"            , CNFE_BOOL_DISABLED                    )
 #define CNF_MISC_TEXTMD                 CNFO_INT(   CNFS_MISC           , "text_mode"           , CNFE_MISC_TEXTMD_GAMEPAD              )
 
-/****** Compatibility  Section **********************************************************************************************************/
-#define CNF_COMPAT_X2SETLR              CNFO_INT(   CNFS_COMPAT         , "x2_lr"               , CNFE_BOOL_DISABLED                    )
-
 /****** Debug Section *******************************************************************************************************************/
 #define CNF_DEBUG_AXIS                  CNFO_INT(   CNFS_DEBUG          , "gp_axis"             , CNFE_BOOL_DISABLED                    )
 #define CNF_DEBUG_KEYPOLL               CNFO_INT(   CNFS_DEBUG          , "kb_poll"             , CNFE_BOOL_DISABLED                    )

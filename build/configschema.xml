@@ -273,13 +273,6 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
 				<HelpText>Restores the Dreamcast stick-drift/deadzone bug. This makes the game quite hard to control accurately, especially when walking. It is not recommended to use this outside of curiosity or nostalgia reasons.</HelpText>
 			</Property>
 		</Group>
-		<Group name="compatibility" display="Compatibility Settings">
-			<Property name="x2_lr" display="Control Triggers With Right Stick" type="eBOOL" defaultvalue="0">
-				<HelpText>Allow the right analog stick set the analog triggers on the emulated Dreamcast controller.
-
-This is used in the Vanilla PC version to, hackily, allow the right analog stick to move the camera. Some mods may also assume this is the default state of the game. It is not recommended to enable this without reason.</HelpText>
-			</Property>
-		</Group>
 		<Group name="debug" display="Debug Settings">
 			<Property name="gp_axis" display="Gamepad: Print Axis" type="eBOOL" defaultvalue="0">
 				<HelpText>Print the X, Y, and Magnitude of this gamepad's joysticks to the screen *after* applying deadzone calculations. Useful for honing in Deadzone values.</HelpText>

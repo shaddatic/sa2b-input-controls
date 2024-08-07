@@ -32,14 +32,5 @@ bool    ICF_UseRawAnalog( void );
 *     If the feature is enabled
 */
 bool    ICF_CamInvertX2( void );
-/*
-*   Description:
-*     The right analog stick will write to the emulated Dreamcast controller's LR
-*   triggers
-*
-*   Returns:
-*     If the feature is enabled
-*/
-bool    ICF_X2SetsLR( void );
 
 #endif/*H_IC_FEATURE*/

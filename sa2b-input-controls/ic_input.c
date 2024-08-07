@@ -39,7 +39,6 @@ USER_PERI;
 /************************/
 /****** Input Settings **************************************************************/
 static bool UseRawAnalog;   /* use raw analog values                                */
-static bool X2SetsLR;       /* right stick sets lr triggers                         */
 
 /****** Digital Trigger *************************************************************/
 static Sint16 DgtTrigOn[NB_IC_USER];  /* digital trigger on setting                 */
@@ -180,14 +179,6 @@ SetPdsPeripheral(void)
 
             p_pad->r = UserToPdsTrigger(p_user->r);
             p_pad->l = UserToPdsTrigger(p_user->l);
-
-            if (X2SetsLR && p_user->x2)
-            {
-                int x2_lr = (int)(p_user->x2 * (f32)PDSLIM_LR_MAX);
-
-                if (p_pad->l < -x2_lr) p_pad->l = -x2_lr;
-                if (p_pad->r <  x2_lr) p_pad->r =  x2_lr;
-            }
         }
 
         /** Get button inputs **/
@@ -274,17 +265,10 @@ ICF_UseRawAnalog(void)
     return UseRawAnalog;
 }
 
-bool
-ICF_X2SetsLR(void)
-{
-    return X2SetsLR;
-}
-
 /****** Init ************************************************************************/
 void
 IC_InputInit(void)
 {
-    X2SetsLR     = CNF_GetInt(CNF_COMPAT_X2SETLR);
     UseRawAnalog = CNF_GetInt(CNF_MAIN_RAWANALOG);
 
     /** User peripheral indexes **/
