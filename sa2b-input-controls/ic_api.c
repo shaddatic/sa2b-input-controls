@@ -37,7 +37,7 @@ ICAPI_CORE icapi_core =
 {
     .version = ICAPI_CORE_VER,
 
-    .ic_version = { 1,0,0,0 },
+    .ic_version = { 1,0,0,1 },
 };
 
 /************************/
