@@ -40,6 +40,24 @@ It completely replaces the sub-par input code created for the HD releases with a
   - Gamepad print axis: for testing deadzone settings! `X` and `Y` are the analog coordinates, `M` is the magnitude of the analog input
   - Keyboard print key: for getting the key index of a pressed key in the case it's not labled in the config menu! (by modifiying `config.ini`)
 
+### Input Controls API
+- Config API
+  - For reading the mod's user-config file directly
+- Feature API
+  - For checking the on-state of Input Controls features
+- User API
+  - For getting raw input from the user (Gamepad+Keyboard), and for getting their gamepad and keyboard index settings
+- Gamepad API
+  - For reading directly from the gamepad, checking validity, and sending force feedback messages
+- Keyboard API
+  - For getting key input from the keyboard with 'Down', 'Press', 'Release' functions
+- Mouse API
+  - For getting raw input from the mouse, including buttons, wheel input X and Y, mouse vector and mouse position on the game window surface
+- Window API
+  - For registering window message handlers and translating window surface coordinates to the game's internal 640x480 screen coordinates
+- SDL API
+  - For registering SDL_Event handlers, and getting DLL exports from the mounted library
+
 ### Changes From Vanilla
 - Virtual Dreamcast Controller
   - Analog stick value ranges are now `-128` to `128`
