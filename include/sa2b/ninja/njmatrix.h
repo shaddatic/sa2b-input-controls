@@ -118,7 +118,7 @@ void    njProject2(NJS_MATRIX* m, NJS_PLANE* pl, NJS_POINT3* v, NJS_POINT3* p); 
     njCalcPoint( m, p3, &cm );
     njCalcScreen( &cm, p2->x, p2->y );
 */
-void    njProjectScreen(NJS_MATRIX* m, NJS_POINT3* p3, NJS_POINT2* p2);
+void    njProjectScreen(NJS_MATRIX* m, NJS_POINT3* p3, NJS_POINT2* p2); // 'm' is unused, always 'NULL'
 
 
 /*  Make a quaternion notation correspond to a specified euler notation */
