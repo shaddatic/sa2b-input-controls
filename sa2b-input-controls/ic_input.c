@@ -156,17 +156,16 @@ static void
 PushToSa2Peri(int ixPeri)
 {
     PDS_PERIPHERAL*     const p_pad     = &PdsData[ixPeri];
-    PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
+    PDS_PERIPHERALINFO* const p_padinfo = &PdsInfo[ixPeri];
 
     PDS_PERIPHERAL*     const p_sa2pad     = &PeripheralData[ixPeri];
-    PDS_PERIPHERALINFO* const p_sa2padinfo = p_sa2pad->info;
+    PDS_PERIPHERALINFO* const p_sa2padinfo = &PeripheralInfo[ixPeri];
 
-    *p_sa2pad = *p_pad;
+    *p_sa2pad     = *p_pad;
+    *p_sa2padinfo = *p_padinfo;
 
-    if ( p_sa2padinfo )
-    {
-        *p_sa2padinfo = *p_padinfo;
-    }
+    // reset info pointer
+    p_sa2pad->info = p_sa2padinfo;
 }
 
 static void
