@@ -458,6 +458,22 @@ typedef struct
     *     The user's keyboard layout number
     */
     eIC_KEYBOARD_NUM (__cdecl* GetKeyboardNum)( eIC_USER_NUM nbUser );
+
+    /****** Version >= 1 ************************************************************/
+
+    /**** Callback **************************************************************/
+    /*
+    *   Description:
+    *     Set the user input callback function.
+    *
+    *   Notes:
+    *     - This will be called just after the user input structure is executed.
+    *     - Only 1 mod can use the callback at a time
+    *
+    *   Parameters:
+    *     - callback    : callback function to call              [opt: nullptr]
+    */
+    void (__cdecl* SetCallback)( void(__cdecl* callback)(int ixUser, IC_USER* pUser) );
 }
 ICAPI_USER;
 

@@ -29,6 +29,12 @@
 #include <ic_input/inpt_internal.h> /* internal                                     */
 
 /************************/
+/*  Function Types      */
+/************************/
+/****** User Callback ***************************************************************/
+typedef void(__cdecl FN_USER_CALLBACK)(int ixUser, IC_USER* pUser);
+
+/************************/
 /*  Structures          */
 /************************/
 /****** Peripheral Settings *********************************************************/
@@ -59,6 +65,9 @@ static PDS_PERIPHERAL     PdsData[NB_IC_USER]; /* pds peripheral                
 /****** Peripheral ******************************************************************/
 static USER_PERI UserPeris[NB_IC_USER]; /* user peripheral settings                 */
 
+/****** Callback ********************************************************************/
+static FN_USER_CALLBACK* UserCallback; /* user input callback function for API      */
+
 /************************/
 /*  Game Data           */
 /************************/
@@ -75,15 +84,22 @@ static USER_PERI UserPeris[NB_IC_USER]; /* user peripheral settings             
 /************************/
 /*  Source              */
 /************************/
+/****** Callback ********************************************************************/
+void
+UserSetCallback(void(__cdecl* callback)(int ixUser, IC_USER* pUser))
+{
+    UserCallback = callback;
+}
+
 /****** Static **********************************************************************/
 static void
 UserInputExec(void)
 {
-    for (int i = 0; i < ARYLEN(Users); ++i)
+    for ( int ix_user = 0; ix_user < ARYLEN(Users); ++ix_user )
     {
         /** Setup **/
-        IC_USER*   const p_user = &Users[i];
-        USER_PERI* const p_peri = &UserPeris[i];
+        IC_USER*   const p_user = &Users[ix_user];
+        USER_PERI* const p_peri = &UserPeris[ix_user];
 
         INPUT_OUT input_gp = {0};
         INPUT_OUT input_kb = {0};
@@ -109,6 +125,11 @@ UserInputExec(void)
         p_user->down    = btn_new;
         p_user->press   = btn_new & ~btn_old;
         p_user->release = btn_old & ~btn_new;
+
+        if ( UserCallback && (GamepadValid(p_peri->gp) || (p_peri->kb != IC_KEYBOARD_NONE)) )
+        {
+            UserCallback( ix_user, p_user );
+        }
     }
 }
 

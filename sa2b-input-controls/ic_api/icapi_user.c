@@ -15,7 +15,7 @@
 /*  Constants           */
 /************************/
 /****** Version *********************************************************************/
-#define ICAPI_USER_VER      (0) /* API version                                      */
+#define ICAPI_USER_VER      (1) /* API version                                      */
 
 /************************/
 /*  File Data           */
@@ -29,4 +29,8 @@ const ICAPI_USER icapi_user =
 
     .GetGamepadNum  = UserGetGamepadNum,
     .GetKeyboardNum = UserGetKeyboardNum,
+
+    // version 1
+
+    .SetCallback = UserSetCallback,
 };

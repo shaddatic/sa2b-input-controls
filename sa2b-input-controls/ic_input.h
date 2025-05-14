@@ -372,6 +372,20 @@ eIC_GAMEPAD_NUM UserGetGamepadNum( const eIC_USER_NUM nbUser );
 */
 eIC_KEYBOARD_NUM UserGetKeyboardNum( const eIC_USER_NUM nbUser );
 
+/****** Callback ********************************************************************/
+/*
+*   Description:
+*     Set the user input callback function.
+*
+*   Notes:
+*     - This will be called just after the user input structure is executed.
+*     - Only 1 mod can callback at a time
+*
+*   Parameters:
+*     - callback    : callback function to call                      [opt: nullptr]
+*/
+void    UserSetCallback( void(__cdecl* callback)(int ixUser, IC_USER* pUser) );
+
 /****** Gamepad *********************************************************************/
 /**** Get ************************************************************************/
 /*
