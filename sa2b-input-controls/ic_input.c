@@ -40,7 +40,7 @@ typedef struct
 USER_PERI;
 
 /************************/
-/*  File Variables      */
+/*  Data                */
 /************************/
 /****** Input Settings **************************************************************/
 static bool UseRawAnalog;   /* use raw analog values                                */
@@ -51,6 +51,10 @@ static Sint16 DgtTrigOff[NB_IC_USER]; /* digital trigger off setting            
 
 /****** User Input ******************************************************************/
 static IC_USER Users[NB_IC_USER]; /* user input structure                           */
+
+/****** Pds Peripheral **************************************************************/
+static PDS_PERIPHERALINFO PdsInfo[NB_IC_USER]; /* pds peri info                     */
+static PDS_PERIPHERAL     PdsData[NB_IC_USER]; /* pds peripheral                    */
 
 /****** Peripheral ******************************************************************/
 static USER_PERI UserPeris[NB_IC_USER]; /* user peripheral settings                 */
@@ -149,23 +153,40 @@ UserToPdsTrigger(f64 mag)
 }
 
 static void
+PushToSa2Peri(int ixPeri)
+{
+    PDS_PERIPHERAL*     const p_pad     = &PdsData[ixPeri];
+    PDS_PERIPHERALINFO* const p_padinfo = p_pad->info;
+
+    PDS_PERIPHERAL*     const p_sa2pad     = &PeripheralData[ixPeri];
+    PDS_PERIPHERALINFO* const p_sa2padinfo = p_sa2pad->info;
+
+    *p_sa2pad = *p_pad;
+
+    if ( p_sa2padinfo )
+    {
+        *p_sa2padinfo = *p_padinfo;
+    }
+}
+
+static void
 PdsPeripheralExec(void)
 {
-    for (int i = 0; i < ARYLEN(PeripheralData); ++i)
+    for (int ix_peri = 0; ix_peri < ARYLEN(PdsData); ++ix_peri)
     {
-        PDS_PERIPHERAL*  const p_pad  = &PeripheralData[i];
-        const IC_USER*   const p_user = &Users[i];
-        const USER_PERI* const p_peri = &UserPeris[i];
+        PDS_PERIPHERAL*  const p_pad  = &PdsData[ix_peri];
+        const IC_USER*   const p_user = &Users[ix_peri];
+        const USER_PERI* const p_peri = &UserPeris[ix_peri];
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
             to emulate the controller being disconnected **/
-        if (!GamepadValid(p_peri->gp) && p_peri->kb == IC_KEYBOARD_NONE)
+        if ( !GamepadValid(p_peri->gp) && p_peri->kb == IC_KEYBOARD_NONE )
         {
-            *p_pad = (PDS_PERIPHERAL){0};
+            *p_pad = (PDS_PERIPHERAL){ .info = &PdsInfo[ix_peri] };
 
-            if (p_pad->info)
-                p_pad->info->type = 0;
+            p_pad->info->type = 0;
 
+            PushToSa2Peri(ix_peri);
             continue;
         }
 
@@ -195,8 +216,8 @@ PdsPeripheralExec(void)
             const u32 old_on = p_pad->on;
 
             /** Calculate emulated trigger buttons **/
-            const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtTrigOff[i] ? PDD_DGT_TL : 0) : (p_pad->l >= DgtTrigOn[i] ? PDD_DGT_TL : 0) ) |
-                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[i] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[i] ? PDD_DGT_TR : 0) );
+            const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtTrigOff[ix_peri] ? PDD_DGT_TL : 0) : (p_pad->l >= DgtTrigOn[ix_peri] ? PDD_DGT_TL : 0) ) |
+                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[ix_peri] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[ix_peri] ? PDD_DGT_TR : 0) );
 
             u32 btn_on = UserToDreamcastButton(p_user->down) | trig_on;
 
@@ -220,12 +241,13 @@ PdsPeripheralExec(void)
 
         const IC_GAMEPAD* p_gp = GamepadGetGamepad(p_peri->gp);
 
-        if (p_padinfo)
-        {
-            p_padinfo->type = (p_gp && p_gp->support & GPDDEV_SUPPORT_RUMBLE) ?
-                PDD_DEVTYPE_CONTROLLER|PDD_DEVTYPE_VIBRATION :
-                PDD_DEVTYPE_CONTROLLER;
-        }
+        p_padinfo->type = (p_gp && p_gp->support & GPDDEV_SUPPORT_RUMBLE) ?
+                          (PDD_DEVTYPE_CONTROLLER|PDD_DEVTYPE_VIBRATION) :
+                          (PDD_DEVTYPE_CONTROLLER);
+
+        // update game peripherals
+
+        PushToSa2Peri(ix_peri);
     }
 }
 
@@ -323,6 +345,11 @@ IC_InputInit(void)
     KeyboardInit();
     MouseInit();
 
+    PdsData[0].info = &PdsInfo[0];
+    PdsData[1].info = &PdsInfo[1];
+    PdsData[2].info = &PdsInfo[2];
+    PdsData[3].info = &PdsInfo[3];
+
     /** The rest of UpdateControllers needs to run, as the mod loader hooks the retn
         op at the end to run OnInput. By NOP'ing the entire function up until the
         return, we maintain compatibility with the mod loader.
@@ -332,7 +359,7 @@ IC_InputInit(void)
         original code does, so we have no choice but to leave the beginning 'push's
         and end 'pop's as is to maintain compatibility with a Cheat Engine Table
         made in 2013 **/
-    WriteNOP(0x0077E785, 0x0077E892);       // UpdateControllers (0x0077E780) + 5
+    WriteNOP( 0x0077E785, 0x0077E892);      // UpdateControllers (0x0077E780) + 5
     WriteCall(0x0077E785, PollPeripheral);  // ^^
 
     // Hook GetSwitchData() to execute input data
