@@ -97,6 +97,9 @@ USER_KEYS;
 /************************/
 /*  File Variables      */
 /************************/
+/****** Key Input *******************************************************************/
+static KEY_MAP KeyInput;
+
 /****** Keyboard ********************************************************************/
 static KEYBOARD Keyboard;    /* keyboard state                                      */
 
@@ -279,15 +282,19 @@ KeyboardNumLock(void)
 }
 
 void
-KeyboardUpdate(void)
+KeyboardInputPoll(void)
 {
-    KEY_MAP key_states;
+    OS_GetKeyboardState(KeyInput);
+}
 
-    if (WND_InFocus() && OS_GetKeyboardState(key_states))
+void
+KeyboardInputExec(void)
+{
+    if ( WND_InFocus() )
     {
-        Keyboard.capslock = key_states[KEY_CAPSLOCK]    & KEY_TOGGLED;
-        Keyboard.numblock = key_states[KEY_NUMLOCK]     & KEY_TOGGLED;
-        Keyboard.scrllock = key_states[KEY_SCROLLLOCK]  & KEY_TOGGLED;
+        Keyboard.capslock = KeyInput[KEY_CAPSLOCK]    & KEY_TOGGLED;
+        Keyboard.numblock = KeyInput[KEY_NUMLOCK]     & KEY_TOGGLED;
+        Keyboard.scrllock = KeyInput[KEY_SCROLLLOCK]  & KEY_TOGGLED;
 
         /** Translate KEY_MAP to a KEY_BITMAP for storage **/
         for (int nb_bitmap = 0, nb_state = 0; nb_bitmap < LEN_KEY_BITMAP; ++nb_bitmap)
@@ -304,8 +311,10 @@ KeyboardUpdate(void)
 
             for (int j = 0; j < BITSIN(u8); ++j, ++nb_state, cur_bit <<= 1)
             {
-                if (key_states[nb_state] & KEY_DOWN)
+                if (KeyInput[nb_state] & KEY_DOWN)
+                {
                     *p_down |= cur_bit;
+                }
             }
 
             *p_press   = (*p_down) & ~old_down;
@@ -323,8 +332,10 @@ KeyboardUpdate(void)
         mtMemSet(Keyboard.press, 0x0, sizeof(KEY_BITMAP));
     }
 
-    if (KeyboardDebugPoll)
+    if ( KeyboardDebugPoll )
+    {
         DebugPoll();
+    }
 }
 
 bool

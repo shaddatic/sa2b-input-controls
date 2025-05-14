@@ -6,6 +6,7 @@
 #include <samt/writemem.h>  /* WritePointer                                         */
 #include <samt/writeop.h>   /* WriteJump, WriteCall, WriteNoOP                      */
 #include <samt/memory.h>    /* MemCopy                                              */
+#include <samt/funchook.h>  /* funchook                                             */
 
 /****** System **********************************************************************/
 #include <samt/shinobi/sg_pad.h>    /* PDS_PERIPHERAL, PeripheralData               */
@@ -72,7 +73,7 @@ static USER_PERI UserPeris[NB_IC_USER]; /* user peripheral settings             
 /************************/
 /****** Static **********************************************************************/
 static void
-SetUserInput(void)
+UserInputExec(void)
 {
     for (int i = 0; i < ARYLEN(Users); ++i)
     {
@@ -148,7 +149,7 @@ UserToPdsTrigger(f64 mag)
 }
 
 static void
-SetPdsPeripheral(void)
+PdsPeripheralExec(void)
 {
     for (int i = 0; i < ARYLEN(PeripheralData); ++i)
     {
@@ -195,7 +196,7 @@ SetPdsPeripheral(void)
 
             /** Calculate emulated trigger buttons **/
             const u32 trig_on = ( (old_on & PDD_DGT_TL) ? (p_pad->l > DgtTrigOff[i] ? PDD_DGT_TL : 0) : (p_pad->l >= DgtTrigOn[i] ? PDD_DGT_TL : 0) ) |
-                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[i] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[i] ? PDD_DGT_TR : 0) );
+                                ( (old_on & PDD_DGT_TR) ? (p_pad->r > DgtTrigOff[i] ? PDD_DGT_TR : 0) : (p_pad->r >= DgtTrigOn[i] ? PDD_DGT_TR : 0) );
 
             u32 btn_on = UserToDreamcastButton(p_user->down) | trig_on;
 
@@ -229,23 +230,35 @@ SetPdsPeripheral(void)
 }
 
 static int
-SetPeripheral(void)
+PollPeripheral(void)
 {
     ICSDL_PollEvents();
 
     WND_Update();
 
-    GamepadUpdate();
-    KeyboardUpdate();
-    MouseUpdate();
-
-    SetUserInput();
-
-    SetSocPeripheral();
-
-    SetPdsPeripheral();
+    GamepadInputPoll();
+    KeyboardInputPoll();
+    MouseInputPoll();
 
     return 0;
+}
+
+#define GetSwitchData_p         FUNC_PTR(void, __cdecl, (void), 0x00441BA0)
+
+static hook_info GetSwitchDataHookInfo[1];
+static void
+ExecPeripheral(void)
+{
+    GamepadInputExec();
+    KeyboardInputExec();
+    MouseInputExec();
+
+    UserInputExec();
+
+    SocPeripheralExec();
+    PdsPeripheralExec();
+
+    FuncHookCall( GetSwitchDataHookInfo, GetSwitchData_p() );
 }
 
 /****** Extern **********************************************************************/
@@ -320,7 +333,10 @@ IC_InputInit(void)
         and end 'pop's as is to maintain compatibility with a Cheat Engine Table
         made in 2013 **/
     WriteNOP(0x0077E785, 0x0077E892);       // UpdateControllers (0x0077E780) + 5
-    WriteCall(0x0077E785, SetPeripheral);   // ^^
+    WriteCall(0x0077E785, PollPeripheral);  // ^^
+
+    // Hook GetSwitchData() to execute input data
+    FuncHook(GetSwitchDataHookInfo, GetSwitchData_p, ExecPeripheral);
 
     /** Fix cart controls being *0.5 **/
     WriteNOP(0x0061F5E2, 0x0061F5E8);

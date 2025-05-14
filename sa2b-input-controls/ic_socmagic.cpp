@@ -130,7 +130,7 @@ UserToSocTrigger(f64 mag)
 /****** Extern **********************************************************************/
 EXTERN
 void
-SetSocPeripheral(void)
+SocPeripheralExec(void)
 {
     for (int i = 0; i < ARYLEN(SocPeripheral); ++i)
     {

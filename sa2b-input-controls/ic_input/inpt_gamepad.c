@@ -367,14 +367,22 @@ GamepadSetUserInput(const eIC_GAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
 }
 
 void
-GamepadUpdate(void)
+GamepadInputPoll(void)
 {
-    for (int i = 0; i < ARYLEN(Gamepads); ++i)
-    {
-        if (!GamepadValid(i))
-            continue;
+    return; // polling is done inside of SDL_GetEvent
+}
 
-        IC_GAMEPAD*         const p_gp    = &Gamepads[i];
+void
+GamepadInputExec(void)
+{
+    for ( int ix_gp = 0; ix_gp < ARYLEN(Gamepads); ++ix_gp )
+    {
+        if ( !GamepadValid(ix_gp) )
+        {
+            continue;
+        }
+
+        IC_GAMEPAD*         const p_gp    = &Gamepads[ix_gp];
         SDL_GameController* const p_sdlgc = p_gp->pgp;
 
         const uint32_t old_down = p_gp->down;
@@ -383,8 +391,10 @@ GamepadUpdate(void)
 
         for ( int ix_btn = 0; ix_btn < SDL_CONTROLLER_BUTTON_MAX; ++ix_btn )
         {
-            if (SDL_GameControllerGetButton(p_sdlgc, i))
-                new_down |= (1<<i);
+            if ( SDL_GameControllerGetButton(p_sdlgc, ix_btn) )
+            {
+                new_down |= (1<<ix_btn);
+            }
         }
 
         p_gp->down = new_down;

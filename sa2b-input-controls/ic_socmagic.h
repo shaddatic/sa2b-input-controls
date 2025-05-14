@@ -26,7 +26,7 @@ void    IC_SocMagicInit( void );
 *     Set left over SoC peripheral data using User Input data, as some things use it
 *   directly
 */
-void    SetSocPeripheral( void );
+void    SocPeripheralExec( void );
 
 EXTERN_END
 

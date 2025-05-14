@@ -54,14 +54,24 @@ void    GamepadInit(  void );
 void    KeyboardInit( void );
 void    MouseInit(    void );
 
-/****** Update **********************************************************************/
+/****** Poll Input ******************************************************************/
 /*
 *   Description:
-*     Update sub-modules.
+*     Poll all user devices for current input. Does not update API user accessible
+*   data.
 */
-void    GamepadUpdate(  void );
-void    KeyboardUpdate( void );
-void    MouseUpdate(    void );
+void    GamepadInputPoll(  void );
+void    KeyboardInputPoll( void );
+void    MouseInputPoll(    void );
+
+/****** Execute Input ***************************************************************/
+/*
+*   Description:
+*     Execute polled input, updating 'press' and 'release' results for.
+*/
+void    GamepadInputExec(  void );
+void    KeyboardInputExec( void );
+void    MouseInputExec(    void );
 
 /****** Set User Input **************************************************************/
 /*

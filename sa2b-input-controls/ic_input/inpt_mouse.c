@@ -72,48 +72,9 @@ static int8_t        MouseEmuClickKey;      /* click & drag 'click' key         
 /************************/
 /****** Extern **********************************************************************/
 void
-MouseUpdate(void)
+MouseInputPoll(void)
 {
-    /** on button **/
-    {
-        uint8_t button = 0;
-
-        button |= ( KeyboardDown(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
-        button |= ( KeyboardDown(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
-        button |= ( KeyboardDown(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
-        button |= ( KeyboardDown(KEY_M_X1)     ? MSEBTN_X1     : 0 );
-        button |= ( KeyboardDown(KEY_M_X2)     ? MSEBTN_X2     : 0 );
-
-        Mouse.down = button;
-    }
-
-    /** press button **/
-    {
-        uint8_t button = 0;
-
-        button |= ( KeyboardPress(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
-        button |= ( KeyboardPress(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
-        button |= ( KeyboardPress(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
-        button |= ( KeyboardPress(KEY_M_X1)     ? MSEBTN_X1     : 0 );
-        button |= ( KeyboardPress(KEY_M_X2)     ? MSEBTN_X2     : 0 );
-
-        Mouse.press = button;
-    }
-
-    /** release button **/
-    {
-        uint8_t button = 0;
-
-        button |= ( KeyboardRelease(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
-        button |= ( KeyboardRelease(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
-        button |= ( KeyboardRelease(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
-        button |= ( KeyboardRelease(KEY_M_X1)     ? MSEBTN_X1     : 0 );
-        button |= ( KeyboardRelease(KEY_M_X2)     ? MSEBTN_X2     : 0 );
-
-        Mouse.release = button;
-    }
-
-    if (!WND_InFocus()) 
+    if ( !WND_InFocus() ) 
     {
         /** If the cursor is currently captured, set the sub-state to 'capturing'
             so it can be re-captured next exec. **/
@@ -173,13 +134,56 @@ MouseUpdate(void)
         Mouse.pos.y = (Sint16)cursor_wndpos.y; 
     }
 
+    MouseSubState = MOUSE_SUB_NONE;
+}
+
+void
+MouseInputExec(void)
+{
+    /** on button **/
+    {
+        uint8_t button = 0;
+
+        button |= ( KeyboardDown(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
+        button |= ( KeyboardDown(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
+        button |= ( KeyboardDown(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
+        button |= ( KeyboardDown(KEY_M_X1)     ? MSEBTN_X1     : 0 );
+        button |= ( KeyboardDown(KEY_M_X2)     ? MSEBTN_X2     : 0 );
+
+        Mouse.down = button;
+    }
+
+    /** press button **/
+    {
+        uint8_t button = 0;
+
+        button |= ( KeyboardPress(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
+        button |= ( KeyboardPress(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
+        button |= ( KeyboardPress(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
+        button |= ( KeyboardPress(KEY_M_X1)     ? MSEBTN_X1     : 0 );
+        button |= ( KeyboardPress(KEY_M_X2)     ? MSEBTN_X2     : 0 );
+
+        Mouse.press = button;
+    }
+
+    /** release button **/
+    {
+        uint8_t button = 0;
+
+        button |= ( KeyboardRelease(KEY_M_LCLICK) ? MSEBTN_LEFT   : 0 );
+        button |= ( KeyboardRelease(KEY_M_RCLICK) ? MSEBTN_RIGHT  : 0 );
+        button |= ( KeyboardRelease(KEY_M_MCLICK) ? MSEBTN_MIDDLE : 0 );
+        button |= ( KeyboardRelease(KEY_M_X1)     ? MSEBTN_X1     : 0 );
+        button |= ( KeyboardRelease(KEY_M_X2)     ? MSEBTN_X2     : 0 );
+
+        Mouse.release = button;
+    }
+
     Mouse.wheelx = WheelBufferX;
     WheelBufferX = 0.0f;
 
     Mouse.wheely = WheelBufferY;
     WheelBufferY = 0.0f;
-
-    MouseSubState = MOUSE_SUB_NONE;
 }
 
 bool
