@@ -185,6 +185,7 @@ PdsPeripheralExec(void)
 
             p_pad->info->type = 0;
 
+            // update game peripherals
             PushToSa2Peri(ix_peri);
             continue;
         }
@@ -245,7 +246,6 @@ PdsPeripheralExec(void)
                           (PDD_DEVTYPE_CONTROLLER);
 
         // update game peripherals
-
         PushToSa2Peri(ix_peri);
     }
 }
