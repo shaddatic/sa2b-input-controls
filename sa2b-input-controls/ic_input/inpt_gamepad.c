@@ -381,7 +381,7 @@ GamepadUpdate(void)
 
         uint32_t new_down = 0;
 
-        for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+        for ( int ix_btn = 0; ix_btn < SDL_CONTROLLER_BUTTON_MAX; ++ix_btn )
         {
             if (SDL_GameControllerGetButton(p_sdlgc, i))
                 new_down |= (1<<i);
@@ -407,26 +407,26 @@ void
 GamepadInit(void)
 {
     /** Get Gamepad sections info **/
-    for (int i = 0; i < ARYLEN(GpSettings); ++i)
+    for ( int ix_gp = 0; ix_gp < ARYLEN(GpSettings); ++ix_gp )
     {
-        char buf[8];
+        c8 ubuf[8];
 
-        snprintf(buf, sizeof(buf), "gp%i", i);
+        snprintf(ubuf, ARYLEN(ubuf), "gp%i", ix_gp);
 
-        GpSettings[i].dzMode =     (u8)  CNF_GetInt(     CNFV_GAMEPD_DZ_MODE( buf ) );
-        GpSettings[i].StickL.idz = (f32) CNF_GetPercent( CNFV_GAMEPD_LS_IDZ(  buf ) );
-        GpSettings[i].StickL.odz = (f32) CNF_GetPercent( CNFV_GAMEPD_LS_ODZ(  buf ) );
-        GpSettings[i].StickR.idz = (f32) CNF_GetPercent( CNFV_GAMEPD_RS_IDZ(  buf ) );
-        GpSettings[i].StickR.odz = (f32) CNF_GetPercent( CNFV_GAMEPD_RS_ODZ(  buf ) );
-        GpSettings[i].vibStr  =    (f32) CNF_GetPercent( CNFV_GAMEPD_VIB_STR( buf ) );
+        GpSettings[ix_gp].dzMode =     (u8)  CNF_GetInt(     CNFV_GAMEPD_DZ_MODE( ubuf ) );
+        GpSettings[ix_gp].StickL.idz = (f32) CNF_GetPercent( CNFV_GAMEPD_LS_IDZ(  ubuf ) );
+        GpSettings[ix_gp].StickL.odz = (f32) CNF_GetPercent( CNFV_GAMEPD_LS_ODZ(  ubuf ) );
+        GpSettings[ix_gp].StickR.idz = (f32) CNF_GetPercent( CNFV_GAMEPD_RS_IDZ(  ubuf ) );
+        GpSettings[ix_gp].StickR.odz = (f32) CNF_GetPercent( CNFV_GAMEPD_RS_ODZ(  ubuf ) );
+        GpSettings[ix_gp].vibStr  =    (f32) CNF_GetPercent( CNFV_GAMEPD_VIB_STR( ubuf ) );
     }
 
     /** Get debug info **/
     GamepadDbgAxis = CNF_GetInt(CNF_DEBUG_AXIS);
 
-    for (int i = 0; i < ARYLEN(Gamepads); ++i)
+    for ( int ix_gp = 0; ix_gp < ARYLEN(Gamepads); ++ix_gp )
     {
-        IC_GAMEPAD* const p_gp = &Gamepads[i];
+        IC_GAMEPAD* const p_gp = &Gamepads[ix_gp];
 
         ResetGamepadStruct(p_gp);
     }
