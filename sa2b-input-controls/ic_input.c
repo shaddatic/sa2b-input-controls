@@ -2,13 +2,13 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/writemem.h>  /* WritePointer                                         */
-#include <sa2b/writeop.h>   /* WriteJump, WriteCall, WriteNoOP                      */
-#include <sa2b/memory.h>    /* MemCopy                                              */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/writemem.h>  /* WritePointer                                         */
+#include <samt/writeop.h>   /* WriteJump, WriteCall, WriteNoOP                      */
+#include <samt/memory.h>    /* MemCopy                                              */
 
 /****** System **********************************************************************/
-#include <sa2b/shinobi/sg_pad.h>    /* PDS_PERIPHERAL, PeripheralData               */
+#include <samt/shinobi/sg_pad.h>    /* PDS_PERIPHERAL, PeripheralData               */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */

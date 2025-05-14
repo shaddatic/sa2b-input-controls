@@ -2,12 +2,12 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/modloader.h> /* modloader                                            */
-#include <sa2b/modinfo.h>   /* mods                                                 */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/modloader.h> /* modloader                                            */
+#include <samt/modinfo.h>   /* mods                                                 */
 
 /****** Util ************************************************************************/
-#include <sa2b/util/dllexport.h> /* EXPORT_DLL                                      */
+#include <samt/util/dllexport.h> /* EXPORT_DLL                                      */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */

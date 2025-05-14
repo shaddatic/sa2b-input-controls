@@ -2,12 +2,12 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/writeop.h>   /* WriteCall, WriteJump, WriteNOP                       */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/writeop.h>   /* WriteCall, WriteJump, WriteNOP                       */
 
 /****** SoC *************************************************************************/
 #define SAMT_INCL_FUNCPTRS
-#include <sa2b/soc/input.h> /* SOCInput, SOCController                              */
+#include <samt/soc/input.h> /* SOCInput, SOCController                              */
 #undef  SAMT_INCL_FUNCPTRS
 
 /****** Input Controls **************************************************************/

@@ -2,20 +2,20 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/memory.h>    /* MemCopy, MemSet                                      */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/memory.h>    /* MemCopy, MemSet                                      */
 
 /****** Mod Loader ******************************************************************/
-#include <sa2b/modloader.h> /* ML_DisplayDebugStringF                               */
+#include <samt/modloader.h> /* ML_DisplayDebugStringF                               */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/njdebug.h> /* NJM_LOCATION                                     */
+#include <samt/ninja/njdebug.h> /* NJM_LOCATION                                     */
 
 /****** Std *************************************************************************/
 #include <stdio.h>          /* snprintf                                             */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/debug.h> /* OutputInt                                          */
+#include <samt/sonic/debug.h> /* OutputInt                                          */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
@@ -316,11 +316,11 @@ KeyboardUpdate(void)
     {
         /** Do nothing with the modifier key bools, just assume there's no change **/
         /** Emulate all 'down' keys being released **/
-        MemCopy(Keyboard.release, Keyboard.down, sizeof(KEY_BITMAP));
+        mtMemCopy(Keyboard.release, Keyboard.down, sizeof(KEY_BITMAP));
 
         /** Release all other keys **/
-        MemSet(Keyboard.down , 0x0, sizeof(KEY_BITMAP));
-        MemSet(Keyboard.press, 0x0, sizeof(KEY_BITMAP));
+        mtMemSet(Keyboard.down , 0x0, sizeof(KEY_BITMAP));
+        mtMemSet(Keyboard.press, 0x0, sizeof(KEY_BITMAP));
     }
 
     if (KeyboardDebugPoll)

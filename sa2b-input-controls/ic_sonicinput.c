@@ -2,15 +2,15 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/writeop.h>   /* WriteJump                                            */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/writeop.h>   /* WriteJump                                            */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/ninja.h> /* ninja                                              */
+#include <samt/ninja/ninja.h> /* ninja                                              */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/input.h>  /* per, perG                                         */
-#include <sa2b/sonic/camera.h> /* camera_twp                                        */
+#include <samt/sonic/input.h>  /* per, perG                                         */
+#include <samt/sonic/camera.h> /* camera_twp                                        */
 
 /****** Std *************************************************************************/
 #include <math.h>           /* sqrt                                                 */

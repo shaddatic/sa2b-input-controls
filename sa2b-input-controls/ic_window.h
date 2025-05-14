@@ -14,7 +14,7 @@
 /*  External Headers    */
 /************************/
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/njcommon.h> /* NJS_POINT2I                                     */
+#include <samt/ninja/njcommon.h> /* NJS_POINT2I                                     */
 
 EXTERN_START
 

@@ -14,7 +14,7 @@
 /*  External Headers    */
 /************************/
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/njcommon.h> /* ninja common                                    */
+#include <samt/ninja/njcommon.h> /* ninja common                                    */
 
 /****** External API ****************************************************************/
 #include <../api/inputcont_api.h> /* external api                                   */

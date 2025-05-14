@@ -2,10 +2,10 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
+#include <samt/core.h>      /* core                                                 */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/njcommon.h>    /* ninja common                                 */
+#include <samt/ninja/njcommon.h>    /* ninja common                                 */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */

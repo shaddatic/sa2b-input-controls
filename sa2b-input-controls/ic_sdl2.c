@@ -2,11 +2,11 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/memory.h>    /* MemAlloc, MemFree, mReAlloc                          */
-#include <sa2b/string.h>    /* StringSize                                           */
-#include <sa2b/dll.h>       /* DLL_Mount2, DLL_GetExportList                        */
-#include <sa2b/user.h>      /* UserErrorMessageBox                                  */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/memory.h>    /* MemAlloc, MemFree, mReAlloc                          */
+#include <samt/string.h>    /* StringSize                                           */
+#include <samt/dll.h>       /* DLL_Mount2, DLL_GetExportList                        */
+#include <samt/msgbox.h>    /* msgerror                                             */
 
 /****** Simple DirectMedia Layer ****************************************************/
 #include <SDL2/SDL.h>       /* core                                                 */
@@ -202,14 +202,14 @@ SDL_RWFromFile(const char* const file, const char* const mode)
 }
 
 /****** Static **********************************************************************/
-static utf8*
+static c8*
 GetMappingFilePath(void)
 {
-    const size_t sz_buf = StringSize(GetModPath(), STR_NOMAX) + 21;
+    const size_t sz_buf = mtStrSize(mtGetModPath(), STR_NOMAX) + 21; // + sizeof("gamecont...)
 
-    utf8* const pu_buf = MemAlloc(sz_buf);
+    c8* const pu_buf = mtMemAlloc(sz_buf);
 
-    snprintf(pu_buf, sz_buf, "%s/%s", GetModPath(), "gamecontrollerdb.txt");
+    snprintf(pu_buf, sz_buf, "%s/%s", mtGetModPath(), "gamecontrollerdb.txt");
 
     return pu_buf;
 }
@@ -239,7 +239,7 @@ ICSDL_RegisterEventHandler(void (__cdecl* fnEvHandler)(const SDL_Event*))
 
     if ( !(nb_hdl % HANDLER_CHUNK_SIZE) )
     {
-        p_hdl = mReAlloc(EVSDL_HANDLER, p_hdl, ( nb_hdl + HANDLER_CHUNK_SIZE ));
+        mtRealloc(&p_hdl, EVSDL_HANDLER, ( nb_hdl + HANDLER_CHUNK_SIZE ));
 
         EvHandlerListP = p_hdl;
     }
@@ -271,11 +271,11 @@ ICSDL_PollEvents(void)
 bool
 ICSDL_Init(void)
 {
-    dll_handle* const p_hdl = DLL_Mount2(GetModPath(), "lib/SDL2.dll");
+    dll_handle* const p_hdl = DLL_Mount2(mtGetModPath(), "lib/SDL2.dll");
 
     if (!p_hdl)
     {
-        UserErrorMessageBox("Input Controls : SDL2 Critical Error",
+        mtMsgError("Input Controls : SDL2 Critical Error",
             "The SDL2 library could not be mounted! This is likely because '/lib/SDL2.dll' is missing from the Input Controls mod folder.\n"
             "Input Controls cannot function without SDL, the init process will now be aborted!"
         );
@@ -286,11 +286,11 @@ ICSDL_Init(void)
 
     SDL_Init( SDL_INIT_GAMECONTROLLER );
 
-    utf8* const pu_buf = GetMappingFilePath();
+    c8* const pu_buf = GetMappingFilePath();
     
     SDL_GameControllerAddMappingsFromFile(pu_buf);
 
-    MemFree(pu_buf);
+    mtMemFree(pu_buf);
 
     SdlHandle = p_hdl;
 

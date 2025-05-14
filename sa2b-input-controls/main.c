@@ -2,12 +2,12 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/init.h>      /* init                                                 */
-#include <sa2b/user.h>      /* user                                                 */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/init.h>      /* init                                                 */
+#include <samt/msgbox.h>    /* message                                              */
 
 /****** Mod Loader ******************************************************************/
-#include <sa2b/modloader.h> /* mod loader                                           */
+#include <samt/modloader.h> /* mod loader                                           */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
@@ -38,18 +38,18 @@
 /****** DLL Export ******************************************************************/
 EXPORT_DLL
 void __cdecl
-Init(const char* path, const HelperFunctions* pHelperFunctions)
+Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs)
 {
-    SAMT_Init(path, pHelperFunctions);
+    mtSystemInit(puPath, pHelpFuncs);
 
     bool can_api = true;
 
     {
-        const int ml_ver = ML_GetVersion();
+        const int ml_ver = ML_GetCurrVersion();
 
         if (ml_ver < MLVER_MIN)
         {
-            UserErrorMessageBox("Input Controls : Mod Loader Version",
+            mtMsgError("Input Controls : Mod Loader Version",
                 "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
                 "Please update the Mod Loader to a newer version!\n\n"
                 "Input Controls will now abort the init process."
@@ -99,4 +99,4 @@ OnExit(u32 code, s32 a1, s32 a2)
 }
 
 EXPORT_DLL
-ModInfo SA2ModInfo = { ML_VERSION };
+ml_modinfo SA2ModInfo = { ML_VERSION };

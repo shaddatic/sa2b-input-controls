@@ -2,18 +2,18 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/writeop.h>   /* WriteJump                                            */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/writeop.h>   /* WriteJump                                            */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/task.h>   /* TASK                                              */
-#include <sa2b/sonic/game.h>   /* ssStageNumber                                     */
+#include <samt/sonic/task.h>   /* TASK                                              */
+#include <samt/sonic/game.h>   /* ssStageNumber                                     */
 #define SAMT_INCL_FUNCPTRS
-#include <sa2b/sonic/output.h> /* VibTask                                           */
+#include <samt/sonic/output.h> /* VibTask                                           */
 #undef  SAMT_INCL_FUNCPTRS
 
 /****** Chao ************************************************************************/
-#include <sa2b/sonic/chao/al_stage.h> /* AL_GetStageNumber                          */
+#include <samt/sonic/chao/al_stage.h> /* AL_GetStageNumber                          */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
@@ -30,7 +30,7 @@
 /************************/
 /****** Static **********************************************************************/
 static void
-NewVibTask(TASK* const tp)
+NewVibTask(task* const tp)
 {
     VIBPARAM* const vpp = GET_VIBPARAM(tp);
     VIBWK*    const vwp = GET_VIBWK(tp);
@@ -63,7 +63,7 @@ NewVibTask(TASK* const tp)
 }
 
 static void
-NewVibTaskDest(TASK* const tp)
+NewVibTaskDest(task* const tp)
 {
     VIBPARAM* const vpp = GET_VIBPARAM(tp);
     VIBWK*    const vwp = GET_VIBWK(tp);

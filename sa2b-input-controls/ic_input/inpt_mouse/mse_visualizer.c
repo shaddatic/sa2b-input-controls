@@ -2,13 +2,13 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
+#include <samt/core.h>      /* core                                                 */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/ninja.h> /* ninja                                              */
+#include <samt/ninja/ninja.h> /* ninja                                              */
 
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/sonic/task.h> /* CreateElementalTask                                 */
+#include <samt/sonic/task.h> /* CreateElementalTask                                 */
 
 /****** Core Toolkit ****************************************************************/
 #include <ic_core.h>        /* core                                                 */
@@ -54,7 +54,7 @@ static f32        MouseVisuScale; /* visualizer scale                           
 static f32        MouseVisuAlpha; /* visualizer alpha                               */
 
 /****** Task Variables **************************************************************/
-static TASK* MouseVisuTaskP;     /* task pointer                                    */
+static task* MouseVisuTaskP;     /* task pointer                                    */
 static s32   MouseVisuTaskTimer; /* task display timer                              */
 
 /****** Cursor Position *************************************************************/
@@ -68,7 +68,7 @@ static s32 MouseVisuWaitTimer; /* visualizer create wait timer                  
 /************************/
 /****** Static **********************************************************************/
 static void
-MouseVisuTaskDestructor(TASK* const tp)
+MouseVisuTaskDestructor(task* const tp)
 {
     MouseVisuWaitTimer = VISUTASK_WAITTIMER;
 
@@ -257,7 +257,7 @@ ArrowDisplayer(const Angle ang, const f32 mag, const f32 alpha)
 }
 
 static void
-MouseVisuTaskDisplayer(TASK* const tp)
+MouseVisuTaskDisplayer(task* const tp)
 {
     if (!MouseVisuTaskTimer)
         return;
@@ -285,7 +285,7 @@ MouseVisuTaskDisplayer(TASK* const tp)
 }
 
 static void
-MouseVisuTaskExecutor(TASK* const tp)
+MouseVisuTaskExecutor(task* const tp)
 {
     if (MouseVisuTaskTimer > 0)
         --MouseVisuTaskTimer;
@@ -299,7 +299,7 @@ MouseVisuTaskCreate(void)
     if (MouseVisuTaskP || MouseVisuMode == VISU_MD_DISABLED)
         return;
 
-    TASK* const tp = CreateElementalTask(TELE_NUL, LEV_1, MouseVisuTaskExecutor, "MouseVisuTaskExecutor");
+    task* const tp = CreateElementalTask(TELE_NUL, LEV_1, MouseVisuTaskExecutor, "MouseVisuTaskExecutor");
 
     tp->dest      = MouseVisuTaskDestructor;
     tp->disp_last = MouseVisuTaskDisplayer;

@@ -2,16 +2,16 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
+#include <samt/core.h>      /* core                                                 */
 
 /****** Mod Loader ******************************************************************/
-#include <sa2b/modloader.h> /* ML_DisplayDebugStringF                               */
+#include <samt/modloader.h> /* ML_DisplayDebugStringF                               */
 
 /****** Ninja ***********************************************************************/
-#include <sa2b/ninja/ninja.h> /* ninja                                              */
+#include <samt/ninja/ninja.h> /* ninja                                              */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/debug.h> /* OutputFormat                                       */
+#include <samt/sonic/debug.h> /* OutputFormat                                       */
 
 /****** Simple DirectMedia Layer ****************************************************/
 #include <SDL2/SDL.h>       /* core                                                 */
@@ -312,7 +312,7 @@ GamepadSetUserInput(const eIC_GAMEPAD_NUM nbGp, INPUT_OUT* const pOutInput)
         return false;
 
     const GAMEPAD_SETTINGS* const p_usrgp = &GpSettings[nbGp];
-    const IC_GAMEPAD*   const p_gp    = &Gamepads[nbGp];
+    const IC_GAMEPAD*       const p_gp    = &Gamepads[nbGp];
 
     pOutInput->down = GamepadToUserButton(p_gp->down);
 

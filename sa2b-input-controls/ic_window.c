@@ -2,15 +2,15 @@
 /*  Includes            */
 /************************/
 /****** Core Toolkit ****************************************************************/
-#include <sa2b/core.h>      /* core                                                 */
-#include <sa2b/memory.h>    /* mReAlloc                                             */
-#include <sa2b/modloader.h> /* ML_GetVersion                                        */
+#include <samt/core.h>      /* core                                                 */
+#include <samt/memory.h>    /* mReAlloc                                             */
+#include <samt/modloader.h> /* ML_GetVersion                                        */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/display.h> /* DisplayResolutionX/Y                             */
+#include <samt/sonic/display.h> /* DisplayResolutionX/Y                             */
 
 /****** Utility *********************************************************************/
-#include <sa2b/util/ml_settings.h> /* ml_settings                                   */
+#include <samt/util/ml_settings.h> /* ml_settings                                   */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
@@ -139,7 +139,7 @@ WND_RegisterMessageHandler(void(__cdecl*fnMsgHandler)(uint32_t msg, uint32_t wPa
 
     if ( !(nb_hdl % HANDLER_CHUNK_SIZE) )
     {
-        p_hdl = mReAlloc(WNDMSG_HANDLER, p_hdl, ( nb_hdl + HANDLER_CHUNK_SIZE ));
+        mtRealloc(&p_hdl, WNDMSG_HANDLER, ( nb_hdl + HANDLER_CHUNK_SIZE ));
 
         MsgHandlerListP = p_hdl;
     }
@@ -186,5 +186,5 @@ WND_Init(void)
     if (!p_mls)
         return;
 
-    ScreenStretched = (ML_GetVersion() < 14) ? !p_mls->fixedAspectRatio : p_mls->screenStretch;
+    ScreenStretched = (ML_GetCurrVersion() < 14) ? !p_mls->fixedAspectRatio : p_mls->screenStretch;
 }

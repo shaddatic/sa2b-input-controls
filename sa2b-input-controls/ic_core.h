@@ -14,11 +14,11 @@
 /*  External Headers    */
 /************************/
 /****** Util ************************************************************************/
-#include <sa2b/util/devutil.h>      /* ___NOTE, ___VITAL                            */
-#include <sa2b/util/c_nullptr.h>    /* nullptr                                      */
-#include <sa2b/util/c_constexpr.h>  /* constexpr                                    */
+#include <samt/util/devutil.h>      /* ___NOTE, ___VITAL                            */
+#include <samt/util/c_nullptr.h>    /* nullptr                                      */
+#include <samt/util/c_constexpr.h>  /* constexpr                                    */
 
 /****** Game ************************************************************************/
-#include <sa2b/sonic/debug.h>       /* OutputFormat, etc.                           */
+#include <samt/sonic/debug.h>       /* OutputFormat, etc.                           */
 
 #endif/*H_IC_CORE*/
