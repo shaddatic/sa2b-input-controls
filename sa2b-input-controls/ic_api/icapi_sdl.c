@@ -25,7 +25,7 @@ const ICAPI_SDL icapi_sdl =
 {
     .version = ICAPI_SDL_VER,
 
-    .sdl_version = { 2,32,6 },
+    .sdlver = { 2,32,6 },
 
     .RegisterEventHandler = ICSDL_RegisterEventHandler,
 

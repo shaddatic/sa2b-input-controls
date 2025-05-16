@@ -14,6 +14,33 @@
 #define H_IC_EXTERN_API
 
 /************************/
+/*  Macros              */
+/************************/
+/****** IC Version ******************************************************************/
+/*
+*   Description:
+*     Macro for checking the current Input Controls version against a set version.
+* 
+*   Examples:
+*     - if ( !ICD_CHECKVER(pApiCore, 1,3,3,0) ) // check if IC version too low
+*
+*   Parameters:
+*     - api         : core api pointer
+*     - rel         : minimum release part value
+*     - maj         : minimum major part value 
+*     - sem         : minimum semi-major part value 
+*     - min         : minimum minor part value 
+* 
+*   Returns:
+*     'true' if the current version is >= the set version; or 'false' if not.
+*/
+#define ICD_CHECKVER(api, rel, maj, sem, min) \
+          ( (int)(api)->modver.release   > (rel) || ( (int)(api)->modver.release   == (rel) && \
+          ( (int)(api)->modver.major     > (maj) || ( (int)(api)->modver.major     == (maj) && \
+          ( (int)(api)->modver.semimajor > (sem) || ( (int)(api)->modver.semimajor == (sem) && \
+          ( (int)(api)->modver.minor     > (min) || ( (int)(api)->modver.minor     == (min) ))))))) )
+
+/************************/
 /*  Typedefs            */
 /************************/
 /****** Base Types ******************************************************************/
@@ -798,17 +825,18 @@ ICAPI_WINDOW;
 */
 typedef struct
 {
-    uint8_t release, major, minor, ___reserved; 
-}
-SDL_VERSION;
-
-typedef struct
-{
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
     /**** SDL API Version *******************************************************/
-    SDL_VERSION sdl_version;    /* installed SDL version                        */
+    struct
+    {
+        uint8_t release;            /* release version part     ('1' in v1.2.3) */
+        uint8_t major;              /* major version part       ('2' in v1.2.3) */
+        uint8_t minor;              /* minor version part       ('3' in v1.2.3) */
+        uint8_t padding;            /* unused padding                           */
+    }
+    sdlver;
 
     /**** Event Handler *********************************************************/
     /*
@@ -857,17 +885,18 @@ ICAPI_SDL;
 */
 typedef struct
 {
-    uint8_t release, major, minor, hotfix;
-}
-IC_VERSION;
-
-typedef struct
-{
     /****** Version >= 0 ************************************************************/
     uint32_t version;
 
     /**** Mod Version ***********************************************************/
-    IC_VERSION ic_version;
+    struct
+    {
+        uint8_t release;        /* release version part       ('1' in v1.2.3.4) */
+        uint8_t major;          /* major version part         ('2' in v1.2.3.4) */
+        uint8_t semimajor;      /* semi-major version part    ('3' in v1.2.3.4) */
+        uint8_t minor;          /* minor version part         ('4' in v1.2.3.4) */
+    }
+    modver;
 
     /**** APIs ******************************************************************/
     const ICAPI_FEATURE*    pApiFeature;  /* feature API                        */
