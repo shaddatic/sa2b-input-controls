@@ -238,7 +238,7 @@ typedef union  SDL_Event            SDL_Event;          /* SDL headers          
 /************************/
 /*  Enums               */
 /************************/
-/****** ################## **********************************************************/
+/****** User Input (Gp+Kb) **********************************************************/
 typedef enum
 {
     IC_USER_1,
@@ -250,6 +250,7 @@ typedef enum
 }
 eIC_USER_NUM;
 
+/****** Gamepad *********************************************************************/
 typedef enum
 {
     IC_GAMEPAD_NONE = -1,
@@ -263,6 +264,7 @@ typedef enum
 }
 eIC_GAMEPAD_NUM;
 
+/****** Keyboard Map ****************************************************************/
 typedef enum
 {
     IC_KEYBOARD_NONE = -1,
@@ -276,6 +278,7 @@ typedef enum
 }
 eIC_KEYBOARD_NUM;
 
+/****** Mouse State *****************************************************************/
 typedef enum
 {
     IC_MOUSE_MD_FREE,
