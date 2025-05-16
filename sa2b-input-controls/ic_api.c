@@ -37,7 +37,7 @@ const ICAPI_CORE icapi_core =
 {
     .version = ICAPI_CORE_VER,
 
-    .modver = { 1,1,0,0 },
+    .modver = { 1,0,1,0 },
 
     .pApiFeature  = &icapi_feature,
     .pApiConfig   = &icapi_config,
