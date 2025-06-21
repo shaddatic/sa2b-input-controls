@@ -303,6 +303,17 @@ ExecPeripheral(void)
     FuncHookCall( GetSwitchDataHookInfo, GetSwitchData_p() );
 }
 
+#define EventWaitVsyncCount     DATA_REF(s32, 0x01DEB514)
+
+static void
+EventWaitVsyncFix(void)
+{
+    if ( EventWaitVsyncCount != 1 )
+    {
+        ExecPeripheral();
+    }
+}
+
 /****** Extern **********************************************************************/
 const IC_USER*
 UserGetInput(const eIC_USER_NUM nbUser)
@@ -384,6 +395,9 @@ IC_InputInit(void)
 
     // Hook GetSwitchData() to execute input data
     FuncHook(GetSwitchDataHookInfo, GetSwitchData_p, ExecPeripheral);
+
+    WriteNOP( 0x005FB493, 0x005FB4C0);        // Event WaitVsync fix
+    WriteCall(0x005FB493, EventWaitVsyncFix); // ^^
 
     /** Fix cart controls being *0.5 **/
     WriteNOP(0x0061F5E2, 0x0061F5E8);
