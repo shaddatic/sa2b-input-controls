@@ -4,13 +4,10 @@
 /****** Core Toolkit ****************************************************************/
 #include <samt/core.h>      /* core                                                 */
 #include <samt/memory.h>    /* mReAlloc                                             */
-#include <samt/modloader.h> /* ML_GetVersion                                        */
+#include <samt/modloader.h> /* mtgetmodloaderversion                                */
 
 /****** Game ************************************************************************/
 #include <samt/sonic/display.h> /* DisplayResolutionX/Y                             */
-
-/****** Utility *********************************************************************/
-#include <samt/util/ml_settings.h> /* ml_settings                                   */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
@@ -181,10 +178,16 @@ WND_Init(void)
 
     WND_MessageInit();
 
-    const ml_settings* const p_mls = ML_GetSettings();
+    const s32 ml_ver = mlGetVersion();
 
-    if (!p_mls)
-        return;
+    if ( ml_ver < ML_MINVER_SETTINGS )
+    {
+        const ml_settings* const p_mls = mlGetUserSettings();
 
-    ScreenStretched = (ML_GetCurrVersion() < 14) ? !p_mls->fixedAspectRatio : p_mls->screenStretch;
+        ScreenStretched = ( ml_ver < 14 ) ? ( !p_mls->fixaspectratio ) : ( p_mls->aspectstretch );
+    }
+    else // ml_ver too low
+    {
+        ScreenStretched = false;
+    }
 }

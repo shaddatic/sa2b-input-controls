@@ -56,16 +56,16 @@ const ICAPI_CORE icapi_core =
 static void
 ApiCallByFuncName(const char* const cExName)
 {
-    const size_t nb_mod = MI_GetTotalNumber();
+    const size_t nb_mod = miGetModCount();
 
     for (size_t i = 0; i < nb_mod; ++i)
     {
-        const mod_info* const p_mi = MI_GetInfoByPosition(i);
+        const ml_modinfo* const p_mi = miGetInfoByIndex(i);
 
-        IC_INIT* const p_init = MI_GetExport(p_mi, cExName);
+        IC_INIT* const p_init = miGetExport(p_mi, cExName);
 
         if (p_init)
-            p_init(&icapi_core, p_mi->cPath, ML_GetHelperFunctions());
+            p_init(&icapi_core, p_mi->puPath, mtGetHelperFunctions());
     }
 }
 

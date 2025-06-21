@@ -38,14 +38,14 @@
 /****** DLL Export ******************************************************************/
 EXPORT_DLL
 void __cdecl
-Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs)
+Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
 {
-    mtSystemInit(puPath, pHelpFuncs);
+    mtSystemInit(puPath, pHelpFuncs, ixMod);
 
     bool can_api = true;
 
     {
-        const int ml_ver = ML_GetCurrVersion();
+        const int ml_ver = mlGetVersion();
 
         if (ml_ver < MLVER_MIN)
         {
@@ -98,5 +98,3 @@ OnExit(u32 code, s32 a1, s32 a2)
     ICSDL_Exit();
 }
 
-EXPORT_DLL
-ml_modinfo SA2ModInfo = { ML_VERSION };

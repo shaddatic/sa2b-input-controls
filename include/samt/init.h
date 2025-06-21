@@ -7,48 +7,56 @@
 #ifndef H_SAMT_INIT
 #define H_SAMT_INIT
 
-/************************/
-/*  Includes            */
-/************************/
-/****** Utility *********************************************************************/
-#include <samt/util/dllexport.h>    /* export_dll                                   */
-#include <samt/util/ml_type.h>      /* ml_helpfuncs                                 */
+/********************************/
+/*  Includes                    */
+/********************************/
+/****** Utility *********************************************************************************/
+#include <samt/util/dllexport.h>        /* export_dll                                           */
 
 EXTERN_START
 
-/************************/
-/*  Prototypes          */
-/************************/
-/****** System Init *****************************************************************/
+/********************************/
+/*  Opaque Types                */
+/********************************/
+/****** Mod Loader ******************************************************************************/
+typedef struct ml_helpfuncs             ml_helpfuncs;   /* helperfunctions                      */
+
+/********************************/
+/*  Prototypes                  */
+/********************************/
+/****** System Init *****************************************************************************/
 /*
 *   Description:
 *     Initialize SAMT and its core modules.
 *
 *   Notes:
-*     - Should be called first in your mod's exported 'Init' function, using the
-*       parameters as arguments for this function.
+*     - Should be called first in your mod's exported 'Init' function, using the parameters as
+*       arguments for this function.
+*     - The arguments should not be used as-is, instead call this then use the dedicated SAMT
+*       functions to access them.
 *
 *   Parameters:
 *     - puPath      : path to this mod
 *     - pHelpFuncs  : mod loader helperfunctions
+*     - ixMod       : mod position index
 */
-void    mtSystemInit( const c8* puPath, const ml_helpfuncs* pHelpFuncs );
+void    mtSystemInit( const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod );
 
 EXTERN_END
 
 #endif/*H_SAMT_INIT*/
 
-/************************/
-/*  Func Examples       */
-/************************/
+/********************************/
+/*  Export Examples             */
+/********************************/
 /*
 *   Execute at game startup:
 *
     EXPORT_DLL
     void __cdecl
-    Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs)
+    Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
     {
-        mtSystemInit( puPath, pHelpFuncs );
+        mtSystemInit( puPath, pHelpFuncs, ixMod );
     }
 *
 *   Execute every rendered frame:
@@ -118,9 +126,4 @@ EXTERN_END
     {
         
     }
-*
-*   Valid Mod Info (# == SA2 or SADX):
-*
-    EXPORT_DLL
-    ml_modinfo #ModInfo = { ML_VERSION };
 */

@@ -208,12 +208,10 @@ DebugPoll(void)
     else
         s_LastDbgPoll = poll;
 
-    ML_SetDebugFontColor(0xFFFFFFFF);
-    ML_SetDebugFontScale(12.f);
+    mlDebugSetColor(0xFFFFFFFF);
+    mlDebugSetScale(12);
 
-    char buf[64];
-
-    ML_DisplayDebugStringF(NJM_LOCATION(1, 1), buf, 64, "LAST KEY: %i", poll);
+    mlDebugPrint(NJM_LOCATION(1, 1), "LAST KEY: %i", poll);
 }
 
 /****** Extern **********************************************************************/

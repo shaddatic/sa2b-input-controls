@@ -48,7 +48,7 @@ EVSDL_HANDLER;
 /*  File Data           */
 /************************/
 /****** DLL Handle ******************************************************************/
-static dll_handle* SdlHandle; /* SDL DLL handle                                     */
+static mt_dllhandle* SdlHandle; /* SDL DLL handle                                   */
 
 /****** Event Handlers **************************************************************/
 static EVSDL_HANDLER* EvHandlerListP;   /* handler list pointer                     */
@@ -74,7 +74,7 @@ SDL_FUNC_PTR(int                , GameControllerAddMappingsFromRW, (SDL_RWops*, 
 SDL_FUNC_PTR(SDL_RWops*         , RWFromFile                     , (const char*, const char*)                     );
 
 /****** Export List *****************************************************************/
-static const dll_export SdlExports[] =
+static mt_dllexport SdlExports[] =
 {
     SDL_EXPORT(Init),
     SDL_EXPORT(Quit),
@@ -224,7 +224,7 @@ ICSDL_GetHandle(void)
 void*
 ICSDL_GetExport(const char* const cExName)
 {
-    return DLL_GetExport(SdlHandle, cExName);
+    return mtDllGetExport(SdlHandle, cExName);
 }
 
 void
@@ -271,7 +271,7 @@ ICSDL_PollEvents(void)
 bool
 ICSDL_Init(void)
 {
-    dll_handle* const p_hdl = DLL_Mount2(mtGetModPath(), "lib/SDL2.dll");
+    mt_dllhandle* const p_hdl = mtDllMount2(mtGetModPath(), "lib/SDL2.dll");
 
     if (!p_hdl)
     {
@@ -282,7 +282,7 @@ ICSDL_Init(void)
         return false;
     }
 
-    DLL_GetExportList(p_hdl, SdlExports, ARYLEN(SdlExports));
+    mtDllGetExportList(p_hdl, SdlExports, ARYLEN(SdlExports));
 
     SDL_Init( SDL_INIT_GAMECONTROLLER );
 
@@ -305,5 +305,5 @@ ICSDL_Exit(void)
 
     SDL_Quit();
 
-    DLL_Unmount(SdlHandle);
+    mtDllUnmount(SdlHandle);
 }

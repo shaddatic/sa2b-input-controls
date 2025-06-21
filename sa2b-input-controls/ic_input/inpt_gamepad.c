@@ -173,18 +173,16 @@ GamepadEventHandler(const SDL_Event* pEvent)
 static void
 DebugAxes(const int nbGp, const f32 x1, const f32 y1, const f32 x2, const f32 y2)
 {
-    char buf[64];
-
-    ML_SetDebugFontColor(0xFFFFFFFF);
-    ML_SetDebugFontScale(12.f);
+    mlDebugSetColor(0xFFFFFFFF);
+    mlDebugSetScale(12);
 
     const f32 m1 = sqrtf((x1*x1)+(y1*y1));
     const f32 m2 = sqrtf((x2*x2)+(y2*y2));
 
-    ML_DisplayDebugStringF(NJM_LOCATION(1, (nbGp*3)+1), buf, 64, "GAMEPAD %i: %s", nbGp, Gamepads[nbGp].name);
+    mlDebugPrint(NJM_LOCATION(1, (nbGp*3)+1), "GAMEPAD %i: %s", nbGp, Gamepads[nbGp].name);
 
-    ML_DisplayDebugStringF(NJM_LOCATION(2, (nbGp*3)+2), buf, 64, "LS: X %+f, Y %+f, M %+f", x1, y1, m1);
-    ML_DisplayDebugStringF(NJM_LOCATION(2, (nbGp*3)+3), buf, 64, "RS: X %+f, Y %+f, M %+f", x2, y2, m2);
+    mlDebugPrint(NJM_LOCATION(2, (nbGp*3)+2), "LS: X %+f, Y %+f, M %+f", x1, y1, m1);
+    mlDebugPrint(NJM_LOCATION(2, (nbGp*3)+3), "RS: X %+f, Y %+f, M %+f", x2, y2, m2);
 }
 
 static f64

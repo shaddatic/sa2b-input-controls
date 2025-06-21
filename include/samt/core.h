@@ -153,7 +153,7 @@ typedef int32_t             b32;    /* 4 byte boolean                           
 *   Character Types
 */
 /****** ASCII ***********************************************************************************/
-typedef char                a7;     /* ASCII-7                                                  */
+typedef char                c7;     /* ASCII-7                                                  */
 
 /****** Unicode *********************************************************************************/
 typedef char                c8;     /* UTF-8 code unit or ASCII                                 */
@@ -162,10 +162,18 @@ typedef uint32_t            c32;    /* UTF-32 code point                        
 
 /************************************************************************************************/
 /*
-*   Generic Types
+*   Other Types
 */
 /****** Byte ************************************************************************************/
 typedef uint8_t             byte;   /* basic byte type                                          */
+
+/****** Pointer *********************************************************************************/
+typedef uintptr_t           pint;   /* pointer integer value                                    */
+typedef intptr_t            poff;   /* pointer offset value                                     */
+
+/****** Size ************************************************************************************/
+typedef int32_t             size;   /* size integer                                             */
+typedef uint32_t            usize;  /* unsigned size integer                                    */
 
 /************************/
 /*  Core Functions      */
@@ -173,16 +181,20 @@ typedef uint8_t             byte;   /* basic byte type                          
 /****** Mod Path ********************************************************************************/
 /*
 *   Description:
-*     Get the path to this mod, as passed into 'mtSystemInit'.
-*
-*   Notes:
-*     - Path is cast to lower case automatically, which matches the Mod Loader
-*       internally.
+*     Get the local path to this mod, as passed into 'mtSystemInit'.
 *
 *   Returns:
-*     The file path to this mod, starting at the game's EXE.
+*     Normalized local path to your mod folder.
 */
 const c8* mtGetModPath( void );
+/*
+*   Description:
+*     Get the mod position index of this mod, as passed into 'mtSystemInit'.
+*
+*   Returns:
+*     Current mod position index; or '-1' if the mod loader isn't a supported version.
+*/
+size    mtGetModIndex( void );
 
 /************************/
 /*  Core Macros         */
