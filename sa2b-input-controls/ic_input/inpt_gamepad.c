@@ -174,7 +174,7 @@ static void
 DebugAxes(const int nbGp, const f32 x1, const f32 y1, const f32 x2, const f32 y2)
 {
     mlDebugSetColor(0xFFFFFFFF);
-    mlDebugSetScale(12);
+    mlDebugSetScale(8);
 
     const f32 m1 = sqrtf((x1*x1)+(y1*y1));
     const f32 m2 = sqrtf((x2*x2)+(y2*y2));

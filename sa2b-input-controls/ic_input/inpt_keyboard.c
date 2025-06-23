@@ -209,7 +209,7 @@ DebugPoll(void)
         s_LastDbgPoll = poll;
 
     mlDebugSetColor(0xFFFFFFFF);
-    mlDebugSetScale(12);
+    mlDebugSetScale(8);
 
     mlDebugPrint(NJM_LOCATION(1, 1), "LAST KEY: %i", poll);
 }
