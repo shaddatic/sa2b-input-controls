@@ -7,6 +7,7 @@
 #include <samt/string.h>    /* StringSize                                           */
 #include <samt/dll.h>       /* DLL_Mount2, DLL_GetExportList                        */
 #include <samt/msgbox.h>    /* msgerror                                             */
+#include <samt/file.h>      /* mtfileexist                                          */
 
 /****** Simple DirectMedia Layer ****************************************************/
 #include <SDL2/SDL.h>       /* core                                                 */
@@ -205,13 +206,28 @@ SDL_RWFromFile(const char* const file, const char* const mode)
 static c8*
 GetMappingFilePath(void)
 {
-    const size_t sz_buf = mtStrSize(mtGetModPath(), STR_NOMAX) + 21; // + sizeof("gamecont...)
+    const size_t sz_buf = mtStrLength(mtGetModPath(), STR_NOMAX) + sizeof("./gamecontrollerdb.txt");
 
-    c8* const pu_buf = mtMemAlloc(sz_buf);
+    c8* const pu_buf = mtAlloc(c8, sz_buf);
 
-    snprintf(pu_buf, sz_buf, "%s/%s", mtGetModPath(), "gamecontrollerdb.txt");
+    mtStrCopy(pu_buf, "./gamecontrollerdb.txt", sz_buf);
 
+    if ( mtFileExists(pu_buf) )
+    {
+        return pu_buf;
+    }
+
+    mtStrFormat(pu_buf, sz_buf, "./%s/%s", mtGetModPath(), "gamecontrollerdb.txt");
+
+    if ( mtFileExists(pu_buf) )
+    {
     return pu_buf;
+}
+
+    // no file found, free memory return nullptr
+    mtFree(pu_buf);
+
+    return nullptr;
 }
 
 /****** Extern **********************************************************************/
@@ -288,9 +304,23 @@ ICSDL_Init(void)
 
     c8* const pu_buf = GetMappingFilePath();
     
-    SDL_GameControllerAddMappingsFromFile(pu_buf);
+    if ( pu_buf )
+    {
+        if ( SDL_GameControllerAddMappingsFromFile(pu_buf) == -1 )
+        {
+            OutputFormat("IC INFO: Error parsing 'gamecontrollerdb.txt' (ERR: %s)!", SDL_GetError());
+        }
+        else
+        {
+            OutputString("IC INFO: Successfully loaded 'gamecontrollerdb.txt' file!");
+        }
 
-    mtMemFree(pu_buf);
+        mtMemFree(pu_buf);
+    }
+    else
+    {
+        OutputString("IC INFO: 'gamecontrollerdb.txt' file not found!");
+    }
 
     SdlHandle = p_hdl;
 
