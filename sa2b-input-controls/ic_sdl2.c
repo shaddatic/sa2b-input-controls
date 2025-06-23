@@ -56,23 +56,26 @@ static EVSDL_HANDLER* EvHandlerListP;   /* handler list pointer                 
 static size_t         EvHandlerListNum; /* handler list count                       */
 
 /****** Function Pointers ***********************************************************/
-SDL_FUNC_PTR(int                , Init                           , (int)                                          );
-SDL_FUNC_PTR(void               , Quit                           , (void)                                         );
-SDL_FUNC_PTR(int                , PollEvent                      , (SDL_Event*)                                   );
-SDL_FUNC_PTR(SDL_GameController*, GameControllerOpen             , (int)                                          );
-SDL_FUNC_PTR(void               , GameControllerClose            , (SDL_GameController*)                          );
-SDL_FUNC_PTR(SDL_bool           , IsGameController               , (int)                                          );
-SDL_FUNC_PTR(Sint16             , GameControllerGetAxis          , (SDL_GameController*, int)                     );
-SDL_FUNC_PTR(SDL_bool           , GameControllerHasButton        , (SDL_GameController*, SDL_GameControllerButton));
-SDL_FUNC_PTR(Uint8              , GameControllerGetButton        , (SDL_GameController*, SDL_GameControllerButton));
-SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumble        , (SDL_GameController*)                          );
-SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumbleTriggers, (SDL_GameController*)                          );
-SDL_FUNC_PTR(int                , GameControllerRumble           , (SDL_GameController*, Uint16, Uint16, Uint32)  );
-SDL_FUNC_PTR(int                , GameControllerRumbleTriggers   , (SDL_GameController*, Uint16, Uint16, Uint32)  );
-SDL_FUNC_PTR(int                , NumJoysticks                   , (void)                                         );
-SDL_FUNC_PTR(const char*        , GameControllerName             , (SDL_GameController*)                          );
-SDL_FUNC_PTR(int                , GameControllerAddMappingsFromRW, (SDL_RWops*, int)                              );
-SDL_FUNC_PTR(SDL_RWops*         , RWFromFile                     , (const char*, const char*)                     );
+SDL_FUNC_PTR(int                , Init                              , (int)                                            );
+SDL_FUNC_PTR(void               , Quit                              , (void)                                           );
+SDL_FUNC_PTR(int                , PollEvent                         , (SDL_Event*)                                     );
+SDL_FUNC_PTR(SDL_GameController*, GameControllerOpen                , (int)                                            );
+SDL_FUNC_PTR(void               , GameControllerClose               , (SDL_GameController*)                            );
+SDL_FUNC_PTR(SDL_bool           , IsGameController                  , (int)                                            );
+SDL_FUNC_PTR(Sint16             , GameControllerGetAxis             , (SDL_GameController*, int)                       );
+SDL_FUNC_PTR(SDL_bool           , GameControllerHasButton           , (SDL_GameController*, SDL_GameControllerButton)  );
+SDL_FUNC_PTR(Uint8              , GameControllerGetButton           , (SDL_GameController*, SDL_GameControllerButton)  );
+SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumble           , (SDL_GameController*)                            );
+SDL_FUNC_PTR(SDL_bool           , GameControllerHasRumbleTriggers   , (SDL_GameController*)                            );
+SDL_FUNC_PTR(int                , GameControllerRumble              , (SDL_GameController*, Uint16, Uint16, Uint32)    );
+SDL_FUNC_PTR(int                , GameControllerRumbleTriggers      , (SDL_GameController*, Uint16, Uint16, Uint32)    );
+SDL_FUNC_PTR(int                , NumJoysticks                      , (void)                                           );
+SDL_FUNC_PTR(const char*        , GameControllerName                , (SDL_GameController*)                            );
+SDL_FUNC_PTR(int                , GameControllerAddMappingsFromRW   , (SDL_RWops*, int)                                );
+SDL_FUNC_PTR(SDL_RWops*         , RWFromFile                        , (const char*, const char*)                       );
+SDL_FUNC_PTR(const char*        , GetError                          , (void)                                           );
+SDL_FUNC_PTR(char*              , GameControllerMapping             , (SDL_GameController*)                            );
+SDL_FUNC_PTR(void               , free                              , (void*)                                          );
 
 /****** Export List *****************************************************************/
 static mt_dllexport SdlExports[] =
@@ -94,6 +97,9 @@ static mt_dllexport SdlExports[] =
     SDL_EXPORT(GameControllerName),
     SDL_EXPORT(GameControllerAddMappingsFromRW),
     SDL_EXPORT(RWFromFile),
+    SDL_EXPORT(GetError),
+    SDL_EXPORT(GameControllerMapping),
+    SDL_EXPORT(free),
 };
 
 /************************/
@@ -202,6 +208,24 @@ SDL_RWFromFile(const char* const file, const char* const mode)
     return ___RWFromFile(file, mode);
 }
 
+const char* SDLCALL
+SDL_GetError(void)
+{
+    return ___GetError();
+}
+
+char* SDLCALL
+SDL_GameControllerMapping(SDL_GameController* gamecontroller)
+{
+    return ___GameControllerMapping(gamecontroller);
+}
+
+void SDLCALL
+SDL_free(void *mem)
+{
+    ___free(mem);
+}
+
 /****** Static **********************************************************************/
 static c8*
 GetMappingFilePath(void)
@@ -221,8 +245,8 @@ GetMappingFilePath(void)
 
     if ( mtFileExists(pu_buf) )
     {
-    return pu_buf;
-}
+        return pu_buf;
+    }
 
     // no file found, free memory return nullptr
     mtFree(pu_buf);
@@ -303,7 +327,7 @@ ICSDL_Init(void)
     SDL_Init( SDL_INIT_GAMECONTROLLER );
 
     c8* const pu_buf = GetMappingFilePath();
-    
+
     if ( pu_buf )
     {
         if ( SDL_GameControllerAddMappingsFromFile(pu_buf) == -1 )

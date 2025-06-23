@@ -3,6 +3,7 @@
 /************************/
 /****** Core Toolkit ****************************************************************/
 #include <samt/core.h>      /* core                                                 */
+#include <samt/string.h>    /* mtstrformat                                          */
 
 /****** Mod Loader ******************************************************************/
 #include <samt/modloader.h> /* ML_DisplayDebugStringF                               */
@@ -92,6 +93,38 @@ static bool GamepadDbgAxis; /* display gamepad debug menu                       
 /************************/
 /****** Static **********************************************************************/
 static void
+GetGamepadInfo(SDL_GameController* pSdlGp, char* pcOutInfo, usize szOutInfo)
+{
+    /** There's probably an easier way to get this information, but this works just fine lol **/
+
+    pcOutInfo[0] = '\0';
+
+    char* const pc_gpinfo = SDL_GameControllerMapping(pSdlGp);
+
+    const char* pc_guid = pc_gpinfo;
+    const char* pc_name;
+
+    for ( int i = 0, j = 0; pc_gpinfo[i] != '\0'; ++i )
+    {
+        if ( pc_gpinfo[i] == ',' )
+        {
+            pc_gpinfo[i] = '\0';
+
+            if ( ++j >= 2 )
+            {
+                break;
+            }
+
+            pc_name = &pc_gpinfo[i+1];
+        }
+    }
+
+    mtStrFormat(pcOutInfo, szOutInfo, "GUID(%s), NAME(%s)", pc_guid, pc_name);
+
+    SDL_free(pc_gpinfo);
+}
+
+static void
 ResetGamepadStruct(IC_GAMEPAD* const pGp)
 {
     *pGp = (IC_GAMEPAD){ .id = GPD_SDLIDX_NONE };
@@ -100,28 +133,46 @@ ResetGamepadStruct(IC_GAMEPAD* const pGp)
 static void
 OpenGamepad(const int joy)
 {
-    if (!SDL_IsGameController(joy))
+    if ( !SDL_IsGameController(joy) )
+    {
         return;
+    }
 
     for (int i = 0; i < ARYLEN(Gamepads); ++i)
     {
+        const char* pc_opendebug;
+
         IC_GAMEPAD* const p_gp = &Gamepads[i];
 
         /** If ID matches, reset device **/
-        if (p_gp->id == joy)
+        if ( p_gp->id == joy )
         {
             SDL_GameControllerClose(p_gp->pgp);
             ResetGamepadStruct(p_gp);
+
+            pc_opendebug = "IC INFO: Controller reset [%s]";
             goto OPEN;
         }
 
-        if (!p_gp->pgp)
+        if ( !p_gp->pgp )
         {
+            pc_opendebug = "IC INFO: Controller connected [%s]";
+
         OPEN:
             SDL_GameController* const p_sdlgc = SDL_GameControllerOpen(joy);
 
             if (!p_sdlgc)
+            {
                 break;
+            }
+
+            // debug print
+            {
+                char c_buf[128];
+                GetGamepadInfo(p_sdlgc, c_buf, ARYLEN(c_buf));
+
+                OutputFormat( pc_opendebug, c_buf );
+            }
 
             p_gp->pgp = p_sdlgc;
             p_gp->id  = joy;
@@ -131,7 +182,9 @@ OpenGamepad(const int joy)
             for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
             {
                 if (SDL_GameControllerHasButton(p_sdlgc, i))
+                {
                     p_gp->support |= (1<<i);
+                }
             }
 
             p_gp->support |= SDL_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLE_TRIGGER : 0;
@@ -148,8 +201,16 @@ CloseGamepad(const int joy)
     {
         IC_GAMEPAD* const p_gp = &Gamepads[i];
 
-        if (p_gp->id == joy)
+        if ( p_gp->id == joy )
         {
+            // debug print
+            {
+                char c_buf[128];
+                GetGamepadInfo(p_gp->pgp, c_buf, ARYLEN(c_buf));
+
+                OutputFormat( "IC INFO: Controller disconnected [%s]", c_buf );
+            }
+
             SDL_GameControllerClose(p_gp->pgp);
             ResetGamepadStruct(p_gp);
         }
