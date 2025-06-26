@@ -62,6 +62,9 @@ static IC_USER Users[NB_IC_USER]; /* user input structure                       
 static PDS_PERIPHERALINFO PdsInfo[NB_IC_USER]; /* pds peri info                     */
 static PDS_PERIPHERAL     PdsData[NB_IC_USER]; /* pds peripheral                    */
 
+/****** Pds Peripheral **************************************************************/
+static PDS_PERIPHERAL PdsFirst[NB_IC_USER]; /* first input for this frame           */
+
 /****** Peripheral ******************************************************************/
 static USER_PERI UserPeris[NB_IC_USER]; /* user peripheral settings                 */
 
@@ -271,6 +274,8 @@ PdsPeripheralExec(void)
     }
 }
 
+static Bool FirstExecFlag;
+
 static int
 PollPeripheral(void)
 {
@@ -281,6 +286,8 @@ PollPeripheral(void)
     GamepadInputPoll();
     KeyboardInputPoll();
     MouseInputPoll();
+
+    FirstExecFlag = true;
 
     return 0;
 }
@@ -299,6 +306,16 @@ ExecPeripheral(void)
 
     SocPeripheralExec();
     PdsPeripheralExec();
+
+    if ( FirstExecFlag )
+    {
+        PdsFirst[0] = PdsData[0];
+        PdsFirst[1] = PdsData[1];
+        PdsFirst[2] = PdsData[2];
+        PdsFirst[3] = PdsData[3];
+
+        FirstExecFlag = false;
+    }
 
     FuncHookCall( GetSwitchDataHookInfo, GetSwitchData_p() );
 }
@@ -398,6 +415,10 @@ IC_InputInit(void)
 
     WriteNOP( 0x005FB493, 0x005FB4C0);        // Event WaitVsync fix
     WriteCall(0x005FB493, EventWaitVsyncFix); // ^^
+
+    static const PDS_PERIPHERAL* p_pdsfirst = PdsFirst;
+
+    WritePointer(0x005FB620-1, &p_pdsfirst); // fix event skipping
 
     /** Fix cart controls being *0.5 **/
     WriteNOP(0x0061F5E2, 0x0061F5E8);
