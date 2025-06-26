@@ -95,33 +95,26 @@ static bool GamepadDbgAxis; /* display gamepad debug menu                       
 static void
 GetGamepadInfo(SDL_GameController* pSdlGp, char* pcOutInfo, usize szOutInfo)
 {
-    /** There's probably an easier way to get this information, but this works just fine lol **/
+    /** There's probably an easier way to get the GUID, but this works just fine lol **/
 
     pcOutInfo[0] = '\0';
 
-    char* const pc_gpinfo = SDL_GameControllerMapping(pSdlGp);
+    char* const pc_guid = SDL_GameControllerMapping(pSdlGp);
 
-    const char* pc_guid = pc_gpinfo;
-    const char* pc_name;
-
-    for ( int i = 0, j = 0; pc_gpinfo[i] != '\0'; ++i )
+    for ( char* pc_scan = pc_guid; ; ++pc_scan )
     {
-        if ( pc_gpinfo[i] == ',' )
+        /** Scan for the first comma, and end the string there. That will give us
+            the GUID of the controller for printing. **/
+        if ( *pc_scan == ',' )
         {
-            pc_gpinfo[i] = '\0';
-
-            if ( ++j >= 2 )
-            {
-                break;
-            }
-
-            pc_name = &pc_gpinfo[i+1];
+            *pc_scan = '\0';
+            break;
         }
     }
 
-    mtStrFormat(pcOutInfo, szOutInfo, "GUID(%s), NAME(%s)", pc_guid, pc_name);
+    mtStrFormat(pcOutInfo, szOutInfo, "GUID(%s), NAME(%s)", pc_guid, SDL_GameControllerName(pSdlGp));
 
-    SDL_free(pc_gpinfo);
+    SDL_free(pc_guid);
 }
 
 static void
