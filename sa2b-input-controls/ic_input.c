@@ -294,7 +294,7 @@ PollPeripheral(void)
 
 #define GetSwitchData_p         FUNC_PTR(void, __cdecl, (void), 0x00441BA0)
 
-static hook_info GetSwitchDataHookInfo[1];
+static mt_hookinfo GetSwitchDataHookInfo[1];
 static void
 ExecPeripheral(void)
 {
@@ -317,7 +317,7 @@ ExecPeripheral(void)
         FirstExecFlag = false;
     }
 
-    FuncHookCall( GetSwitchDataHookInfo, GetSwitchData_p() );
+    mtHookInfoCall( GetSwitchDataHookInfo, GetSwitchData_p() );
 }
 
 #define EventWaitVsyncCount     DATA_REF(s32, 0x01DEB514)
