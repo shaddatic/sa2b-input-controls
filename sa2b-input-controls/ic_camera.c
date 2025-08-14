@@ -1,39 +1,39 @@
-/************************/
-/*  Includes            */
-/************************/
-/****** Core Toolkit ****************************************************************/
-#include <samt/core.h>      /* core                                                 */
-#include <samt/writeop.h>   /* WriteJump, WriteCall, WriteNOP                       */
-#include <samt/memory.h>    /* MemCopy                                              */
+/********************************/
+/*  Includes                    */
+/********************************/
+/****** Core Toolkit ****************************************************************************/
+#include <samt/core.h>              /* core                                                     */
+#include <samt/writeop.h>           /* WriteJump, WriteCall, WriteNOP                           */
+#include <samt/memory.h>            /* MemCopy                                                  */
 
-/****** Ninja ***********************************************************************/
-#include <samt/ninja/ninja.h> /* ninja                                              */
+/****** Ninja ***********************************************************************************/
+#include <samt/ninja/ninja.h>       /* ninja                                                    */
 
-/****** Game ************************************************************************/
-#include <samt/sonic/input.h>  /* per, perG                                         */
-#include <samt/sonic/camera.h> /* sa2 camera                                        */
+/****** Game ************************************************************************************/
+#include <samt/sonic/input.h>       /* per, perG                                                */
+#include <samt/sonic/camera.h>      /* sa2 camera                                               */
 
-/****** Input Controls **************************************************************/
-#include <ic_core.h>        /* core                                                 */
-#include <ic_input.h>       /* input                                                */
-#include <ic_feature.h>     /* ICF_UseRawAnalog                                     */
+/****** Input Controls **************************************************************************/
+#include <ic_core.h>                /* core                                                     */
+#include <ic_input.h>               /* input                                                    */
+#include <ic_feature.h>             /* ICF_UseRawAnalog                                         */
 
-/****** Config **********************************************************************/
-#include <cnf.h>            /* CnfGet##                                             */
+/****** Config **********************************************************************************/
+#include <cnf.h>                    /* CnfGet##                                                 */
 
-/****** Self ************************************************************************/
-#include <ic_camera.h>      /* self                                                 */
+/****** Self ************************************************************************************/
+#include <ic_camera.h>              /* self                                                     */
 
-/************************/
-/*  File Data           */
-/************************/
-/****** Invert **********************************************************************/
-static bool CameraInvX2;    /* invert right stick camera input                      */
+/********************************/
+/*  File Data                   */
+/********************************/
+/****** Invert **********************************************************************************/
+static bool CameraInvX2;            /* invert right stick camera input                          */
 
-/************************/
-/*  Source              */
-/************************/
-/****** Static **********************************************************************/
+/********************************/
+/*  Source                      */
+/********************************/
+/****** Static **********************************************************************************/
 static Angle
 CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
 {
@@ -158,14 +158,25 @@ ___CheckCamInput(void)
     }
 }
 
-/****** Extern **********************************************************************/
+/****** Chao Camera *****************************************************************************/
+static void
+ChaoCameraAnalog(void)
+{
+    const IC_USER* p_user = UserGetInput(IC_USER_1);
+
+    const f32 inpt_xz = (p_user->r - p_user->l) + ( CameraInvX2 ? -p_user->x2 : p_user->x2 );
+
+    njRotateY(NULL, (Angle)( inpt_xz * 512.f ));
+}
+
+/****** Extern **********************************************************************************/
 bool
 ICF_CamInvertX2(void)
 {
     return CameraInvX2;
 }
 
-/****** Init ************************************************************************/
+/****** Init ************************************************************************************/
 void
 IC_CameraInit(void)
 {
@@ -190,6 +201,12 @@ IC_CameraInit(void)
         /* Idk */
         WriteNOP( 0x004EDBF3, 0x004EDC0D);
         WriteCall(0x004EDBF3, ___CheckCamInput);
+
+        /* Chao */
+        WriteNOP(0x0057CE0A, 0x0057CE14); // if ( perG[0].on & BTN_L )
+        WriteNOP(0x0057CE36, 0x0057CE38); // ^
+        WriteNOP(0x0057CE8E, 0x0057CEED); // entire R trigger code
+        WriteCall(0x0057CE62, ChaoCameraAnalog); // _RotateY
     }
 
     CameraInvX2 = CNF_GetInt(CNF_CAMERA_LRINV);
