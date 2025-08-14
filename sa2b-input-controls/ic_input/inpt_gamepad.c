@@ -259,6 +259,11 @@ CalcLinearDeadzone(const f32 input, const f32 idz, const f32 odz)
 static void
 CalcSquareDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
 {
+    if ( idz <= 0.f && odz >= 1.f )
+    {
+        return;
+    }
+
     *pX = (f32) CalcLinearDeadzone(*pX, idz, odz);
     *pY = (f32) CalcLinearDeadzone(*pY, idz, odz);
 }
@@ -266,6 +271,11 @@ CalcSquareDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
 static void
 CalcCircularDeadzone(f32* const pX, f32* const pY, const f32 idz, const f32 odz)
 {
+    if ( idz <= 0.f && odz >= 1.f )
+    {
+        return;
+    }
+
     const f32 x = *pX;
     const f32 y = *pY;
 
