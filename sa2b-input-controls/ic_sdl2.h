@@ -21,27 +21,7 @@ typedef union SDL_Event     SDL_Event;
 /************************/
 /*  Prototypes          */
 /************************/
-/****** Module Init *****************************************************************/
-/*
-*   Description:
-*     Init SDL module
-*
-*   Returns:
-*     If Init was successful
-*/
-bool    ICSDL_Init( void );
-/*
-*   Description:
-*     SDL Exit function for OnExit
-*/
-void    ICSDL_Exit( void );
-
 /****** Event Handling ***************************************************************/
-/*
-*   Description:
-*     Poll SDL events from the last frame and call event handlers
-*/
-void    ICSDL_PollEvents( void );
 /*
 *   Description:
 *     Register an SDL event handler function

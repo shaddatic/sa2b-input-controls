@@ -15,7 +15,7 @@
 /*  Constants           */
 /************************/
 /****** Version *********************************************************************/
-#define ICAPI_SDL_VER       (0) /* API version                                      */
+#define ICAPI_SDL_VER       (1) /* API version                                      */
 
 /************************/
 /*  File Data           */
@@ -25,7 +25,7 @@ const ICAPI_SDL icapi_sdl =
 {
     .version = ICAPI_SDL_VER,
 
-    .sdlver = { 2,32,6 },
+    .sdlver = { 0 },
 
     .RegisterEventHandler = ICSDL_RegisterEventHandler,
 

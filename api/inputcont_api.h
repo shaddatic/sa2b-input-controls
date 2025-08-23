@@ -817,6 +817,13 @@ ICAPI_WINDOW;
 /*  SDL API             */
 /************************/
 /*
+*   [[ DEPRICATED : Version 1 ]]
+* 
+*   Deprication Info:
+*     - state           : mostly non-functioning, some contexts may crash
+*     - reason          : SASDL dependancy mod is now the correct way to access SDL2
+*     - alternative     : SASDL's API
+* 
 *   Description:
 *     The Input Controls 'SDL' API is for communicating with, or getting
 *   communications from, the mounted SDL library.
@@ -910,7 +917,7 @@ typedef struct
     const ICAPI_KEYBOARD*   pApiKeyboard; /* keyboard API                       */
     const ICAPI_MOUSE*      pApiMouse;    /* mouse API                          */
     const ICAPI_WINDOW*     pApiWindow;   /* game window API                    */
-    const ICAPI_SDL*        pApiSdl;      /* SDL API                            */
+    const ICAPI_SDL*        pApiSdl;      /* SDL API               [DEPRICATED] */
 }
 ICAPI_CORE;
 

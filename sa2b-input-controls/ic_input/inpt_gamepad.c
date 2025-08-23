@@ -211,20 +211,6 @@ CloseGamepad(const int joy)
 }
 
 static void
-GamepadEventHandler(const SDL_Event* pEvent)
-{
-    switch (pEvent->type) {
-    case SDL_JOYDEVICEADDED:
-        OpenGamepad(pEvent->cdevice.which);
-        break;
-
-    case SDL_JOYDEVICEREMOVED:
-        CloseGamepad(pEvent->cdevice.which);
-        break;
-    }
-}
-
-static void
 DebugAxes(const int nbGp, const f32 x1, const f32 y1, const f32 x2, const f32 y2)
 {
     mlDebugSetColor(0xFFFFFFFF);
@@ -472,6 +458,27 @@ GamepadInputExec(void)
         p_gp->l = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
         p_gp->r = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
     }
+}
+
+/****** Event Handler ***************************************************************/
+SASDL_EVRET
+GamepadEventHandler(const SDL_Event* pEvent)
+{
+    switch ( pEvent->type )
+    {
+        case SDL_JOYDEVICEADDED:
+        {
+            OpenGamepad(pEvent->cdevice.which);
+            return SASDL_EVRET_BREAK;
+        }
+        case SDL_JOYDEVICEREMOVED:
+        {
+            CloseGamepad(pEvent->cdevice.which);
+            return SASDL_EVRET_BREAK;
+        }
+    }
+
+    return SASDL_EVRET_CONTINUE;
 }
 
 /****** Init ************************************************************************/

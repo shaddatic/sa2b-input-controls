@@ -5,6 +5,7 @@
 #include <samt/core.h>      /* core                                                 */
 #include <samt/init.h>      /* init                                                 */
 #include <samt/msgbox.h>    /* message                                              */
+#include <samt/modinfo.h>   /* getinfo                                              */
 
 /****** Mod Loader ******************************************************************/
 #include <samt/modloader.h> /* mod loader                                           */
@@ -18,19 +19,11 @@
 #include <ic_vibtask.h>     /* vibtask                                              */
 #include <ic_window.h>      /* window                                               */
 #include <ic_camera.h>      /* camera                                               */
-#include <ic_sonicinput.h>  /* sonic input                                          */
 #include <ic_api.h>         /* input controls API                                   */
 #include <ic_sdl2.h>        /* SDL2                                                 */
 
 /****** Config **********************************************************************/
 #include <cnf.h>            /* CnfGet##                                             */
-
-/************************/
-/*  Constants           */
-/************************/
-/****** Mod Loader Version Mins *****************************************************/
-#define MLVER_API_MIN       (9) /* minimum mod loader version for API               */
-#define MLVER_MIN           (8) /* minimum mod loader version                       */
 
 /************************/
 /*  Source              */
@@ -42,59 +35,43 @@ Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
 {
     mtSystemInit(puPath, pHelpFuncs, ixMod);
 
-    bool can_api = true;
-
+    if ( !miCheckSupport() )
     {
-        const int ml_ver = mlGetVersion();
-
-        if (ml_ver < MLVER_MIN)
-        {
             mtMsgError("Input Controls : Mod Loader Version",
+
                 "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
                 "Please update the Mod Loader to a newer version!\n\n"
+
                 "Input Controls will now abort the init process."
             );
-
             return;
         }
-        else if (ml_ver < MLVER_API_MIN)
-        {
-            /** Just print a warning to the console **/
-            OutputString("Input Controls : WARNING\n"
-                "The installed mod loader version doesn't support features required for the Input Controls API."
-                "The API will be disabled to prevent crashing. However, it is recommended you update to the latest "
-                "Mod Loader version, as older versions will not be actively supported");
 
-            can_api = false;
-        }
+    if ( !miGetInfoByID("sasdl") )
+    {
+        mtMsgError("Input Controls : SA SDL Dependancy",
+
+                   "Input Controls requires the \"SA SDL Loader\" dependancy mod to work, but you don't have it installed.\n\n"
+                   "Before v1.1, Input Controls loaded its own SDL library but has now switched to using a common dependancy mod.\n\n"
+
+                   "Input Controls will now abort the init process."
+        );
+        return;
     }
 
-    if ( ICSDL_Init() )
-    {
-        CNF_Init();
+    CNF_Init();
 
-        if (can_api)
-            ICAPI_Init();
+    ICAPI_Init();
 
-        IC_InputInit();
-        IC_CameraInit();
-        IC_VibTaskInit();
-        IC_SocMagicInit();
-        IC_SonicInputInit();
-        OS_Init();
-        WND_Init();
+    IC_InputInit();
+    IC_CameraInit();
+    IC_VibTaskInit();
+    IC_SocMagicInit();
+    IC_SonicInputInit();
+    OS_Init();
+    WND_Init();
 
-        if (can_api)
-            ICAPI_End();
+    ICAPI_End();
 
         CNF_End();
     }
-}
-
-EXPORT_DLL
-void __cdecl
-OnExit(u32 code, s32 a1, s32 a2)
-{
-    ICSDL_Exit();
-}
-

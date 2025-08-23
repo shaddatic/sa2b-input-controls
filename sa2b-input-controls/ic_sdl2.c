@@ -9,11 +9,15 @@
 #include <samt/msgbox.h>    /* msgerror                                             */
 #include <samt/file.h>      /* mtfileexist                                          */
 
+/****** Utility *********************************************************************/
+#include <samt/util/dllexport.h> /* dllexport                                       */
+
 /****** Simple DirectMedia Layer ****************************************************/
 #include <SDL2/SDL.h>       /* core                                                 */
 
 /****** Input Controls **************************************************************/
 #include <ic_core.h>        /* core                                                 */
+#include <ic_input.h>       /* event handler                                        */
 
 /****** C Sdl ***********************************************************************/
 #include <stdio.h>          /* std in out                                           */
@@ -36,24 +40,10 @@
 #define SDL_EXPORT(name)                    { &___##name, "SDL_"#name }
 
 /************************/
-/*  Structures          */
-/************************/
-/****** Event Handler ***************************************************************/
-typedef struct
-{
-    void (__cdecl* func)( const SDL_Event* );
-}
-EVSDL_HANDLER;
-
-/************************/
 /*  File Data           */
 /************************/
 /****** DLL Handle ******************************************************************/
 static mt_dllhandle* SdlHandle; /* SDL DLL handle                                   */
-
-/****** Event Handlers **************************************************************/
-static EVSDL_HANDLER* EvHandlerListP;   /* handler list pointer                     */
-static size_t         EvHandlerListNum; /* handler list count                       */
 
 /****** Function Pointers ***********************************************************/
 SDL_FUNC_PTR(int                , Init                              , (int)                                            );
@@ -228,9 +218,9 @@ SDL_free(void *mem)
 
 /****** Static **********************************************************************/
 static c8*
-GetMappingFilePath(void)
+GetMappingFilePath(const c8* puPath)
 {
-    const size_t sz_buf = mtStrLength(mtGetModPath(), STR_NOMAX) + sizeof("./gamecontrollerdb.txt");
+    const size_t sz_buf = mtStrLength(puPath, STR_NOMAX) + sizeof("./gamecontrollerdb.txt");
 
     c8* const pu_buf = mtAlloc(c8, sz_buf);
 
@@ -241,7 +231,7 @@ GetMappingFilePath(void)
         return pu_buf;
     }
 
-    mtStrFormat(pu_buf, sz_buf, "./%s/%s", mtGetModPath(), "gamecontrollerdb.txt");
+    mtStrFormat(pu_buf, sz_buf, "./%s/%s", puPath, "gamecontrollerdb.txt");
 
     if ( mtFileExists(pu_buf) )
     {
@@ -264,69 +254,34 @@ ICSDL_GetHandle(void)
 void*
 ICSDL_GetExport(const char* const cExName)
 {
+    if ( !SdlHandle )
+    {
+        return nullptr;
+    }
+
     return mtDllGetExport(SdlHandle, cExName);
 }
 
 void
 ICSDL_RegisterEventHandler(void (__cdecl* fnEvHandler)(const SDL_Event*))
 {
-    if (!fnEvHandler)
-        return;
-
-    const size_t nb_hdl = EvHandlerListNum;
-
-    EVSDL_HANDLER* p_hdl = EvHandlerListP;
-
-    if ( !(nb_hdl % HANDLER_CHUNK_SIZE) )
-    {
-        mtRealloc(&p_hdl, EVSDL_HANDLER, ( nb_hdl + HANDLER_CHUNK_SIZE ));
-
-        EvHandlerListP = p_hdl;
-    }
-
-    p_hdl[nb_hdl].func = fnEvHandler;
-
-    EvHandlerListNum = nb_hdl+1;
+    return;
 }
 
-void
-ICSDL_PollEvents(void)
+EXPORT_DLL
+int32_t
+SASDLAPI_Init(const SASDLAPI* pApi, const c8* puPath, const void* pHelpFuncs, usize ixMod)
 {
-    SDL_Event ev;
+    // register event handler
+    pApi->RegisterEventHandler( &GamepadEventHandler );
 
-    while ( SDL_PollEvent(&ev) )
-    {
-        const size_t nb_hdl = EvHandlerListNum;
+    // get dll handle
+    mt_dllhandle* p_sdlhdl = pApi->GetHandle();
 
-        const EVSDL_HANDLER* p_hdl = EvHandlerListP;
+    mtDllGetExportList(p_sdlhdl, SdlExports, ARYLEN(SdlExports));
 
-        for (size_t i = 0; i < nb_hdl; ++i, ++p_hdl)
-        {
-            p_hdl->func( &ev );
-        }
-    }
-}
-
-/****** Init/Exit *******************************************************************/
-bool
-ICSDL_Init(void)
-{
-    mt_dllhandle* const p_hdl = mtDllMount2(mtGetModPath(), "lib/SDL2.dll");
-
-    if (!p_hdl)
-    {
-        mtMsgError("Input Controls : SDL2 Critical Error",
-            "The SDL2 library could not be mounted! This is likely because '/lib/SDL2.dll' is missing from the Input Controls mod folder.\n"
-            "Input Controls cannot function without SDL, the init process will now be aborted!"
-        );
-        return false;
-    }
-
-    mtDllGetExportList(p_hdl, SdlExports, ARYLEN(SdlExports));
-
-    SDL_Init( SDL_INIT_GAMECONTROLLER );
-
-    c8* const pu_buf = GetMappingFilePath();
+    // get player mapping file
+    c8* const pu_buf = GetMappingFilePath(puPath);
 
     if ( pu_buf )
     {
@@ -346,18 +301,9 @@ ICSDL_Init(void)
         OutputString("IC INFO: 'gamecontrollerdb.txt' file not found!");
     }
 
-    SdlHandle = p_hdl;
+    // set handle
+    SdlHandle = p_sdlhdl;
 
-    return true;
-}
-
-void
-ICSDL_Exit(void)
-{
-    if (!SdlHandle)
-        return;
-
-    SDL_Quit();
-
-    mtDllUnmount(SdlHandle);
+    // return gamecontroller flag
+    return SDL_INIT_GAMECONTROLLER;
 }

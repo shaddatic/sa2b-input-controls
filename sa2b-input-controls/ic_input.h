@@ -331,6 +331,19 @@ IC_MOUSE;
 */
 void    IC_InputInit( void );
 
+/****** Event Handlers **************************************************************/
+/*
+*   Description:
+*     Gamepad SDL Event handler for SASDL's API.
+*
+*   Parameters:
+*     - pEvent      : SDL event structure
+*
+*   Returns:
+*     'BREAK' if event handled; or 'CONTINUE' if not.
+*/
+SASDL_EVRET GamepadEventHandler( const SDL_Event* pEvent );
+
 /****** User Input ******************************************************************/
 /**** Raw Input *****************************************************************/
 /*

@@ -23,7 +23,6 @@
 /****** Std *************************************************************************/
 #include <math.h>           /* ceil, floor                                          */
 
-
 /****** Self ************************************************************************/
 #include <ic_input.h>               /* self                                         */
 #include <ic_input/inpt_internal.h> /* internal                                     */
@@ -279,8 +278,6 @@ static Bool FirstExecFlag;
 static int
 PollPeripheral(void)
 {
-    ICSDL_PollEvents();
-
     WND_Update();
 
     GamepadInputPoll();
