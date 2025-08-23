@@ -36,6 +36,7 @@
     <ClCompile Include="ic_input\inpt_mouse.c" />
     <ClCompile Include="ic_input\inpt_mouse\mse_wndmsg.c" />
     <ClCompile Include="ic_input\inpt_mouse\mse_visualizer.c" />
+    <ClCompile Include="ic_misc.c" />
     <ClCompile Include="ic_os.c" />
     <ClCompile Include="ic_sdl2.c" />
     <ClCompile Include="ic_socmagic.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="ic_input.h" />
     <ClInclude Include="ic_input\inpt_mouse\mse_internal.h" />
     <ClInclude Include="ic_limits.h" />
+    <ClInclude Include="ic_misc.h" />
     <ClInclude Include="ic_sdl2.h" />
     <ClInclude Include="ic_vibtask.h" />
     <ClInclude Include="ic_window\icwnd_internal.h" />

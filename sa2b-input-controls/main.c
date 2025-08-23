@@ -20,7 +20,7 @@
 #include <ic_window.h>      /* window                                               */
 #include <ic_camera.h>      /* camera                                               */
 #include <ic_api.h>         /* input controls API                                   */
-#include <ic_sdl2.h>        /* SDL2                                                 */
+#include <ic_misc.h>        /* misc                                                 */
 
 /****** Config **********************************************************************/
 #include <cnf.h>            /* CnfGet##                                             */
@@ -37,15 +37,15 @@ Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
 
     if ( !miCheckSupport() )
     {
-            mtMsgError("Input Controls : Mod Loader Version",
+        mtMsgError("Input Controls : Mod Loader Version",
 
-                "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
-                "Please update the Mod Loader to a newer version!\n\n"
+                   "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
+                   "Please update the Mod Loader to a newer version!\n\n"
 
-                "Input Controls will now abort the init process."
-            );
-            return;
-        }
+                   "Input Controls will now abort the init process."
+        );
+        return;
+    }
 
     if ( !miGetInfoByID("sasdl") )
     {
@@ -71,7 +71,9 @@ Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
     OS_Init();
     WND_Init();
 
+    IC_MiscInit();
+
     ICAPI_End();
 
-        CNF_End();
-    }
+    CNF_End();
+}

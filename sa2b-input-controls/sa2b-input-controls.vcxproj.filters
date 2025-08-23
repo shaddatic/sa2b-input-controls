@@ -90,6 +90,9 @@
     <ClCompile Include="ic_input\inpt_mouse\mse_wndmsg.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ic_misc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -147,6 +150,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ic_window\icwnd_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ic_misc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
