@@ -189,8 +189,10 @@ MouseInputExec(void)
 bool
 MouseGetEmulatedAnalog(const eIC_KEYBOARD_NUM nbKb, const eEMU_STICK nbAnalog, f32* const pOutX, f32* const pOutY)
 {
-    if (nbKb != MouseEmuKbIndex || nbAnalog != MouseEmuStickIndex)
+    if ( nbKb != MouseEmuKbIndex || nbAnalog != MouseEmuStickIndex )
+    {
         return false;
+    }
 
     NJS_POINT2I* p_vec;
 
