@@ -31,7 +31,7 @@
 /*  Function Types      */
 /************************/
 /****** User Callback ***************************************************************/
-typedef void(__cdecl FN_USER_CALLBACK)(int ixUser, IC_USER* pUser);
+typedef void(__cdecl FN_USER_CALLBACK)(int ixUser, IC_USER_INPUT* pUser);
 
 /************************/
 /*  Structures          */
@@ -47,15 +47,12 @@ USER_PERI;
 /************************/
 /*  Data                */
 /************************/
-/****** Input Settings **************************************************************/
-static bool UseRawAnalog;   /* use raw analog values                                */
-
 /****** Digital Trigger *************************************************************/
 static Sint16 DgtTrigOn[NB_IC_USER];  /* digital trigger on setting                 */
 static Sint16 DgtTrigOff[NB_IC_USER]; /* digital trigger off setting                */
 
 /****** User Input ******************************************************************/
-static IC_USER Users[NB_IC_USER]; /* user input structure                           */
+static IC_USER_INPUT Users[NB_IC_USER]; /* user input structure                     */
 
 /****** Pds Peripheral **************************************************************/
 static PDS_PERIPHERALINFO PdsInfo[NB_IC_USER]; /* pds peri info                     */
@@ -88,7 +85,7 @@ static FN_USER_CALLBACK* UserCallback; /* user input callback function for API  
 /************************/
 /****** Callback ********************************************************************/
 void
-UserSetCallback(void(__cdecl* callback)(int ixUser, IC_USER* pUser))
+UserSetCallback(void(__cdecl* callback)(int ixUser, IC_USER_INPUT* pUser))
 {
     UserCallback = callback;
 }
@@ -100,8 +97,8 @@ UserInputExec(void)
     for ( int ix_user = 0; ix_user < ARYLEN(Users); ++ix_user )
     {
         /** Setup **/
-        IC_USER*   const p_user = &Users[ix_user];
-        USER_PERI* const p_peri = &UserPeris[ix_user];
+        IC_USER_INPUT* const p_user = &Users[ix_user];
+        USER_PERI*     const p_peri = &UserPeris[ix_user];
 
         INPUT_OUT input_gp = {0};
         INPUT_OUT input_kb = {0};
@@ -196,9 +193,9 @@ PdsPeripheralExec(void)
 {
     for (int ix_peri = 0; ix_peri < ARYLEN(PdsData); ++ix_peri)
     {
-        PDS_PERIPHERAL*  const p_pad  = &PdsData[ix_peri];
-        const IC_USER*   const p_user = &Users[ix_peri];
-        const USER_PERI* const p_peri = &UserPeris[ix_peri];
+        PDS_PERIPHERAL*      const p_pad  = &PdsData[ix_peri];
+        const IC_USER_INPUT* const p_user = &Users[ix_peri];
+        const USER_PERI*     const p_peri = &UserPeris[ix_peri];
 
         /** If the emulated Dreamcast controller can't recieve input, then we need
             to emulate the controller being disconnected **/
@@ -329,7 +326,7 @@ EventWaitVsyncFix(void)
 }
 
 /****** Extern **********************************************************************/
-const IC_USER*
+const IC_USER_INPUT*
 UserGetInput(const eIC_USER_NUM nbUser)
 {
     return &Users[nbUser];

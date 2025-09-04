@@ -15,7 +15,7 @@
 /*  Constants           */
 /************************/
 /****** Version *********************************************************************/
-#define ICAPI_FEATURE_VER   (0) /* API version                                      */
+#define ICAPI_FEATURE_VER   (1) /* API version                                      */
 
 /************************/
 /*  File Data           */
@@ -28,4 +28,8 @@ const ICAPI_FEATURE icapi_feature =
     .UseRawAnalog         = ICF_UseRawAnalog,
     .CamInvertX2          = ICF_CamInvertX2,
     .MouseAnalogEmulation = ICF_MouseAnalogEmulation,
+
+    // version 1
+
+    .CamInvertLR          = ICF_CamInvertLR,
 };

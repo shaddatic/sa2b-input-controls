@@ -17,7 +17,7 @@
 #include <samt/ninja/njcommon.h> /* ninja common                                    */
 
 /****** External API ****************************************************************/
-#include <../api/inputcont_api.h> /* external api                                   */
+#include <icapi.h>              /* external api                                     */
 
 /************************/
 /*  API Structs         */

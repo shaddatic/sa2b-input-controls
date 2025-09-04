@@ -82,7 +82,7 @@ CalcDreamcastDeadzone(f32* const pX, f32* const pY)
 static void
 GetUserRawAnalog(const eIC_USER_NUM nbUser, f32* const pX, f32* const pY)
 {
-    const IC_USER* const p_user = UserGetInput(nbUser);
+    const IC_USER_INPUT* const p_user = UserGetInput(nbUser);
 
     *pX = p_user->x1;
     *pY = p_user->y1;
@@ -96,7 +96,7 @@ GetPlayerInput(int player, f32* const pX, f32* const pY, const bool plOneAsTwo)
         const eIC_USER_NUM usr = !plOneAsTwo ? player :
             ((player < 2) ? 0 : player);
 
-        const IC_USER* const p_user = UserGetInput(usr);
+        const IC_USER_INPUT* const p_user = UserGetInput(usr);
 
         *pX = p_user->x1;
         *pY = p_user->y1;

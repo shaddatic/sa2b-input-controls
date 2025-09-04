@@ -180,8 +180,8 @@ OpenGamepad(const int joy)
                 }
             }
 
-            p_gp->support |= SDL_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLE_TRIGGER : 0;
-            p_gp->support |= SDL_GameControllerHasRumble(p_sdlgc)         ? GPDDEV_SUPPORT_RUMBLE         : 0;
+            p_gp->support |= SDL_GameControllerHasRumbleTriggers(p_sdlgc) ? GPDDEV_SUPPORT_RUMBLETRIGG : 0;
+            p_gp->support |= SDL_GameControllerHasRumble(p_sdlgc)         ? GPDDEV_SUPPORT_RUMBLE      : 0;
             break;
         }
     }

@@ -41,7 +41,7 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
 
         if (ucInputStatus && in_state)
         {
-            const IC_USER* const p_user = UserGetInput(nb_cam);
+            const IC_USER_INPUT* const p_user = UserGetInput(nb_cam);
 
             lr = p_user->l - p_user->r;
             x2 = p_user->x2;
@@ -123,7 +123,7 @@ CheckCamInput(const int nbPer)
 {
     if ( ICF_UseRawAnalog() && nbPer < NB_IC_USER )
     {
-        const IC_USER* const p_user = UserGetInput(nbPer);
+        const IC_USER_INPUT* const p_user = UserGetInput(nbPer);
 
         const bool in_state = (nbPer > 1 || ucInputStatusForEachPlayer[nbPer] == 1);
 
@@ -137,7 +137,7 @@ CheckCamInput(const int nbPer)
     else
     {
         return (perG[nbPer].l || perG[nbPer].r || perG[nbPer].x2);
-}
+    }
 }
 
 __declspec(naked)
@@ -158,7 +158,7 @@ ___CheckCamInput(void)
 static void
 ChaoCameraAnalog(void)
 {
-    const IC_USER* p_user = UserGetInput(IC_USER_1);
+    const IC_USER_INPUT* p_user = UserGetInput(IC_USER_1);
 
     const f32 inpt_lr = ICF_CamInvertLR() ? -(p_user->r - p_user->l) : (p_user->r - p_user->l);
 
