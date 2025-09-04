@@ -346,7 +346,7 @@ UserGetKeyboardNum(const eIC_USER_NUM nbUser)
 
 /****** Init ************************************************************************/
 void
-IC_InputInit(void)
+IC_InputGetConfig(void)
 {
     /** User peripheral indexes **/
     UserPeris[0].gp = CNF_GetInt( CNF_USER1_GAMEPD_NB );
@@ -373,7 +373,11 @@ IC_InputInit(void)
 
     DgtTrigOn[3]  = CNF_GetInt( CNF_USER4_DGTLR_ON  );
     DgtTrigOff[3] = CNF_GetInt( CNF_USER4_DGTLR_OFF );
+}
 
+void
+IC_InputInit(void)
+{
     /** Sub-module Init **/
     GamepadInit();
     KeyboardInit();

@@ -38,31 +38,40 @@ Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
 
     if ( !miCheckSupport() )
     {
-        mtMsgError("Input Controls : Mod Loader Version",
+        mtMsgError(
+            "Input Controls : Mod Loader Version",
 
-                   "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
-                   "Please update the Mod Loader to a newer version!\n\n"
+            "Input Controls can't operate safely on the currently installed version of the SA2 Mod Loader.\n"
+            "Please update the Mod Loader to a newer version!\n\n"
 
-                   "Input Controls will now abort the init process."
+            "Input Controls will now abort the init process."
         );
         return;
     }
 
     if ( !miGetInfoByID("sasdl") )
     {
-        mtMsgError("Input Controls : SA SDL Dependancy",
+        mtMsgError(
+            "Input Controls : SA SDL Dependancy",
 
-                   "Input Controls requires the \"SA SDL Loader\" dependancy mod to work, but you don't have it installed.\n\n"
-                   "Before v1.1, Input Controls loaded its own SDL library but has now switched to using a common dependancy mod.\n\n"
+            "Input Controls requires the \"SA SDL Loader\" dependancy mod to work, but you don't have it installed.\n\n"
 
-                   "Input Controls will now abort the init process."
+            "Before v1.1, Input Controls loaded its own SDL library but has now switched to using a common dependancy mod.\n\n"
+
+            "Input Controls will now abort the init process."
         );
         return;
     }
 
+    ICAPI_CallUserFuncs( IC_UF_EARLY );
+
     CNF_Init();
 
     ICF_Init();
+    IC_InputGetConfig();
+
+    ICAPI_CallUserFuncs( IC_UF_INIT );
+    ICAPI_CallUserFuncs( IC_UF_OLD_EARLY );
 
     IC_InputInit();
     IC_CameraInit();
@@ -71,10 +80,11 @@ Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
     IC_SonicInputInit();
     OS_Init();
     WND_Init();
-
     IC_MiscInit();
 
-    ICAPI_End();
+    ICAPI_CallUserFuncs( IC_UF_OLD_INIT );
 
     CNF_End();
+
+    ICAPI_CallUserFuncs( IC_UF_LATE );
 }

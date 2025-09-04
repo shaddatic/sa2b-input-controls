@@ -5,6 +5,8 @@
 #include <samt/core.h>              /* core                                                     */
 #include <samt/modloader.h>         /* modloader                                                */
 #include <samt/modinfo.h>           /* mods                                                     */
+#include <samt/msgbox.h>            /* message box                                              */
+#include <samt/string.h>            /* string                                                   */
 
 /****** Util ************************************************************************************/
 #include <samt/util/dllexport.h>    /* EXPORT_DLL                                               */
@@ -26,7 +28,7 @@
 /*  Typedefs                    */
 /********************************/
 /****** API Init User-Function ******************************************************************/
-typedef void(__cdecl IC_INIT)(const ICAPI_CORE*, const char*, const HelperFunctions*);
+typedef s32(__cdecl IC_INIT)(const ICAPI*, const char*, const HelperFunctions*, size);
 
 /********************************/
 /*  File Data                   */
@@ -52,32 +54,49 @@ const ICAPI icapi_core =
 /********************************/
 /*  Source                      */
 /********************************/
-/****** Static **********************************************************************/
-static void
-ApiCallByFuncName(const char* const cExName)
+/****** Init/End ********************************************************************************/
+void
+ICAPI_CallUserFuncs(const IC_USERFUNC uf)
 {
-    const size_t nb_mod = miGetModCount();
+    /****** Static Vars *********************************************************************/
 
-    for (size_t i = 0; i < nb_mod; ++i)
+    static const c7* const UserFuncNames[IC_NB_UF] =
+    {
+        [IC_UF_INIT]  = "ICAPI_Init",
+        [IC_UF_EARLY] = "ICAPI_Early",
+        [IC_UF_LATE]  = "ICAPI_Late",
+
+        [IC_UF_OLD_INIT]  = "IC_Init",
+        [IC_UF_OLD_EARLY] = "IC_EarlyInit",
+    };
+
+    /****** Start ***************************************************************************/
+
+    const c7* const pc_uf = UserFuncNames[uf];
+
+    const size nb_mod = miGetModCount();
+
+    for ( size i = 0; i < nb_mod; ++i )
     {
         const ml_modinfo* const p_mi = miGetInfoByIndex(i);
 
-        IC_INIT* const p_init = miGetExport(p_mi, cExName);
+        IC_INIT* const p_init = miGetExport(p_mi, pc_uf);
 
-        if (p_init)
-            p_init(&icapi_core, p_mi->puPath, mtGetHelperFunctions());
+        if ( !p_init )
+        {
+            continue;
+        }
+
+        const s32 ret = p_init(&icapi_core, p_mi->puPath, mtGetHelperFunctions(), i);
+
+        if ( uf < IC_UF_OLD_INIT && ret != 0 )
+        {
+            c8 buf[96];
+
+            mtStrFormat(buf, ARYLEN(buf), "ICAPI : Unexpected Return Value (%s)", p_mi->puName);
+
+            mtMsgWarning(buf,
+                "Return value from user-exported function was != 0. The function is either malformed or made for a later version of Input Controls!");
+        }
     }
-}
-
-/****** Init/End ********************************************************************/
-void
-ICAPI_Init(void)
-{
-    ApiCallByFuncName("IC_EarlyInit");
-}
-
-void
-ICAPI_End(void)
-{
-    ApiCallByFuncName("IC_Init");
 }

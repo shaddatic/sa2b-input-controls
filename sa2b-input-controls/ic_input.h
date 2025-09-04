@@ -43,6 +43,11 @@ typedef struct _SDL_GameController  SDL_GameController;
 /****** Init ************************************************************************/
 /*
 *   Description:
+*     Get and load config settings for input.
+*/
+void    IC_InputGetConfig( void );
+/*
+*   Description:
 *     Init Input module, and its sub-modules
 */
 void    IC_InputInit( void );
