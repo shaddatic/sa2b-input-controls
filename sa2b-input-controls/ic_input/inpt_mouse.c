@@ -271,12 +271,6 @@ MouseShow(void)
     OS_ShowCursor(false);
 }
 
-bool
-ICF_MouseAnalogEmulation(void)
-{
-    return MouseEmuKbIndex != IC_KEYBOARD_NONE;
-}
-
 /****** Init ************************************************************************/
 void
 MouseInit(void)

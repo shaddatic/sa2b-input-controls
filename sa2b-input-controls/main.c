@@ -21,6 +21,7 @@
 #include <ic_camera.h>      /* camera                                               */
 #include <ic_api.h>         /* input controls API                                   */
 #include <ic_misc.h>        /* misc                                                 */
+#include <ic_feature.h>     /* feature                                              */
 
 /****** Config **********************************************************************/
 #include <cnf.h>            /* CnfGet##                                             */
@@ -61,7 +62,7 @@ Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
 
     CNF_Init();
 
-    ICAPI_Init();
+    ICF_Init();
 
     IC_InputInit();
     IC_CameraInit();

@@ -131,7 +131,8 @@ CNFE_MISC_TEXTMD;
 
 /****** Camera **************************************************************************************************************************/
 #define CNF_CAMERA_ANALOG               CNFO_INT(   CNFS_CAMERA         , "analog"              , CNFE_BOOL_ENABLED                     )
-#define CNF_CAMERA_LRINV                CNFO_INT(   CNFS_CAMERA         , "lr_inv"              , CNFE_BOOL_DISABLED                    )
+#define CNF_CAMERA_INV_X2               CNFO_INT(   CNFS_CAMERA         , "inv_x2"              , CNFE_BOOL_DISABLED                    )
+#define CNF_CAMERA_INV_LR               CNFO_INT(   CNFS_CAMERA         , "inv_lr"              , CNFE_BOOL_DISABLED                    )
 
 /****** User ****************************************************************************************************************************/
 #define CNF_USER1_GAMEPD_NB             CNFO_INT(   CNFS_USER1          , "gp_nb"               , CNFE_USER_GAMEPAD_1                   )

@@ -30,6 +30,7 @@
     <ClCompile Include="ic_api\icapi_window.c" />
     <ClCompile Include="ic_camera.c" />
     <ClCompile Include="cnf.c" />
+    <ClCompile Include="ic_feature.c" />
     <ClCompile Include="ic_input.c" />
     <ClCompile Include="ic_input\inpt_gamepad.c" />
     <ClCompile Include="ic_input\inpt_keyboard.c" />

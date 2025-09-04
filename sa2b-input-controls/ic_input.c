@@ -347,18 +347,10 @@ UserGetKeyboardNum(const eIC_USER_NUM nbUser)
     return UserPeris[nbUser].kb;
 }
 
-bool
-ICF_UseRawAnalog(void)
-{
-    return UseRawAnalog;
-}
-
 /****** Init ************************************************************************/
 void
 IC_InputInit(void)
 {
-    UseRawAnalog = CNF_GetInt(CNF_MAIN_RAWANALOG);
-
     /** User peripheral indexes **/
     UserPeris[0].gp = CNF_GetInt( CNF_USER1_GAMEPD_NB );
     UserPeris[0].kb = CNF_GetInt( CNF_USER1_KEYBRD_NB );

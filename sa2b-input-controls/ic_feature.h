@@ -10,17 +10,26 @@
 #ifndef H_IC_FEATURE
 #define H_IC_FEATURE
 
-/************************/
-/*  Prototypes          */
-/************************/
-/****** Features ********************************************************************/
+EXTERN_START
+
+/********************************/
+/*  Prototypes                  */
+/********************************/
+/****** Features ********************************************************************************/
+/*
+*   Description:
+*     Init feature module.
+*/
+void    ICF_Init( void );
+
+/****** Features ********************************************************************************/
 /*
 *   Description:
 *     If Input Controls is set to use raw analog values, rather than values from the
 *   emulated Dreamcast controller.
 *
 *   Returns:
-*     'true' if the feature is enable, or 'false' if not
+*     'true' if the feature is enable; or 'false' if not.
 */
 bool    ICF_UseRawAnalog( void );
 /*
@@ -29,7 +38,7 @@ bool    ICF_UseRawAnalog( void );
 *   vanilla.
 *
 *   Returns:
-*     'true' if the feature is enable, or 'false' if not
+*     'true' if the feature is enable; or 'false' if not.
 */
 bool    ICF_CamInvertX2( void );
 /*
@@ -37,8 +46,18 @@ bool    ICF_CamInvertX2( void );
 *     If mouse analog emulation is enabled on any keyboard layout.
 *
 *   Returns:
-*     'true' if the feature is enable, or 'false' if not
+*     'true' if the feature is enable; or 'false' if not.
 */
 bool    ICF_MouseAnalogEmulation( void );
+/*
+*   Description:
+*     If the camera is set to invert the trigger input compared to vanilla.
+*
+*   Returns:
+*     'true' if the feature is enable; or 'false' if not.
+*/
+bool    ICF_CamInvertLR( void );
+
+EXTERN_END
 
 #endif/*H_IC_FEATURE*/

@@ -25,12 +25,6 @@
 #include <ic_camera.h>              /* self                                                     */
 
 /********************************/
-/*  File Data                   */
-/********************************/
-/****** Invert **********************************************************************************/
-static bool CameraInvX2;            /* invert right stick camera input                          */
-
-/********************************/
 /*  Source                      */
 /********************************/
 /****** Static **********************************************************************************/
@@ -39,9 +33,9 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
 {
     const int nb_cam = cameraNumber;
     
-    f32 l, r, x2;
+    f32 lr, x2;
 
-    if (ICF_UseRawAnalog() && nb_cam < NB_IC_USER)
+    if ( ICF_UseRawAnalog() && nb_cam < NB_IC_USER )
     {
         const bool in_state = (nb_cam > 1 || ucInputStatusForEachPlayer[nb_cam] == 1);
 
@@ -49,33 +43,32 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
         {
             const IC_USER* const p_user = UserGetInput(nb_cam);
 
-            l  = p_user->l;
-            r  = p_user->r;
+            lr = p_user->l - p_user->r;
             x2 = p_user->x2;
         }
         else
-            l = r = x2 = 0.0f;
+        {
+            lr = x2 = 0.0f;
+        }
     }
     else
     {
-        l  = NORM_PDS_TRIG( perG[nb_cam].l  );
-        r  = NORM_PDS_TRIG( perG[nb_cam].r  );
+        lr = NORM_PDS_TRIG( perG[nb_cam].l - perG[nb_cam].r );
         x2 = NORM_PDS_DIR(  perG[nb_cam].x2 );
     }
 
     /** Invert the stick if setting enabled **/
-    if (CameraInvX2) x2 = -x2;
+    if ( ICF_CamInvertX2() ) x2 = -x2;
+    if ( ICF_CamInvertLR() ) lr = -lr;
 
     CAMADJUSTWK_KNUCKLES* const p_work = (CAMADJUSTWK_KNUCKLES*)pParam->work;
 
     p_work->bTurning = false;
 
     /* triggers */
-    if (l || r)
+    if ( lr )
     {
-        const f32 lmr = l - r;
-
-        rotAng += (Angle) nearbyint(lmr * 546.0f);
+        rotAng += (Angle) nearbyint(lr * 546.0f);
 
         p_work->turn_ang = rotAng;
         p_work->bTurning = true;
@@ -84,7 +77,7 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
     }
 
     /* right analog stick */
-    if (x2)
+    if ( x2 )
     {
         rotAng += (Angle) nearbyint(-x2 * 546.0); 
 
@@ -128,9 +121,10 @@ ___CameraGetAnalog(void)
 static int
 CheckCamInput(const int nbPer)
 {
-    if (ICF_UseRawAnalog() && nbPer < NB_IC_USER)
+    if ( ICF_UseRawAnalog() && nbPer < NB_IC_USER )
     {
         const IC_USER* const p_user = UserGetInput(nbPer);
+
         const bool in_state = (nbPer > 1 || ucInputStatusForEachPlayer[nbPer] == 1);
 
         if (ucInputStatus && in_state)
@@ -141,7 +135,9 @@ CheckCamInput(const int nbPer)
             return false;
     }
     else
+    {
         return (perG[nbPer].l || perG[nbPer].r || perG[nbPer].x2);
+}
 }
 
 __declspec(naked)
@@ -164,16 +160,11 @@ ChaoCameraAnalog(void)
 {
     const IC_USER* p_user = UserGetInput(IC_USER_1);
 
-    const f32 inpt_xz = (p_user->r - p_user->l) + ( CameraInvX2 ? -p_user->x2 : p_user->x2 );
+    const f32 inpt_lr = ICF_CamInvertLR() ? -(p_user->r - p_user->l) : (p_user->r - p_user->l);
+
+    const f32 inpt_xz = inpt_lr + ( ICF_CamInvertX2() ? -p_user->x2 : p_user->x2 );
 
     njRotateY(NULL, (Angle)( inpt_xz * 512.f ));
-}
-
-/****** Extern **********************************************************************************/
-bool
-ICF_CamInvertX2(void)
-{
-    return CameraInvX2;
 }
 
 /****** Init ************************************************************************************/
@@ -208,6 +199,4 @@ IC_CameraInit(void)
         WriteNOP(0x0057CE8E, 0x0057CEED); // entire R trigger code
         WriteCall(0x0057CE62, ChaoCameraAnalog); // _RotateY
     }
-
-    CameraInvX2 = CNF_GetInt(CNF_CAMERA_LRINV);
 }
