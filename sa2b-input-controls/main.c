@@ -6,6 +6,7 @@
 #include <samt/init.h>      /* init                                                 */
 #include <samt/msgbox.h>    /* message                                              */
 #include <samt/modinfo.h>   /* getinfo                                              */
+#include <samt/os.h>        /* os console                                           */
 
 /****** Mod Loader ******************************************************************/
 #include <samt/modloader.h> /* mod loader                                           */
@@ -58,8 +59,10 @@ Init(const c8* puPath, const ml_helpfuncs* pHelpFuncs, usize ixMod)
 
             "Before v1.1, Input Controls loaded its own SDL library but has now switched to using a common dependancy mod.\n\n"
 
-            "Input Controls will now abort the init process."
+            "Input Controls will now abort the init process and take you to SASDL's release page."
         );
+
+        osTerminal("start \"\" \"https://gamebanana.com/mods/615843\"");
         return;
     }
 
