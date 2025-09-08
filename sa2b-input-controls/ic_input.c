@@ -62,7 +62,14 @@ static PDS_PERIPHERAL     PdsData[NB_IC_USER]; /* pds peripheral                
 static PDS_PERIPHERAL PdsFirst[NB_IC_USER]; /* first input for this frame           */
 
 /****** Peripheral ******************************************************************/
-static USER_PERI UserPeris[NB_IC_USER]; /* user peripheral settings                 */
+static USER_PERI UserPeris[NB_IC_USER] =    /* user peripheral settings             */
+{
+    { IC_GAMEPAD_NONE, IC_KEYBOARD_NONE },
+    { IC_GAMEPAD_NONE, IC_KEYBOARD_NONE },
+    { IC_GAMEPAD_NONE, IC_KEYBOARD_NONE },
+    { IC_GAMEPAD_NONE, IC_KEYBOARD_NONE },
+
+}; 
 
 /****** Callback ********************************************************************/
 static FN_USER_CALLBACK* UserCallback; /* user input callback function for API      */
