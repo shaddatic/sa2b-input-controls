@@ -63,7 +63,7 @@ typedef struct
 
     /****** Version >= 1 ********************************************************************/
 
-    /**** Triggers ******************************************/
+    /**** Camera ********************************************/
     /*
     *   Description:
     *     If the camera is set to invert the L and R triggers compared to vanilla.
@@ -72,6 +72,14 @@ typedef struct
     *     'true' if the feature is enable; or 'false' if not.
     */
     bool (__cdecl* CamInvertLR)( void );
+    /*
+    *   Description:
+    *     If the camera is set to invert the L and R triggers compared to vanilla.
+    *
+    *   Returns:
+    *     'true' if the feature is enable; or 'false' if not.
+    */
+    bool (__cdecl* CamInvertY2)( void );
 }
 ICAPI_FEATURE;
 

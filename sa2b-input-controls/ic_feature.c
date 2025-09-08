@@ -26,6 +26,7 @@ static bool UseRawAnalog;
 static bool CamInvertX2;
 static bool MouseAnalogEmu;
 static bool CamInvertLR;
+static bool CamInvertY2;
 
 /********************************/
 /*  Source                      */
@@ -55,6 +56,12 @@ ICF_CamInvertLR(void)
     return CamInvertLR;
 }
 
+bool
+ICF_CamInvertY2(void)
+{
+    return CamInvertY2;
+}
+
 /****** Init ************************************************************************************/
 void
 ICF_Init(void)
@@ -63,4 +70,5 @@ ICF_Init(void)
     CamInvertX2    = CNF_GetInt( CNF_CAMERA_INV_X2 );
     MouseAnalogEmu = CNF_GetInt( CNF_EMUANALOG_KEYBRD );
     CamInvertLR    = CNF_GetInt( CNF_CAMERA_INV_LR );
+    CamInvertY2    = CNF_GetInt( CNF_CAMERA_INV_Y2 );
 }

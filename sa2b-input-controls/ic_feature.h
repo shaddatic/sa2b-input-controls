@@ -57,6 +57,15 @@ bool    ICF_MouseAnalogEmulation( void );
 *     'true' if the feature is enable; or 'false' if not.
 */
 bool    ICF_CamInvertLR( void );
+/*
+*   Description:
+*     If the camera is set to invert the Y axis of the right analog stick input from
+*   vanilla.
+*
+*   Returns:
+*     'true' if the feature is enable; or 'false' if not.
+*/
+bool    ICF_CamInvertY2( void );
 
 EXTERN_END
 

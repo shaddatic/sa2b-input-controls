@@ -12,13 +12,18 @@ Some mods modify the emulated Dreamcast controller values to perform certain eff
       <Property name="analog" display="Analog Controls" type="eBOOL" defaultvalue="1">
         <HelpText>Restore analog-trigger camera movement from the GameCube version, and add analog camera movement with the right analog stick.</HelpText>
       </Property>
-      <Property name="inv_x2" display="Invert Left Stick" type="eBOOL" defaultvalue="0">
-        <HelpText>Invert left/right camera movement with the right analog stick.
+      <Property name="inv_x2" display="Right Stick (Horizontal)" type="eINVERT" defaultvalue="0">
+        <HelpText>Invert left/right camera movement with the right analog stick compared to vanilla.
 
 NOTE: Requres 'Analog Controls'</HelpText>
       </Property>
-      <Property name="inv_lr" display="Invert Triggers" type="eBOOL" defaultvalue="0">
-        <HelpText>Invert left/right camera movement with the right analog stick.
+      <Property name="inv_y2" display="Right Stick (Vertical)" type="eINVERT" defaultvalue="0">
+        <HelpText>Invert up/down camera movement with the right analog stick.
+
+NOTE: Currently not used by Input Controls, but other mods may read it</HelpText>
+      </Property>
+      <Property name="inv_lr" display="Triggers" type="eINVERT" defaultvalue="0">
+        <HelpText>Invert left/right camera movement with the triggers compared to vanilla.
 
 NOTE: Requres 'Analog Controls'</HelpText>
       </Property>
@@ -444,6 +449,10 @@ Click and Drag: After clicking the specified key/button, mouse position is trans
       <EnumMember name="4" display="Mouse: Middle Click"></EnumMember>
       <EnumMember name="5" display="Mouse: Side Button 1"></EnumMember>
       <EnumMember name="6" display="Mouse: Side Button 2"></EnumMember>
+    </Enum>
+    <Enum name="eINVERT">
+      <EnumMember name="1" display="Inverted"></EnumMember>
+      <EnumMember name="0" display="Normal"></EnumMember>
     </Enum>
   </Enums>
 </ConfigSchema>

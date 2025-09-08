@@ -32,4 +32,5 @@ const ICAPI_FEATURE icapi_feature =
     // version 1
 
     .CamInvertLR          = ICF_CamInvertLR,
+    .CamInvertY2          = ICF_CamInvertY2,
 };
