@@ -68,7 +68,6 @@ static USER_PERI UserPeris[NB_IC_USER] =    /* user peripheral settings         
     { IC_GAMEPAD_NONE, IC_KEYBOARD_NONE },
     { IC_GAMEPAD_NONE, IC_KEYBOARD_NONE },
     { IC_GAMEPAD_NONE, IC_KEYBOARD_NONE },
-
 }; 
 
 /****** Callback ********************************************************************/

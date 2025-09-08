@@ -15,7 +15,8 @@
 *     - v1.1.0.0        : Version 1, added input callback so mods can directly edit user input
 * 
 *   Availability:
-*     - At Init         : Yes (input values will be null'd)
+*     - Before Init     : Partial, input values will be null and player settings will be 'NONE'
+*     - At Init         : Partial, input values will be null
 *     - After Init      : Yes
 * 
 *   Notice:

@@ -10,6 +10,7 @@
 *     - v1.1.0.0        : Version 1, added function for LR camera inversion
 * 
 *   Availability:
+*     - Before Init     : No
 *     - At Init         : Yes
 *     - After Init      : Yes
 * 

@@ -12,7 +12,8 @@
 *     - v1.0.0.0        : Version 0, initial release
 * 
 *   Availability:
-*     - At Init         : Yes (input values will be null'd)
+*     - Before Init     : Partial, input values will be null
+*     - At Init         : Partial, input values will be null
 *     - After Init      : Yes
 * 
 *   Notice:

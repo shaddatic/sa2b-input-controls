@@ -10,8 +10,9 @@
 *     - v1.1.0.0        : Version 1, API module completely depricated and non-functioning
 * 
 *   Availability:
-*     - At Init         : Yes (input values will be null'd)
-*     - After Init      : Yes
+*     - Before Init     : No
+*     - At Init         : Partial, only prior to module version 1
+*     - After Init      : Partial, only prior to module version 1
 * 
 *   Notice:
 *     The API headers are to be included in your own projects. You have full rights to use,

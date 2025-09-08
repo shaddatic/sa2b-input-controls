@@ -12,6 +12,7 @@
 *     - v1.0.0.0        : Version 0, initial release
 * 
 *   Availability:
+*     - Before Init     : No
 *     - At Init         : Yes
 *     - After Init      : No
 * 
