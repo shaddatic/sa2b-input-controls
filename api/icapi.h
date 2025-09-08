@@ -29,7 +29,7 @@ typedef char                        c8;  /* supports UTF-8 strings              
 *     Macro for checking the current Input Controls version against a set version.
 * 
 *   Examples:
-*     - if ( !ICD_CHECKVER(pApiCore, 1,3,3,0) ) // check if IC version too low
+*     - if ( !ICAPI_CHECKVER(pApiCore, 1,3,3,0) ) // check if IC version too low
 *
 *   Parameters:
 *     - api         : core api pointer
@@ -41,7 +41,7 @@ typedef char                        c8;  /* supports UTF-8 strings              
 *   Returns:
 *     'true' if the current version is >= the set version; or 'false' if not.
 */
-#define ICD_CHECKVER(api, rel, maj, sem, min) \
+#define ICAPI_CHECKVER(api, rel, maj, sem, min) \
     ( (int)(api)->modver.release   > (rel) || ( (int)(api)->modver.release   == (rel) && \
     ( (int)(api)->modver.major     > (maj) || ( (int)(api)->modver.major     == (maj) && \
     ( (int)(api)->modver.semimajor > (sem) || ( (int)(api)->modver.semimajor == (sem) && \

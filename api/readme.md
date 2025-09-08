@@ -148,7 +148,7 @@ Checking the Input Controls mod version:
 extern "C" __declspec(dllexport)
 int32_t ICAPI_Init(const ICAPI* pApi, const char* puPath, const HelperFunctions* pHelpFuncs, size_t ixMod)
 {
-    if ( ICD_CHECKVER( pApi, 1,1,0,0 ) ) // equal or higher than v1.1.0.0
+    if ( ICAPI_CHECKVER( pApi, 1,1,0,0 ) ) // equal or higher than v1.1.0.0
     {
         const ICAPI_MODULE* p_module = pApi->pModuleApi;
             
