@@ -164,7 +164,7 @@ OpenGamepad(const int joy)
                 char c_buf[128];
                 GetGamepadInfo(p_sdlgc, c_buf, ARYLEN(c_buf));
 
-                OutputFormat( pc_opendebug, c_buf );
+                ___OutputDebugString( pc_opendebug, c_buf );
             }
 
             p_gp->pgp = p_sdlgc;
@@ -201,7 +201,7 @@ CloseGamepad(const int joy)
                 char c_buf[128];
                 GetGamepadInfo(p_gp->pgp, c_buf, ARYLEN(c_buf));
 
-                OutputFormat( "IC INFO: Controller disconnected [%s]", c_buf );
+                ___OutputDebugString( "IC INFO: Controller disconnected [%s]", c_buf );
             }
 
             SDL_GameControllerClose(p_gp->pgp);

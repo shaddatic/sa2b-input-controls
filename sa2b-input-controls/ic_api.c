@@ -28,7 +28,7 @@
 /*  Typedefs                    */
 /********************************/
 /****** API Init User-Function ******************************************************************/
-typedef s32(__cdecl IC_INIT)(const ICAPI*, const char*, const HelperFunctions*, size);
+typedef i32(__cdecl IC_INIT)(const ICAPI*, const char*, const HelperFunctions*, isize);
 
 /********************************/
 /*  File Data                   */
@@ -74,9 +74,9 @@ ICAPI_CallUserFuncs(const IC_USERFUNC uf)
 
     const c7* const pc_uf = UserFuncNames[uf];
 
-    const size nb_mod = miGetModCount();
+    const isize nb_mod = miGetModCount();
 
-    for ( size i = 0; i < nb_mod; ++i )
+    for ( isize i = 0; i < nb_mod; ++i )
     {
         const ml_modinfo* const p_mi = miGetInfoByIndex(i);
 
@@ -87,7 +87,7 @@ ICAPI_CallUserFuncs(const IC_USERFUNC uf)
             continue;
         }
 
-        const s32 ret = p_init(&icapi_core, p_mi->puPath, mtGetHelperFunctions(), i);
+        const i32 ret = p_init(&icapi_core, p_mi->puPath, mtGetHelperFunctions(), i);
 
         if ( uf < IC_UF_OLD_INIT && ret != 0 )
         {

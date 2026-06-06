@@ -25,7 +25,7 @@ MouseMessageHandler(uint32_t msg, uint32_t wParam, int32_t lParam)
         buffer. Each notch is 120, or 'WHEEL_DELTA', so we divide by that. The buffer is
         collected and emptied later by the input/mouse sub-module. **/
 
-    s16 raw_wheel = GET_WHEEL_DELTA_WPARAM( wParam );
+    i16 raw_wheel = GET_WHEEL_DELTA_WPARAM( wParam );
     f32 f_wheel = (f32)raw_wheel / (f32)WHEEL_DELTA;
 
     switch (msg) {

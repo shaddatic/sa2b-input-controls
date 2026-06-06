@@ -29,7 +29,7 @@
 typedef struct
 {
     taskwk tw;
-    s32 cartmode;
+    i32 cartmode;
     NJS_CNK_OBJECT* pObject;
     NJS_CNK_OBJECT* pFarObject;
     NJS_TEXLIST*    pTexlist;
@@ -58,8 +58,8 @@ typedef struct
 CARTWK;
 
 /****** Cart Variables **************************************************************************/
-#define CartForceNoInput        DATA_REF(s32, 0x01D96F40)
-#define CartNoInputTimer        DATA_REF(s32, 0x01AEDEC8)
+#define CartForceNoInput        DATA_REF(i32, 0x01D96F40)
+#define CartNoInputTimer        DATA_REF(i32, 0x01AEDEC8)
 
 /********************************/
 /*  Source                      */
@@ -73,7 +73,7 @@ CartNoPlayerInputFix(task* tp)
 
     twp->pos.z -= 10.f;
 
-    const s32 timer = CartNoInputTimer;
+    const i32 timer = CartNoInputTimer;
 
     CartNoInputTimer = timer + 1;
 

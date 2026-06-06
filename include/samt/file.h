@@ -7,13 +7,34 @@
 #ifndef H_SAMT_FILE
 #define H_SAMT_FILE
 
+/********************************/
+/*  Includes                    */
+/********************************/
+/****** Opaque **********************************************************************************/
+#include <samt/opaque/file.h>       /* FILE                                                     */
+
 EXTERN_START
 
 /********************************/
-/*  Opaque Types                */
+/*  Constants                   */
 /********************************/
-/****** MSVC stdio ******************************************************************************/
-typedef struct _iobuf               FILE; /* msvc std file type                                 */
+/****** File Select Flags ***********************************************************************/
+#define MT_FSF_READONLY             (1<< 0) /* read-only by default                 [####/SAVE] */
+#define MT_FSF_OVERWRITEPROMPT      (1<< 1) /* prompt to overwrite file             [####/SAVE] */
+#define MT_FSF_HIDEREADONLY         (1<< 2) /* hide read-only files                 [OPEN/SAVE] */
+#define MT_FSF_NOCHANGEDIR          (1<< 3) /* don't allow changing file directory  [####/SAVE] */
+#define MT_FSF_ALLOWMULTISELECT     (1<< 9) /* allow multiple files to be selected  [OPEN/SAVE] */
+#define MT_FSF_PATHMUSTEXIST        (1<<11) /* full file path must be valid         [OPEN/SAVE] */
+#define MT_FSF_FILEMUSTEXIST        (1<<12) /* file name must be valid              [OPEN/SAVE] */
+#define MT_FSF_CREATEPROMPT         (1<<13) /* prompt to create file                [####/SAVE] */
+#define MT_FSF_SHAREAWARE           (1<<14) /* ignore network sharing errors        [OPEN/####] */
+#define MT_FSF_NOTESTFILECREATE     (1<<16) /* no tmp file to check perms           [####/SAVE] */
+#define MT_FSF_NONETWORKBUTTON      (1<<17) /* disable network button               [OPEN/SAVE] */
+#define MT_FSF_NODEREFLINKS         (1<<20) /* don't dereference link files         [OPEN/SAVE] */
+#define MT_FSF_NORECENT             (1<<25) /* selected file isn't added to recent  [OPEN/SAVE] */
+#define MT_FSF_SHOWHIDDEN           (1<<28) /* force show hidden files and folders  [OPEN/SAVE] */
+#define MT_FSF_OPEN                 (0)     /* use open file dialogs                  [default] */
+#define MT_FSF_SAVE                 (1<<31) /* use save file dialogs                            */
 
 /********************************/
 /*  Enums                       */
@@ -38,6 +59,27 @@ typedef enum mt_fmode
     FMODE_AT_RW,                    /* read/write, append file                      (text mode) */
 }
 mt_fmode;
+
+/****** File Open Mode **************************************************************************/
+typedef enum mt_fselect
+{
+    MT_FSR_ERROR        = -1,
+
+    MT_FSR_OK           = 0,
+    MT_FSR_READONLY,
+}
+mt_fselect;
+
+/********************************/
+/*  Structures                  */
+/********************************/
+/****** File Select Filter **********************************************************************/
+typedef struct mt_fselect_filter
+{
+    const c8* puName;               /* filter name, eg. "Text"                                  */
+    const c8* puFilter;             /* filter def, eg. "*.txt"                                  */
+}
+mt_fselect_filter;
 
 /********************************/
 /*  Prototypes                  */
@@ -82,9 +124,9 @@ bool    mtFileClose( FILE* f );
 *     - sz      : size of read, in bytes
 *
 *   Returns:
-*     Number of bytes written to the buffer; or '0' on failure.
+*     Number of bytes read into the buffer; or '-1' on failure.
 */
-size_t  mtFileRead( FILE* f, void* pDst, size_t sz );
+lsize   mtFileRead( FILE* f, void* pDst, usize sz );
 /*
 *   Description:
 *     Write to an open file stream, and advance the seek offset.
@@ -95,24 +137,9 @@ size_t  mtFileRead( FILE* f, void* pDst, size_t sz );
 *     - sz      : size of write, in bytes
 *
 *   Returns:
-*     Number of bytes written to the buffer; or '0' on failure.
+*     Number of bytes written to the file; or '-1' on failure.
 */
-size_t  mtFileWrite( FILE* f, const void* pSrc, size_t sz );
-/*
-*   Description:
-*     Write the same section of a source buffer to an open file stream multiple
-*   times, and advance the seek offset.
-*
-*   Parameters:
-*     - f       : open file stream
-*     - pSrc    : write source
-*     - sz      : size of write, in bytes
-*     - nb      : number of times to repeat
-*
-*   Returns:
-*     Number of bytes written to the buffer; or '0' on failure.
-*/
-size_t  mtFileWriteMulti( FILE* f, const void* pSrc, size_t sz, size_t nb );
+lsize   mtFileWrite( FILE* f, const void* pSrc, usize sz );
 
 /****** File Seek *******************************************************************************/
 /*
@@ -126,7 +153,7 @@ size_t  mtFileWriteMulti( FILE* f, const void* pSrc, size_t sz, size_t nb );
 *   Returns:
 *     'true' on success; or 'false' on failure.
 */
-bool    mtFileSeekSet( FILE* f, s32 offset );
+bool    mtFileSeekSet( FILE* f, lsize offset );
 /*
 *   Description:
 *     Move the seek offset relative to its current position
@@ -138,7 +165,7 @@ bool    mtFileSeekSet( FILE* f, s32 offset );
 *   Returns:
 *     'true' on success; or 'false' on failure.
 */
-bool    mtFileSeekAdvance( FILE* f, s32 offset );
+bool    mtFileSeekAdvance( FILE* f, lsize offset );
 /*
 *   Description:
 *     Get the current seek offset
@@ -149,7 +176,7 @@ bool    mtFileSeekAdvance( FILE* f, s32 offset );
 *   Returns:
 *     The current seek offset of the file stream.
 */
-s32     mtFileSeekGet( FILE* f );
+lsize   mtFileSeekGet( FILE* f );
 /*
 *   Description:
 *     Set seek offset to the start of the file
@@ -172,6 +199,14 @@ bool    mtFileSeekStart( FILE* f );
 *     'true' on success; or 'false' on failure.
 */
 bool    mtFileSeekEnd( FILE* f );
+/*
+*   Description:
+*     Check if the end of the file has been reached.
+*
+*   Returns:
+*     'true' if the seek is at the end of the file; or 'false' if not.
+*/
+bool    mtFileEof( FILE* f );
 
 /****** File Size *******************************************************************************/
 /*
@@ -184,7 +219,7 @@ bool    mtFileSeekEnd( FILE* f );
 *   Returns:
 *     The total size of the open file stream, in bytes.
 */
-size_t  mtFileSize( FILE* f );
+lsize   mtFileSize( FILE* f );
 
 /************************************************************************************************/
 /*
@@ -193,17 +228,17 @@ size_t  mtFileSize( FILE* f );
 /****** File Load *******************************************************************************/
 /*
 *   Description:
-*     Load an entire file into a buffer with an optional returned size parameter
+*     Load an entire file into a new allocated buffer, with an optional returned size parameter.
 *
 *   Parameters:
 *     - puPath      : file path
-*     - pOptOutSize : pointer to a size_t used to return the size of the new buffer (optional)
+*     - pOptOutSize : return size of loaded file                                     [opt:NULL]
 *
 *   Returns:
-*     Memory buffer containing the entire file allocated with `malloc`, or nullptr
-*   if there was an error.
+*     Memory buffer containing the entire file; or 'nullptr' on failure, with the size set to
+*   '-1' if the file could not be loaded, or '-2' if the file was larger than 2GB.
 */
-void*   mtFileLoad( const c8* puPath, size_t* pOptOutSize );
+void*   mtFileLoad( const c8* puPath, isize* pOptOutSize );
 
 /************************************************************************************************/
 /*
@@ -215,40 +250,40 @@ void*   mtFileLoad( const c8* puPath, size_t* pOptOutSize );
 *     Read the 'nb' bytes of a file at 'fpath' into 'pBuf'
 *
 *   Parameters:
-*     - fpath   : path to file encoded in ASCII or UTF-8
-*     - pBuf    : buffer to read into from file
-*     - nb      : number of bytes to read into 'pBuf'
+*     - puPath      : path to file
+*     - pDst        : destination buffer to read into
+*     - sz          : size of read, in bytes
 *
 *   Returns:
-*     Number of bytes written to the buffer, 0 indicates an error
+*     Number of bytes read into the buffer; or '-1' on failure.
 */
-size_t  mtFileReadEx( const c8* puPath, void* pDst, size_t sz );
+isize   mtFileReadEx( const c8* puPath, void* pDst, usize sz );
 /*
 *   Description:
 *     Create & write 'nb' bytes into a file at 'fpath' from 'pBuf'
 *
 *   Parameters:
-*     - fpath   : path to file encoded in ASCII or UTF-8
-*     - pBuf    : buffer to write to file
-*     - nb      : number of bytes to write out
+*     - puPath      : path to file
+*     - pSrc        : source buffer to write into file
+*     - sz          : size of write, in bytes
 *
 *   Returns:
-*     Number of bytes written to the file, 0 indicates an error
+*     Number of bytes written to the file; or '-1' on failure.
 */
-size_t  mtFileWriteEx( const c8* puPath, const void* pSrc, size_t sz );
+isize   mtFileWriteEx( const c8* puPath, const void* pSrc, usize sz );
 /*
 *   Description:
 *     Write 'nb' bytes to the end of a file at 'fpath' from 'pBuf'
 *
 *   Parameters:
-*     - fpath   : path to file encoded in ASCII or UTF-8
-*     - pBuf    : buffer to write out to file
-*     - nb      : number of bytes to write out
+*     - puPath      : path to file
+*     - pSrc        : source buffer to append onto file
+*     - sz          : size of write, in bytes
 *
 *   Returns:
-*     Number of bytes written to the file, 0 indicates an error
+*     Number of bytes written to the file; or '-1' on failure.
 */
-size_t  mtFileAppendEx( const c8* puPath, const void* pSrc, size_t sz );
+isize   mtFileAppendEx( const c8* puPath, const void* pSrc, usize sz );
 
 /************************************************************************************************/
 /*
@@ -401,6 +436,31 @@ bool    mtDirDelete( const c8* puPath );
 *     If the given directory is a valid directory.
 */
 bool    mtDirExists( const c8* puPath );
+
+/************************************************************************************************/
+/*
+*   User Prompt
+*/
+/****** File Select *****************************************************************************/
+/*
+*   Description:
+*     Open a file/directory select window for the user.
+*
+*   Notes:
+*     - When multi-file select is enabled, the output path will be formatted as:
+*       "file_directory\0fname_1\0fname_2\0fname_3\0\0"
+*
+*   Parameters:
+*     - puOutPath   : output path buffer
+*     - lnOutPath   : output buffer length
+*     - puFilters   : null terminated extension filters
+*     - puStartPath : initial path for window
+*     - flag        : flags                                                            [MT_FSF]
+*
+*   Returns:
+*     'OK' or 'READONLY' on success; or 'ERROR' on failure.
+*/
+mt_fselect mtFileSelect( c8* puOutPath, isize lnOutPath, const mt_fselect_filter* puFilters, const c8* puStartPath, u32 flag );
 
 EXTERN_END
 

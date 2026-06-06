@@ -5,7 +5,7 @@
 #include <samt/core.h>      /* core                                                 */
 #include <samt/memory.h>    /* MemAlloc, MemFree, mReAlloc                          */
 #include <samt/string.h>    /* StringSize                                           */
-#include <samt/dll.h>       /* DLL_Mount2, DLL_GetExportList                        */
+#include <samt/dlib.h>      /* DLL_Mount2, DLL_GetExportList                        */
 #include <samt/msgbox.h>    /* msgerror                                             */
 #include <samt/file.h>      /* mtfileexist                                          */
 
@@ -43,7 +43,7 @@
 /*  File Data           */
 /************************/
 /****** DLL Handle ******************************************************************/
-static mt_dllhandle* SdlHandle; /* SDL DLL handle                                   */
+static mt_dlib* SdlHandle; /* SDL DLL handle                                   */
 
 /****** Function Pointers ***********************************************************/
 SDL_FUNC_PTR(int                , Init                              , (int)                                            );
@@ -68,7 +68,7 @@ SDL_FUNC_PTR(char*              , GameControllerMapping             , (SDL_GameC
 SDL_FUNC_PTR(void               , free                              , (void*)                                          );
 
 /****** Export List *****************************************************************/
-static mt_dllexport SdlExports[] =
+static mt_dlib_sym SdlExports[] =
 {
     SDL_EXPORT(Init),
     SDL_EXPORT(Quit),
@@ -90,6 +90,8 @@ static mt_dllexport SdlExports[] =
     SDL_EXPORT(GetError),
     SDL_EXPORT(GameControllerMapping),
     SDL_EXPORT(free),
+
+    { 0 },
 };
 
 /************************/
@@ -259,7 +261,7 @@ ICSDL_GetExport(const char* const cExName)
         return nullptr;
     }
 
-    return mtDllGetExport(SdlHandle, cExName);
+    return mtDlSymbol(SdlHandle, cExName);
 }
 
 void
@@ -276,9 +278,9 @@ SASDLAPI_Init(const SASDLAPI* pApi, const c8* puPath, const void* pHelpFuncs, us
     pApi->RegisterEventHandler( &GamepadEventHandler );
 
     // get dll handle
-    mt_dllhandle* p_sdlhdl = pApi->GetHandle();
+    mt_dlib* p_sdlhdl = pApi->GetHandle();
 
-    mtDllGetExportList(p_sdlhdl, SdlExports, ARYLEN(SdlExports));
+    mtDlSymList(p_sdlhdl, SdlExports);
 
     // get player mapping file
     c8* const pu_buf = GetMappingFilePath(puPath);
@@ -287,18 +289,18 @@ SASDLAPI_Init(const SASDLAPI* pApi, const c8* puPath, const void* pHelpFuncs, us
     {
         if ( SDL_GameControllerAddMappingsFromFile(pu_buf) == -1 )
         {
-            OutputFormat("IC INFO: Error parsing 'gamecontrollerdb.txt' (ERR: %s)!", SDL_GetError());
+            ___OutputDebugString("IC INFO: Error parsing 'gamecontrollerdb.txt' (ERR: %s)!", SDL_GetError());
         }
         else
         {
-            OutputString("IC INFO: Successfully loaded 'gamecontrollerdb.txt' file!");
+            ___OutputDebugString("IC INFO: Successfully loaded 'gamecontrollerdb.txt' file!");
         }
 
         mtMemFree(pu_buf);
     }
     else
     {
-        OutputString("IC INFO: 'gamecontrollerdb.txt' file not found!");
+        ___OutputDebugString("IC INFO: 'gamecontrollerdb.txt' file not found!");
     }
 
     // set handle

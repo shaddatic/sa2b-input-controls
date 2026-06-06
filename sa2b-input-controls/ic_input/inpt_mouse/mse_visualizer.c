@@ -55,13 +55,13 @@ static f32        MouseVisuAlpha; /* visualizer alpha                           
 
 /****** Task Variables **************************************************************/
 static task* MouseVisuTaskP;     /* task pointer                                    */
-static s32   MouseVisuTaskTimer; /* task display timer                              */
+static i32   MouseVisuTaskTimer; /* task display timer                              */
 
 /****** Cursor Position *************************************************************/
 static NJS_POINT2 VisualizerPos; /* position of the cursor                          */
 
 /****** Create Task Wait Timer ******************************************************/
-static s32 MouseVisuWaitTimer; /* visualizer create wait timer                      */
+static i32 MouseVisuWaitTimer; /* visualizer create wait timer                      */
 
 /************************/
 /*  Source              */
@@ -299,7 +299,7 @@ MouseVisuTaskCreate(void)
     if (MouseVisuTaskP || MouseVisuMode == VISU_MD_DISABLED)
         return;
 
-    task* const tp = CreateElementalTask(TELE_NUL, LEV_1, MouseVisuTaskExecutor, "MouseVisuTaskExecutor");
+    task* const tp = CreateElementalTask(IM_NONE, LEV_1, MouseVisuTaskExecutor, "MouseVisuTaskExecutor");
 
     tp->dest      = MouseVisuTaskDestructor;
     tp->disp_last = MouseVisuTaskDisplayer;

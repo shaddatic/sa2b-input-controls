@@ -202,8 +202,8 @@ MouseGetEmulatedAnalog(const eIC_KEYBOARD_NUM nbKb, const eEMU_STICK nbAnalog, f
 
         if (KeyboardDown(MouseEmuClickKey))
         {
-            const s32 vec_x = MouseEmuDragVector.x + Mouse.vec.x;
-            const s32 vec_y = MouseEmuDragVector.y + Mouse.vec.y;
+            const i32 vec_x = MouseEmuDragVector.x + Mouse.vec.x;
+            const i32 vec_y = MouseEmuDragVector.y + Mouse.vec.y;
 
             MouseEmuDragVector.x = CLAMP(vec_x, -MouseEmuDragMax, MouseEmuDragMax);
             MouseEmuDragVector.y = CLAMP(vec_y, -MouseEmuDragMax, MouseEmuDragMax);
@@ -287,7 +287,7 @@ MouseInit(void)
 
         MouseEmuSensitivity = (f32)(CNF_GetPercent(CNF_EMUANALOG_SENSITIVITY) * 0.01);
 
-        MouseEmuDragMax = (s32)(1.0f/MouseEmuSensitivity)+1;
+        MouseEmuDragMax = (i32)(1.0f/MouseEmuSensitivity)+1;
 
         MouseVisualizerInit();
 

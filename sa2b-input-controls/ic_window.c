@@ -178,7 +178,7 @@ WND_Init(void)
 
     WND_MessageInit();
 
-    const s32 ml_ver = mlGetVersion();
+    const i32 ml_ver = mlGetVersion();
 
     if ( ml_ver < ML_MINVER_SETTINGS )
     {

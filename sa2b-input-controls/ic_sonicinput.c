@@ -111,12 +111,16 @@ GetPlayerInput(int player, f32* const pX, f32* const pY, const bool plOneAsTwo)
 static Angle
 GetCameraAngle(int nbCam)
 {
-    if (camera_twp) // Rotate to camera
+    if ( camera_twp ) // Rotate to camera
     {
-        if (nbCam >= cameraCount)
-            return cameraControlWork[0    ]->ang.y;
+        if ( nbCam >= camera_count )
+        {
+            return camera_pos[0]->ang.y;
+        }
         else
-            return cameraControlWork[nbCam]->ang.y;
+        {
+            return camera_pos[nbCam]->ang.y;
+        }
     }
 
     return 0;
@@ -133,8 +137,10 @@ SetSonicInput(const int pno, f32 x1, f32 y1)
 
     if (ucInputStatus == 1 && input_status)
     {
-        if (DreamcastMode)
+        if ( DreamcastMode )
+        {
             CalcDreamcastDeadzone(&x1, &y1);
+        }
 
         const Angle angy = njArcTan2(y1, x1) - GetCameraAngle(pno); // And rotate to camera
 

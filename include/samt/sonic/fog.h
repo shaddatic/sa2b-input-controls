@@ -35,21 +35,21 @@ enum
 /****** Fog Data ********************************************************************/
 typedef struct
 {
-    s32       mode;             /* fog mode                                         */
+    i32       mode;             /* fog mode                                         */
     NJS_COLOR color;            /* fog color                                        */
     f32       far;              /* far plane                                        */
     f32       near;             /* near plane                                       */
-    f32       fogtable[128];    /* fog table                                        */
+    f32       fogtbl[128];      /* fog table                                        */
 }
 FOG_DATA;
 
 /****** Fog Work ********************************************************************/
 typedef struct
 {
-    FOG_DATA* pFogA;
-    FOG_DATA* pFogB;
-    f32       ratio;
-    s32       lock;
+    FOG_DATA* pFogA;            /* fog data, a                                      */
+    FOG_DATA* pFogB;            /* fog data, b                                      */
+    f32       ratio;            /* ratio a~b                                        */
+    b32       lock;             /* fog logic lock                                   */
 }
 FOG_WORK;
 
@@ -107,7 +107,7 @@ void    FreeFogManager( void );
 *   Returns:
 *     '1' on success; or '0' on failure.
 */
-s32     LoadFogFile( const char* fname, FOG_DATA* pFog );
+b32     LoadFogFile( const char* fname, FOG_DATA* pFog );
 
 /****** Set Fog *********************************************************************/
 /*
@@ -139,7 +139,6 @@ void    SetMultiFog( FOG_DATA* pFogA, FOG_DATA* pFogB, f32 ratio );
 /****** Standard ********************************************************************/
 #define FogManagerCreate_p          FUNC_PTR(void, __cdecl, (void), 0x006DFE90)
 #define FreeFogManager_p            FUNC_PTR(void, __cdecl, (void), 0x006DFE10)
-
 
 /****** Usercall ********************************************************************/
 #define LoadFogFile_p               ((void*)0x006DF840)

@@ -25,13 +25,25 @@
 #include <ic_camera.h>              /* self                                                     */
 
 /********************************/
+/*  Structures                  */
+/********************************/
+/****** Camera Work *****************************************************************************/
+typedef struct
+{
+    Angle turn_ang;
+    bool bTurning;
+    char padding[251];
+}
+CAMADJUSTWK_KNUCKLES;
+
+/********************************/
 /*  Source                      */
 /********************************/
 /****** Static **********************************************************************************/
 static Angle
-CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
+CameraGetAnalog(OBJ_CAMERAPARAM* const pParam, Angle rotAng)
 {
-    const int nb_cam = cameraNumber;
+    const int nb_cam = camera_num;
     
     f32 lr, x2;
 
@@ -73,7 +85,7 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
         p_work->turn_ang = rotAng;
         p_work->bTurning = true;
 
-        SetAdjustMode(nb_cam, 0);
+        SetAdjustMode(nb_cam, GetCameraLevel(nb_cam), 0);
     }
 
     /* right analog stick */
@@ -84,7 +96,7 @@ CameraGetAnalog(ADJUSTLEVEL* const pParam, Angle rotAng)
         p_work->turn_ang = rotAng;
         p_work->bTurning = true;
 
-        SetAdjustMode(nb_cam, 0);
+        SetAdjustMode(nb_cam, GetCameraLevel(nb_cam), 0);
     }
 
     return rotAng;

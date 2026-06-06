@@ -77,7 +77,7 @@ static FN_USER_CALLBACK* UserCallback; /* user input callback function for API  
 /*  Game Data           */
 /************************/
 /****** Input Way *******************************************************************/
-#define ga_InputWay                 DATA_ARY(s32, 0x0174B5FC, [4])
+#define ga_InputWay                 DATA_ARY(i32, 0x0174B5FC, [4])
 
 /************************/
 /*  Game Functions      */
@@ -320,7 +320,7 @@ ExecPeripheral(void)
     mtHookInfoCall( GetSwitchDataHookInfo, GetSwitchData_p() );
 }
 
-#define EventWaitVsyncCount     DATA_REF(s32, 0x01DEB514)
+#define EventWaitVsyncCount     DATA_REF(i32, 0x01DEB514)
 
 static void
 EventWaitVsyncFix(void)
@@ -407,7 +407,7 @@ IC_InputInit(void)
     WriteCall(0x0077E785, PollPeripheral);  // ^^
 
     // Hook GetSwitchData() to execute input data
-    FuncHook(GetSwitchDataHookInfo, GetSwitchData_p, ExecPeripheral);
+    mtHookFunc(GetSwitchDataHookInfo, GetSwitchData_p, ExecPeripheral);
 
     WriteNOP( 0x005FB493, 0x005FB4C0);        // Event WaitVsync fix
     WriteCall(0x005FB493, EventWaitVsyncFix); // ^^
@@ -423,7 +423,7 @@ IC_InputInit(void)
     WritePointer(0x0061E04E, &mulf);
 
     /** Text Mode **/
-    const s32 text_md = CNF_GetInt( CNF_MISC_TEXTMD );
+    const i32 text_md = CNF_GetInt( CNF_MISC_TEXTMD );
 
     ga_InputWay[0] = text_md;
     ga_InputWay[1] = text_md;

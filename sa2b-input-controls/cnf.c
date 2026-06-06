@@ -18,7 +18,7 @@ static mt_config* ConfigP;     /* config pointer                                
 /*  Includes            */
 /************************/
 /****** Get *************************************************************************/
-s32
+i32
 CNF_GetInt(const CONFIG_INT* pCnf)
 {
     return CNF_DirectGetInt(pCnf->sect, pCnf->key, pCnf->def);
@@ -44,7 +44,7 @@ CNF_GetString(const CONFIG_STRING* pCnf)
 
 /****** Set *************************************************************************/
 void
-CNF_SetInt(const CONFIG_INT* pCnf, s32 val)
+CNF_SetInt(const CONFIG_INT* pCnf, i32 val)
 {
     CNF_DirectSetInt(pCnf->sect, pCnf->key, val);
 }
@@ -68,8 +68,8 @@ CNF_SetString(const CONFIG_STRING* pCnf, const c8* val)
 }
 
 /****** Direct Get ******************************************************************/
-s32
-CNF_DirectGetInt(const c8* section, const c8* key, s32 def)
+i32
+CNF_DirectGetInt(const c8* section, const c8* key, i32 def)
 {
     return mtConfigGetInt(ConfigP, section, key, def);
 }
@@ -94,7 +94,7 @@ CNF_DirectGetString(const c8* section, const c8* key, const c8* def)
 
 /****** Direct Set ******************************************************************/
 void
-CNF_DirectSetInt(const c8* section, const c8* key, s32 val)
+CNF_DirectSetInt(const c8* section, const c8* key, i32 val)
 {
     mtConfigSetInt(ConfigP, section, key, val);
 }
@@ -125,19 +125,19 @@ CNF_GetPercent(const CONFIG_INT* pCnf)
 }
 
 void
-CNF_SetPercent(const CONFIG_INT* pCnf, s32 val)
+CNF_SetPercent(const CONFIG_INT* pCnf, i32 val)
 {
     CNF_DirectSetPercent(pCnf->sect, pCnf->key, val);
 }
 
 f64
-CNF_DirectGetPercent(const c8* section, const c8* key, s32 def)
+CNF_DirectGetPercent(const c8* section, const c8* key, i32 def)
 {
     return CNF_DirectGetFloat(section, key, (f64)def) * 0.01;
 }
 
 void
-CNF_DirectSetPercent(const c8* section, const c8* key, s32 val)
+CNF_DirectSetPercent(const c8* section, const c8* key, i32 val)
 {
     CNF_DirectSetFloat(section, key, (f64)val);
 }
@@ -152,11 +152,11 @@ CNF_Init(void)
 void
 CNF_End(void)
 {
-    mtConfigClose(ConfigP);
+    mtConfigFree(ConfigP);
 }
 
 void
 CNF_Save(void)
 {
-    mtConfigSave(ConfigP);
+    mtConfigSave2(ConfigP, mtGetModPath(), "config.ini");
 }

@@ -45,7 +45,7 @@ mt_hookinfo;
 *     - pHookInfo   : hook info
 *     - state       : hook state to set                                                [ON/OFF]
 */
-void    mtHookInfoSwitch( const mt_hookinfo* pHookInfo, s32 state );
+void    mtHookInfoSwitch( const mt_hookinfo* pHookInfo, i32 state );
 /*
 *   Description:
 *     Get hook info type.
@@ -154,19 +154,6 @@ void    mtHookFuncCall( mt_hookinfo* RESTRICT pHookInfo, void* RESTRICT pHookAdd
 #define mtHookInfoCall(hinfo, call)         mtHookInfoSwitch(hinfo, OFF); \
                                             call;                         \
                                             mtHookInfoSwitch(hinfo,  ON)
-
-/************************************************************************************************/
-/*
-*   Depricated Macros
-*/
-/****** Create Hook *****************************************************************************/
-#define FuncHook(info, pHookAddr, pFunc)              mtHookFunction(info, (void*)(pHookAddr), (const void*)(pFunc))
-#define CallHook(info, pHookAddr, pFunc)              mtHookFuncCall(info, (void*)(pHookAddr), (const void*)(pFunc))
-
-/****** Call Original ***************************************************************************/
-#define FuncHookCall(info, code)                mtHookInfoSwitch(info, OFF); \
-                                                code; \
-                                                mtHookInfoSwitch(info,  ON)
 
 EXTERN_END
 
