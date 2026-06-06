@@ -111,19 +111,26 @@ GetPlayerInput(int player, f32* const pX, f32* const pY, const bool plOneAsTwo)
 static Angle
 GetCameraAngle(int nbCam)
 {
+    const camposwk* pos = nullptr;
+
     if ( camera_twp ) // Rotate to camera
     {
-        if ( nbCam >= camera_count )
+        if ( nbCam < camera_count )
         {
-            return camera_pos[0]->ang.y;
+            pos = camera_pos[nbCam];
         }
-        else
+        else // default to player 1
         {
-            return camera_pos[nbCam]->ang.y;
+            pos = camera_pos[0];
         }
     }
 
-    return 0;
+    if ( pos )
+    {
+        return pos->ang.y;
+    }
+   
+    return NJM_DEG_ANG( 0.f );
 }
 
 static void
