@@ -5,6 +5,9 @@
 #include <samt/core.h>      /* core                                                 */
 #include <samt/writeop.h>   /* WriteCall, WriteJump, WriteNOP                       */
 
+/****** Utility *********************************************************************/
+#include <samt/util/asm.h>  /* asm helper                                           */
+
 /****** SoC *************************************************************************/
 #define SAMT_INCL_FUNCPTRS
 #include <samt/soc/input.h> /* SOCInput, SOCController                              */
@@ -61,22 +64,20 @@ IC_SetVib(const int pno, const int mode, const int l, const int r)
         GamepadSetVibration(nb_gp, -1.f, -1.f);
 }
 
-__declspec(naked)
+ASM_FUNC
 static void
-___SetVib(void)
+___SetVib(const int pno, const int mode, const int l, const int r)
 {
-    __asm
-    {
-        push [esp+0Ch]
-        push [esp+0Ch]
-        push [esp+0Ch]
-        push eax
+    ASM_PUSH( ASM_ESP(3+0) ); // r
+    ASM_PUSH( ASM_ESP(2+1) ); // l
+    ASM_PUSH( ASM_ESP(1+2) ); // mode
+    ASM_PUSH( eax          ); // pno
 
-        call IC_SetVib
+    ASM_CALL( IC_SetVib );
 
-        add esp, 16
-        retn
-    }
+    ASM_ESP_ADD( 3 );
+
+    ASM_RET( 0 );
 }
 
 static SOCController* __stdcall
