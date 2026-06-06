@@ -37,6 +37,9 @@
 /****** SDL GameController Index ****************************************************/
 #define GPD_SDLIDX_NONE     (-1) /* gamepad slot is not linked to an open gamepad   */
 
+/****** Minimum Input ***************************************************************/
+#define GPD_ANALOG_MIN      (2) /* min analog value to fix some controller bugs     */
+
 /************************/
 /*  Macros              */
 /************************/
@@ -420,6 +423,27 @@ GamepadInputPoll(void)
     return; // polling is done inside of SDL_GetEvent
 }
 
+static i16
+GamepadClampAnalog(i16 val)
+{
+    if ( val < 0 )
+    {
+        if ( val > -GPD_ANALOG_MIN )
+        {
+            return 0;
+        }
+    }
+    else // val is positive
+    {
+        if ( val < +GPD_ANALOG_MIN )
+        {
+            return 0;
+        }
+    }
+
+    return val;
+}
+
 void
 GamepadInputExec(void)
 {
@@ -450,10 +474,10 @@ GamepadInputExec(void)
         p_gp->press   = new_down & ~old_down;
         p_gp->release = old_down & ~new_down;
 
-        p_gp->x1 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTX);
-        p_gp->y1 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTY);
-        p_gp->x2 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTX);
-        p_gp->y2 = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTY);
+        p_gp->x1 = GamepadClampAnalog( SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTX)  );
+        p_gp->y1 = GamepadClampAnalog( SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_LEFTY)  );
+        p_gp->x2 = GamepadClampAnalog( SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTX) );
+        p_gp->y2 = GamepadClampAnalog( SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_RIGHTY) );
 
         p_gp->l = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
         p_gp->r = SDL_GameControllerGetAxis(p_sdlgc, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
