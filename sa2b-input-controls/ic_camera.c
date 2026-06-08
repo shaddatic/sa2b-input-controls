@@ -43,17 +43,17 @@ CAMADJUSTWK_KNUCKLES;
 static Angle
 CameraGetAnalog(OBJ_CAMERAPARAM* const pParam, Angle rotAng)
 {
-    const int nb_cam = camera_num;
+    const isize pno = camera_num;
     
     f32 lr, x2;
 
-    if ( ICF_UseRawAnalog() && nb_cam < NB_IC_USER )
+    if ( ICF_UseRawAnalog() && pno < NB_IC_USER )
     {
-        const bool in_state = (nb_cam > 1 || ucInputStatusForEachPlayer[nb_cam] == 1);
+        const bool in_state = (pno > 1 || ucInputStatusForEachPlayer[pno] == 1);
 
         if (ucInputStatus && in_state)
         {
-            const IC_USER_INPUT* const p_user = UserGetInput(nb_cam);
+            const IC_USER_INPUT* const p_user = UserGetInput(pno);
 
             lr = p_user->l - p_user->r;
             x2 = p_user->x2;
@@ -65,17 +65,17 @@ CameraGetAnalog(OBJ_CAMERAPARAM* const pParam, Angle rotAng)
     }
     else
     {
-        lr = NORM_PDS_TRIG( perG[nb_cam].l - perG[nb_cam].r );
-        x2 = NORM_PDS_DIR(  perG[nb_cam].x2 );
+        lr = NORM_PDS_TRIG( perG[pno].l - perG[pno].r );
+        x2 = NORM_PDS_DIR(  perG[pno].x2 );
     }
 
     /** Invert the stick if setting enabled **/
     if ( ICF_CamInvertX2() ) x2 = -x2;
     if ( ICF_CamInvertLR() ) lr = -lr;
 
-    CAMADJUSTWK_KNUCKLES* const p_work = (CAMADJUSTWK_KNUCKLES*)pParam->work;
+    CAMADJUSTWK_KNUCKLES* const p_work = (CAMADJUSTWK_KNUCKLES*) pParam->work;
 
-    p_work->bTurning = false;
+    p_work->bTurning = FALSE;
 
     /* triggers */
     if ( lr )
@@ -83,20 +83,20 @@ CameraGetAnalog(OBJ_CAMERAPARAM* const pParam, Angle rotAng)
         rotAng += (Angle) nearbyint(lr * 546.0f);
 
         p_work->turn_ang = rotAng;
-        p_work->bTurning = true;
+        p_work->bTurning = TRUE;
 
-        SetAdjustMode(nb_cam, GetCameraLevel(nb_cam), 0);
+        SetAdjustMode(pno, GetCameraLevel(pno), CAMADJ_NONE);
     }
 
     /* right analog stick */
     if ( x2 )
     {
-        rotAng += (Angle) nearbyint(-x2 * 546.0); 
+        rotAng += (Angle) nearbyint(-x2 * 546.0);
 
         p_work->turn_ang = rotAng;
-        p_work->bTurning = true;
+        p_work->bTurning = TRUE;
 
-        SetAdjustMode(nb_cam, GetCameraLevel(nb_cam), 0);
+        SetAdjustMode(pno, GetCameraLevel(pno), CAMADJ_NONE);
     }
 
     return rotAng;
@@ -125,7 +125,7 @@ ___CameraGetAnalog(void)
         pop edx
         pop ecx
         pop eax
-        retn
+        ret
     }
 }
 #pragma optimize("", on)
