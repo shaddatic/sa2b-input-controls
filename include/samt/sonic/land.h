@@ -245,8 +245,8 @@ b32     CL_ColPolCheckZxShadow( zxsdwstr* zssp, NJS_OBJECT* obp );
 #define LandChangeLandTable_p           FUNC_PTR(i32 , __cdecl, (OBJ_LANDTABLE*)    , 0x0047BD30)
 
 /****** Usercall Pointers ***********************************************************************/
-#define LandChangeGinjaLandTable_p      ((void*)0x0047BE10) /* EAX(EAX)                         */
-#define CL_ColPolCheckZxShadow_p        ((void*)0x0048C290) /* EAX(EDI,ECX)                     */
+#define LandChangeGinjaLandTable_p      0x0047BE10 /* EAX(EAX)                                  */
+#define CL_ColPolCheckZxShadow_p        0x0048C290 /* EAX(EDI,ECX)                              */
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

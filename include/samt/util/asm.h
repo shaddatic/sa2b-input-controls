@@ -5,6 +5,7 @@
 *     Macros for assembly programming, usually for __usercall and __userpurge functions.
 *
 *   Notes:
+*     - EAX, ECX, & EDX are the only caller-saved registers, you must handle the other registers.
 *     - For MSVC only, unreferenced parameter warnings are turned off.
 */
 #ifndef H_UTIL_ASMUTIL
