@@ -75,7 +75,7 @@ ___SetVib(const int pno, const int mode, const int l, const int r)
 
     ASM_CALL( IC_SetVib );
 
-    ASM_ESP_ADD( 3 );
+    ASM_ESP_ADD( 4 );
 
     ASM_RET( 0 );
 }
